@@ -1,6 +1,5 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import D3Flowchart from './FlowchartVisualisator'; // Ensure to import D3Flowchart
 
 function VisualizationPage() {
     const location = useLocation();
@@ -61,7 +60,6 @@ function VisualizationPage() {
                     <div>
                         <h2 className="text-2xl font-bold mb-4">Aktuálne riešenie:</h2>
                         <p>{solution.message}</p>
-                        <D3Flowchart heuristic={heuristic} problem={problem} />
                     </div>
                 )}
             </div>
