@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Route, Routes,} from 'react-router-dom';
 import Selector from './Selector';
-import Visualiser from './Visualisator';
+import InputReader from './InputReader';
 
 function App() {
   return (
@@ -13,7 +13,7 @@ function App() {
                           <Selector />
                       </div>
                   } />
-                  <Route path="/visualization" element={<Visualiser />} />
+                  <Route path="/visualization" element={<InputReader />} />
               </Routes>
           </div>
       </Router>
