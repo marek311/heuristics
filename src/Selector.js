@@ -19,16 +19,16 @@ function Selector() {
     const [selectedProblem, setSelectedProblem] = useState(problems[0].id);
     const navigate = useNavigate();
 
-    const handleSubmit = () => {
-        navigate(`/visualization?heuristic=${selectedHeuristic}&problem=${selectedProblem}`);
-    };
-
     const handleHeuristicChange = (event) => {
         setSelectedHeuristic(event.target.value);
     };
 
     const handleProblemChange = (event) => {
         setSelectedProblem(event.target.value);
+    };
+
+    const handleSubmit = () => {
+        navigate(`/visualization?heuristic=${selectedHeuristic}&problem=${selectedProblem}`);
     };
 
     return (
@@ -64,11 +64,6 @@ function Selector() {
                     ))}
                 </select>
             </label>
-            {selectedHeuristic && selectedProblem && (
-                <p className="mt-4 text-lg text-white">
-                    Vybraná heuristika: {selectedHeuristic}, Vybraný problém: {selectedProblem}
-                </p>
-            )}
             <button className="mt-4 px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
                     onClick={handleSubmit}>
                 Potvrď

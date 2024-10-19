@@ -43,10 +43,15 @@ function VisualizationPage() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-900 text-white p-6">
-            <h1 className="text-3xl font-bold mb-4">Heuristika: {heuristic}, Problém: {problem}</h1>
+        <div className="min-h-screen text-white p-6 bg-purple-600">
+            <h2 className="text-3xl font-bold mb-4">
+                Vybraný problém: {problem}
+            </h2>
+            <h2 className="text-3xl font-bold mb-4">
+                Vybraná heuristika: {heuristic}
+            </h2>
             {renderInputs()}
-            <button className="px-4 py-2 bg-purple-600 rounded hover:bg-purple-700">
+            <button className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
                 Spusti heuristiku
             </button>
         </div>
