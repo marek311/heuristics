@@ -9,19 +9,19 @@ function VisualizationPage() {
 
     const renderInputs = () => {
         switch (problem) {
-            case 'knapsack':
+            case 'Knapsack':
                 return (
                     <div>
                         <label className="block text-white mb-2">Zadajte pole hmotnosti predmetov:</label>
-                        <input type="text" className="p-2 mb-4 border rounded w-full"
+                        <input type="text" className="p-2 mb-4 text-black border rounded w-full"
                                placeholder="Hmotnosti predmetov" />
 
                         <label className="block text-white mb-2">Zadajte pole cien predmetov:</label>
-                        <input type="text" className="p-2 mb-4 border rounded w-full"
+                        <input type="text" className="p-2 mb-4 text-black border rounded w-full"
                                placeholder="Ceny predmetov" />
 
                         <label className="block text-white mb-2">Zadajte kapacitu batohu:</label>
-                        <input type="text" className="p-2 mb-4 border rounded w-full"
+                        <input type="text" className="p-2 mb-4 text-black border rounded w-full"
                                placeholder="Kapacita batohu" />
                     </div>
                 );
@@ -29,11 +29,11 @@ function VisualizationPage() {
                 return (
                     <div>
                         <label className="block text-white mb-2">Zadajte x suradnice miest:</label>
-                        <input type="text" className="p-2 mb-4 border rounded w-full"
+                        <input type="text" className="p-2 mb-4 text-black border rounded w-full"
                                placeholder="X suradnice"/>
 
                         <label className="block text-white mb-2">Zadajte y suradnice miest:</label>
-                        <input type="text" className="p-2 mb-4 border rounded w-full"
+                        <input type="text" className="p-2 mb-4 text-black border rounded w-full"
                                placeholder="Y suradnice"/>
                     </div>
                 );
@@ -43,16 +43,20 @@ function VisualizationPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center w-fit h-fit text-white p-6 bg-purple-600 rounded-lg mx-auto my-10">
-            <h2 className="text-3xl font-bold mb-4">
+        <div
+            className=" mb-4 flex flex-col items-center justify-center w-fit h-fit text-white p-6 bg-purple-600 rounded-lg mx-auto my-10">
+            <h2 className="text-3xl font-bold">
                 Problém: {problem}
             </h2>
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl font-bold">
                 Heuristika: {heuristic}
             </h2>
             {renderInputs()}
             <button className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
                 Spusti heuristiku
+            </button>
+            <button className="mt-4 px-4 py-2 bg-red-800 rounded hover:bg-red-950">
+                Späť
             </button>
         </div>
     );

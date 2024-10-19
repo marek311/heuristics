@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 function Selector() {
     const heuristics = [
-        { id: 'insert', name: 'Vkladacia heuristika' },
-        { id: 'exchange', name: 'Vymenná heuristika' },
-        { id: 'annealing', name: 'Simulated annealing' },
-        { id: 'tabu', name: 'Tabu search' },
-        { id: 'genetic', name: 'Genetický algoritmus' },
+        { id: 'Insert', name: 'Vkladacia heuristika' },
+        { id: 'Exchange', name: 'Vymenná heuristika' },
+        { id: 'Annealing', name: 'Simulated annealing' },
+        { id: 'Tabu', name: 'Tabu search' },
+        { id: 'Genetic', name: 'Genetický algoritmus' },
     ];
 
     const problems = [
-        { id: 'knapsack', name: 'Úloha o batohu' },
-        { id: 'TSP', name: 'Travelling salesman problem' },
+        { id: 'Knapsack', name: 'Úloha o batohu' },
+        { id: 'TSP', name: 'Problém obchodného cestujúceho' },
     ];
 
     const [selectedHeuristic, setSelectedHeuristic] = useState(heuristics[0].id);
@@ -38,7 +38,7 @@ function Selector() {
                 <select
                     value={selectedHeuristic}
                     onChange={handleHeuristicChange}
-                    className="ml-2 p-2 border border-gray-300 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" // Dark background and text color
+                    className="ml-2 p-2 border border-gray-300 rounded bg-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                     <option value="">-- Vyberte --</option>
                     {heuristics.map((heuristic) => (
@@ -54,7 +54,7 @@ function Selector() {
                 <select
                     value={selectedProblem}
                     onChange={handleProblemChange}
-                    className="ml-2 p-2 border border-gray-300 rounded bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-purple-500" // Dark background and text color
+                    className="ml-2 p-2 border border-gray-300 rounded bg-gray-600 text-white focus:outline-none focus:ring-2 focus:ring-purple-500"
                 >
                     <option value="">-- Vyberte --</option>
                     {problems.map((problem) => (
