@@ -1,16 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
 import Selector from './Selector';
 
 function App() {
   return (
-      <div className="App">
-        <img src={logo} className="App-logo" alt="logo"/>
-        <h1 className="text-purple-500 text-6xl font-bold">Toto je moja hlavička</h1>
-        <div>
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="text-center p-6 bg-purple-800 rounded-lg shadow-lg">
+          <h1 className="text-white text-4xl font-bold mb-6">Heuristiky a metaheuristiky</h1>
           <Selector />
         </div>
       </div>
   );
 }
+
 export default App;
