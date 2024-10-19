@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 
 function Selector() {
     const heuristics = [
-        { id: 'Insert', name: 'Vkladacia heuristika' },
-        { id: 'Exchange', name: 'Vymenná heuristika' },
+        { id: 'Insert', name: 'Insert heuristika' },
+        { id: 'ExchangeFirst', name: 'Exchange heuristika - 1. vhodný' },
+        { id: 'ExchangeBest', name: 'Exchange heuristika - najlepší vhodný' },
         { id: 'Annealing', name: 'Simulated annealing' },
         { id: 'Tabu', name: 'Tabu search' },
         { id: 'Genetic', name: 'Genetický algoritmus' },
