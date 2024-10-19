@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-function VisualizationPage() {
+function InputReader() {
     const location = useLocation();
 
     const query = new URLSearchParams(location.search);
@@ -64,4 +64,4 @@ function VisualizationPage() {
     );
 }
 
-export default VisualizationPage;
+export default InputReader;
