@@ -7,7 +7,7 @@ function VisualizationPage() {
     const heuristic = query.get('heuristic');
     const problem = query.get('problem');
 
-    const renderInputs = () => {
+    const renderInputFields = () => {
         switch (problem) {
             case 'Knapsack':
                 return (
@@ -51,16 +51,17 @@ function VisualizationPage() {
             <h2 className="text-3xl font-bold">
                 Heuristika: {heuristic}
             </h2>
-            {renderInputs()}
-            <button className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
-                Spusti heuristiku
-            </button>
-            <button className="mt-4 px-4 py-2 bg-red-800 rounded hover:bg-red-950">
-                Späť
-            </button>
+            {renderInputFields()}
+            <div className="flex space-x-4 mt-4">
+                <button className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
+                    Späť
+                </button>
+                <button className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
+                    Spusti
+                </button>
+            </div>
         </div>
     );
-
 }
 
 export default VisualizationPage;
