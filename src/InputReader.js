@@ -43,12 +43,12 @@ function VisualizationPage() {
     };
 
     return (
-        <div className="min-h-screen text-white p-6 bg-purple-600">
+        <div className="flex flex-col items-center justify-center w-fit h-fit text-white p-6 bg-purple-600 rounded-lg mx-auto my-10">
             <h2 className="text-3xl font-bold mb-4">
-                Vybraný problém: {problem}
+                Problém: {problem}
             </h2>
             <h2 className="text-3xl font-bold mb-4">
-                Vybraná heuristika: {heuristic}
+                Heuristika: {heuristic}
             </h2>
             {renderInputs()}
             <button className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
@@ -56,6 +56,7 @@ function VisualizationPage() {
             </button>
         </div>
     );
+
 }
 
 export default VisualizationPage;
