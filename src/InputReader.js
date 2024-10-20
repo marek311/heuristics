@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { useNavigate }  from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useState } from 'react';
 
 function InputReader() {
@@ -23,30 +23,55 @@ function InputReader() {
         switch (problem) {
             case 'Knapsack':
                 return (
-                <div>
-                    <label className="block text-white mb-2">Zadajte pole hmotnosti predmetov:</label>
-                    <input type="text" className="p-2 mb-4 text-black border rounded w-full"
-                           placeholder="Hmotnosti predmetov"/>
+                    <div>
+                        <label className="block text-white mb-2">Zadajte pole hmotnosti predmetov:</label>
+                        <input
+                            type="text"
+                            className="p-2 mb-4 text-black border rounded w-full"
+                            placeholder="Hmotnosti predmetov"
+                            value={weights}
+                            onChange={(e) => setWeights(e.target.value)} // Capture input
+                        />
 
-                    <label className="block text-white mb-2">Zadajte pole cien predmetov:</label>
-                    <input type="text" className="p-2 mb-4 text-black border rounded w-full"
-                           placeholder="Ceny predmetov"/>
+                        <label className="block text-white mb-2">Zadajte pole cien predmetov:</label>
+                        <input
+                            type="text"
+                            className="p-2 mb-4 text-black border rounded w-full"
+                            placeholder="Ceny predmetov"
+                            value={prices}
+                            onChange={(e) => setPrices(e.target.value)} // Capture input
+                        />
 
-                    <label className="block text-white mb-2">Zadajte kapacitu batohu:</label>
-                    <input type="text" className="p-2 mb-4 text-black border rounded w-full"
-                           placeholder="Kapacita batohu" />
+                        <label className="block text-white mb-2">Zadajte kapacitu batohu:</label>
+                        <input
+                            type="text"
+                            className="p-2 mb-4 text-black border rounded w-full"
+                            placeholder="Kapacita batohu"
+                            value={capacity}
+                            onChange={(e) => setCapacity(e.target.value)} // Capture input
+                        />
                     </div>
                 );
             case 'TSP':
                 return (
-                <div>
-                    <label className="block text-white mb-2">Zadajte x suradnice miest:</label>
-                    <input type="text" className="p-2 mb-4 text-black border rounded w-full"
-                           placeholder="X suradnice"/>
+                    <div>
+                        <label className="block text-white mb-2">Zadajte x suradnice miest:</label>
+                        <input
+                            type="text"
+                            className="p-2 mb-4 text-black border rounded w-full"
+                            placeholder="X suradnice"
+                            value={xCoordinates}
+                            onChange={(e) => setXCoordinates(e.target.value)} // Capture input
+                        />
 
-                    <label className="block text-white mb-2">Zadajte y suradnice miest:</label>
-                    <input type="text" className="p-2 mb-4 text-black border rounded w-full"
-                           placeholder="Y suradnice"/>
+                        <label className="block text-white mb-2">Zadajte y suradnice miest:</label>
+                        <input
+                            type="text"
+                            className="p-2 mb-4 text-black border rounded w-full"
+                            placeholder="Y suradnice"
+                            value={yCoordinates}
+                            onChange={(e) => setYCoordinates(e.target.value)} // Capture input
+                        />
                     </div>
                 );
             default:
@@ -63,8 +88,7 @@ function InputReader() {
     };
 
     return (
-        <div
-            className=" mb-4 flex flex-col items-center justify-center w-fit h-fit text-white p-6 bg-purple-600 rounded-lg mx-auto my-10">
+        <div className="mb-4 flex flex-col items-center justify-center w-fit h-fit text-white p-6 bg-purple-600 rounded-lg mx-auto my-10">
             {showForm ? (
                 <>
                     {renderInputFields()}
