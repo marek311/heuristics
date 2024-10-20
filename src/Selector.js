@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 function Selector() {
     const heuristics = [
-        {id: 'Insert heuristic', name: 'Insert heuristic'},
-        {id: 'Exchange first fit', name: 'Exchange first fit'},
-        {id: 'Exchange best fit', name: 'Exchange best fit'},
-        {id: 'Simulated annealing', name: 'Simulated annealing'},
-        {id: 'Tabu search', name: 'Tabu search'},
-        {id: 'Genetic algorithm', name: 'Genetic algorithm'},
+        {id: 'InsertHeuristic', name: 'Insert heuristic'},
+        {id: 'ExchangeFirstFit', name: 'Exchange first fit'},
+        {id: 'ExchangeBestFit', name: 'Exchange best fit'},
+        {id: 'SimulatedAnnealing', name: 'Simulated annealing'},
+        {id: 'TabuSearch', name: 'Tabu search'},
+        {id: 'GeneticAlgorithm', name: 'Genetic algorithm'},
     ];
 
     const problems = [
-        {id: 'Knapsack problem', name: 'Knapsack problem'},
+        {id: 'KnapsackProblem', name: 'Knapsack problem'},
         {id: 'TSP', name: 'Problém obchodného cestujúceho'},
     ];
 
@@ -79,9 +79,7 @@ function Selector() {
     }
 
     return (
-        <>
-            {selectProblemAndHeuristic()}
-        </>
+        <> {selectProblemAndHeuristic()} </>
     );
 }
 
