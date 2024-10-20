@@ -3,16 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 function Selector() {
     const heuristics = [
-        {id: 'Insert', name: 'Insert heuristika'},
-        {id: 'ExchangeFirst', name: 'Exchange heuristika - 1. vhodný'},
-        {id: 'ExchangeBest', name: 'Exchange heuristika - najlepší vhodný'},
-        {id: 'Annealing', name: 'Simulated annealing'},
-        {id: 'Tabu', name: 'Tabu search'},
-        {id: 'Genetic', name: 'Genetický algoritmus'},
+        {id: 'Insert heuristic', name: 'Insert heuristic'},
+        {id: 'Exchange first fit', name: 'Exchange first fit'},
+        {id: 'Exchange best fit', name: 'Exchange best fit'},
+        {id: 'Simulated annealing', name: 'Simulated annealing'},
+        {id: 'Tabu search', name: 'Tabu search'},
+        {id: 'Genetic algorithm', name: 'Genetic algorithm'},
     ];
 
     const problems = [
-        {id: 'Knapsack', name: 'Úloha o batohu'},
+        {id: 'Knapsack problem', name: 'Knapsack problem'},
         {id: 'TSP', name: 'Problém obchodného cestujúceho'},
     ];
 
@@ -68,6 +68,7 @@ function Selector() {
                         ))}
                     </select>
                 </label>
+
                 <button
                     className="mt-4 px-4 py-2 bg-teal-600 text-white rounded hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
                     onClick={handleSubmit}>
