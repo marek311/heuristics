@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 
 function InputHandlerKnapsackProblem( {mode} ) {
 
-    const [csvFile, setCsvFile] = useState(null);
     const [weights, setWeights] = useState('');
     const [prices, setPrices] = useState('');
     const [capacity, setCapacity] = useState('');
@@ -16,7 +15,6 @@ function InputHandlerKnapsackProblem( {mode} ) {
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
-        setCsvFile(file);
 
         const reader = new FileReader();
         reader.onload = (e) => {
