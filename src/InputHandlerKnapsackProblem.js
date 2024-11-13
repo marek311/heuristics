@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
-function InputHandlerKnapsackProblem() {
+function InputHandlerKnapsackProblem( {mode} ) {
 
     const [weights, setWeights] = useState('');
     const [prices, setPrices] = useState('');
@@ -11,6 +11,28 @@ function InputHandlerKnapsackProblem() {
     const navigate = useNavigate();
     const handleGoBack = () => {
         navigate(`/`);
+    };
+
+    const handleRunClick = () => {
+        const inputData = {weights, prices, capacity};
+        let simulationPath;
+        switch (mode) {
+            case 'KnapsackInsert':
+                simulationPath = '/knapsack-insert-simulation';
+                break;
+            case 'KnapsackExchangeFirst':
+                simulationPath = '/knapsack-exchange-first-simulation';
+                break;
+            case 'KnapsackExchangeBest':
+                simulationPath = '/knapsack-exchange-best-simulation';
+                break;
+            case 'KnapsackGenetic':
+                simulationPath = '/knapsack-genetic-simulation';
+                break;
+            default:
+                simulationPath = '/';
+        }
+        navigate(simulationPath, { state: { mode, data: inputData } });
     };
 
     return (
@@ -46,7 +68,7 @@ function InputHandlerKnapsackProblem() {
                 <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
                     Späť
                 </button>
-                <button className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
+                <button onClick={handleRunClick} className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
                     Spusti
                 </button>
             </div>

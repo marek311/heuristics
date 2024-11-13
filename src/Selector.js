@@ -21,7 +21,7 @@ function Selector() {
     };
 
     const handleSubmit = () => {
-        navigate(`/visualization?mode=${selectedMode}`);
+        navigate(`/handleInputs?mode=${selectedMode}`);
     };
 
     const selectMode = () => {

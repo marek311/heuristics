@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
-import KnapsackInput from './InputHandler-KnapsackProblem';
-import TSPInput from './InputHandler-TSP';
+import KnapsackInput from './InputHandlerKnapsackProblem';
+import TSPInput from './InputHandlerTSP';
 
 function InputHandler() {
 
@@ -11,11 +11,11 @@ function InputHandler() {
     const showInputFields = () => {
         if (['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest', 'KnapsackGenetic'].includes(mode))
         {
-            return <KnapsackInput/>;
+            return <KnapsackInput mode={mode} />;
         }
         if (['TSPSimulatedAnnealing', 'TSPTabuSearch'].includes(mode))
         {
-            return <TSPInput/>;
+            return <TSPInput mode={mode} />;
         }
         return null;
     }
