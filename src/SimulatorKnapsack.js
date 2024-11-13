@@ -16,8 +16,8 @@ function SimulationKnapsack() {
         <div>
             <div
                 className="mb-4 flex flex-col items-center justify-center w-fit h-fit text-white p-6 bg-purple-600 rounded-lg mx-auto my-10">
-                <p><strong>Weights:</strong> {weights}</p>
-                <p><strong>Prices:</strong> {prices}</p>
+                <p><strong>Prices:</strong> {prices.join(', ')}</p>
+                <p><strong>Weights:</strong> {weights.join(', ')}</p>
                 <p><strong>Capacity:</strong> {capacity}</p>
                 <button onClick={() => navigate(-1)} className="mt-4 px-4 py-2 bg-red-800 rounded hover:bg-red-950">
                     Späť

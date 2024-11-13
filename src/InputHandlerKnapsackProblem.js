@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function InputHandlerKnapsackProblem( {mode} ) {
 
+    const [csvFile, setCsvFile] = useState(null);
     const [weights, setWeights] = useState('');
     const [prices, setPrices] = useState('');
     const [capacity, setCapacity] = useState('');
@@ -11,6 +12,32 @@ function InputHandlerKnapsackProblem( {mode} ) {
     const navigate = useNavigate();
     const handleGoBack = () => {
         navigate(`/`);
+    };
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        setCsvFile(file);
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const text = e.target.result;
+            const lines = text.split('\n').filter(line => line.trim() !== '');
+
+            const parsedPrices = [];
+            const parsedWeights = [];
+            lines.forEach((line) => {
+                const [price, weight] = line.split(';').map(Number);
+                if (!isNaN(price) && !isNaN(weight)) {
+                    parsedPrices.push(price);
+                    parsedWeights.push(weight);
+                }
+            });
+
+            setPrices(parsedPrices);
+            setWeights(parsedWeights);
+        };
+
+        reader.readAsText(file);
     };
 
     const handleRunClick = () => {
@@ -37,27 +64,19 @@ function InputHandlerKnapsackProblem( {mode} ) {
 
     return (
         <div>
-            <label className="block text-white mb-2">Zadajte pole hmotnosti predmetov:</label>
+            <label className="block text-white mb-2">
+                Nahraj CSV súbor - riadok obsahuje cenu a hmotnosť vo formáte: cena;hmotnosť
+            </label>
             <input
-                type="text"
+                type="file"
+                accept=".csv"
                 className="p-2 mb-4 text-black border rounded w-full"
-                placeholder="Hmotnosti predmetov"
-                value={weights}
-                onChange={(e) => setWeights(e.target.value)}
-            />
-
-            <label className="block text-white mb-2">Zadajte pole cien predmetov:</label>
-            <input
-                type="text"
-                className="p-2 mb-4 text-black border rounded w-full"
-                placeholder="Ceny predmetov"
-                value={prices}
-                onChange={(e) => setPrices(e.target.value)}
+                onChange={handleFileUpload}
             />
 
             <label className="block text-white mb-2">Zadajte kapacitu batohu:</label>
             <input
-                type="text"
+                type="number"
                 className="p-2 mb-4 text-black border rounded w-full"
                 placeholder="Kapacita batohu"
                 value={capacity}
