@@ -69,12 +69,10 @@ function InputHandlerKnapsackProblem( {mode} ) {
                     Späť
                 </button>
                 <button onClick={handleRunClick} className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
-                    Spusti
+                    Ďaľej
                 </button>
             </div>
-
         </div>
-
     );
 }
 
