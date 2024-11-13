@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import Selector from './Selector';
 import InputHandler from './InputHandler';
-import SimulatorKnapsack from "./SimulatorKnapsack";
-import SimulatorTSP from "./SimulatorTSP";
+import InfoKnapsack from "./InfoKnapsack";
+import InfoTSP from './InfoTSP';
+import SimulatorKnapsackInsert from './SimulatorKnapsackInsert'
 
 function Application() {
     return (
@@ -10,12 +11,16 @@ function Application() {
             <Routes>
                 <Route path="/" element={<Selector />} />
                 <Route path="/handleInputs" element={<InputHandler />} />
-                <Route path="/knapsack-insert-simulation" element={<SimulatorKnapsack />} />
-                <Route path="/knapsack-exchange-first-simulation" element={<SimulatorKnapsack />} />
-                <Route path="/knapsack-exchange-best-simulation" element={<SimulatorKnapsack />} />
-                <Route path="/knapsack-genetic-simulation" element={<SimulatorKnapsack />} />
-                <Route path="/tsp-simulated-annealing-simulation" element={<SimulatorTSP/>} />
-                <Route path="/tsp-tabu-search-simulation" element={<SimulatorTSP />} />
+
+                <Route path="/knapsack-insert-simulation" element={<InfoKnapsack />} />
+                <Route path="/knapsack-exchange-first-simulation" element={<InfoKnapsack />} />
+                <Route path="/knapsack-exchange-best-simulation" element={<InfoKnapsack />} />
+                <Route path="/knapsack-genetic-simulation" element={<InfoKnapsack />} />
+
+                <Route path="knapsack-insert-simulation/simulate" element={<SimulatorKnapsackInsert />} />
+
+                <Route path="/tsp-simulated-annealing-simulation" element={<InfoTSP/>} />
+                <Route path="/tsp-tabu-search-simulation" element={<InfoTSP />} />
             </Routes>
         </div>
     );
