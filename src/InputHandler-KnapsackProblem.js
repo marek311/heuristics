@@ -9,7 +9,6 @@ function InputHandlerKnapsackProblem() {
     const [capacity, setCapacity] = useState('');
 
     const navigate = useNavigate();
-
     const handleGoBack = () => {
         navigate(`/`);
     };

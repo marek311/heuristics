@@ -8,7 +8,6 @@ function InputHandlerTSP() {
     const [yCoordinates, setYCoordinates] = useState('');
 
     const navigate = useNavigate();
-
     const handleGoBack = () => {
         navigate(`/`);
     };
