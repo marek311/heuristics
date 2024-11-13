@@ -1,8 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
-function InputHandlerTSP() {
+function InputHandlerTSP( {mode}) {
 
     const [xCoordinates, setXCoordinates] = useState('');
     const [yCoordinates, setYCoordinates] = useState('');
@@ -10,6 +10,22 @@ function InputHandlerTSP() {
     const navigate = useNavigate();
     const handleGoBack = () => {
         navigate(`/`);
+    };
+
+    const handleRunClick = () => {
+        const inputData = {xCoordinates, yCoordinates};
+        let simulationPath;
+        switch (mode) {
+            case 'TSPSimulatedAnnealing':
+                simulationPath = '/tsp-simulated-annealing-simulation';
+                break;
+            case 'TSPTabuSearch':
+                simulationPath = '/tsp-tabu-search-simulation';
+                break;
+            default:
+                simulationPath = '/';
+        }
+        navigate(simulationPath, { state: { mode, data: inputData } });
     };
 
     return (
@@ -36,7 +52,7 @@ function InputHandlerTSP() {
                 <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
                     Späť
                 </button>
-                <button className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
+                <button onClick={handleRunClick} className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
                     Spusti
                 </button>
             </div>
