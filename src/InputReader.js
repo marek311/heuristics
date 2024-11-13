@@ -8,15 +8,16 @@ function InputReader() {
     const navigate = useNavigate();
 
     const query = new URLSearchParams(location.search);
-    const heuristic = query.get('heuristic');
-    const problem = query.get('problem');
+    const mode = query.get('mode');
 
     const [showForm, setShowForm] = useState(true);
 
+    //Knapsack problem
     const [weights, setWeights] = useState('');
     const [prices, setPrices] = useState('');
     const [capacity, setCapacity] = useState('');
 
+    //TSA
     const [xCoordinates, setXCoordinates] = useState('');
     const [yCoordinates, setYCoordinates] = useState('');
 
@@ -29,73 +30,72 @@ function InputReader() {
     };
 
     const showInputFields = () => {
-        switch (problem) {
-            case 'KnapsackProblem':
-                return (
-                    <div>
-                        <label className="block text-white mb-2">Zadajte pole hmotnosti predmetov:</label>
-                        <input
-                            type="text"
-                            className="p-2 mb-4 text-black border rounded w-full"
-                            placeholder="Hmotnosti predmetov"
-                            value={weights}
-                            onChange={(e) => setWeights(e.target.value)}
-                        />
+        if (['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest', 'KnapsackGenetic'].includes(mode))
+        {
+            return (
+                <div>
+                    <label className="block text-white mb-2">Zadajte pole hmotnosti predmetov:</label>
+                    <input
+                        type="text"
+                        className="p-2 mb-4 text-black border rounded w-full"
+                        placeholder="Hmotnosti predmetov"
+                        value={weights}
+                        onChange={(e) => setWeights(e.target.value)}
+                    />
 
-                        <label className="block text-white mb-2">Zadajte pole cien predmetov:</label>
-                        <input
-                            type="text"
-                            className="p-2 mb-4 text-black border rounded w-full"
-                            placeholder="Ceny predmetov"
-                            value={prices}
-                            onChange={(e) => setPrices(e.target.value)}
-                        />
+                    <label className="block text-white mb-2">Zadajte pole cien predmetov:</label>
+                    <input
+                        type="text"
+                        className="p-2 mb-4 text-black border rounded w-full"
+                        placeholder="Ceny predmetov"
+                        value={prices}
+                        onChange={(e) => setPrices(e.target.value)}
+                    />
 
-                        <label className="block text-white mb-2">Zadajte kapacitu batohu:</label>
-                        <input
-                            type="text"
-                            className="p-2 mb-4 text-black border rounded w-full"
-                            placeholder="Kapacita batohu"
-                            value={capacity}
-                            onChange={(e) => setCapacity(e.target.value)}
-                        />
-                    </div>
-                );
-            case 'TSP':
-                return (
-                    <div>
-                        <label className="block text-white mb-2">Zadajte x suradnice miest:</label>
-                        <input
-                            type="text"
-                            className="p-2 mb-4 text-black border rounded w-full"
-                            placeholder="X suradnice"
-                            value={xCoordinates}
-                            onChange={(e) => setXCoordinates(e.target.value)}
-                        />
-
-                        <label className="block text-white mb-2">Zadajte y suradnice miest:</label>
-                        <input
-                            type="text"
-                            className="p-2 mb-4 text-black border rounded w-full"
-                            placeholder="Y suradnice"
-                            value={yCoordinates}
-                            onChange={(e) => setYCoordinates(e.target.value)}
-                        />
-                    </div>
-                );
-            default:
-                return null;
+                    <label className="block text-white mb-2">Zadajte kapacitu batohu:</label>
+                    <input
+                        type="text"
+                        className="p-2 mb-4 text-black border rounded w-full"
+                        placeholder="Kapacita batohu"
+                        value={capacity}
+                        onChange={(e) => setCapacity(e.target.value)}
+                    />
+                </div>
+            );
         }
-    };
+        if (['TSPSimulatedAnnealing', 'TSPTabuSearch'].includes(mode))
+        {
+            return (
+                <div>
+                    <label className="block text-white mb-2">Zadajte x suradnice miest:</label>
+                    <input
+                        type="text"
+                        className="p-2 mb-4 text-black border rounded w-full"
+                        placeholder="X suradnice"
+                        value={xCoordinates}
+                        onChange={(e) => setXCoordinates(e.target.value)}
+                    />
+
+                    <label className="block text-white mb-2">Zadajte y suradnice miest:</label>
+                    <input
+                        type="text"
+                        className="p-2 mb-4 text-black border rounded w-full"
+                        placeholder="Y suradnice"
+                        value={yCoordinates}
+                        onChange={(e) => setYCoordinates(e.target.value)}
+                    />
+                </div>
+            );
+        }
+    }
 
     const showInputs = () => {
         return (
             <div className="text-center mt-6">
                 <h3 className="text-2xl font-bold mb-4">Simulácia spustená!</h3>
-                <p className="text-white mb-2">Problém: {problem}</p>
-                <p className="text-white mb-2">Heuristika: {heuristic}</p>
+                <p className="text-white mb-2">Mód: {mode}</p>
 
-                {problem === 'KnapsackProblem' && (
+                {['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest', 'KnapsackGenetic'].includes(mode) && (
                     <div>
                         <p className="text-white mb-2">Hmotnosti: {weights}</p>
                         <p className="text-white mb-2">Ceny: {prices}</p>
@@ -103,7 +103,7 @@ function InputReader() {
                     </div>
                 )}
 
-                {problem === 'TSP' && (
+                {['TSPSimulatedAnnealing', 'TSPTabuSearch'].includes(mode) && (
                     <div>
                         <p className="text-white mb-2">X súradnice: {xCoordinates}</p>
                         <p className="text-white mb-2">Y súradnice: {yCoordinates}</p>
