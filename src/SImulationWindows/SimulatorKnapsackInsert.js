@@ -9,7 +9,8 @@ function SimulationKnapsackInsert() {
     const items = weights.map((weight, index) => ({
         weight: parseFloat(weight),
         price: parseFloat(prices[index]),
-        efficiency: parseFloat(prices[index]) / parseFloat(weight)
+        efficiency: parseFloat(prices[index]) / parseFloat(weight),
+        originalIndex: index + 1
     }));
 
     items.sort((a, b) => b.efficiency - a.efficiency);
@@ -65,10 +66,10 @@ function SimulationKnapsackInsert() {
                         {items.map((item, index) => (
                             <li
                                 key={index}
-                                className={`grid grid-cols-4 items-center p-2 rounded ${
+                                className={`grid grid-cols-5 items-center p-2 rounded ${
                                     index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'
-                                }`}
-                            >
+                                }`}>
+                                <div><strong>Index:</strong> {item.originalIndex}</div>
                                 <div>Váha: {item.weight}</div>
                                 <div>Cena: {item.price}</div>
                                 <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
@@ -91,7 +92,8 @@ function SimulationKnapsackInsert() {
                     </div>
                     <ul className="mt-2 space-y-2">
                         {selectedItems.map((item, index) => (
-                            <li key={index} className="grid grid-cols-3 items-center p-2 bg-purple-500 rounded">
+                            <li key={index} className="grid grid-cols-4 items-center p-2 bg-purple-500 rounded">
+                                <div><strong>Index:</strong> {item.originalIndex}</div>
                                 <div>Váha: {item.weight}</div>
                                 <div>Cena: {item.price}</div>
                                 <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
