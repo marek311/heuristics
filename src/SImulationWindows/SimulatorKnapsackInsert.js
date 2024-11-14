@@ -88,7 +88,9 @@ function SimulationKnapsackInsert() {
                         </li>
                     ))}
                 </ul>
-                {currentIndex >= items.length && <p className="mt-2">Algoritmus dokončený</p>}
+                {currentIndex >= items.length && (
+                    <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
+                )}
             </div>
         </div>
     );
