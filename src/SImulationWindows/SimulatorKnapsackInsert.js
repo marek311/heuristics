@@ -52,7 +52,10 @@ function SimulationKnapsackInsert() {
                 <h2 className="text-lg font-semibold">
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
-                <button onClick={handleStep} className="px-4 py-2 bg-teal-700 rounded hover:bg-teal-600">
+                <button
+                    onClick={handleStep}
+                    className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
+                    disabled={currentIndex >= items.length}>
                     Krok
                 </button>
             </div>
