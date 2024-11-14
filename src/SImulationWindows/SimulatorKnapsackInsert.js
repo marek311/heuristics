@@ -43,57 +43,65 @@ function SimulationKnapsackInsert() {
     };
 
     return (
-        <div className="flex flex-col lg:flex-row w-full h-full text-white p-6 bg-gray-900">
-            <div className="flex-1 p-4 bg-purple-700 rounded-lg mr-2">
-                <div className="flex justify-between mb-4">
-                    <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
-                        Späť
-                    </button>
-                    <h2>Predmety k dispozícií</h2>
-                    <p>Kapacita batohu: {capacity}</p>
-                </div>
-                <ul className="mt-4 space-y-2">
-                    {items.map((item, index) => (
-                        <li
-                            key={index}
-                            className={`grid grid-cols-4 items-center p-2 rounded ${
-                                index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'
-                            }`}>
-                            <div>Váha: {item.weight}</div>
-                            <div>Cena: {item.price}</div>
-                            <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
-                            <span
-                                className={`${
-                                    itemStatus[index] === true ? 'text-teal-700' : itemStatus[index] === false ? 'text-red-600' : ''
-                                } flex justify-end`}
+        <div className="flex flex-col w-full h-full text-white p-6 bg-gray-900">
+            <div className="flex justify-between items-center p-4 bg-purple-800 rounded-lg mb-4">
+                <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
+                    Späť
+                </button>
+                <h2 className="text-lg font-semibold">
+                    Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
+                </h2>
+                <button onClick={handleStep} className="px-4 py-2 bg-teal-700 rounded hover:bg-teal-600">
+                    Krok
+                </button>
+            </div>
+            <div className="flex flex-col lg:flex-row w-full h-full">
+                <div className="flex-1 p-4 bg-purple-700 rounded-lg mr-2">
+                    <div className="flex justify-between mb-4">
+                        <h2><strong>Predmety k dispozícií</strong></h2>
+                        <p>Kapacita batohu: {capacity}</p>
+                    </div>
+                    <ul className="mt-4 space-y-2">
+                        {items.map((item, index) => (
+                            <li
+                                key={index}
+                                className={`grid grid-cols-4 items-center p-2 rounded ${
+                                    index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'
+                                }`}
                             >
+                                <div>Váha: {item.weight}</div>
+                                <div>Cena: {item.price}</div>
+                                <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
+                                <span
+                                    className={`${
+                                        itemStatus[index] === true ? 'text-teal-700' : itemStatus[index] === false ? 'text-red-600' : ''
+                                    } flex justify-end`}
+                                >
                                 {itemStatus[index] === true ? "✓" : itemStatus[index] === false ? "✗" : ""}
                             </span>
-                        </li>
-                    ))}
-                </ul>
-
-            </div>
-            <div className="flex-1 p-4 bg-purple-700 rounded-lg ml-2">
-                <div className="flex justify-between items-center mb-4 space-x-4">
-                    <p>Aktuálna váha: {currentWeight}</p>
-                    <p>Aktuálna cena: {currentPrice}</p>
-                    <button onClick={handleStep} className="px-4 py-2 bg-teal-700 rounded hover:bg-teal-600">
-                        Krok
-                    </button>
+                            </li>
+                        ))}
+                    </ul>
                 </div>
-                <ul className="mt-2 space-y-2">
-                    {selectedItems.map((item, index) => (
-                        <li key={index} className="grid grid-cols-3 items-center p-2 bg-purple-500 rounded">
-                            <div>Váha: {item.weight}</div>
-                            <div>Cena: {item.price}</div>
-                            <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
-                        </li>
-                    ))}
-                </ul>
-                {currentIndex >= items.length && (
-                    <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
-                )}
+                <div className="flex-1 p-4 bg-purple-700 rounded-lg ml-2">
+                    <div className="flex justify-between items-center mb-4 space-x-4">
+                        <h2><strong>Predmety vybrané do batohu</strong></h2>
+                        <p>Aktuálna váha: {currentWeight}</p>
+                        <p>Aktuálna cena: {currentPrice}</p>
+                    </div>
+                    <ul className="mt-2 space-y-2">
+                        {selectedItems.map((item, index) => (
+                            <li key={index} className="grid grid-cols-3 items-center p-2 bg-purple-500 rounded">
+                                <div>Váha: {item.weight}</div>
+                                <div>Cena: {item.price}</div>
+                                <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
+                            </li>
+                        ))}
+                    </ul>
+                    {currentIndex >= items.length && (
+                        <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
+                    )}
+                </div>
             </div>
         </div>
     );
