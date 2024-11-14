@@ -56,22 +56,23 @@ function SimulationKnapsackInsert() {
                     {items.map((item, index) => (
                         <li
                             key={index}
-                            className={`flex justify-between items-center p-2 rounded ${
+                            className={`grid grid-cols-4 items-center p-2 rounded ${
                                 index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'
                             }`}>
-                            <span>
-                                Váha: {item.weight}, Cena: {item.price}, Výhodnosť: {item.efficiency.toFixed(2)}
-                            </span>
+                            <div>Váha: {item.weight}</div>
+                            <div>Cena: {item.price}</div>
+                            <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
                             <span
                                 className={`${
                                     itemStatus[index] === true ? 'text-teal-700' : itemStatus[index] === false ? 'text-red-600' : ''
-                                }`}
+                                } flex justify-end`}
                             >
-                            {itemStatus[index] === true ? "✓" : itemStatus[index] === false ? "✗" : ""}
+                                {itemStatus[index] === true ? "✓" : itemStatus[index] === false ? "✗" : ""}
                             </span>
                         </li>
                     ))}
                 </ul>
+
             </div>
             <div className="flex-1 p-4 bg-purple-700 rounded-lg ml-2">
                 <div className="flex justify-between items-center mb-4 space-x-4">
@@ -83,8 +84,10 @@ function SimulationKnapsackInsert() {
                 </div>
                 <ul className="mt-2 space-y-2">
                     {selectedItems.map((item, index) => (
-                        <li key={index} className="p-2 bg-purple-500 rounded">
-                            Váha: {item.weight}, Cena: {item.price}, Výhodnosť: {item.efficiency.toFixed(2)}
+                        <li key={index} className="grid grid-cols-3 items-center p-2 bg-purple-500 rounded">
+                            <div>Váha: {item.weight}</div>
+                            <div>Cena: {item.price}</div>
+                            <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
                         </li>
                     ))}
                 </ul>
