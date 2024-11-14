@@ -63,7 +63,7 @@ function InputHandlerKnapsackProblem( {mode} ) {
     return (
         <div>
             <label className="block text-white mb-2">
-                Nahraj CSV súbor - riadok obsahuje cenu a hmotnosť vo formáte: cena;hmotnosť
+                CSV súbor: riadok obsahuje cenu a hmotnosť vo formáte: cena;hmotnosť
             </label>
             <input
                 type="file"
