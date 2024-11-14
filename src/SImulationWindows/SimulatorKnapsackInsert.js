@@ -54,12 +54,20 @@ function SimulationKnapsackInsert() {
                 </div>
                 <ul className="mt-4 space-y-2">
                     {items.map((item, index) => (
-                        <li key={index} className="flex justify-between items-center p-2 bg-purple-500 rounded">
+                        <li
+                            key={index}
+                            className={`flex justify-between items-center p-2 rounded ${
+                                index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'
+                            }`}>
                             <span>
                                 Váha: {item.weight}, Cena: {item.price}, Výhodnosť: {item.efficiency.toFixed(2)}
                             </span>
-                            <span>
-                                {itemStatus[index] === true ? "✓" : itemStatus[index] === false ? "✗" : ""}
+                            <span
+                                className={`${
+                                    itemStatus[index] === true ? 'text-teal-700' : itemStatus[index] === false ? 'text-red-600' : ''
+                                }`}
+                            >
+                            {itemStatus[index] === true ? "✓" : itemStatus[index] === false ? "✗" : ""}
                             </span>
                         </li>
                     ))}
