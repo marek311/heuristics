@@ -1,9 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
-import Selector from './Selector';
-import InputHandler from './InputHandler';
-import InfoKnapsack from "./InfoKnapsack";
-import InfoTSP from './InfoTSP';
-import SimulatorKnapsackInsert from './SimulatorKnapsackInsert'
+import Selector from '../SelectWindows/Selector';
+import InputHandler from '../InputHandlingWindows/InputHandler';
+import InfoKnapsack from "../InfoWindows/InfoKnapsack";
+import InfoTSP from '../InfoWindows/InfoTSP';
+import SimulatorKnapsackInsert from '../SImulationWindows/SimulatorKnapsackInsert'
 
 function Application() {
     return (
