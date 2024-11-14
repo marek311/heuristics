@@ -58,20 +58,17 @@ function SimulationKnapsackInsert() {
                 </ul>
             </div>
             <div className="flex-1 p-4 bg-purple-700 rounded-lg ml-2">
-                <div className="flex justify-between mb-4">
+                <div className="flex justify-between items-center mb-4 space-x-4">
                     <p>Aktuálna váha: {currentWeight}</p>
                     <p>Aktuálna cena: {currentPrice}</p>
-                </div>
-                <div className="flex justify-between mb-4">
-                    <p><strong>Vybrané predmety:</strong></p>
-                    <button onClick={handleStep} className="mt-4 px-4 py-2 bg-teal-700 rounded hover:bg-teal-600">
+                    <button onClick={handleStep} className="px-4 py-2 bg-teal-700 rounded hover:bg-teal-600">
                         Krok
                     </button>
                 </div>
                 <ul className="mt-2 space-y-2">
                     {selectedItems.map((item, index) => (
                         <li key={index} className="p-2 bg-purple-500 rounded">
-                        Váha: {item.weight}, Cena: {item.price}, Výhodnosť: {item.efficiency.toFixed(2)}
+                            Váha: {item.weight}, Cena: {item.price}, Výhodnosť: {item.efficiency.toFixed(2)}
                         </li>
                     ))}
                 </ul>
