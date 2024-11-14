@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function SimulationKnapsackInsert() {
     const location = useLocation();
@@ -13,6 +14,11 @@ function SimulationKnapsackInsert() {
     }));
 
     items.sort((a, b) => b.efficiency - a.efficiency);
+
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+        navigate(`/handleInputs?mode=KnapsackInsert`);
+    };
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentWeight, setCurrentWeight] = useState(0);
@@ -41,6 +47,9 @@ function SimulationKnapsackInsert() {
         <div className="flex flex-col lg:flex-row w-full h-full text-white p-6 bg-gray-900">
             <div className="flex-1 p-4 bg-purple-700 rounded-lg mr-2">
                 <div className="flex justify-between mb-4">
+                    <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
+                        Späť
+                    </button>
                     <h2>Predmety k dispozícií</h2>
                     <p>Kapacita batohu: {capacity}</p>
                 </div>
