@@ -6,6 +6,11 @@ function SimulationKnapsackInsert() {
     const location = useLocation();
     const { weights, prices, capacity } = location.state || {};
 
+    const navigate = useNavigate();
+    const handleGoBack = () => {
+        navigate(`/handleInputs?mode=KnapsackInsert`);
+    };
+
     const items = weights.map((weight, index) => ({
         weight: parseFloat(weight),
         price: parseFloat(prices[index]),
@@ -14,11 +19,6 @@ function SimulationKnapsackInsert() {
     }));
 
     items.sort((a, b) => b.efficiency - a.efficiency);
-
-    const navigate = useNavigate();
-    const handleGoBack = () => {
-        navigate(`/handleInputs?mode=KnapsackInsert`);
-    };
 
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentWeight, setCurrentWeight] = useState(0);
@@ -90,23 +90,22 @@ function SimulationKnapsackInsert() {
                         <p>Aktuálna váha: {currentWeight}</p>
                         <p>Aktuálna cena: {currentPrice}</p>
                     </div>
-                    <ul className="mt-2 space-y-2">
-                        {selectedItems.map((item, index) => (
-                            <li key={index} className="grid grid-cols-4 items-center p-2 bg-purple-500 rounded">
-                                <div><strong>Index:</strong> {item.originalIndex}</div>
-                                <div>Váha: {item.weight}</div>
-                                <div>Cena: {item.price}</div>
-                                <div>Výhodnosť: {item.efficiency.toFixed(2)}</div>
-                            </li>
-                        ))}
-                    </ul>
-                    {currentIndex >= items.length && (
-                        <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
-                    )}
+                        <ul className="mt-2 space-y-2">
+                            {selectedItems.map((item, index) => (
+                                <li key={index} className="flex justify-between items-center p-2 bg-purple-500 rounded">
+                                    <div><strong>Index:</strong> {item.originalIndex}</div>
+                                    <div>Váha: {item.weight}</div>
+                                    <div>Cena: {item.price}</div>
+                                </li>
+                            ))}
+                        </ul>
+                        {currentIndex >= items.length && (
+                            <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-}
+            );
+            }
 
-export default SimulationKnapsackInsert;
+            export default SimulationKnapsackInsert;
