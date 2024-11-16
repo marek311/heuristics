@@ -71,7 +71,11 @@ function SimulationKnapsackInsert() {
     };
 
     const handleReset = () => {
-
+        setCurrentIndex(0);
+        setCurrentWeight(0);
+        setCurrentPrice(0);
+        setSelectedItems([]);
+        setItemStatus(new Array(items.length).fill(null));
     }
 
     return (
