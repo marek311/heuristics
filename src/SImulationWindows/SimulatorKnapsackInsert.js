@@ -137,6 +137,7 @@ function SimulationKnapsackInsert() {
                         <h2><strong>Predmety vybrané do batohu</strong></h2>
                         <p>Aktuálna váha: {currentWeight}</p>
                         <p>Aktuálna cena: {currentPrice}</p>
+                        <p>Iterácia: {currentIndex}</p>
                     </div>
                     <ul className="mt-2 space-y-2">
                         {selectedItems.map((item, index) => (
