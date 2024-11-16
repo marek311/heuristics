@@ -90,13 +90,13 @@ function SimulationKnapsackInsert() {
                     Krok
                 </button>
                 <button
-                    className="px-4 py-2 rounded bg-teal-700 hover:bg-teal-600">
-                    onClick={handleRun}
+                    className="px-4 py-2 rounded bg-teal-700 hover:bg-teal-600"
+                    onClick={handleRun} >
                     Spusti
                 </button>
                 <button
-                    className="px-4 py-2 rounded bg-red-800 hover:bg-red-950">
-                    onClick={handleReset}
+                    className="px-4 py-2 rounded bg-red-800 hover:bg-red-950"
+                    onClick={handleReset} >
                     Reset
                 </button>
             </div>

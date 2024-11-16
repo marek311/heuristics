@@ -52,7 +52,7 @@ function InputHandlerTSP( {mode}) {
                 <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
                     Späť
                 </button>
-                <button onClick={handleRunClick} className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
+                <button onClick={handleRunClick} className="px-4 py-2 bg-teal-700 rounded hover:bg-teal-600">
                     Ďaľej
                 </button>
             </div>

@@ -20,10 +20,14 @@ function SimulationKnapsack() {
                 <p><strong>Weights:</strong> {weights.join(', ')} Total count: {weights.length}</p>
                 <p><strong>Capacity:</strong> {capacity}</p>
                 <div className="flex justify-between mb-4 space-x-4 mt-4">
-                    <button onClick={() => navigate(-1)} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
+                    <button
+                        className="px-2 py-2 rounded bg-red-800 hover:bg-red-950"
+                        onClick={() => navigate(-1)} >
                         Späť
                     </button>
-                    <button onClick={handleRunClick} className="px-4 py-2 bg-teal-700 rounded hover:bg-purple-700">
+                    <button
+                        className="px-2 py-2 rounded bg-teal-700 hover:bg-teal-600"
+                        onClick={handleRunClick} >
                         Spusti
                     </button>
                 </div>
