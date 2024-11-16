@@ -43,6 +43,37 @@ function SimulationKnapsackInsert() {
         }
     };
 
+    const handleRun = () => {
+        let newSelectedItems = [...selectedItems];
+        let newCurrentWeight = currentWeight;
+        let newCurrentPrice = currentPrice;
+        let newItemStatus = [...itemStatus];
+        let index = currentIndex;
+
+        while (index < items.length) {
+            const item = items[index];
+            if (newCurrentWeight + item.weight <= capacity) {
+                newSelectedItems.push(item);
+                newCurrentWeight += item.weight;
+                newCurrentPrice += item.price;
+                newItemStatus[index] = true;
+            } else {
+                newItemStatus[index] = false;
+            }
+            index++;
+        }
+
+        setSelectedItems(newSelectedItems);
+        setCurrentWeight(newCurrentWeight);
+        setCurrentPrice(newCurrentPrice);
+        setItemStatus(newItemStatus);
+        setCurrentIndex(items.length);
+    };
+
+    const handleReset = () => {
+
+    }
+
     return (
         <div className="flex flex-col w-full h-full text-white p-6 bg-gray-900">
             <div className="flex justify-between items-center p-4 bg-purple-800 rounded-lg mb-4">
@@ -53,10 +84,20 @@ function SimulationKnapsackInsert() {
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
                 <button
-                    onClick={handleStep}
                     className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
+                    onClick={handleStep}
                     disabled={currentIndex >= items.length}>
                     Krok
+                </button>
+                <button
+                    className="px-4 py-2 rounded bg-teal-700 hover:bg-teal-600">
+                    onClick={handleRun}
+                    Spusti
+                </button>
+                <button
+                    className="px-4 py-2 rounded bg-red-800 hover:bg-red-950">
+                    onClick={handleReset}
+                    Reset
                 </button>
             </div>
             <div className="flex flex-col lg:flex-row w-full h-full">
@@ -93,22 +134,22 @@ function SimulationKnapsackInsert() {
                         <p>Aktuálna váha: {currentWeight}</p>
                         <p>Aktuálna cena: {currentPrice}</p>
                     </div>
-                        <ul className="mt-2 space-y-2">
-                            {selectedItems.map((item, index) => (
-                                <li key={index} className="flex justify-between items-center p-2 bg-purple-500 rounded">
-                                    <div><strong>Index:</strong> {item.originalIndex}</div>
-                                    <div>Váha: {item.weight}</div>
-                                    <div>Cena: {item.price}</div>
-                                </li>
-                            ))}
-                        </ul>
-                        {currentIndex >= items.length && (
-                            <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
-                        )}
-                    </div>
+                    <ul className="mt-2 space-y-2">
+                        {selectedItems.map((item, index) => (
+                            <li key={index} className="flex justify-between items-center p-2 bg-purple-500 rounded">
+                                <div><strong>Index:</strong> {item.originalIndex}</div>
+                                <div>Váha: {item.weight}</div>
+                                <div>Cena: {item.price}</div>
+                            </li>
+                        ))}
+                    </ul>
+                    {currentIndex >= items.length && (
+                        <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
+                    )}
                 </div>
             </div>
-            );
-            }
+        </div>
+    );
+}
 
-            export default SimulationKnapsackInsert;
+export default SimulationKnapsackInsert;
