@@ -25,21 +25,27 @@ function SimulationKnapsackInsert() {
     const [currentPrice, setCurrentPrice] = useState(0);
     const [selectedItems, setSelectedItems] = useState([]);
     const [itemStatus, setItemStatus] = useState(new Array(items.length).fill(null));
+    const [binarySolution, setBinarySolution] = useState(new Array(weights.length).fill(0));
 
     const handleStep = () => {
         if (currentIndex < items.length) {
             const item = items[currentIndex];
             const newItemStatus = [...itemStatus];
+            const newBinarySolution = [...binarySolution];
+
             if (currentWeight + item.weight <= capacity) {
                 setSelectedItems([...selectedItems, item]);
                 setCurrentWeight(currentWeight + item.weight);
                 setCurrentPrice(currentPrice + item.price);
                 newItemStatus[currentIndex] = true;
+                newBinarySolution[item.originalIndex - 1] = 1;
             } else {
                 newItemStatus[currentIndex] = false;
             }
+
             setCurrentIndex(currentIndex + 1);
             setItemStatus(newItemStatus);
+            setBinarySolution(newBinarySolution);
         }
     };
 
@@ -48,6 +54,7 @@ function SimulationKnapsackInsert() {
         let newCurrentWeight = currentWeight;
         let newCurrentPrice = currentPrice;
         let newItemStatus = [...itemStatus];
+        let newBinarySolution = [...binarySolution];
         let index = currentIndex;
 
         while (index < items.length) {
@@ -57,6 +64,7 @@ function SimulationKnapsackInsert() {
                 newCurrentWeight += item.weight;
                 newCurrentPrice += item.price;
                 newItemStatus[index] = true;
+                newBinarySolution[item.originalIndex - 1] = 1;
             } else {
                 newItemStatus[index] = false;
             }
@@ -67,6 +75,7 @@ function SimulationKnapsackInsert() {
         setCurrentWeight(newCurrentWeight);
         setCurrentPrice(newCurrentPrice);
         setItemStatus(newItemStatus);
+        setBinarySolution(newBinarySolution);
         setCurrentIndex(items.length);
     };
 
@@ -76,7 +85,8 @@ function SimulationKnapsackInsert() {
         setCurrentPrice(0);
         setSelectedItems([]);
         setItemStatus(new Array(items.length).fill(null));
-    }
+        setBinarySolution(new Array(weights.length).fill(0));
+    };
 
     return (
         <div className="flex flex-col w-full h-full text-white p-6 bg-gray-900">
@@ -152,6 +162,12 @@ function SimulationKnapsackInsert() {
                     {currentIndex >= items.length && (
                         <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
                     )}
+                    <div className="flex-1 p-4 bg-purple-700 rounded-lg mt-4">
+                        <h2><strong>Binárny vektor riešenia</strong></h2>
+                        <p className="mt-2 bg-gray-800 p-2 rounded text-center">
+                            {binarySolution.join("; ")}
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
