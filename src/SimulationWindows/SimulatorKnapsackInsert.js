@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import KnapsackInsert from '../ChartWindows/KnapsackInsertChart.js';
+import KnapsackInsert from '../FlowchartWindows/KnapsackInsertChart.js';
 
 function SimulationKnapsackInsert() {
     const location = useLocation();

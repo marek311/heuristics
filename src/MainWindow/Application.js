@@ -3,7 +3,7 @@ import Selector from '../SelectWindows/Selector';
 import InputHandler from '../InputHandlingWindows/InputHandler';
 import InfoKnapsack from "../InfoWindows/InfoKnapsack";
 import InfoTSP from '../InfoWindows/InfoTSP';
-import SimulatorKnapsackInsert from '../SImulationWindows/SimulatorKnapsackInsert'
+import SimulatorKnapsackInsert from '../SimulationWindows/SimulatorKnapsackInsert'
 
 function Application() {
     return (
