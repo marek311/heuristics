@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import KnapsackInsert from '../ChartWindows/KnapsackInsertChart.js';
 
 function SimulationKnapsackInsert() {
     const location = useLocation();
@@ -168,6 +169,9 @@ function SimulationKnapsackInsert() {
                             {binarySolution.join("; ")}
                         </p>
                     </div>
+                </div>
+                <div className="flex-1 p-4 bg-purple-700 rounded-lg ml-2">
+                    <KnapsackInsert items={items} currentIndex={currentIndex}/>
                 </div>
             </div>
         </div>
