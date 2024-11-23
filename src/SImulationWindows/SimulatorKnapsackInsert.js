@@ -77,7 +77,7 @@ function SimulationKnapsackInsert() {
         setCurrentPrice(newCurrentPrice);
         setItemStatus(newItemStatus);
         setBinarySolution(newBinarySolution);
-        setCurrentIndex(items.length);
+        setCurrentIndex(items.length - 1);
     };
 
     const handleReset = () => {
@@ -99,15 +99,15 @@ function SimulationKnapsackInsert() {
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
                 <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
+                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
                     onClick={handleStep}
-                    disabled={currentIndex >= items.length}>
+                    disabled={currentIndex >= items.length - 1}>
                     Krok
                 </button>
                 <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
+                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
                     onClick={handleRun}
-                    disabled={currentIndex >= items.length}>
+                    disabled={currentIndex >= items.length - 1}>
                     Spusti
                 </button>
                 <button
@@ -160,7 +160,7 @@ function SimulationKnapsackInsert() {
                             </li>
                         ))}
                     </ul>
-                    {currentIndex >= items.length && (
+                    {currentIndex >= items.length - 1 && (
                         <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
                     )}
                     <div className="flex-1 p-4 bg-purple-700 rounded-lg mt-4">
