@@ -144,7 +144,7 @@ function SimulationKnapsackInsert() {
                         ))}
                     </ul>
                 </div>
-                <div className="flex-1 p-4 bg-purple-700 rounded-lg ml-2">
+                <div className="flex-1 p-4 bg-purple-700 rounded-lg mr-2">
                     <div className="flex justify-between items-center mb-4 space-x-4">
                         <h2><strong>Predmety vybrané do batohu</strong></h2>
                         <p>Aktuálna váha: {currentWeight}</p>
@@ -170,7 +170,7 @@ function SimulationKnapsackInsert() {
                         </p>
                     </div>
                 </div>
-                <div className="flex justify-center items-start p-4 bg-purple-700 rounded-lg ml-2">
+                <div className="flex justify-center items-start p-4 bg-purple-700 rounded-lg mr-2">
                     <KnapsackInsert items={items} currentIndex={currentIndex}/>
                 </div>
             </div>

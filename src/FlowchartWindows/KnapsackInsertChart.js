@@ -6,7 +6,7 @@ function KnapsackFlowChart({ items, currentIndex }) {
 
     useEffect(() => {
         const width = 400;
-        const height = 400;
+        const height = 500;
 
         const svg = d3.select(svgRef.current)
             .attr('width', width)
@@ -16,9 +16,9 @@ function KnapsackFlowChart({ items, currentIndex }) {
 
         const nodes = [
             { id: 'load', text: 'Aktuálny predmet', x: 200, y: 50 },
-            { id: 'check', text: 'Zmestí sa do batohu?', x: 200, y: 150 },
-            { id: 'add', text: 'Pridaj do batohu', x: 100, y: 250 },
-            { id: 'next', text: 'Nasledujúca iterácia', x: 200, y: 350 },
+            { id: 'check', text: 'Zmestí sa do batohu?', x: 200, y: 200 },
+            { id: 'add', text: 'Pridaj do batohu', x: 100, y: 325 },
+            { id: 'next', text: 'Nasledujúca iterácia', x: 200, y: 450 },
         ];
 
         const links = [
