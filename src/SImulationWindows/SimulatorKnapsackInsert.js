@@ -170,7 +170,7 @@ function SimulationKnapsackInsert() {
                         </p>
                     </div>
                 </div>
-                <div className="flex-1 p-4 bg-purple-700 rounded-lg ml-2">
+                <div className="flex justify-center items-start p-4 bg-purple-700 rounded-lg ml-2">
                     <KnapsackInsert items={items} currentIndex={currentIndex}/>
                 </div>
             </div>
