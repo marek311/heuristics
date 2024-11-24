@@ -108,7 +108,7 @@ function SimulationKnapsackExchange() {
                         Späť
                     </button>
                     <h2 className="text-lg font-semibold">
-                        Simulácia úlohy o batohu výmennou heuristikou
+                        Simulácia úlohy o batohu výmennou heuristikou - FIRST FIT!
                     </h2>
                     <div className="space-x-2">
                         <button onClick={performIteration}
