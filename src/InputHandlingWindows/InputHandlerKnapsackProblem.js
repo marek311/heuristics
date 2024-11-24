@@ -62,7 +62,7 @@ function InputHandlerKnapsackProblem( {mode} ) {
 
     return (
         <div>
-            <label className="block text-white mb-2">
+            <label className="block text-gray-800 mb-2">
                 CSV súbor: riadok obsahuje cenu a hmotnosť vo formáte: cena;hmotnosť
             </label>
             <input
@@ -72,7 +72,7 @@ function InputHandlerKnapsackProblem( {mode} ) {
                 onChange={handleFileUpload}
             />
 
-            <label className="block text-white mb-2">Zadajte kapacitu batohu:</label>
+            <label className="block text-gray-800 mb-2">Zadajte kapacitu batohu:</label>
             <input
                 type="number"
                 className="p-2 mb-4 text-black border rounded w-full"
@@ -82,10 +82,10 @@ function InputHandlerKnapsackProblem( {mode} ) {
             />
 
             <div className="items-center justify-center flex space-x-4 mt-4">
-                <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
+                <button onClick={handleGoBack} className="px-4 py-2 bg-red-500 rounded hover:bg-red-600">
                     Späť
                 </button>
-                <button onClick={handleRunClick} className="px-4 py-2 bg-teal-700 rounded hover:bg-teal-600">
+                <button onClick={handleRunClick} className="px-4 py-2 bg-teal-500 rounded hover:bg-teal-400">
                     Ďaľej
                 </button>
             </div>
