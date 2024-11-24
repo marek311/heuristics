@@ -4,6 +4,7 @@ import InputHandler from '../InputHandlingWindows/InputHandler';
 import InfoKnapsack from "../InfoWindows/InfoKnapsack";
 import InfoTSP from '../InfoWindows/InfoTSP';
 import SimulatorKnapsackInsert from '../SimulationWindows/SimulatorKnapsackInsert'
+import SimulatorKnapsackExchange from '../SimulationWindows/SimulatorKnapsackExchange'
 
 function Application() {
     return (
@@ -18,6 +19,8 @@ function Application() {
                 <Route path="/knapsack-genetic-simulation" element={<InfoKnapsack />} />
 
                 <Route path="knapsack-insert-simulation/simulate" element={<SimulatorKnapsackInsert />} />
+                <Route path="knapsack-exchange-first-simulation/simulate" element={<SimulatorKnapsackExchange />} />
+                <Route path="knapsack-exchange-best-simulation/simulate" element={<SimulatorKnapsackExchange />} />
 
                 <Route path="/tsp-simulated-annealing-simulation" element={<InfoTSP/>} />
                 <Route path="/tsp-tabu-search-simulation" element={<InfoTSP />} />
