@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function KnapsackFlowChart({ items, currentIndex }) {
+function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpackCapacity }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -87,16 +87,14 @@ function KnapsackFlowChart({ items, currentIndex }) {
         const svg = d3.select(svgRef.current);
 
         const currentItem = items[currentIndex];
-
         if (currentItem) {
-            svg.selectAll('g.info').remove();
+            svg.selectAll('g.info-item').remove();
+            const itemInfoGroup = svg.append('g').attr('class', 'info-item');
 
-            const infoGroup = svg.append('g').attr('class', 'info');
-
-            infoGroup.selectAll('text')
+            itemInfoGroup.selectAll('text')
                 .data([
                     `Váha: ${currentItem.weight}`,
-                    `Cena: ${currentItem.price}`
+                    `Cena: ${currentItem.price}`,
                 ])
                 .join('text')
                 .attr('x', 270)
@@ -105,7 +103,23 @@ function KnapsackFlowChart({ items, currentIndex }) {
                 .attr('text-anchor', 'start')
                 .text(d => d);
         }
-    }, [currentIndex, items]);
+
+        svg.selectAll('g.info-backpack').remove();
+        const backpackInfoGroup = svg.append('g').attr('class', 'info-backpack');
+
+        backpackInfoGroup.selectAll('text')
+            .data([
+                `Aktuálna váha: ${currentBackpackWeight}`,
+                `Kapacita: ${backpackCapacity}`,
+            ])
+            .join('text')
+            .attr('x', 270)
+            .attr('y', (_, i) => 165 + (i-1) * 22)
+            .attr('fill', '#fff')
+            .attr('text-anchor', 'start')
+            .text(d => d);
+
+    }, [currentIndex, items, currentBackpackWeight]);
 
     return <svg ref={svgRef}></svg>;
 }

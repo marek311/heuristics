@@ -171,7 +171,11 @@ function SimulationKnapsackInsert() {
                     </div>
                 </div>
                 <div className="flex justify-center items-start p-4 bg-purple-700 rounded-lg mr-2">
-                    <KnapsackInsert items={items} currentIndex={currentIndex}/>
+                    <KnapsackInsert items={items}
+                                    currentIndex={currentIndex}
+                                    currentBackpackWeight={currentWeight}
+                                    backpackCapacity={capacity}
+                    />
                 </div>
             </div>
         </div>
