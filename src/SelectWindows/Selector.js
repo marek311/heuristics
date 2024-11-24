@@ -33,7 +33,7 @@ function Selector() {
                     <select
                         value={selectedMode}
                         onChange={handleModeChange}
-                        className="ml-2 p-2 border border-gray-300 rounded bg-beige-200 text-gray-800 focus:outline-none focus:ring-2"
+                        className="ml-2 p-2 border border-gray-300 rounded text-gray-800 focus:outline-none focus:ring-2"
                     >
                         {modes.map((mode) => (
                             <option key={mode.id} value={mode.id}>

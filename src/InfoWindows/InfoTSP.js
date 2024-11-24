@@ -3,7 +3,7 @@ function SimulationTSP() {
 
     return (
         <div>
-            <h2>Running TSP Simulation </h2>
+            <h2 className={'bg-white'}>Running TSP Simulation </h2>
         </div>
     );
 }
