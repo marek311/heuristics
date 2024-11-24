@@ -15,10 +15,10 @@ function KnapsackFlowChart({ items, currentIndex }) {
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'load', text: 'Aktuálny predmet', x: 200, y: 50 },
-            { id: 'check', text: 'Zmestí sa do batohu?', x: 200, y: 200 },
-            { id: 'add', text: 'Pridaj do batohu', x: 100, y: 325 },
-            { id: 'next', text: 'Nasledujúca iterácia', x: 200, y: 450 },
+            { id: 'load', text: 'Aktuálny predmet', x: 200, y: 50, shape: 'rect', color: '#1e88e5' },
+            { id: 'check', text: 'Zmestí sa do batohu?', x: 200, y: 150, shape: 'diamond', color: '#ffa533' },
+            { id: 'add', text: 'Pridaj do batohu', x: 100, y: 300, shape: 'oval', color: '#4caf50' },
+            { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 400, shape: 'oval', color: '#4caf50' },
         ];
 
         const links = [
@@ -53,14 +53,33 @@ function KnapsackFlowChart({ items, currentIndex }) {
             .attr('class', 'node')
             .attr('transform', d => `translate(${d.x}, ${d.y})`);
 
-        nodeGroups.append('circle')
-            .attr('r', 40)
-            .attr('fill', '#4caf50');
+        nodeGroups.each(function (d) {
+            const group = d3.select(this);
+
+            if (d.shape === 'oval') {
+                group.append('ellipse')
+                    .attr('rx', 70)
+                    .attr('ry', 30)
+                    .attr('fill', d.color);
+            } else if (d.shape === 'diamond') {
+                group.append('polygon')
+                    .attr('points', '-80,0 0,35 80,0 0,-35')
+                    .attr('fill', d.color);
+            } else if (d.shape === 'rect') {
+                group.append('rect')
+                    .attr('width', 140)
+                    .attr('height', 60)
+                    .attr('x', -70)
+                    .attr('y', -30)
+                    .attr('fill', d.color);
+            }
+        });
 
         nodeGroups.append('text')
             .attr('text-anchor', 'middle')
             .attr('dy', '0.35em')
             .attr('fill', '#fff')
+            .style('font-size', '14px')
             .text(d => d.text);
     }, []);
 
@@ -70,20 +89,18 @@ function KnapsackFlowChart({ items, currentIndex }) {
         const currentItem = items[currentIndex];
 
         if (currentItem) {
-
             svg.selectAll('g.info').remove();
 
             const infoGroup = svg.append('g').attr('class', 'info');
 
             infoGroup.selectAll('text')
                 .data([
-                    `Index: ${currentItem.originalIndex}`,
                     `Váha: ${currentItem.weight}`,
                     `Cena: ${currentItem.price}`
                 ])
                 .join('text')
                 .attr('x', 270)
-                .attr('y', (_, i) => 50 + i * 20)
+                .attr('y', (_, i) => 65 + (i-1) * 20)
                 .attr('fill', '#fff')
                 .attr('text-anchor', 'start')
                 .text(d => d);
