@@ -28,24 +28,17 @@ function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpac
             { source: 'add', target: 'next' },
         ];
 
-        svg.selectAll('line')
-            .data(links)
-            .join('line')
-            .attr('x1', d => nodes.find(n => n.id === d.source).x)
-            .attr('y1', d => nodes.find(n => n.id === d.source).y)
-            .attr('x2', d => nodes.find(n => n.id === d.target).x)
-            .attr('y2', d => nodes.find(n => n.id === d.target).y)
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 2);
-
-        svg.selectAll('text.link-label')
-            .data(links)
-            .join('text')
-            .attr('class', 'link-label')
-            .attr('x', d => (nodes.find(n => n.id === d.source).x + nodes.find(n => n.id === d.target).x) / 2)
-            .attr('y', d => (nodes.find(n => n.id === d.source).y + nodes.find(n => n.id === d.target).y) / 2 - 10)
-            .attr('fill', '#fff')
-            .text(d => d.label || '');
+        svg.append('defs').append('marker')
+            .attr('id', 'arrow')
+            .attr('viewBox', '0 -5 12 10')
+            .attr('refX', 15)
+            .attr('refY', 0)
+            .attr('markerWidth', 8)
+            .attr('markerHeight', 8)
+            .attr('orient', 'auto')
+            .append('path')
+            .attr('d', 'M0,-4L10,0L0,4')
+            .attr('fill', 'red');
 
         const nodeGroups = svg.selectAll('g.node')
             .data(nodes)
@@ -81,6 +74,27 @@ function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpac
             .attr('fill', '#fff')
             .style('font-size', '14px')
             .text(d => d.text);
+
+        svg.selectAll('line')
+            .data(links)
+            .join('line')
+            .attr('x1', d => nodes.find(n => n.id === d.source).x)
+            .attr('y1', d => nodes.find(n => n.id === d.source).y + 20)
+            .attr('x2', d => nodes.find(n => n.id === d.target).x)
+            .attr('y2', d => nodes.find(n => n.id === d.target).y - 20)
+            .attr('stroke', '#fff')
+            .attr('stroke-width', 2)
+            .attr('marker-end', 'url(#arrow)');
+
+        svg.selectAll('text.link-label')
+            .data(links)
+            .join('text')
+            .attr('class', 'link-label')
+            .attr('x', d => (nodes.find(n => n.id === d.source).x + nodes.find(n => n.id === d.target).x) / 2)
+            .attr('y', d => (nodes.find(n => n.id === d.source).y + nodes.find(n => n.id === d.target).y) / 2 - 10)
+            .attr('fill', '#fff')
+            .text(d => d.label || '');
+
     }, []);
 
     useEffect(() => {
@@ -98,7 +112,7 @@ function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpac
                 ])
                 .join('text')
                 .attr('x', 270)
-                .attr('y', (_, i) => 65 + (i-1) * 20)
+                .attr('y', (_, i) => 50 + i * 20)
                 .attr('fill', '#fff')
                 .attr('text-anchor', 'start')
                 .text(d => d);
@@ -114,7 +128,7 @@ function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpac
             ])
             .join('text')
             .attr('x', 270)
-            .attr('y', (_, i) => 165 + (i-1) * 22)
+            .attr('y', (_, i) => 145 + i * 20)
             .attr('fill', '#fff')
             .attr('text-anchor', 'start')
             .text(d => d);
