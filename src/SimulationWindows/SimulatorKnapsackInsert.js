@@ -90,40 +90,40 @@ function SimulationKnapsackInsert() {
     };
 
     return (
-        <div className="flex flex-col w-full h-full text-white p-6 bg-gray-900">
-            <div className="flex justify-between items-center p-4 bg-purple-800 rounded-lg mb-4">
-                <button onClick={handleGoBack} className="px-4 py-2 bg-red-800 rounded hover:bg-red-950">
+        <div className="flex flex-col w-full h-full text-gray-800 p-6">
+            <div className="flex justify-between items-center p-4 bg-white rounded-lg mb-4">
+                <button onClick={handleGoBack} className="px-4 py-2 bg-red-500 rounded hover:bg-red-600">
                     Späť
                 </button>
                 <h2 className="text-lg font-semibold">
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
                 <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
+                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
                     onClick={handleStep}
                     disabled={currentIndex >= items.length - 1}>
                     Krok
                 </button>
                 <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-700 hover:bg-teal-600'}`}
+                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
                     onClick={handleRun}
                     disabled={currentIndex >= items.length - 1}>
                     Spusti
                 </button>
                 <button
-                    className="px-4 py-2 rounded bg-red-800 hover:bg-red-950"
+                    className="px-4 py-2 rounded bg-red-500 hover:bg-red-600"
                     onClick={handleReset}>
                     Reset
                 </button>
             </div>
             <div className="flex flex-col lg:flex-row w-full h-full">
-                <div className="flex-1 p-4 bg-purple-700 rounded-lg mr-2">
+                <div className="flex-1 p-4 bg-white rounded-lg mr-2">
                     <div className="flex justify-between mb-4">
                         <h2><strong>Predmety k dispozícií</strong></h2>
                         <p>Kapacita batohu: {capacity}</p>
                     </div>
                     <ul className="mt-4 space-y-2">
-                        <li className="flex justify-between items-center p-2 bg-purple-500 rounded">
+                        <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
                             <div>Index</div>
                             <div>Váha</div>
                             <div>Cena</div>
@@ -134,14 +134,14 @@ function SimulationKnapsackInsert() {
                             <li
                                 key={index}
                                 className={`flex justify-between items-center p-2 rounded ${
-                                    index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'}`}>
+                                    index === currentIndex ? 'bg-teal-500' : 'bg-gray-200'}`}>
                                 <div>{item.originalIndex}</div>
                                 <div>{item.weight}</div>
                                 <div>{item.price}</div>
                                 <div>{item.efficiency.toFixed(2)}</div>
                                 <span
                                     className={`${
-                                        itemStatus[index] === true ? 'text-teal-700' : itemStatus[index] === false ? 'text-red-600' : ''
+                                        itemStatus[index] === true ? 'text-teal-700' : itemStatus[index] === false ? 'text-red-500' : ''
                                     } flex justify-end`}
                                 >
                                 {itemStatus[index] === true ? "✓" : itemStatus[index] === false ? "✗" : ""}
@@ -150,7 +150,7 @@ function SimulationKnapsackInsert() {
                         ))}
                     </ul>
                 </div>
-                <div className="flex-1 p-4 bg-purple-700 rounded-lg mr-2">
+                <div className="flex-1 p-4 bg-white rounded-lg mr-2">
                     <div className="flex justify-between items-center mb-4 space-x-4">
                         <h2><strong>Predmety vybrané do batohu</strong></h2>
                         <p>Aktuálna váha: {currentWeight}</p>
@@ -158,13 +158,13 @@ function SimulationKnapsackInsert() {
                         <p>Iterácia: {currentIndex}</p>
                     </div>
                     <ul className="mt-2 space-y-2">
-                        <li className="flex justify-between items-center p-2 bg-purple-500 rounded">
+                        <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
                             <div>Index</div>
                             <div>Váha</div>
                             <div>Cena</div>
                         </li>
                         {selectedItems.map((item, index) => (
-                            <li key={index} className="flex justify-between items-center p-2 bg-purple-500 rounded">
+                            <li key={index} className="flex justify-between items-center p-2 bg-gray-200 rounded">
                                 <div>{item.originalIndex}</div>
                                 <div>{item.weight}</div>
                                 <div>{item.price}</div>
@@ -174,14 +174,14 @@ function SimulationKnapsackInsert() {
                     {currentIndex >= items.length - 1 && (
                         <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
                     )}
-                    <div className="flex-1 p-4 bg-purple-700 rounded-lg mt-4">
+                    <div className="flex-1 p-4 bg-gray-500 rounded-lg mt-4">
                         <h2><strong>Binárny vektor riešenia</strong></h2>
-                        <p className="mt-2 bg-gray-800 p-2 rounded text-center">
+                        <p className="mt-2 bg-gray-200 p-2 rounded text-center">
                             {binarySolution.join("; ")}
                         </p>
                     </div>
                 </div>
-                <div className="flex justify-center items-start p-4 bg-purple-700 rounded-lg mr-2">
+                <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
                     <KnapsackInsert items={items}
                                     currentIndex={currentIndex}
                                     currentBackpackWeight={currentWeight}
