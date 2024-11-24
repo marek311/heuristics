@@ -123,19 +123,18 @@ function SimulationKnapsackInsert() {
                         <p>Kapacita batohu: {capacity}</p>
                     </div>
                     <ul className="mt-4 space-y-2">
-                        <li className="grid grid-cols-5 items-center p-2 rounded bg-purple-500">
+                        <li className="flex justify-between items-center p-2 bg-purple-500 rounded">
                             <div>Index</div>
                             <div>Váha</div>
                             <div>Cena</div>
                             <div>Výhodnosť</div>
-                            <div className= 'flex justify-end'> ✓ / ✗</div>
+                            <div> ✓ / ✗</div>
                         </li>
                         {items.map((item, index) => (
                             <li
                                 key={index}
-                                className={`grid grid-cols-5 items-center p-2 rounded ${
-                                    index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'
-                                }`}>
+                                className={`flex justify-between items-center p-2 rounded ${
+                                    index === currentIndex ? 'bg-yellow-500' : 'bg-purple-500'}`}>
                                 <div>{item.originalIndex}</div>
                                 <div>{item.weight}</div>
                                 <div>{item.price}</div>
@@ -159,11 +158,16 @@ function SimulationKnapsackInsert() {
                         <p>Iterácia: {currentIndex}</p>
                     </div>
                     <ul className="mt-2 space-y-2">
+                        <li className="flex justify-between items-center p-2 bg-purple-500 rounded">
+                            <div>Index</div>
+                            <div>Váha</div>
+                            <div>Cena</div>
+                        </li>
                         {selectedItems.map((item, index) => (
                             <li key={index} className="flex justify-between items-center p-2 bg-purple-500 rounded">
-                                <div><strong>Index:</strong> {item.originalIndex}</div>
-                                <div>Váha: {item.weight}</div>
-                                <div>Cena: {item.price}</div>
+                                <div>{item.originalIndex}</div>
+                                <div>{item.weight}</div>
+                                <div>{item.price}</div>
                             </li>
                         ))}
                     </ul>
