@@ -93,8 +93,8 @@ function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpac
 
             itemInfoGroup.selectAll('text')
                 .data([
-                    `Váha: ${currentItem.weight}`,
                     `Cena: ${currentItem.price}`,
+                    `Váha: ${currentItem.weight}`,
                 ])
                 .join('text')
                 .attr('x', 270)
