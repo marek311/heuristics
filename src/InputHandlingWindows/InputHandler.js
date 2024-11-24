@@ -23,7 +23,7 @@ function InputHandler() {
     const handleInputs = () => {
         return (
             <div
-                className="mb-4 flex flex-col items-center justify-center w-fit h-fit text-white p-6 bg-purple-600 rounded-lg mx-auto my-10">
+                className="mb-4 flex flex-col items-center justify-center w-fit h-fit text-gray-800 p-6 bg-white rounded-lg shadow-lg mx-auto my-10">
                 <> {showInputFields()} </>
             </div>
         );
