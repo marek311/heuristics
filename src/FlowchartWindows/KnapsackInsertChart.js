@@ -11,7 +11,7 @@ function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpac
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#2d2d2d')
+            .style('background', '#818181')
             .style('overflow', 'visible');
 
         const nodes = [
