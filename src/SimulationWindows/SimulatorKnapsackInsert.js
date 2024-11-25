@@ -66,7 +66,7 @@ function SimulationKnapsackInsert() {
                 newCurrentWeight += item.weight;
                 newCurrentPrice += item.price;
                 newItemStatus[index] = true;
-                newBinarySolution[item.originalIndex - 1] = 1;
+                newBinarySolution[item.originalIndex] = 1;
             } else {
                 newItemStatus[index] = false;
             }
