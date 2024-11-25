@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import InfoKnapsackData from '../InfoWindows/InfoKnapsackData';
 
 function SimulationKnapsack() {
     const location = useLocation();
@@ -7,6 +8,13 @@ function SimulationKnapsack() {
 
     const { mode, data } = location.state || {};
     const { weights, prices, capacity } = data || {};
+
+    const items = weights.map((weight, index) => ({
+        weight: parseFloat(weight),
+        price: parseFloat(prices[index]),
+        efficiency: parseFloat(prices[index]) / parseFloat(weight),
+        originalIndex: index + 1
+    }));
 
     const handleRunClick = () => {
         navigate('simulate', { state: { mode,weights,prices,capacity } });
@@ -16,9 +24,13 @@ function SimulationKnapsack() {
         <div>
             <div
                 className="mb-4 flex flex-col items-center justify-center w-fit h-fit text-gray-800 p-6 bg-white rounded-lg mx-auto my-10">
-                <p><strong>Prices:</strong> {prices.join(', ')} Total count: {prices.length}</p>
-                <p><strong>Weights:</strong> {weights.join(', ')} Total count: {weights.length}</p>
-                <p><strong>Capacity:</strong> {capacity}</p>
+                <InfoKnapsackData
+                    items={items}
+                    capacity={capacity}
+                    simpleMode={true} // Simplified display
+                    showStatus={false} // No checkmarks
+                    highlightCurrent={false} // No highlighting
+                />
                 <div className="flex justify-between mb-4 space-x-4 mt-4">
                     <button
                         className="px-2 py-2 rounded bg-red-500 hover:bg-red-600"

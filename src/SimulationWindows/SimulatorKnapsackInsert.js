@@ -123,6 +123,9 @@ function SimulationKnapsackInsert() {
                     currentIndex={currentIndex}
                     itemStatus={itemStatus}
                     capacity={capacity}
+                    showStatus={true}
+                    highlightCurrent={true}
+                    simpleMode={false}
                 />
                 <div className="flex-1 p-4 bg-white rounded-lg mr-2">
                     <div className="flex justify-between items-center mb-4 space-x-4">
