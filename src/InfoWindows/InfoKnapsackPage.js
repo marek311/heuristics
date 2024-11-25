@@ -13,7 +13,7 @@ function InfoKnapsackPage() {
         weight: parseFloat(weight),
         price: parseFloat(prices[index]),
         efficiency: parseFloat(prices[index]) / parseFloat(weight),
-        originalIndex: index + 1
+        originalIndex: index
     }));
 
     const handleRunClick = () => {
