@@ -134,6 +134,12 @@ function SimulationKnapsackExchange() {
                         highlightCurrent={false}
                     />
                     <div className="flex-1 p-4 bg-white rounded-lg mr-2">
+                        <h2 className="mb-4 font-semibold">Aktuálna iterácia</h2>
+                        <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
+                            <p>Aktuálna váha: {currentWeight}</p>
+                            <p>Aktuálna cena: {currentPrice}</p>
+                            <p>Iterácia: {currentIteration}</p>
+                        </li>
                         <div className="flex-1 p-4 bg-white rounded-lg mr-2">
                             <h2 className="mb-4 font-semibold">Nájdené riešenia</h2>
                             <ul className="space-y-2">
@@ -145,29 +151,8 @@ function SimulationKnapsackExchange() {
                                 ))}
                             </ul>
                         </div>
-                        <h2 className="mb-4 font-semibold">Aktuálna iterácia</h2>
-                        <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
-                            <p>Aktuálna váha: {currentWeight}</p>
-                            <p>Aktuálna cena: {currentPrice}</p>
-                            <p>Iterácia: {currentIteration}</p>
-                        </li>
                         <div className="mt-4">
-                            <h3 className="font-semibold mb-2">Predmety v batohu</h3>
-                            <ul className="space-y-2">
-                                <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
-                                    <div>Index</div>
-                                    <div>Váha</div>
-                                    <div>Cena</div>
-                                </li>
-                                {currentBackpack.map((item, index) => (
-                                    <li key={index}
-                                        className="flex justify-between items-center p-2 bg-gray-200 rounded">
-                                        <p>{item.originalIndex}</p>
-                                        <p>{item.weight}</p>
-                                        <p>{item.price}</p>
-                                    </li>
-                                ))}
-                            </ul>
+
                         </div>
                     </div>
                     <div className="flex-1 p-4 bg-white rounded-lg">
