@@ -23,6 +23,7 @@ function SimulationKnapsackExchange() {
     const [currentIteration, setCurrentIteration] = useState(0);
     const [solutionHistory, setSolutionHistory] = useState([]);
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
+    const [exchangeHistory, setExchangeHistory] = useState([]);
 
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
@@ -51,6 +52,16 @@ function SimulationKnapsackExchange() {
         setCurrentPrice(totalPrice);
         setCurrentNotBackpack(items.filter(item => !newBackpack.includes(item)));
         setSolutionHistory([binaryVector]);
+
+        setExchangeHistory([
+            {
+                binaryVector,
+                newWeight: totalWeight,
+                newPrice: totalPrice,
+                removed: null,
+                added: null,
+            }
+        ]);
     };
 
     const performIteration = () => {
@@ -79,6 +90,16 @@ function SimulationKnapsackExchange() {
                     setCurrentWeight(newTotalWeight);
                     setCurrentPrice(newTotalPrice);
                     setSolutionHistory([...solutionHistory, binaryVector]);
+                    setExchangeHistory(prev => [
+                        ...prev,
+                        {
+                            removed: backpackItem,
+                            added: candidate,
+                            binaryVector,
+                            newWeight: newTotalWeight,
+                            newPrice: newTotalPrice,
+                        }
+                    ]);
                     foundBetter = true;
                     break;
                 }
@@ -94,6 +115,7 @@ function SimulationKnapsackExchange() {
         setCurrentPrice(0);
         setCurrentIteration(0);
         setSolutionHistory([]);
+        setExchangeHistory([]);
         setCurrentNotBackpack([...items]);
         initializeSolution();
     };
@@ -134,25 +156,35 @@ function SimulationKnapsackExchange() {
                         highlightCurrent={false}
                     />
                     <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-                        <h2 className="mb-4 font-semibold">Aktuálna iterácia</h2>
-                        <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
-                            <p>Aktuálna váha: {currentWeight}</p>
-                            <p>Aktuálna cena: {currentPrice}</p>
-                            <p>Iterácia: {currentIteration}</p>
-                        </li>
+                        <h2 className="mb-4 font-semibold">Vykonané výmeny</h2>
                         <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-                            <h2 className="mb-4 font-semibold">Nájdené riešenia</h2>
-                            <ul className="space-y-2">
-                                {solutionHistory.map((binaryVector, index) => (
-                                    <li key={index} className="p-2 bg-gray-200 rounded">
-                                        <p><strong>{index}</strong></p>
-                                        <p>{binaryVector.join('; ')}</p>
+                            <ul className="space-y-4">
+                                {exchangeHistory.map((exchange, index) => (
+                                    <li key={index} className="p-4 bg-gray-100 rounded">
+                                        <p>Iterácia: {index}</p>
+                                        <p>Vektor: {exchange.binaryVector.join('; ')}</p>
+                                        {exchange.removed && exchange.added ? (
+                                            <>
+                                                <p>
+                                                    Odstránené: {exchange.removed.index},
+                                                    Váha: {exchange.removed.weight},
+                                                    Cena: {exchange.removed.price}
+                                                </p>
+                                                <p>
+                                                    Pridané: {exchange.added.index},
+                                                    Váha: {exchange.added.weight},
+                                                    Cena: {exchange.added.price}
+                                                </p>
+                                            </>
+                                        ) : (
+                                            <p>Počiatočné riešenie</p>
+                                        )}
+                                        <p>
+                                            Váha: {exchange.newWeight}, Cena: {exchange.newPrice}
+                                        </p>
                                     </li>
                                 ))}
                             </ul>
-                        </div>
-                        <div className="mt-4">
-
                         </div>
                     </div>
                     <div className="flex-1 p-4 bg-white rounded-lg">
