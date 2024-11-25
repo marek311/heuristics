@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Selector from '../SelectWindows/Selector';
 import InputHandler from '../InputHandlingWindows/InputHandler';
-import InfoKnapsack from "../InfoWindows/InfoKnapsackPage";
+import InfoKnapsackPage from "../InfoWindows/InfoKnapsackPage";
 import InfoTSP from '../InfoWindows/InfoTSP';
 import SimulatorKnapsackInsert from '../SimulationWindows/SimulatorKnapsackInsert'
 import SimulatorKnapsackExchange from '../SimulationWindows/SimulatorKnapsackExchange'
@@ -13,10 +13,10 @@ function Application() {
                 <Route path="/" element={<Selector />} />
                 <Route path="/handleInputs" element={<InputHandler />} />
 
-                <Route path="/knapsack-insert-simulation" element={<InfoKnapsack />} />
-                <Route path="/knapsack-exchange-first-simulation" element={<InfoKnapsack />} />
-                <Route path="/knapsack-exchange-best-simulation" element={<InfoKnapsack />} />
-                <Route path="/knapsack-genetic-simulation" element={<InfoKnapsack />} />
+                <Route path="/knapsack-insert-simulation" element={<InfoKnapsackPage />} />
+                <Route path="/knapsack-exchange-first-simulation" element={<InfoKnapsackPage />} />
+                <Route path="/knapsack-exchange-best-simulation" element={<InfoKnapsackPage />} />
+                <Route path="/knapsack-genetic-simulation" element={<InfoKnapsackPage />} />
 
                 <Route path="knapsack-insert-simulation/simulate" element={<SimulatorKnapsackInsert />} />
                 <Route path="knapsack-exchange-first-simulation/simulate" element={<SimulatorKnapsackExchange />} />
