@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import InfoKnapsackData from "../InfoWindows/InfoKnapsackData";
 
 function SimulationKnapsackExchange() {
     const location = useLocation();
@@ -125,18 +126,25 @@ function SimulationKnapsackExchange() {
                     </div>
                 </div>
                 <div className="flex flex-col lg:flex-row w-full h-full">
+                    <InfoKnapsackData
+                        items={items}
+                        capacity={capacity}
+                        simpleMode={true}
+                        showStatus={false}
+                        highlightCurrent={false}
+                    />
                     <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-                        <h2 className="mb-4 font-semibold">Nájdené riešenia</h2>
-                        <ul className="space-y-2">
-                            {solutionHistory.map((binaryVector, index) => (
-                                <li key={index} className="p-2 bg-gray-200 rounded">
-                                    <p><strong>{index}</strong></p>
-                                    <p>{binaryVector.join('; ')}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="flex-1 p-4 bg-white rounded-lg mr-2">
+                        <div className="flex-1 p-4 bg-white rounded-lg mr-2">
+                            <h2 className="mb-4 font-semibold">Nájdené riešenia</h2>
+                            <ul className="space-y-2">
+                                {solutionHistory.map((binaryVector, index) => (
+                                    <li key={index} className="p-2 bg-gray-200 rounded">
+                                        <p><strong>{index}</strong></p>
+                                        <p>{binaryVector.join('; ')}</p>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
                         <h2 className="mb-4 font-semibold">Aktuálna iterácia</h2>
                         <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
                             <p>Aktuálna váha: {currentWeight}</p>
