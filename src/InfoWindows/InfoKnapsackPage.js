@@ -27,9 +27,9 @@ function InfoKnapsackPage() {
                 <InfoKnapsackData
                     items={items}
                     capacity={capacity}
-                    simpleMode={true} // Simplified display
-                    showStatus={false} // No checkmarks
-                    highlightCurrent={false} // No highlighting
+                    simpleMode={true}
+                    showStatus={false}
+                    highlightCurrent={false}
                 />
                 <div className="flex justify-between mb-4 space-x-4 mt-4">
                     <button
