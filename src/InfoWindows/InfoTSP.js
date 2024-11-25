@@ -1,5 +1,4 @@
-
-function SimulationTSP() {
+function InfoTSP() {
 
     return (
         <div>
@@ -8,4 +7,4 @@ function SimulationTSP() {
     );
 }
 
-export default SimulationTSP;
+export default InfoTSP;
