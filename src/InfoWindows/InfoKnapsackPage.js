@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import InfoKnapsackData from '../InfoWindows/InfoKnapsackData';
 
-function SimulationKnapsack() {
+function InfoKnapsackPage() {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -48,4 +48,4 @@ function SimulationKnapsack() {
     );
 }
 
-export default SimulationKnapsack;
+export default InfoKnapsackPage;

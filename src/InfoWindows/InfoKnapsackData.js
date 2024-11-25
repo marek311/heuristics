@@ -1,6 +1,6 @@
 import React from 'react';
 
-function AvailableItemsList({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
+function InfoKnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (
         <div className="flex-1 p-4 bg-white rounded-lg mr-2">
             <div className="flex justify-between mb-4">
@@ -44,4 +44,4 @@ function AvailableItemsList({ items, currentIndex, itemStatus, capacity, showSta
     );
 }
 
-export default AvailableItemsList;
+export default InfoKnapsackData;
