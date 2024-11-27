@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import InfoKnapsackData from "../InfoWindows/InfoKnapsackData";
 import {
-    handleRunKnapsackFirstFit,
-    handleIterationKnapsackFirstFit,
+    performIteration,
+    performRun,
 } from "../Algorithms/AlgorithmKnapsackExchangeFistFit";
 
 function SimulationKnapsackExchange() {
@@ -74,7 +74,7 @@ function SimulationKnapsackExchange() {
     const handleIteration = () => {
         if (isCompleted) return;
 
-        const result = handleIterationKnapsackFirstFit(
+        const result = performIteration(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
@@ -97,7 +97,7 @@ function SimulationKnapsackExchange() {
     const handleRun = () => {
         if (isCompleted) return;
 
-        const result = handleRunKnapsackFirstFit(
+        const result = performRun(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
