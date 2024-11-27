@@ -4,6 +4,7 @@ import InfoKnapsackData from "../InfoWindows/InfoKnapsackData";
 import {
     performIteration,
     performRun,
+    performInitializeSolution,
 } from "../Algorithms/AlgorithmKnapsackExchangeFistFit";
 
 function SimulationKnapsackExchange() {
@@ -37,20 +38,13 @@ function SimulationKnapsackExchange() {
         return binaryVector;
     };
 
-    const initializeSolution = () => {
-        const newBackpack = [];
-        let totalWeight = 0;
-        let totalPrice = 0;
+    const handleInitializeSolution = () => {
+        const { newBackpack, totalWeight, totalPrice, binaryVector } = performInitializeSolution(
+            items,
+            capacity,
+            generateBinaryVector
+        );
 
-        for (const item of items) {
-            if (totalWeight + item.weight <= capacity) {
-                newBackpack.push(item);
-                totalWeight += item.weight;
-                totalPrice += item.price;
-            }
-        }
-
-        const binaryVector = generateBinaryVector(newBackpack);
         setCurrentBackpack(newBackpack);
         setCurrentWeight(totalWeight);
         setCurrentPrice(totalPrice);
@@ -121,11 +115,11 @@ function SimulationKnapsackExchange() {
         setCurrentPrice(0);
         setExchangeHistory([]);
         setCurrentNotBackpack([...items]);
-        initializeSolution();
+        handleInitializeSolution();
     };
 
     useEffect(() => {
-        initializeSolution();
+        handleInitializeSolution();
     }, []);
 
     return (

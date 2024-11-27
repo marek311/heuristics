@@ -1,3 +1,25 @@
+export const performInitializeSolution = (
+    items,
+    capacity,
+    generateBinaryVector
+) => {
+    const newBackpack = [];
+    let totalWeight = 0;
+    let totalPrice = 0;
+
+    for (const item of items) {
+        if (totalWeight + item.weight <= capacity) {
+            newBackpack.push(item);
+            totalWeight += item.weight;
+            totalPrice += item.price;
+        }
+    }
+
+    const binaryVector = generateBinaryVector(newBackpack);
+
+    return { newBackpack, totalWeight, totalPrice, binaryVector};
+};
+
 export const performIteration = (
     currentBackpack,
     currentNotBackpack,
