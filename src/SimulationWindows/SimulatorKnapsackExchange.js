@@ -24,8 +24,6 @@ function SimulationKnapsackExchange() {
     const [currentBackpack, setCurrentBackpack] = useState([]);
     const [currentWeight, setCurrentWeight] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
-    const [currentIteration, setCurrentIteration] = useState(0);
-    const [solutionHistory, setSolutionHistory] = useState([]);
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false)
@@ -56,7 +54,6 @@ function SimulationKnapsackExchange() {
         setCurrentWeight(totalWeight);
         setCurrentPrice(totalPrice);
         setCurrentNotBackpack(items.filter(item => !newBackpack.includes(item)));
-        setSolutionHistory([binaryVector]);
 
         setExchangeHistory([
             {
@@ -122,8 +119,6 @@ function SimulationKnapsackExchange() {
         setCurrentBackpack([]);
         setCurrentWeight(0);
         setCurrentPrice(0);
-        setCurrentIteration(0);
-        setSolutionHistory([]);
         setExchangeHistory([]);
         setCurrentNotBackpack([...items]);
         initializeSolution();
