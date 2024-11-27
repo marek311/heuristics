@@ -117,6 +117,64 @@ function SimulationKnapsackExchange() {
         setCurrentIteration(currentIteration + 1);
     };
 
+    const handleRun = () => {
+        let newBackpack = [...currentBackpack];
+        let newNotInBackpack = [...currentNotBackpack];
+        let newWeight = currentWeight;
+        let newPrice = currentPrice;
+        let newSolutionHistory = [...solutionHistory];
+        let newExchangeHistory = [...exchangeHistory];
+        let foundBetter = true;
+
+        while (foundBetter) {
+            foundBetter = false;
+
+            for (let i = 0; i < newBackpack.length; i++) {
+                const backpackItem = newBackpack[i];
+
+                for (const candidate of newNotInBackpack) {
+                    const potentialWeight = newWeight - backpackItem.weight + candidate.weight;
+                    const potentialPrice = newPrice - backpackItem.price + candidate.price;
+
+                    if (potentialWeight <= capacity && potentialPrice > newPrice) {
+
+                        newBackpack[i] = candidate;
+
+                        newNotInBackpack = newNotInBackpack.filter(item => item !== candidate);
+                        newNotInBackpack.push(backpackItem);
+
+                        newWeight = potentialWeight;
+                        newPrice = potentialPrice;
+
+                        const binaryVector = generateBinaryVector(newBackpack);
+
+                        newSolutionHistory.push(binaryVector);
+                        newExchangeHistory.push({
+                            removed: backpackItem,
+                            added: candidate,
+                            binaryVector,
+                            newWeight,
+                            newPrice,
+                        });
+
+                        foundBetter = true;
+                        break;
+                    }
+                }
+                if (foundBetter) break;
+            }
+        }
+
+        setCurrentBackpack(newBackpack);
+        setCurrentNotBackpack(newNotInBackpack);
+        setCurrentWeight(newWeight);
+        setCurrentPrice(newPrice);
+        setSolutionHistory(newSolutionHistory);
+        setExchangeHistory(newExchangeHistory);
+        setIsCompleted(true);
+    };
+
+
     const handleReset = () => {
         setCurrentBackpack([]);
         setCurrentWeight(0);
@@ -149,7 +207,7 @@ function SimulationKnapsackExchange() {
                             Krok
                         </button>
                         <button
-                            onClick={performIteration}
+                            onClick={handleRun}
                             className={`px-4 py-2 rounded ${isCompleted ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
                             disabled={isCompleted}>
                             Spusti
