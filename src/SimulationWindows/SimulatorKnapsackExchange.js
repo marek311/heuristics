@@ -7,23 +7,24 @@ import {
 } from "../Algorithms/AlgorithmKnapsackExchangeFistFit";
 
 function SimulationKnapsackExchange() {
-    const location = useLocation();
-    const {weights, prices, capacity} = location.state || {};
 
+    const location = useLocation();
     const navigate = useNavigate();
     const handleGoBack = () => {
         navigate(`/handleInputs?mode=KnapsackExchangeFirst`);
     };
 
+    const [currentBackpack, setCurrentBackpack] = useState([]);
+    const [currentWeight, setCurrentWeight] = useState(0);
+    const [currentPrice, setCurrentPrice] = useState(0);
+
+    const {weights, prices, capacity} = location.state || {};
     const items = weights.map((weight, index) => ({
         weight: parseFloat(weight),
         price: parseFloat(prices[index]),
         originalIndex: index
     }));
 
-    const [currentBackpack, setCurrentBackpack] = useState([]);
-    const [currentWeight, setCurrentWeight] = useState(0);
-    const [currentPrice, setCurrentPrice] = useState(0);
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
@@ -113,7 +114,6 @@ function SimulationKnapsackExchange() {
             setIsCompleted(true);
         }
     };
-
 
     const handleReset = () => {
         setCurrentBackpack([]);
