@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import InfoKnapsackData from "../InfoWindows/InfoKnapsackData";
+import {
+    handleRunKnapsackFirstFit,
+    handleIterationKnapsackFirstFit,
+} from "../Algorithms/AlgorithmKnapsackExchangeFistFit";
 
 function SimulationKnapsackExchange() {
     const location = useLocation();
@@ -67,111 +71,50 @@ function SimulationKnapsackExchange() {
         setIsCompleted(false);
     };
 
-    const performIteration = () => {
+    const handleIteration = () => {
         if (isCompleted) return;
 
-        let foundBetter = false;
+        const result = handleIterationKnapsackFirstFit(
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            capacity,
+            generateBinaryVector
+        );
 
-        for (let i = 0; i < currentBackpack.length; i++) {
-            const backpackItem = currentBackpack[i];
-
-            for (const candidate of currentNotBackpack) {
-                const potentialWeight = currentWeight - backpackItem.weight + candidate.weight;
-                const potentialPrice = currentPrice - backpackItem.price + candidate.price;
-
-                if (potentialWeight <= capacity && potentialPrice > currentPrice) {
-                    const newBackpack = [...currentBackpack];
-                    newBackpack[i] = candidate;
-
-                    const newNotInBackpack = currentNotBackpack.filter(item => item !== candidate);
-                    newNotInBackpack.push(backpackItem);
-
-                    const newTotalWeight = currentWeight - backpackItem.weight + candidate.weight;
-                    const newTotalPrice = currentPrice - backpackItem.price + candidate.price;
-
-                    const binaryVector = generateBinaryVector(newBackpack);
-                    setCurrentBackpack(newBackpack);
-                    setCurrentNotBackpack(newNotInBackpack);
-                    setCurrentWeight(newTotalWeight);
-                    setCurrentPrice(newTotalPrice);
-                    setSolutionHistory([...solutionHistory, binaryVector]);
-                    setExchangeHistory(prev => [
-                        ...prev,
-                        {
-                            removed: backpackItem,
-                            added: candidate,
-                            binaryVector,
-                            newWeight: newTotalWeight,
-                            newPrice: newTotalPrice,
-                        }
-                    ]);
-                    foundBetter = true;
-                    break;
-                }
-            }
-            if (foundBetter) break;
-        }
-        if (!foundBetter) {
+        setCurrentBackpack(result.updatedBackpack);
+        setCurrentNotBackpack(result.updatedNotBackpack);
+        setCurrentWeight(result.updatedWeight);
+        setCurrentPrice(result.updatedPrice);
+        if (result.exchange) {
+            setExchangeHistory(prev => [...prev, result.exchange]);
+        } else {
             setIsCompleted(true);
         }
-        setCurrentIteration(currentIteration + 1);
     };
 
     const handleRun = () => {
-        let newBackpack = [...currentBackpack];
-        let newNotInBackpack = [...currentNotBackpack];
-        let newWeight = currentWeight;
-        let newPrice = currentPrice;
-        let newSolutionHistory = [...solutionHistory];
-        let newExchangeHistory = [...exchangeHistory];
-        let foundBetter = true;
+        if (isCompleted) return;
 
-        while (foundBetter) {
-            foundBetter = false;
+        const result = handleRunKnapsackFirstFit(
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            capacity,
+            generateBinaryVector
+        );
 
-            for (let i = 0; i < newBackpack.length; i++) {
-                const backpackItem = newBackpack[i];
+        setCurrentBackpack(result.updatedBackpack);
+        setCurrentNotBackpack(result.updatedNotBackpack);
+        setCurrentWeight(result.updatedWeight);
+        setCurrentPrice(result.updatedPrice);
+        setExchangeHistory(prev => [...prev, ...result.exchangeHistory]);
 
-                for (const candidate of newNotInBackpack) {
-                    const potentialWeight = newWeight - backpackItem.weight + candidate.weight;
-                    const potentialPrice = newPrice - backpackItem.price + candidate.price;
-
-                    if (potentialWeight <= capacity && potentialPrice > newPrice) {
-
-                        newBackpack[i] = candidate;
-
-                        newNotInBackpack = newNotInBackpack.filter(item => item !== candidate);
-                        newNotInBackpack.push(backpackItem);
-
-                        newWeight = potentialWeight;
-                        newPrice = potentialPrice;
-
-                        const binaryVector = generateBinaryVector(newBackpack);
-
-                        newSolutionHistory.push(binaryVector);
-                        newExchangeHistory.push({
-                            removed: backpackItem,
-                            added: candidate,
-                            binaryVector,
-                            newWeight,
-                            newPrice,
-                        });
-
-                        foundBetter = true;
-                        break;
-                    }
-                }
-                if (foundBetter) break;
-            }
+        if (result.exchangeHistory.length === 0) {
+            setIsCompleted(true);
         }
-
-        setCurrentBackpack(newBackpack);
-        setCurrentNotBackpack(newNotInBackpack);
-        setCurrentWeight(newWeight);
-        setCurrentPrice(newPrice);
-        setSolutionHistory(newSolutionHistory);
-        setExchangeHistory(newExchangeHistory);
-        setIsCompleted(true);
     };
 
 
@@ -201,7 +144,7 @@ function SimulationKnapsackExchange() {
                     </h2>
                     <div className="space-x-2">
                         <button
-                            onClick={performIteration}
+                            onClick={handleIteration}
                             className={`px-4 py-2 rounded ${isCompleted ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
                             disabled={isCompleted}>
                             Krok
