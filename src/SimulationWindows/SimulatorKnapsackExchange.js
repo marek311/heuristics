@@ -24,6 +24,7 @@ function SimulationKnapsackExchange() {
     const [solutionHistory, setSolutionHistory] = useState([]);
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
     const [exchangeHistory, setExchangeHistory] = useState([]);
+    const [isCompleted, setIsCompleted] = useState(false)
 
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
@@ -62,9 +63,13 @@ function SimulationKnapsackExchange() {
                 added: null,
             }
         ]);
+
+        setIsCompleted(false);
     };
 
     const performIteration = () => {
+        if (isCompleted) return;
+
         let foundBetter = false;
 
         for (let i = 0; i < currentBackpack.length; i++) {
@@ -106,6 +111,9 @@ function SimulationKnapsackExchange() {
             }
             if (foundBetter) break;
         }
+        if (!foundBetter) {
+            setIsCompleted(true);
+        }
         setCurrentIteration(currentIteration + 1);
     };
 
@@ -134,11 +142,16 @@ function SimulationKnapsackExchange() {
                         Simulácia úlohy o batohu výmennou heuristikou - FIRST FIT!
                     </h2>
                     <div className="space-x-2">
-                        <button onClick={performIteration}
-                                className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-400">
+                        <button
+                            onClick={performIteration}
+                            className={`px-4 py-2 rounded ${isCompleted ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                            disabled={isCompleted}>
                             Krok
                         </button>
-                        <button className="px-4 py-2 bg-teal-500 text-white rounded hover:bg-teal-400">
+                        <button
+                            onClick={performIteration}
+                            className={`px-4 py-2 rounded ${isCompleted ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                            disabled={isCompleted}>
                             Spusti
                         </button>
                         <button onClick={handleReset}
