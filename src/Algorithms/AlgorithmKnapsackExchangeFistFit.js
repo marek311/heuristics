@@ -60,13 +60,7 @@ export const performIteration = (
                     newPrice: updatedPrice,
                 };
 
-                return {
-                    updatedBackpack,
-                    updatedNotBackpack,
-                    updatedWeight,
-                    updatedPrice,
-                    exchange,
-                };
+                return { updatedBackpack, updatedNotBackpack, updatedWeight, updatedPrice, exchange };
             }
         }
     }
