@@ -26,7 +26,7 @@ function SimulationKnapsackExchange() {
     const [currentPrice, setCurrentPrice] = useState(0);
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
     const [exchangeHistory, setExchangeHistory] = useState([]);
-    const [isCompleted, setIsCompleted] = useState(false)
+    const [isCompleted, setIsCompleted] = useState(false);
 
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
