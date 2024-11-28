@@ -1,5 +1,5 @@
 import {BrowserRouter as Router} from 'react-router-dom';
-import Application from './MainWindow/Application';
+import Application from './Main/Application';
 
 function App() {
   return (

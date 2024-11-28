@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import KnapsackInsert from '../FlowchartWindows/ChartKnapsackInsert.js';
+import KnapsackInsert from '../Charts/ChartKnapsackInsert.js';
 import InfoKnapsackData from '../InfoWindows/InfoKnapsackData';
 import {
     performStep,

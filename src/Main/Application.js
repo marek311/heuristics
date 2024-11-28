@@ -1,10 +1,10 @@
 import { Routes, Route } from 'react-router-dom';
-import Selector from '../SelectWindows/Selector';
-import InputHandler from '../InputHandlingWindows/InputHandler';
+import Selector from '../SelectMode/Selector';
+import InputHandler from '../InputHandling/InputHandler';
 import InfoKnapsackPage from "../InfoWindows/InfoKnapsackPage";
 import InfoTSP from '../InfoWindows/InfoTSP';
-import SimulatorKnapsackInsert from '../SimulationWindows/SimulatorKnapsackInsert'
-import SimulatorKnapsackExchange from '../SimulationWindows/SimulatorKnapsackExchange'
+import SimulatorKnapsackInsert from '../Simulators/SimulatorKnapsackInsert'
+import SimulatorKnapsackExchange from '../Simulators/SimulatorKnapsackExchange'
 
 function Application() {
     return (
