@@ -30,6 +30,8 @@ function SimulationKnapsackExchange() {
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
 
+    const [strategy, setStrategy] = useState('bestFit');
+
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
         for (const item of backpack) {
@@ -72,7 +74,8 @@ function SimulationKnapsackExchange() {
             currentWeight,
             currentPrice,
             capacity,
-            generateBinaryVector
+            generateBinaryVector,
+            strategy
         );
 
         setCurrentBackpack(result.updatedBackpack);

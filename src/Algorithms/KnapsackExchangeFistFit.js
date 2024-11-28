@@ -22,7 +22,7 @@ export const performIteration = (
     currentPrice,
     capacity,
     generateBinaryVector,
-    strategy = 'firstFit'
+    strategy
 ) => {
     let updatedBackpack = [...currentBackpack];
     let updatedNotBackpack = [...currentNotBackpack];
