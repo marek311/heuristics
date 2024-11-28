@@ -112,7 +112,7 @@ function SimulationKnapsackInsert() {
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <InfoKnapsackData
                     items={items}
-                    currentIndex={currentIndex}
+                    currentIndex={currentIndex - 1}
                     itemStatus={itemStatus}
                     capacity={capacity}
                     showStatus={true}
@@ -152,7 +152,7 @@ function SimulationKnapsackInsert() {
                 </div>
                 <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
                     <KnapsackInsert items={items}
-                                    currentIndex={currentIndex}
+                                    currentIndex={currentIndex - 1}
                                     currentBackpackWeight={currentWeight}
                                     backpackCapacity={capacity}
                     />
