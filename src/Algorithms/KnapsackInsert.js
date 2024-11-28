@@ -1,4 +1,4 @@
-export const performStep = (
+export const performIteration = (
     items,
     currentIndex,
     currentWeight,

@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackInsert from '../Charts/KnapsackInsert.js';
 import KnapsackData from '../InputDisplay/KnapsackData';
 import {
-    performStep,
+    performIteration,
     performRun
 } from "../Algorithms/KnapsackInsert";
 
@@ -34,7 +34,7 @@ function SimulationKnapsackInsert() {
     const [binarySolution, setBinarySolution] = useState(new Array(weights.length).fill(0));
 
     const handleStep = () => {
-        const result = performStep(
+        const result = performIteration(
             items,
             currentIndex,
             currentWeight,
