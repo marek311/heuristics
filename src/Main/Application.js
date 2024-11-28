@@ -4,7 +4,7 @@ import InputHandler from '../InputHandling/InputHandler';
 import KnapsackPage from "../InputDisplay/KnapsackPage";
 import TSP from '../InputDisplay/TSP';
 import SimulatorKnapsackInsert from '../Simulators/KnapsackInsert'
-import SimulatorKnapsackExchange from '../Simulators/KnapsackExchangeFirstFit'
+import SimulatorKnapsackExchange from '../Simulators/KnapsackExchange'
 
 function Application() {
     return (
