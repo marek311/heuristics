@@ -15,6 +15,17 @@ function SimulationKnapsackExchange() {
         navigate(`/handleInputs?mode=KnapsackExchangeFirst`);
     };
 
+    const [strategy, setStrategy] = useState('bestFit');
+
+    useEffect(() => {
+        const path = location.pathname;
+        if (path.includes('knapsack-exchange-best-simulation')) {
+            setStrategy('bestFit');
+        } else if (path.includes('knapsack-exchange-first-simulation')) {
+            setStrategy('firstFit');
+        }
+    }, [location.pathname]);
+
     const [currentBackpack, setCurrentBackpack] = useState([]);
     const [currentWeight, setCurrentWeight] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
@@ -29,8 +40,6 @@ function SimulationKnapsackExchange() {
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
-
-    const [strategy, setStrategy] = useState('bestFit');
 
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
