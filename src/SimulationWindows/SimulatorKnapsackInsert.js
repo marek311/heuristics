@@ -3,6 +3,10 @@ import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackInsert from '../FlowchartWindows/ChartKnapsackInsert.js';
 import InfoKnapsackData from '../InfoWindows/InfoKnapsackData';
+import {
+    performStep,
+    performRun
+} from "../Algorithms/AlgorithmKnapsackInsert";
 
 function SimulationKnapsackInsert() {
     const location = useLocation();
@@ -30,55 +34,43 @@ function SimulationKnapsackInsert() {
     const [binarySolution, setBinarySolution] = useState(new Array(weights.length).fill(0));
 
     const handleStep = () => {
-        if (currentIndex < items.length) {
-            const item = items[currentIndex];
-            const newItemStatus = [...itemStatus];
-            const newBinarySolution = [...binarySolution];
+        const result = performStep(
+            items,
+            currentIndex,
+            currentWeight,
+            currentPrice,
+            selectedItems,
+            itemStatus,
+            binarySolution,
+            capacity
+        );
 
-            if (currentWeight + item.weight <= capacity) {
-                setSelectedItems([...selectedItems, item]);
-                setCurrentWeight(currentWeight + item.weight);
-                setCurrentPrice(currentPrice + item.price);
-                newItemStatus[currentIndex] = true;
-                newBinarySolution[item.originalIndex] = 1;
-            } else {
-                newItemStatus[currentIndex] = false;
-            }
-
-            setCurrentIndex(currentIndex + 1);
-            setItemStatus(newItemStatus);
-            setBinarySolution(newBinarySolution);
-        }
+        setCurrentIndex(result.currentIndex);
+        setCurrentWeight(result.currentWeight);
+        setCurrentPrice(result.currentPrice);
+        setSelectedItems(result.selectedItems);
+        setItemStatus(result.itemStatus);
+        setBinarySolution(result.binarySolution);
     };
 
     const handleRun = () => {
-        let newSelectedItems = [...selectedItems];
-        let newCurrentWeight = currentWeight;
-        let newCurrentPrice = currentPrice;
-        let newItemStatus = [...itemStatus];
-        let newBinarySolution = [...binarySolution];
-        let index = currentIndex;
+        const result = performRun(
+            items,
+            currentIndex,
+            currentWeight,
+            currentPrice,
+            selectedItems,
+            itemStatus,
+            binarySolution,
+            capacity
+        );
 
-        while (index < items.length) {
-            const item = items[index];
-            if (newCurrentWeight + item.weight <= capacity) {
-                newSelectedItems.push(item);
-                newCurrentWeight += item.weight;
-                newCurrentPrice += item.price;
-                newItemStatus[index] = true;
-                newBinarySolution[item.originalIndex] = 1;
-            } else {
-                newItemStatus[index] = false;
-            }
-            index++;
-        }
-
-        setSelectedItems(newSelectedItems);
-        setCurrentWeight(newCurrentWeight);
-        setCurrentPrice(newCurrentPrice);
-        setItemStatus(newItemStatus);
-        setBinarySolution(newBinarySolution);
-        setCurrentIndex(items.length - 1);
+        setCurrentIndex(result.currentIndex);
+        setCurrentWeight(result.currentWeight);
+        setCurrentPrice(result.currentPrice);
+        setSelectedItems(result.selectedItems);
+        setItemStatus(result.itemStatus);
+        setBinarySolution(result.binarySolution);
     };
 
     const handleReset = () => {
