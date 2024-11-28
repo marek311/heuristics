@@ -3,8 +3,8 @@ import Selector from '../SelectMode/Selector';
 import InputHandler from '../InputHandling/InputHandler';
 import KnapsackPage from "../InputDisplay/KnapsackPage";
 import TSP from '../InputDisplay/TSP';
-import SimulatorKnapsackInsert from '../Simulators/KnapsackInsert'
-import SimulatorKnapsackExchange from '../Simulators/KnapsackExchange'
+import SimulatorKnapsackInsert from '../Simulators/SimKnapsackInsert'
+import SimulatorKnapsackExchange from '../Simulators/SimKnapsackExchange'
 
 function Application() {
     return (

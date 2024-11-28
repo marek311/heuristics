@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import KnapsackInsert from '../Charts/KnapsackInsert.js';
+import KnapsackInsert from '../Charts/ChartKnapsackInsert.js';
 import KnapsackData from '../InputDisplay/KnapsackData';
 import {
     performIteration,
     performRun
-} from "../Algorithms/KnapsackInsert";
+} from "../Algorithms/AlgKnapsackInsert";
 
 function SimulationKnapsackInsert() {
     const location = useLocation();

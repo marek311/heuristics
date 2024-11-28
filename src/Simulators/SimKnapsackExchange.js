@@ -5,7 +5,7 @@ import {
     performInitializeSolution,
     performIteration,
     performRun
-} from "../Algorithms/KnapsackExchange";
+} from "../Algorithms/AlgKnapsackExchange";
 
 function SimulationKnapsackExchange() {
 
