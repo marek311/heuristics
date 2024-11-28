@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackData from "../InputDisplay/KnapsackData";
 import {
-    performIteration,
-    performRun,
     performInitializeSolution,
+    performIteration,
+    performRun
 } from "../Algorithms/KnapsackExchangeFistFit";
 
 function SimulationKnapsackExchange() {
