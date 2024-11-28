@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import KnapsackInsert from '../Charts/ChartKnapsackInsert.js';
+import ChartKnapsackInsert from '../Charts/ChartKnapsackInsert.js';
 import KnapsackData from '../InputDisplay/KnapsackData';
 import {
     performIteration,
@@ -151,7 +151,7 @@ function SimulationKnapsackInsert() {
                     </div>
                 </div>
                 <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
-                    <KnapsackInsert items={items}
+                    <ChartKnapsackInsert items={items}
                                     currentIndex={currentIndex - 1}
                                     currentBackpackWeight={currentWeight}
                                     backpackCapacity={capacity}
