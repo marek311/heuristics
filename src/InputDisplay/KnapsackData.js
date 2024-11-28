@@ -1,6 +1,6 @@
 import React from 'react';
 
-function InfoKnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
+function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (
         <div className="flex-1 p-4 bg-white rounded-lg mr-2">
             <div className="flex justify-between mb-4">
@@ -44,4 +44,4 @@ function InfoKnapsackData({ items, currentIndex, itemStatus, capacity, showStatu
     );
 }
 
-export default InfoKnapsackData;
+export default KnapsackData;

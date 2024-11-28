@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import InfoKnapsackData from "../InfoWindows/InfoKnapsackData";
+import KnapsackData from "../InputDisplay/KnapsackData";
 import {
     performIteration,
     performRun,
     performInitializeSolution,
-} from "../Algorithms/AlgorithmKnapsackExchangeFistFit";
+} from "../Algorithms/KnapsackExchangeFistFit";
 
 function SimulationKnapsackExchange() {
 
@@ -151,7 +151,7 @@ function SimulationKnapsackExchange() {
                     </div>
                 </div>
                 <div className="flex flex-col lg:flex-row w-full h-full">
-                    <InfoKnapsackData
+                    <KnapsackData
                         items={items}
                         capacity={capacity}
                         simpleMode={true}

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import InfoKnapsackData from '../InfoWindows/InfoKnapsackData';
+import KnapsackData from './KnapsackData';
 
-function InfoKnapsackPage() {
+function KnapsackPage() {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function InfoKnapsackPage() {
         <div>
             <div
                 className="mb-4 flex flex-col items-center justify-center w-fit h-fit text-gray-800 p-6 bg-white rounded-lg mx-auto my-10">
-                <InfoKnapsackData
+                <KnapsackData
                     items={items}
                     capacity={capacity}
                     simpleMode={true}
@@ -48,4 +48,4 @@ function InfoKnapsackPage() {
     );
 }
 
-export default InfoKnapsackPage;
+export default KnapsackPage;

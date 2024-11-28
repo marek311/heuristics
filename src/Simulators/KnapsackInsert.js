@@ -1,12 +1,12 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import KnapsackInsert from '../Charts/ChartKnapsackInsert.js';
-import InfoKnapsackData from '../InfoWindows/InfoKnapsackData';
+import KnapsackInsert from '../Charts/KnapsackInsert.js';
+import KnapsackData from '../InputDisplay/KnapsackData';
 import {
     performStep,
     performRun
-} from "../Algorithms/AlgorithmKnapsackInsert";
+} from "../Algorithms/KnapsackInsert";
 
 function SimulationKnapsackInsert() {
     const location = useLocation();
@@ -110,7 +110,7 @@ function SimulationKnapsackInsert() {
                 </button>
             </div>
             <div className="flex flex-col lg:flex-row w-full h-full">
-                <InfoKnapsackData
+                <KnapsackData
                     items={items}
                     currentIndex={currentIndex - 1}
                     itemStatus={itemStatus}

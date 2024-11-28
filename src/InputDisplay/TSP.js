@@ -1,4 +1,4 @@
-function InfoTSP() {
+function TSP() {
 
     return (
         <div>
@@ -7,4 +7,4 @@ function InfoTSP() {
     );
 }
 
-export default InfoTSP;
+export default TSP;
