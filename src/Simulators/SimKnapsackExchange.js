@@ -107,7 +107,8 @@ function SimulationKnapsackExchange() {
             currentWeight,
             currentPrice,
             capacity,
-            generateBinaryVector
+            generateBinaryVector,
+            strategy
         );
 
         setCurrentBackpack(result.updatedBackpack);
