@@ -1,4 +1,9 @@
-export const performInitializeSolution = (items, capacity, generateBinaryVector) => {
+export const performInitializeSolution = (
+    items,
+    capacity,
+    generateBinaryVector
+) => {
+
     const newBackpack = [];
     let totalWeight = 0;
     let totalPrice = 0;
@@ -12,7 +17,12 @@ export const performInitializeSolution = (items, capacity, generateBinaryVector)
     }
 
     const binaryVector = generateBinaryVector(newBackpack);
-    return { newBackpack, totalWeight, totalPrice, binaryVector};
+    return {
+        newBackpack,
+        totalWeight,
+        totalPrice,
+        binaryVector
+    };
 };
 
 export const performIteration = (
@@ -24,6 +34,7 @@ export const performIteration = (
     generateBinaryVector,
     strategy
 ) => {
+
     let updatedBackpack = [...currentBackpack];
     let updatedNotBackpack = [...currentNotBackpack];
     let updatedWeight = currentWeight;
@@ -104,13 +115,25 @@ export const performIteration = (
                         newPrice: updatedPrice,
                     };
 
-                    return { updatedBackpack, updatedNotBackpack, updatedWeight, updatedPrice, exchange };  // Return after one swap
+                    return {
+                        updatedBackpack,
+                        updatedNotBackpack,
+                        updatedWeight,
+                        updatedPrice,
+                        exchange
+                    };
                 }
             }
         }
     }
 
-    return { updatedBackpack, updatedNotBackpack, updatedWeight, updatedPrice, exchange };
+    return {
+        updatedBackpack,
+        updatedNotBackpack,
+        updatedWeight,
+        updatedPrice,
+        exchange
+    };
 };
 
 export const performRun = (
@@ -122,6 +145,7 @@ export const performRun = (
     generateBinaryVector,
     strategy
 ) => {
+
     let updatedBackpack = [...currentBackpack];
     let updatedNotBackpack = [...currentNotBackpack];
     let updatedWeight = currentWeight;
@@ -216,5 +240,11 @@ export const performRun = (
         }
     }
 
-    return { updatedBackpack, updatedNotBackpack, updatedWeight, updatedPrice, exchangeHistory };
+    return {
+        updatedBackpack,
+        updatedNotBackpack,
+        updatedWeight,
+        updatedPrice,
+        exchangeHistory
+    };
 };
