@@ -34,95 +34,132 @@ export const performIteration = (
     generateBinaryVector,
     strategy
 ) => {
+    if (strategy === 'bestFit') {
+        return performIterationBestFit(
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            capacity,
+            generateBinaryVector
+        );
+    }
+    if (strategy === 'firstFit') {
+        return performIterationFirstFit(
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            capacity,
+            generateBinaryVector
+        );
+    }
+};
 
+const performIterationBestFit = (
+    currentBackpack,
+    currentNotBackpack,
+    currentWeight,
+    currentPrice,
+    capacity,
+    generateBinaryVector
+) => {
     let updatedBackpack = [...currentBackpack];
     let updatedNotBackpack = [...currentNotBackpack];
-    let updatedWeight = currentWeight;
-    let updatedPrice = currentPrice;
-    let exchange = null;
+    let bestFitCandidate = null;
+    let bestFitImprovement = -Infinity;
 
-    if (strategy === 'bestFit') {
-        let bestFitCandidate = null;
-        let bestFitImprovement = -Infinity;
+    for (let i = 0; i < updatedBackpack.length; i++) {
+        const backpackItem = updatedBackpack[i];
 
-        for (let i = 0; i < updatedBackpack.length; i++) {
-            const backpackItem = updatedBackpack[i];
+        for (const candidate of updatedNotBackpack) {
+            const potentialWeight = currentWeight - backpackItem.weight + candidate.weight;
+            const potentialPrice = currentPrice - backpackItem.price + candidate.price;
 
-            for (const candidate of updatedNotBackpack) {
+            if (potentialWeight <= capacity && potentialPrice > currentPrice) {
+                const priceImprovement = potentialPrice - currentPrice;
 
-                const potentialWeight = updatedWeight - backpackItem.weight + candidate.weight;
-                const potentialPrice = updatedPrice - backpackItem.price + candidate.price;
-
-                if (potentialWeight <= capacity && potentialPrice > updatedPrice) {
-                    const priceImprovement = potentialPrice - updatedPrice;
-
-                    if (priceImprovement > bestFitImprovement) {
-                        bestFitImprovement = priceImprovement;
-                        bestFitCandidate = {
-                            removed: backpackItem,
-                            added: candidate,
-                            newWeight: potentialWeight,
-                            newPrice: potentialPrice,
-                        };
-                    }
+                if (priceImprovement > bestFitImprovement) {
+                    bestFitImprovement = priceImprovement;
+                    bestFitCandidate = {
+                        removed: backpackItem,
+                        added: candidate,
+                        newWeight: potentialWeight,
+                        newPrice: potentialPrice,
+                    };
                 }
             }
         }
-
-        if (bestFitCandidate) {
-
-            updatedBackpack = updatedBackpack.map(item =>
-                item === bestFitCandidate.removed ? bestFitCandidate.added : item
-            );
-            updatedNotBackpack = updatedNotBackpack.filter(item => item !== bestFitCandidate.added);
-            updatedNotBackpack.push(bestFitCandidate.removed);
-
-            updatedWeight = bestFitCandidate.newWeight;
-            updatedPrice = bestFitCandidate.newPrice;
-
-            const binaryVector = generateBinaryVector(updatedBackpack);
-            exchange = {
-                ...bestFitCandidate,
-                binaryVector,
-            };
-        }
     }
 
-    if (strategy === 'firstFit') {
-        for (let i = 0; i < updatedBackpack.length; i++) {
-            const backpackItem = updatedBackpack[i];
+    if (bestFitCandidate) {
+        updatedBackpack = updatedBackpack.map(item =>
+            item === bestFitCandidate.removed ? bestFitCandidate.added : item
+        );
+        updatedNotBackpack = updatedNotBackpack.filter(item => item !== bestFitCandidate.added);
+        updatedNotBackpack.push(bestFitCandidate.removed);
 
-            for (const candidate of updatedNotBackpack) {
-                const potentialWeight = updatedWeight - backpackItem.weight + candidate.weight;
-                const potentialPrice = updatedPrice - backpackItem.price + candidate.price;
+        const binaryVector = generateBinaryVector(updatedBackpack);
+        return {
+            updatedBackpack,
+            updatedNotBackpack,
+            updatedWeight: bestFitCandidate.newWeight,
+            updatedPrice: bestFitCandidate.newPrice,
+            exchange: {
+                ...bestFitCandidate,
+                binaryVector,
+            },
+        };
+    }
 
-                if (potentialWeight <= capacity && potentialPrice > updatedPrice) {
-                    updatedBackpack[i] = candidate;
+    return {
+        updatedBackpack,
+        updatedNotBackpack,
+        updatedWeight: currentWeight,
+        updatedPrice: currentPrice,
+        exchange: null,
+    };
+};
 
-                    updatedNotBackpack = updatedNotBackpack.filter(item => item !== candidate);
-                    updatedNotBackpack.push(backpackItem);
+const performIterationFirstFit = (
+    currentBackpack,
+    currentNotBackpack,
+    currentWeight,
+    currentPrice,
+    capacity,
+    generateBinaryVector
+) => {
+    let updatedBackpack = [...currentBackpack];
+    let updatedNotBackpack = [...currentNotBackpack];
 
-                    updatedWeight = potentialWeight;
-                    updatedPrice = potentialPrice;
+    for (let i = 0; i < updatedBackpack.length; i++) {
+        const backpackItem = updatedBackpack[i];
 
-                    const binaryVector = generateBinaryVector(updatedBackpack);
+        for (const candidate of updatedNotBackpack) {
+            const potentialWeight = currentWeight - backpackItem.weight + candidate.weight;
+            const potentialPrice = currentPrice - backpackItem.price + candidate.price;
 
-                    exchange = {
+            if (potentialWeight <= capacity && potentialPrice > currentPrice) {
+                updatedBackpack[i] = candidate;
+
+                updatedNotBackpack = updatedNotBackpack.filter(item => item !== candidate);
+                updatedNotBackpack.push(backpackItem);
+
+                const binaryVector = generateBinaryVector(updatedBackpack);
+
+                return {
+                    updatedBackpack,
+                    updatedNotBackpack,
+                    updatedWeight: potentialWeight,
+                    updatedPrice: potentialPrice,
+                    exchange: {
                         removed: backpackItem,
                         added: candidate,
                         binaryVector,
-                        newWeight: updatedWeight,
-                        newPrice: updatedPrice,
-                    };
-
-                    return {
-                        updatedBackpack,
-                        updatedNotBackpack,
-                        updatedWeight,
-                        updatedPrice,
-                        exchange
-                    };
-                }
+                        newWeight: potentialWeight,
+                        newPrice: potentialPrice,
+                    },
+                };
             }
         }
     }
@@ -130,9 +167,9 @@ export const performIteration = (
     return {
         updatedBackpack,
         updatedNotBackpack,
-        updatedWeight,
-        updatedPrice,
-        exchange
+        updatedWeight: currentWeight,
+        updatedPrice: currentPrice,
+        exchange: null,
     };
 };
 
@@ -145,98 +182,95 @@ export const performRun = (
     generateBinaryVector,
     strategy
 ) => {
+    if (strategy === 'bestFit') {
+        return performRunBestFit(
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            capacity,
+            generateBinaryVector
+        );
+    }
+    if (strategy === 'firstFit') {
+        return performRunFirstFit(
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            capacity,
+            generateBinaryVector
+        );
+    }
+};
 
+const performRunBestFit = (
+    currentBackpack,
+    currentNotBackpack,
+    currentWeight,
+    currentPrice,
+    capacity,
+    generateBinaryVector
+) => performRunGeneric(
+    performIterationBestFit,
+    currentBackpack,
+    currentNotBackpack,
+    currentWeight,
+    currentPrice,
+    capacity,
+    generateBinaryVector
+);
+
+const performRunFirstFit = (
+    currentBackpack,
+    currentNotBackpack,
+    currentWeight,
+    currentPrice,
+    capacity,
+    generateBinaryVector
+) => performRunGeneric(
+    performIterationFirstFit,
+    currentBackpack,
+    currentNotBackpack,
+    currentWeight,
+    currentPrice,
+    capacity,
+    generateBinaryVector
+);
+
+const performRunGeneric = (
+    iterationFunction,
+    currentBackpack,
+    currentNotBackpack,
+    currentWeight,
+    currentPrice,
+    capacity,
+    generateBinaryVector
+) => {
+    const exchangeHistory = [];
     let updatedBackpack = [...currentBackpack];
     let updatedNotBackpack = [...currentNotBackpack];
     let updatedWeight = currentWeight;
     let updatedPrice = currentPrice;
-    const exchangeHistory = [];
 
-    let foundBetter = true;
+    while (true) {
+        const result = iterationFunction(
+            updatedBackpack,
+            updatedNotBackpack,
+            updatedWeight,
+            updatedPrice,
+            capacity,
+            generateBinaryVector
+        );
 
-    while (foundBetter) {
-        foundBetter = false;
-
-        if (strategy === 'bestFit') {
-            let bestFitCandidate = null;
-            let bestFitImprovement = -Infinity;
-
-            for (let i = 0; i < updatedBackpack.length; i++) {
-                const backpackItem = updatedBackpack[i];
-
-                for (const candidate of updatedNotBackpack) {
-                    const potentialWeight = updatedWeight - backpackItem.weight + candidate.weight;
-                    const potentialPrice = updatedPrice - backpackItem.price + candidate.price;
-
-                    if (potentialWeight <= capacity && potentialPrice > updatedPrice) {
-                        const priceImprovement = potentialPrice - updatedPrice;
-
-                        if (priceImprovement > bestFitImprovement) {
-                            bestFitImprovement = priceImprovement;
-                            bestFitCandidate = {
-                                removed: backpackItem,
-                                added: candidate,
-                                newWeight: potentialWeight,
-                                newPrice: potentialPrice,
-                            };
-                        }
-                    }
-                }
-            }
-
-            if (bestFitCandidate) {
-                updatedBackpack = updatedBackpack.map(item =>
-                    item === bestFitCandidate.removed ? bestFitCandidate.added : item
-                );
-                updatedNotBackpack = updatedNotBackpack.filter(item => item !== bestFitCandidate.added);
-                updatedNotBackpack.push(bestFitCandidate.removed);
-
-                updatedWeight = bestFitCandidate.newWeight;
-                updatedPrice = bestFitCandidate.newPrice;
-
-                const binaryVector = generateBinaryVector(updatedBackpack);
-                exchangeHistory.push({
-                    ...bestFitCandidate,
-                    binaryVector,
-                });
-
-                foundBetter = true;
-            }
-        }
-
-        if (strategy === 'firstFit') {
-            for (let i = 0; i < updatedBackpack.length; i++) {
-                const backpackItem = updatedBackpack[i];
-
-                for (const candidate of updatedNotBackpack) {
-                    const potentialWeight = updatedWeight - backpackItem.weight + candidate.weight;
-                    const potentialPrice = updatedPrice - backpackItem.price + candidate.price;
-
-                    if (potentialWeight <= capacity && potentialPrice > updatedPrice) {
-                        updatedBackpack[i] = candidate;
-
-                        updatedNotBackpack = updatedNotBackpack.filter(item => item !== candidate);
-                        updatedNotBackpack.push(backpackItem);
-
-                        updatedWeight = potentialWeight;
-                        updatedPrice = potentialPrice;
-
-                        const binaryVector = generateBinaryVector(updatedBackpack);
-
-                        exchangeHistory.push({
-                            removed: backpackItem,
-                            added: candidate,
-                            binaryVector,
-                            newWeight: updatedWeight,
-                            newPrice: updatedPrice,
-                        });
-
-                        foundBetter = true;
-                        break;
-                    }
-                }
-                if (foundBetter) break;
-            }
+        if (result.exchange) {
+            exchangeHistory.push(result.exchange);
+            updatedBackpack = result.updatedBackpack;
+            updatedNotBackpack = result.updatedNotBackpack;
+            updatedWeight = result.updatedWeight;
+            updatedPrice = result.updatedPrice;
+        } else {
+            break;
         }
     }
 
@@ -245,6 +279,6 @@ export const performRun = (
         updatedNotBackpack,
         updatedWeight,
         updatedPrice,
-        exchangeHistory
+        exchangeHistory,
     };
 };
