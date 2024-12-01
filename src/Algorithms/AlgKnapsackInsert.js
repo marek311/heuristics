@@ -37,8 +37,8 @@ export const performIteration = (
 
     return {
         currentIndex: currentIndex + 1,
-        currentWeight,
-        currentPrice,
+        currentWeight: currentWeight,
+        currentPrice: currentPrice,
         selectedItems: newSelectedItems,
         itemStatus: newItemStatus,
         binarySolution: newBinarySolution,
@@ -46,7 +46,17 @@ export const performIteration = (
     };
 };
 
-export const performRun = (items, currentIndex, currentWeight, currentPrice, selectedItems, itemStatus, binarySolution, capacity) => {
+export const performRun = (
+    items,
+    currentIndex,
+    currentWeight,
+    currentPrice,
+    selectedItems,
+    itemStatus,
+    binarySolution,
+    capacity
+) => {
+
     let newCurrentWeight = currentWeight;
     let newCurrentPrice = currentPrice;
     const newSelectedItems = [...selectedItems];
