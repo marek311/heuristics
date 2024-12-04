@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function KnapsackFlowChart({ items, currentIndex, currentBackpackWeight, backpackCapacity }) {
+function KnapsackInsertFlowChart({ items, currentIndex, currentBackpackWeight, backpackCapacity }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -138,4 +138,4 @@ useEffect(() => {
     return <svg ref={svgRef}></svg>;
 }
 
-export default KnapsackFlowChart;
+export default KnapsackInsertFlowChart;
