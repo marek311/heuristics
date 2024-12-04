@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackData from "../InputDisplay/KnapsackData";
+import ChartKnapsackExchange from '../Charts/ChartKnapsackExchange.js';
 import {
     performInitializeSolution,
     performIteration,
@@ -204,9 +205,12 @@ function SimulationKnapsackExchange() {
                             </ul>
                         </div>
                     </div>
-                    <div className="flex-1 p-4 bg-white rounded-lg">
-                        <h2 className="font-semibold">Flowchart</h2>
-                        <p className="mt-2 text-gray-600">TO_DO!</p>
+                    <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
+                        <ChartKnapsackExchange
+                            currentBackpackPrice={currentPrice}
+                            currentBackpackWeight={currentWeight}
+                            backpackCapacity={capacity}
+                        />
                     </div>
                 </div>
             </div>
