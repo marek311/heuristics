@@ -18,8 +18,9 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             { id: 'inBackpack', text: 'Predmet v batohu', x: 200, y: 50, shape: 'rect', color: '#1e88e5' },
             { id: 'notInBackpack', text: 'Predmet nie v batohu', x: 200, y: 125, shape: 'rect', color: '#1e88e5' },
             { id: 'admissible', text: 'Pripustná výmena?', x: 200, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'improving', text: 'Zlepsujúca výmena?', x: 100, y: 300, shape: 'diamond', color: '#ffa533' },
-            { id: 'exchange', text: 'Vykonaj výmenu', x: 100, y: 400, shape: 'oval', color: '#4caf50' },
+            { id: 'improving', text: 'Zlepsujúca výmena?', x: 100, y: 275, shape: 'diamond', color: '#ffa533' },
+            { id: 'exchange', text: 'Vykonaj výmenu', x: 100, y: 375, shape: 'oval', color: '#4caf50' },
+            { id: 'solution', text: 'Nové riešenie', x: 100, y: 450, shape: 'rect', color: '#1e88e5' },
             { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 450, shape: 'oval', color: '#4caf50' },
         ];
 
@@ -30,7 +31,7 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             { source: 'admissible', target: 'next', label: 'Nie' },
             { source: 'improving', target: 'exchange', label: 'Ano' },
             { source: 'improving', target: 'next', label: 'Nie' },
-            { source: 'exchange', target: 'next' },
+            { source: 'exchange', target: 'solution' },
         ];
 
         svg.append('defs').append('marker')
@@ -110,12 +111,11 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
         backpackInfoGroup.selectAll('text')
             .data([
                 `Aktuálna váha: ${currentBackpackWeight}`,
-                `Cena: ${currentBackpackPrice}`,
                 `Voľná kapacita: ${backpackCapacity - currentBackpackWeight}`,
             ])
             .join('text')
             .attr('x', 270)
-            .attr('y', (_, i) => 40 + i * 20)
+            .attr('y', (_, i) => 195 + i * 20)
             .attr('fill', '#fff')
             .attr('text-anchor', 'start')
             .text(d => d);
