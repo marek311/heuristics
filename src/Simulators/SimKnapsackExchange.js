@@ -210,6 +210,7 @@ function SimulationKnapsackExchange() {
                             currentBackpackPrice={currentPrice}
                             currentBackpackWeight={currentWeight}
                             backpackCapacity={capacity}
+                            strategy={strategy}
                         />
                     </div>
                 </div>

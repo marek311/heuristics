@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice, backpackCapacity }) {
+function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice, backpackCapacity, strategy }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -14,25 +14,52 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             .style('background', '#818181')
             .style('overflow', 'visible');
 
-        const nodes = [
-            { id: 'inBackpack', text: 'Predmet v batohu', x: 200, y: 50, shape: 'rect', color: '#1e88e5' },
-            { id: 'notInBackpack', text: 'Predmet nie v batohu', x: 200, y: 125, shape: 'rect', color: '#1e88e5' },
-            { id: 'admissible', text: 'Pripustná výmena?', x: 200, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'improving', text: 'Zlepsujúca výmena?', x: 100, y: 275, shape: 'diamond', color: '#ffa533' },
-            { id: 'exchange', text: 'Vykonaj výmenu', x: 100, y: 375, shape: 'oval', color: '#4caf50' },
-            { id: 'solution', text: 'Nové riešenie', x: 100, y: 450, shape: 'rect', color: '#1e88e5' },
-            { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 450, shape: 'oval', color: '#4caf50' },
+        svg.selectAll('*').remove();
+
+        const commonNodes = [
+            { id: 'inBackpack', text: 'Predmet v batohu', x: 200, y: 40, shape: 'rect', color: '#1e88e5' },
+            { id: 'notInBackpack', text: 'Predmet nie v batohu', x: 200, y: 115, shape: 'rect', color: '#1e88e5' },
+            { id: 'admissible', text: 'Pripustná výmena?', x: 200, y: 190, shape: 'diamond', color: '#ffa533' },
+            { id: 'improving', text: 'Zlepsujúca výmena?', x: 100, y: 250, shape: 'diamond', color: '#ffa533' },
+            { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 400, shape: 'oval', color: '#4caf50' },
         ];
 
-        const links = [
+        const commonLinks = [
             { source: 'inBackpack', target: 'notInBackpack' },
             { source: 'notInBackpack', target: 'admissible' },
             { source: 'admissible', target: 'improving', label: 'Ano' },
             { source: 'admissible', target: 'next', label: 'Nie' },
-            { source: 'improving', target: 'exchange', label: 'Ano' },
             { source: 'improving', target: 'next', label: 'Nie' },
-            { source: 'exchange', target: 'solution' },
         ];
+
+        let strategyNodes = [];
+        let strategyLinks = [];
+
+        if (strategy === 'firstFit') {
+            strategyNodes = [
+                { id: 'exchange', text: 'Vykonaj výmenu', x: 100, y: 375, shape: 'oval', color: '#4caf50' },
+                { id: 'solution', text: 'Nové riešenie', x: 100, y: 450, shape: 'rect', color: '#1e88e5' },
+            ];
+            strategyLinks = [
+                { source: 'improving', target: 'exchange', label: 'Ano' },
+                { source: 'exchange', target: 'solution' },
+            ];
+        }
+
+        if (strategy === 'bestFit') {
+            strategyNodes = [
+                { id: 'bestQuestion', text: 'Najlepsia vymena?', x: 100, y: 350, shape: 'diamond', color: '#ffa533' },
+                { id: 'solution', text: 'Nové riešenie', x: 200, y: 465, shape: 'rect', color: '#1e88e5' },
+            ];
+            strategyLinks = [
+                { source: 'improving', target: 'bestQuestion', label: 'Ano' },
+                { source: 'bestQuestion', target: 'next', label: 'Ano - zapis vymenu'},
+                { source: 'next', target: 'solution', label: 'Vykonaj najlepsiu vymenu' },
+            ];
+        }
+
+        const nodes = [...commonNodes, ...strategyNodes];
+        const links = [...commonLinks, ...strategyLinks];
 
         svg.append('defs').append('marker')
             .attr('id', 'arrow')
@@ -54,7 +81,6 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
 
         nodeGroups.each(function (d) {
             const group = d3.select(this);
-
             if (d.shape === 'oval') {
                 group.append('ellipse')
                     .attr('rx', 70)
@@ -90,25 +116,34 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             .attr('y2', d => nodes.find(n => n.id === d.target).y - 20)
             .attr('stroke', '#fff')
             .attr('stroke-width', 2)
-            .attr('marker-end', 'url(#arrow)');
+            .attr('marker-end', 'url(#arrow)')
+            .attr('transform', (d) => `translate(0, ${d.offset || 0})`);
 
         svg.selectAll('text.link-label')
             .data(links)
             .join('text')
             .attr('class', 'link-label')
-            .attr('x', d => (nodes.find(n => n.id === d.source).x + nodes.find(n => n.id === d.target).x) / 2)
-            .attr('y', d => (nodes.find(n => n.id === d.source).y + nodes.find(n => n.id === d.target).y) / 2 - 10)
+            .attr('x', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                if (!sourceNode || !targetNode) return 0;
+                const ratio = 0.5;
+                return sourceNode.x + (targetNode.x - sourceNode.x) * ratio;
+            })
+            .attr('y', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                if (!sourceNode || !targetNode) return 0;
+                const ratio = 0.5;
+                return sourceNode.y + (targetNode.y - sourceNode.y) * ratio;
+            })
             .attr('fill', '#fff')
+            .attr('text-anchor', 'middle')
+            .attr('dy', '-5')
             .text(d => d.label || '');
-    }, []);
 
-    useEffect(() => {
-        const svg = d3.select(svgRef.current);
-
-        svg.selectAll('g.info-backpack').remove();
-
-        const backpackInfoGroup = svg.append('g').attr('class', 'info-backpack');
-        backpackInfoGroup.selectAll('text')
+        svg.append('g').attr('class', 'info-backpack')
+            .selectAll('text')
             .data([
                 `Aktuálna váha: ${currentBackpackWeight}`,
                 `Voľná kapacita: ${backpackCapacity - currentBackpackWeight}`,
@@ -120,7 +155,7 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             .attr('text-anchor', 'start')
             .text(d => d);
 
-    }, [currentBackpackWeight, currentBackpackPrice, backpackCapacity]);
+    }, [strategy, currentBackpackWeight, currentBackpackPrice, backpackCapacity]);
 
     return <svg ref={svgRef}></svg>;
 }
