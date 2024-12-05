@@ -21,7 +21,7 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             { id: 'notInBackpack', text: 'Predmet nie v batohu', x: 200, y: 115, shape: 'rect', color: '#1e88e5' },
             { id: 'admissible', text: 'Pripustná výmena?', x: 200, y: 190, shape: 'diamond', color: '#ffa533' },
             { id: 'improving', text: 'Zlepsujúca výmena?', x: 100, y: 250, shape: 'diamond', color: '#ffa533' },
-            { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 400, shape: 'oval', color: '#4caf50' },
+            { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 375, shape: 'oval', color: '#4caf50' },
         ];
 
         const commonLinks = [
@@ -53,8 +53,8 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             ];
             strategyLinks = [
                 { source: 'improving', target: 'bestQuestion', label: 'Ano' },
-                { source: 'bestQuestion', target: 'next', label: 'Ano - zapis vymenu'},
-                { source: 'next', target: 'solution', label: 'Vykonaj najlepsiu vymenu' },
+                { source: 'bestQuestion', target: 'next'},
+                { source: 'next', target: 'solution', label: 'Najlepšia výmena' },
             ];
         }
 
