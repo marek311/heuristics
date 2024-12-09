@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import ChartKnapsackInsert from '../Charts/ChartKnapsackInsert.js';
-import KnapsackData from '../InputDisplay/KnapsackData';
+import SolKnapsackInsert from './SolKnapsackInsert';
+import ChartKnapsackInsert from '../../Charts/ChartKnapsackInsert.js';
+import KnapsackData from '../../InputDisplay/KnapsackData';
 import {
     performIteration,
     performRun
-} from "../Algorithms/AlgKnapsackInsert";
+} from "../../Algorithms/AlgKnapsackInsert";
 
 function SimulationKnapsackInsert() {
     const location = useLocation();
@@ -92,15 +93,15 @@ function SimulationKnapsackInsert() {
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
                 <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                    className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
                     onClick={handleStep}
-                    disabled={currentIndex >= items.length - 1}>
+                    disabled={currentIndex >= items.length}>
                     Krok
                 </button>
                 <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length - 1 ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                    className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
                     onClick={handleRun}
-                    disabled={currentIndex >= items.length - 1}>
+                    disabled={currentIndex >= items.length}>
                     Spusti
                 </button>
                 <button
@@ -112,47 +113,24 @@ function SimulationKnapsackInsert() {
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <KnapsackData
                     items={items}
-                    currentIndex={currentIndex - 1}
+                    currentIndex={currentIndex}
                     itemStatus={itemStatus}
                     capacity={capacity}
                     showStatus={true}
                     highlightCurrent={true}
                     simpleMode={false}
                 />
-                <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-                    <div className="flex justify-between items-center mb-4 space-x-4">
-                        <h2><strong>Predmety vybrané do batohu</strong></h2>
-                        <p>Aktuálna váha: {currentWeight}</p>
-                        <p>Aktuálna cena: {currentPrice}</p>
-                        <p>Iterácia: {currentIndex}</p>
-                    </div>
-                    <ul className="mt-2 space-y-2">
-                        <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
-                            <div>Index</div>
-                            <div>Váha</div>
-                            <div>Cena</div>
-                        </li>
-                        {selectedItems.map((item, index) => (
-                            <li key={index} className="flex justify-between items-center p-2 bg-gray-200 rounded">
-                                <div>{item.originalIndex}</div>
-                                <div>{item.weight}</div>
-                                <div>{item.price}</div>
-                            </li>
-                        ))}
-                    </ul>
-                    {currentIndex >= items.length - 1 && (
-                        <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
-                    )}
-                    <div className="flex-1 p-4 bg-gray-500 rounded-lg mt-4">
-                        <h2><strong>Binárny vektor riešenia</strong></h2>
-                        <p className="mt-2 bg-gray-200 p-2 rounded text-center">
-                            {binarySolution.join("; ")}
-                        </p>
-                    </div>
-                </div>
+                <SolKnapsackInsert
+                    selectedItems={selectedItems}
+                    currentWeight={currentWeight}
+                    currentPrice={currentPrice}
+                    currentIndex={currentIndex}
+                    items={items}
+                    binarySolution={binarySolution}
+                />
                 <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
                     <ChartKnapsackInsert items={items}
-                                    currentIndex={currentIndex - 1}
+                                    currentIndex={currentIndex}
                                     currentBackpackWeight={currentWeight}
                                     backpackCapacity={capacity}
                     />
