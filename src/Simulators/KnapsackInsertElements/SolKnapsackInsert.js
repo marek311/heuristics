@@ -30,7 +30,7 @@ function SolKnapsackInsert({
                     </li>
                 ))}
             </ul>
-            {currentIndex >= items.length - 1 && (
+            {currentIndex >= items.length && (
                 <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
             )}
             <div className="flex-1 p-4 bg-gray-500 rounded-lg mt-4">
