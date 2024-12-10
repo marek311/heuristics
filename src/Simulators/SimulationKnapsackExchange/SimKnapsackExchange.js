@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SolKnapsackExchange from './SolKnapsackExchange';
 import KnapsackData from "../../InputDisplay/KnapsackData";
-import ChartKnapsackExchange from '../../Charts/ChartKnapsackExchange.js';
+import ChartKnapsackExchange from './FlowchartKnapsackExchange.js';
 import {
     performInitializeSolution,
     performIteration,
     performRun
-} from "../../Algorithms/AlgKnapsackExchange";
+} from "./AlgsKnapsackExchange";
 
 function SimulationKnapsackExchange() {
 

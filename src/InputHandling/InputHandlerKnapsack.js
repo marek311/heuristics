@@ -1,9 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import KnapsackDefaultData from '../DefaultData/KnapsackDefaultData';
+import KnapsackDefaultData from './KnapsackDefaultData';
 
-function InputHandlerKnapsackProblem( {mode} ) {
+function InputHandlerKnapsack({mode} ) {
 
     const defaultData = KnapsackDefaultData();
 
@@ -100,4 +100,4 @@ function InputHandlerKnapsackProblem( {mode} ) {
     );
 }
 
-export default InputHandlerKnapsackProblem;
+export default InputHandlerKnapsack;

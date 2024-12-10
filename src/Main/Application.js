@@ -1,17 +1,17 @@
 import { Routes, Route } from 'react-router-dom';
-import Selector from '../SelectMode/Selector';
-import InputHandler from '../InputHandling/InputHandler';
+import Selector from './Selector';
+import InputHandlerGeneral from '../InputHandling/InputHandlerGeneral';
 import KnapsackPage from "../InputDisplay/KnapsackPage";
 import TSP from '../InputDisplay/TSP';
-import SimKnapsackInsert from '../Simulators/KnapsackInsertElements/SimKnapsackInsert'
-import SimKnapsackExchange from '../Simulators/KnapsackExchnageElements/SimKnapsackExchange'
+import SimKnapsackInsert from '../Simulators/SimulationKnapsackInsert/SimKnapsackInsert'
+import SimKnapsackExchange from '../Simulators/SimulationKnapsackExchange/SimKnapsackExchange'
 
 function Application() {
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
             <Routes>
                 <Route path="/" element={<Selector />} />
-                <Route path="/handleInputs" element={<InputHandler />} />
+                <Route path="/handleInputs" element={<InputHandlerGeneral />} />
 
                 <Route path="/knapsack-insert-simulation" element={<KnapsackPage />} />
                 <Route path="/knapsack-exchange-first-simulation" element={<KnapsackPage />} />

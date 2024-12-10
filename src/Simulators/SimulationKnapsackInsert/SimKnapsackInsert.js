@@ -2,12 +2,12 @@ import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SolKnapsackInsert from './SolKnapsackInsert';
-import ChartKnapsackInsert from '../../Charts/ChartKnapsackInsert.js';
+import ChartKnapsackInsert from './FlowchartKnapsackInsert.js';
 import KnapsackData from '../../InputDisplay/KnapsackData';
 import {
     performIteration,
     performRun
-} from "../../Algorithms/AlgKnapsackInsert";
+} from "./AlgsKnapsackInsert";
 
 function SimulationKnapsackInsert() {
     const location = useLocation();
