@@ -1,12 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import KnapsackDefaultData from '../DefaultData/KnapsackDefaultData';
 
 function InputHandlerKnapsackProblem( {mode} ) {
 
-    const [weights, setWeights] = useState('');
-    const [prices, setPrices] = useState('');
-    const [capacity, setCapacity] = useState('');
+    const defaultData = KnapsackDefaultData();
+
+    const [weights, setWeights] = useState(defaultData.weights);
+    const [prices, setPrices] = useState(defaultData.prices);
+    const [capacity, setCapacity] = useState(defaultData.capacity);
 
     const navigate = useNavigate();
     const handleGoBack = () => {
