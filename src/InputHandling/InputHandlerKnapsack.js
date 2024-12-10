@@ -1,11 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
-import KnapsackDefaultData from './KnapsackDefaultData';
+import DefaultDataKnapsack from './DefaultDataKnapsack';
 
 function InputHandlerKnapsack({mode} ) {
 
-    const defaultData = KnapsackDefaultData();
+    const defaultData = DefaultDataKnapsack();
 
     const [weights, setWeights] = useState(defaultData.weights);
     const [prices, setPrices] = useState(defaultData.prices);
