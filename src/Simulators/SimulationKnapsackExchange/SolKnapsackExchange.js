@@ -1,38 +1,70 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import * as d3 from 'd3';
 
-function SolKnapsackInsert({exchangeHistory}) {
+function SolKnapsackInsert({ exchangeHistory }) {
+    const graphRef = useRef();
+
+    useEffect(() => {
+        const width = 800;
+        const paddingLeft = 10;
+        const rectSize = 18;
+        const rectGap = 2;
+        const rowHeight = 60;
+
+        const svg = d3.select(graphRef.current)
+            .attr("width", width)
+            .attr("height", exchangeHistory.length * rowHeight + 50);
+
+        svg.selectAll("*").remove();
+
+        const renderExchange = (exchange, index) => {
+            const yOffset = index * rowHeight + 20;
+
+            const vectorGroup = svg.append("g")
+                .attr("transform", `translate(${paddingLeft}, ${yOffset})`);
+
+            vectorGroup.selectAll("rect")
+                .data(exchange.binaryVector)
+                .enter()
+                .append("rect")
+                .attr("x", (d, i) => i * (rectSize + rectGap))
+                .attr("y", 0)
+                .attr("width", rectSize)
+                .attr("height", rectSize)
+                .attr("fill", d => (d ? "green" : "red"))
+                .attr("stroke", "black")
+                .attr("stroke-width", 1);
+
+            vectorGroup.selectAll("text")
+                .data(exchange.binaryVector)
+                .enter()
+                .append("text")
+                .attr("x", (d, i) => i * (rectSize + rectGap) + rectSize / 2)
+                .attr("y", rectSize + 15)
+                .attr("text-anchor", "middle")
+                .attr("font-size", 10)
+                .text((d, i) => i);
+
+            svg.append("text")
+                .attr("x", paddingLeft + exchange.binaryVector.length * (rectSize + rectGap) + 10)
+                .attr("y", yOffset + 15)
+                .attr("font-size", 14)
+                .text(`Weight: ${exchange.newWeight}`);
+
+            svg.append("text")
+                .attr("x", paddingLeft + exchange.binaryVector.length * (rectSize + rectGap) + 10)
+                .attr("y", yOffset + 35)
+                .attr("font-size", 14)
+                .text(`Price: ${exchange.newPrice}`);
+        };
+
+        exchangeHistory.forEach(renderExchange);
+    }, [exchangeHistory]);
+
     return (
         <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-            <h2 className="mb-4 font-semibold"><strong>Vykonané výmeny</strong></h2>
-            <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-                <ul className="space-y-4">
-                    {exchangeHistory.map((exchange, index) => (
-                        <li key={index} className="p-4 bg-gray-100 rounded">
-                            <p>Iterácia: {index}</p>
-                            <p>Vektor: {exchange.binaryVector.join('; ')}</p>
-                            {exchange.removed && exchange.added ? (
-                                <>
-                                    <p>
-                                        Odstránené: {exchange.removed.originalIndex},
-                                        Váha: {exchange.removed.weight},
-                                        Cena: {exchange.removed.price}
-                                    </p>
-                                    <p>
-                                        Pridané: {exchange.added.originalIndex},
-                                        Váha: {exchange.added.weight},
-                                        Cena: {exchange.added.price}
-                                    </p>
-                                </>
-                            ) : (
-                                <p>Počiatočné riešenie</p>
-                            )}
-                            <p>
-                                Váha: {exchange.newWeight}, Cena: {exchange.newPrice}
-                            </p>
-                        </li>
-                    ))}
-                </ul>
-            </div>
+            <h2 className="mb-4 font-semibold">Vykonané výmeny</h2>
+            <svg ref={graphRef} className="w-full"></svg>
         </div>
     );
 }
