@@ -132,7 +132,7 @@ useEffect(() => {
             .attr('text-anchor', 'start')
             .text(d => d);
 
-    }, [currentIndex, currentBackpackWeight, items]);
+    }, [currentIndex, currentBackpackWeight, items, backpackCapacity]);
 
     return (
         <div className="flex-1 p-1 bg-white rounded-lg">
