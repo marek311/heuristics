@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function SolKnapsackInsert({ exchangeHistory }) {
+function SolKnapsackExchange({ exchangeHistory }) {
     const graphRef = useRef();
 
     useEffect(() => {
@@ -69,4 +69,4 @@ function SolKnapsackInsert({ exchangeHistory }) {
     );
 }
 
-export default SolKnapsackInsert;
+export default SolKnapsackExchange;
