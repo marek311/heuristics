@@ -133,6 +133,7 @@ function SimulationKnapsackExchange() {
 
     useEffect(() => {
         handleInitializeSolution();
+        // eslint-disable-next-line
     }, []);
 
     return (
