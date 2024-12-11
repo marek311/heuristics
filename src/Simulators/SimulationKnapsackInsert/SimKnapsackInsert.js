@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SolKnapsackInsert from './SolKnapsackInsert';
+import ButtonPanel from '../SimulationGeneral/ButtonsPanel';
 import ChartKnapsackInsert from './FlowchartKnapsackInsert.js';
 import KnapsackData from '../../InputDisplay/KnapsackData';
 import {
@@ -34,7 +35,7 @@ function SimulationKnapsackInsert() {
     const [itemStatus, setItemStatus] = useState(new Array(items.length).fill(null));
     const [binarySolution, setBinarySolution] = useState(new Array(weights.length).fill(0));
 
-    const handleStep = () => {
+    const handleIteration = () => {
         const result = performIteration(
             items,
             currentIndex,
@@ -92,25 +93,12 @@ function SimulationKnapsackInsert() {
                 <h2 className="text-lg font-semibold">
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
-                <div className="space-x-2">
-                    <button
-                        className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
-                        onClick={handleStep}
-                        disabled={currentIndex >= items.length}>
-                        Krok
-                    </button>
-                    <button
-                        className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
-                        onClick={handleRun}
-                        disabled={currentIndex >= items.length}>
-                        Spusti
-                    </button>
-                    <button
-                        className="px-4 py-2 rounded bg-red-500 hover:bg-red-600"
-                        onClick={handleReset}>
-                        Reset
-                    </button>
-                </div>
+                <ButtonPanel
+                    handleStep={handleIteration}
+                    handleRun={handleRun}
+                    handleReset={handleReset}
+                    isDisabled={currentIndex >= items.length}
+                />
             </div>
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <KnapsackData

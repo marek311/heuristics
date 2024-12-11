@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SolKnapsackExchange from './SolKnapsackExchange';
+import ButtonPanel from '../SimulationGeneral/ButtonsPanel';
 import KnapsackData from "../../InputDisplay/KnapsackData";
 import ChartKnapsackExchange from './FlowchartKnapsackExchange.js';
 import {
@@ -138,55 +139,43 @@ function SimulationKnapsackExchange() {
     }, []);
 
     return (
-            <div className="flex flex-col w-full h-full text-gray-800 p-6">
-                <div className="flex justify-between items-center p-4 bg-white rounded-lg mb-4">
-                    <button onClick={handleGoBack} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                        Späť
-                    </button>
-                    <h2 className="text-lg font-semibold">
-                        Simulácia úlohy o batohu výmennou heuristikou
-                        - {strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}!
-                    </h2>
-                    <div className="space-x-2">
-                        <button
-                            onClick={handleIteration}
-                            className={`px-4 py-2 rounded ${isCompleted ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
-                            disabled={isCompleted}>
-                            Krok
-                        </button>
-                        <button
-                            onClick={handleRun}
-                            className={`px-4 py-2 rounded ${isCompleted ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
-                            disabled={isCompleted}>
-                            Spusti
-                        </button>
-                        <button onClick={handleReset}
-                                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
-                            Reset
-                        </button>
-                    </div>
-                </div>
-                <div className="flex flex-col lg:flex-row w-full h-full">
-                    <KnapsackData
-                        items={items}
-                        capacity={capacity}
-                        simpleMode={true}
-                        showStatus={false}
-                        highlightCurrent={false}
+        <div className="flex flex-col w-full h-full text-gray-800 p-6">
+            <div className="flex justify-between items-center p-4 bg-white rounded-lg mb-4">
+                <button onClick={handleGoBack} className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600">
+                    Späť
+                </button>
+                <h2 className="text-lg font-semibold">
+                    Simulácia úlohy o batohu výmennou heuristikou
+                    - {strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}!
+                </h2>
+                <ButtonPanel
+                    handleStep={handleIteration}
+                    handleRun={handleRun}
+                    handleReset={handleReset}
+                    isDisabled={isCompleted}
+                />
+            </div>
+            <div className="flex flex-col lg:flex-row w-full h-full">
+                <KnapsackData
+                    items={items}
+                    capacity={capacity}
+                    simpleMode={true}
+                    showStatus={false}
+                    highlightCurrent={false}
+                />
+                <SolKnapsackExchange
+                    exchangeHistory={exchangeHistory}
+                />
+                <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
+                    <ChartKnapsackExchange
+                        currentBackpackPrice={currentPrice}
+                        currentBackpackWeight={currentWeight}
+                        backpackCapacity={capacity}
+                        strategy={strategy}
                     />
-                    <SolKnapsackExchange
-                        exchangeHistory={exchangeHistory}
-                    />
-                    <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
-                        <ChartKnapsackExchange
-                            currentBackpackPrice={currentPrice}
-                            currentBackpackWeight={currentWeight}
-                            backpackCapacity={capacity}
-                            strategy={strategy}
-                        />
-                    </div>
                 </div>
             </div>
+        </div>
     );
 }
 
