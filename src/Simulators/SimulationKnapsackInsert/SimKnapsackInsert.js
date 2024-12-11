@@ -121,7 +121,6 @@ function SimulationKnapsackInsert() {
                     simpleMode={false}
                 />
                 <SolKnapsackInsert
-                    selectedItems={selectedItems}
                     currentWeight={currentWeight}
                     currentPrice={currentPrice}
                     currentIndex={currentIndex}
