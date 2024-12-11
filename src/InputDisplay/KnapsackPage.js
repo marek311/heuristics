@@ -3,12 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackData from './KnapsackData';
 
 function KnapsackPage() {
+
     const location = useLocation();
     const navigate = useNavigate();
 
     const { mode, data } = location.state || {};
     const { weights, prices, capacity } = data || {};
-
     const items = weights.map((weight, index) => ({
         weight: parseFloat(weight),
         price: parseFloat(prices[index]),
