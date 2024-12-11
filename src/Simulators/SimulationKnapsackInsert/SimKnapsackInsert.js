@@ -1,24 +1,23 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SolKnapsackInsert from './SolKnapsackInsert';
-import ButtonPanel from '../SimulationGeneral/ButtonsPanel';
-import ChartKnapsackInsert from './FlowchartKnapsackInsert.js';
-import KnapsackData from '../../InputDisplay/KnapsackData';
+import FlowchartKnapsackInsert from './FlowchartKnapsackInsert.js';
 import {
     performIteration,
     performRun
 } from "./AlgsKnapsackInsert";
+import ButtonsPanel from '../SimulationGeneral/ButtonsPanel';
+import KnapsackData from '../../InputDisplay/KnapsackData';
 
 function SimulationKnapsackInsert() {
-    const location = useLocation();
-    const { weights, prices, capacity } = location.state || {};
 
     const navigate = useNavigate();
     const handleGoBack = () => {
         navigate(`/handleInputs?mode=KnapsackInsert`);
     };
+    const location = useLocation();
 
+    const { weights, prices, capacity } = location.state || {};
     const items = weights.map((weight, index) => ({
         weight: parseFloat(weight),
         price: parseFloat(prices[index]),
@@ -26,14 +25,14 @@ function SimulationKnapsackInsert() {
         originalIndex: index
     }));
 
-    items.sort((a, b) => b.efficiency - a.efficiency);
-
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentWeight, setCurrentWeight] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
     const [selectedItems, setSelectedItems] = useState([]);
     const [itemStatus, setItemStatus] = useState(new Array(items.length).fill(null));
     const [binarySolution, setBinarySolution] = useState(new Array(weights.length).fill(0));
+
+    items.sort((a, b) => b.efficiency - a.efficiency);
 
     const handleIteration = () => {
         const result = performIteration(
@@ -93,7 +92,7 @@ function SimulationKnapsackInsert() {
                 <h2 className="text-lg font-semibold">
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
-                <ButtonPanel
+                <ButtonsPanel
                     handleStep={handleIteration}
                     handleRun={handleRun}
                     handleReset={handleReset}
@@ -118,7 +117,7 @@ function SimulationKnapsackInsert() {
                     binarySolution={binarySolution}
                 />
                 <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
-                    <ChartKnapsackInsert items={items}
+                    <FlowchartKnapsackInsert items={items}
                                          currentIndex={currentIndex}
                                          currentBackpackWeight={currentWeight}
                                     backpackCapacity={capacity}

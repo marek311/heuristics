@@ -1,25 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SolKnapsackExchange from './SolKnapsackExchange';
-import ButtonPanel from '../SimulationGeneral/ButtonsPanel';
-import KnapsackData from "../../InputDisplay/KnapsackData";
-import ChartKnapsackExchange from './FlowchartKnapsackExchange.js';
+import FlowchartKnapsackExchange from './FlowchartKnapsackExchange.js';
 import {
     performInitializeSolution,
     performIteration,
     performRun
 } from "./AlgsKnapsackExchange";
+import ButtonsPanel from '../SimulationGeneral/ButtonsPanel';
+import KnapsackData from "../../InputDisplay/KnapsackData";
 
 function SimulationKnapsackExchange() {
 
-    const location = useLocation();
     const navigate = useNavigate();
     const handleGoBack = () => {
         navigate(`/handleInputs?mode=KnapsackExchangeFirst`);
     };
+    const location = useLocation();
+
+    const {weights, prices, capacity} = location.state || {};
+    const items = weights.map((weight, index) => ({
+        weight: parseFloat(weight),
+        price: parseFloat(prices[index]),
+        originalIndex: index
+    }));
 
     const [strategy, setStrategy] = useState('bestFit');
-
     useEffect(() => {
         const path = location.pathname;
         if (path.includes('knapsack-exchange-best-simulation')) {
@@ -32,14 +38,6 @@ function SimulationKnapsackExchange() {
     const [currentBackpack, setCurrentBackpack] = useState([]);
     const [currentWeight, setCurrentWeight] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
-
-    const {weights, prices, capacity} = location.state || {};
-    const items = weights.map((weight, index) => ({
-        weight: parseFloat(weight),
-        price: parseFloat(prices[index]),
-        originalIndex: index
-    }));
-
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
@@ -73,7 +71,6 @@ function SimulationKnapsackExchange() {
                 added: null,
             }
         ]);
-
         setIsCompleted(false);
     };
 
@@ -148,7 +145,7 @@ function SimulationKnapsackExchange() {
                     Simulácia úlohy o batohu výmennou heuristikou
                     - {strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}!
                 </h2>
-                <ButtonPanel
+                <ButtonsPanel
                     handleStep={handleIteration}
                     handleRun={handleRun}
                     handleReset={handleReset}
@@ -167,7 +164,7 @@ function SimulationKnapsackExchange() {
                     exchangeHistory={exchangeHistory}
                 />
                 <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
-                    <ChartKnapsackExchange
+                    <FlowchartKnapsackExchange
                         currentBackpackPrice={currentPrice}
                         currentBackpackWeight={currentWeight}
                         backpackCapacity={capacity}
