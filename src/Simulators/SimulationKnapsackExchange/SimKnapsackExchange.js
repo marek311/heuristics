@@ -163,14 +163,12 @@ function SimulationKnapsackExchange() {
                 <SolKnapsackExchange
                     exchangeHistory={exchangeHistory}
                 />
-                <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
-                    <FlowchartKnapsackExchange
-                        currentBackpackPrice={currentPrice}
-                        currentBackpackWeight={currentWeight}
-                        backpackCapacity={capacity}
-                        strategy={strategy}
-                    />
-                </div>
+                <FlowchartKnapsackExchange
+                    currentBackpackPrice={currentPrice}
+                    currentBackpackWeight={currentWeight}
+                    backpackCapacity={capacity}
+                    strategy={strategy}
+                />
             </div>
         </div>
     );

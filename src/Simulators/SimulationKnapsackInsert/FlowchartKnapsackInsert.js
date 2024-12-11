@@ -134,8 +134,11 @@ useEffect(() => {
 
     }, [currentIndex, currentBackpackWeight, items]);
 
-
-    return <svg ref={svgRef}></svg>;
+    return (
+        <div className="flex-1 p-1 bg-white rounded-lg">
+            <svg ref={svgRef} className="w-full"></svg>
+        </div>
+    );
 }
 
 export default KnapsackInsertFlowChart;

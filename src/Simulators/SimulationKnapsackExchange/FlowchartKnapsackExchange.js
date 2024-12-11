@@ -157,7 +157,11 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
 
     }, [strategy, currentBackpackWeight, currentBackpackPrice, backpackCapacity]);
 
-    return <svg ref={svgRef}></svg>;
+    return (
+        <div className="flex-1 p-1 bg-white rounded-lg">
+            <svg ref={svgRef} className="w-full"></svg>
+        </div>
+    );
 }
 
 export default KnapsackExchangeFlowChart;

@@ -116,13 +116,11 @@ function SimulationKnapsackInsert() {
                     items={items}
                     binarySolution={binarySolution}
                 />
-                <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
-                    <FlowchartKnapsackInsert items={items}
+                <FlowchartKnapsackInsert items={items}
                                          currentIndex={currentIndex}
                                          currentBackpackWeight={currentWeight}
-                                    backpackCapacity={capacity}
-                    />
-                </div>
+                                         backpackCapacity={capacity}
+                />
             </div>
         </div>
     );
