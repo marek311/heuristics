@@ -92,23 +92,25 @@ function SimulationKnapsackInsert() {
                 <h2 className="text-lg font-semibold">
                     Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
                 </h2>
-                <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
-                    onClick={handleStep}
-                    disabled={currentIndex >= items.length}>
-                    Krok
-                </button>
-                <button
-                    className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
-                    onClick={handleRun}
-                    disabled={currentIndex >= items.length}>
-                    Spusti
-                </button>
-                <button
-                    className="px-4 py-2 rounded bg-red-500 hover:bg-red-600"
-                    onClick={handleReset}>
-                    Reset
-                </button>
+                <div className="space-x-2">
+                    <button
+                        className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                        onClick={handleStep}
+                        disabled={currentIndex >= items.length}>
+                        Krok
+                    </button>
+                    <button
+                        className={`px-4 py-2 rounded ${currentIndex >= items.length ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                        onClick={handleRun}
+                        disabled={currentIndex >= items.length}>
+                        Spusti
+                    </button>
+                    <button
+                        className="px-4 py-2 rounded bg-red-500 hover:bg-red-600"
+                        onClick={handleReset}>
+                        Reset
+                    </button>
+                </div>
             </div>
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <KnapsackData
@@ -129,8 +131,8 @@ function SimulationKnapsackInsert() {
                 />
                 <div className="flex justify-center items-start p-4 bg-white rounded-lg mr-2">
                     <ChartKnapsackInsert items={items}
-                                    currentIndex={currentIndex}
-                                    currentBackpackWeight={currentWeight}
+                                         currentIndex={currentIndex}
+                                         currentBackpackWeight={currentWeight}
                                     backpackCapacity={capacity}
                     />
                 </div>
