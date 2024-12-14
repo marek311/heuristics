@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function KnapsackInsertFlowChart({ items, currentIndex, currentBackpackWeight, backpackCapacity }) {
+function KnapsackInsertFlowChart({ items, currentIndex }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -97,11 +97,10 @@ function KnapsackInsertFlowChart({ items, currentIndex, currentBackpackWeight, b
 
     }, []);
 
-useEffect(() => {
+    useEffect(() => {
         const svg = d3.select(svgRef.current);
 
         svg.selectAll('g.info-item').remove();
-        svg.selectAll('g.info-backpack').remove();
 
         const currentItem = items[currentIndex];
         if (currentItem) {
@@ -119,20 +118,7 @@ useEffect(() => {
                 .text(d => d);
         }
 
-        const backpackInfoGroup = svg.append('g').attr('class', 'info-backpack');
-        backpackInfoGroup.selectAll('text')
-            .data([
-                `Aktuálna váha: ${currentBackpackWeight}`,
-                `Volná kapacita: ${backpackCapacity - currentBackpackWeight}`,
-            ])
-            .join('text')
-            .attr('x', 270)
-            .attr('y', (_, i) => 145 + i * 20)
-            .attr('fill', '#fff')
-            .attr('text-anchor', 'start')
-            .text(d => d);
-
-    }, [currentIndex, currentBackpackWeight, items, backpackCapacity]);
+    }, [currentIndex, items]);
 
     return (
         <div className="flex-1 p-1 bg-white rounded-lg">
