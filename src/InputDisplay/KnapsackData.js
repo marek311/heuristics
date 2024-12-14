@@ -3,13 +3,13 @@ import Colors from '../Main/Colors';
 
 function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (
-        <div className={`flex-1 p-4 ${Colors.cardBackground} rounded-lg mr-2`}>
+        <div className={`flex-1 p-4 rounded-lg ${Colors.cardBackground} mr-2`}>
             <div className="flex justify-between mb-4">
-                <h2><strong>Predmety k dispozícii</strong></h2>
-                {capacity && <p>Kapacita batohu: {capacity}</p>}
+                <h2 className="mx-4"><strong>Predmety k dispozícii</strong></h2>
+                {capacity && <p className="mx-4">Kapacita batohu: {capacity}</p>}
             </div>
-            <ul className="mt-4 space-y-2">
-                <li className={`flex justify-between items-center p-2 ${Colors.itemBackground} rounded`}>
+            <ul className="mt-4 space-y-1">
+                <li className={`flex justify-between items-center p-1 ${Colors.itemBackground} rounded`}>
                     <div>Index</div>
                     <div>Váha</div>
                     <div>Cena</div>
@@ -19,7 +19,7 @@ function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = 
                 {items.map((item, index) => (
                     <li
                         key={index}
-                        className={`flex justify-between items-center p-2 rounded ${
+                        className={`flex justify-between items-center p-1 rounded ${
                             highlightCurrent && index === currentIndex
                                 ? Colors.highlightCurrentItem
                                 : Colors.itemBackground}`}>
