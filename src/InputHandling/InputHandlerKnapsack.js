@@ -1,28 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
-import { useNavigate } from "react-router-dom";
 import DefaultDataKnapsack from './DefaultDataKnapsack';
 import Colors from '../Main/Colors';
 
-function InputHandlerKnapsack({mode} ) {
-
-    const navigate = useNavigate();
-    const handleGoBack = () => {
-        navigate(`/`);
-    };
-
+function InputHandlerKnapsack({ data, setData }) {
     const defaultData = DefaultDataKnapsack();
-    const [weights, setWeights] = useState(defaultData.weights);
-    const [prices, setPrices] = useState(defaultData.prices);
-    const [capacity, setCapacity] = useState(defaultData.capacity);
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
 
+        if (!file) return;
         const reader = new FileReader();
         reader.onload = (e) => {
             const text = e.target.result;
-            const lines = text.split('\n').filter(line => line.trim() !== '');
+            const lines = text.split('\n').filter((line) => line.trim() !== '');
 
             const parsedPrices = [];
             const parsedWeights = [];
@@ -33,32 +22,16 @@ function InputHandlerKnapsack({mode} ) {
                     parsedWeights.push(weight);
                 }
             });
-            setPrices(parsedPrices);
-            setWeights(parsedWeights);
+
+            if (parsedPrices.length && parsedWeights.length) {
+                setData({
+                    ...data,
+                    prices: parsedPrices,
+                    weights: parsedWeights,
+                });
+            }
         };
         reader.readAsText(file);
-    };
-
-    const handleRunClick = () => {
-        const inputData = {weights, prices, capacity};
-        let simulationPath;
-        switch (mode) {
-            case 'KnapsackInsert':
-                simulationPath = '/knapsack-insert-simulation';
-                break;
-            case 'KnapsackExchangeFirst':
-                simulationPath = '/knapsack-exchange-first-simulation';
-                break;
-            case 'KnapsackExchangeBest':
-                simulationPath = '/knapsack-exchange-best-simulation';
-                break;
-            case 'KnapsackGenetic':
-                simulationPath = '/knapsack-genetic-simulation';
-                break;
-            default:
-                simulationPath = '/';
-        }
-        navigate(simulationPath, { state: { mode, data: inputData } });
     };
 
     return (
@@ -72,7 +45,6 @@ function InputHandlerKnapsack({mode} ) {
                 className="p-2 mb-4 text-black border rounded w-full"
                 onChange={handleFileUpload}
             />
-
             <label className={`block mb-2 ${Colors.textPrimary}`}>
                 Zadajte kapacitu batohu:
             </label>
@@ -80,21 +52,14 @@ function InputHandlerKnapsack({mode} ) {
                 type="number"
                 className="p-2 mb-4 text-black border rounded w-full"
                 placeholder="Kapacita batohu"
-                value={capacity}
-                onChange={(e) => setCapacity(e.target.value)}
+                value={data.capacity}
+                onChange={(e) =>
+                    setData({
+                        ...data,
+                        capacity: e.target.value || defaultData.capacity,
+                    })
+                }
             />
-            <div className="items-center justify-center flex space-x-4 mt-4">
-                <button
-                    onClick={handleGoBack}
-                    className={`px-4 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}>
-                    Späť
-                </button>
-                <button
-                    onClick={handleRunClick}
-                    className={`px-4 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
-                    Ďaľej
-                </button>
-            </div>
         </div>
     );
 }
