@@ -1,5 +1,5 @@
 import React from 'react';
-import ButtonsPanel from '../SimulationGeneral/ButtonsPanel';
+import ButtonsPanel from './SimulationButtonsPanel';
 import Colors from '../../Main/Colors';
 
 function SimulationHeader({
