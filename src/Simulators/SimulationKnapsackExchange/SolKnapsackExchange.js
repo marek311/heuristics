@@ -17,6 +17,8 @@ function SolKnapsackExchange({ exchangeHistory }) {
 
         svg.selectAll("*").remove();
 
+        const reversedHistory = [...exchangeHistory].reverse();
+
         const renderExchange = (exchange, index) => {
             const yOffset = index * rowHeight + 20;
 
@@ -57,8 +59,7 @@ function SolKnapsackExchange({ exchangeHistory }) {
                 .attr("font-size", 14)
                 .text(`Price: ${exchange.newPrice}`);
         };
-
-        exchangeHistory.forEach(renderExchange);
+        reversedHistory.forEach(renderExchange);
     }, [exchangeHistory]);
 
     return (
