@@ -3,13 +3,13 @@ import Colors from '../Main/Colors';
 
 function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (
-        <div className={`flex-1 p-4 rounded-lg ${Colors.cardBackground} mr-2`}>
+        <div className={`flex-1 p-4 rounded-lg mr-2 ${Colors.cardBackground}`}>
             <div className="flex justify-between mb-4">
                 <h2 className="mx-4"><strong>Predmety k dispozícii</strong></h2>
                 {capacity && <p className="mx-4">Kapacita batohu: {capacity}</p>}
             </div>
             <ul className="mt-4 space-y-1">
-                <li className={`flex justify-between items-center p-1 ${Colors.itemBackground} rounded`}>
+                <li className={`flex justify-between items-center p-1 rounded ${Colors.itemBackground}`}>
                     <div>Index</div>
                     <div>Váha</div>
                     <div>Cena</div>
@@ -35,8 +35,7 @@ function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = 
                                         : itemStatus?.[index] === false
                                             ? Colors.statusItemNotAdded
                                             : ''
-                                } flex justify-end`}
-                            >
+                                } flex justify-end`}>
                                 {itemStatus?.[index] === true ? "✓" : itemStatus?.[index] === false ? "✗" : ""}
                             </span>
                         )}
