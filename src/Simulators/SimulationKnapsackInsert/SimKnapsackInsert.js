@@ -6,7 +6,7 @@ import {
     performIteration,
     performRun
 } from "./AlgsKnapsackInsert";
-import ButtonsPanel from '../SimulationGeneral/ButtonsPanel';
+import SimulationHeader from '../SimulationGeneral/SimulationHeader';
 import KnapsackData from '../../InputDisplay/KnapsackData';
 
 function SimulationKnapsackInsert() {
@@ -84,21 +84,15 @@ function SimulationKnapsackInsert() {
     };
 
     return (
-        <div className="flex flex-col w-full h-full text-gray-800 p-6">
-            <div className="flex justify-between items-center p-4 bg-white rounded-lg mb-4">
-                <button onClick={handleGoBack} className="px-4 py-2 bg-red-500 rounded hover:bg-red-600">
-                    Späť
-                </button>
-                <h2 className="text-lg font-semibold">
-                    Simulácia úlohy o batohu vkladacou heuristikou s výhodnostými koeficientami
-                </h2>
-                <ButtonsPanel
-                    handleStep={handleIteration}
-                    handleRun={handleRun}
-                    handleReset={handleReset}
-                    isDisabled={currentIndex >= items.length}
-                />
-            </div>
+        <div className=" text-gray-800 p-6">
+            <SimulationHeader
+                handleGoBack={handleGoBack}
+                title="Simulácia úlohy o batohu vkladacou heuristikou s výhodnostnými koeficientami"
+                handleStep={handleIteration}
+                handleRun={handleRun}
+                handleReset={handleReset}
+                isDisabled={currentIndex >= items.length}
+            />
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <KnapsackData
                     items={items}
@@ -116,8 +110,9 @@ function SimulationKnapsackInsert() {
                     items={items}
                     binarySolution={binarySolution}
                 />
-                <FlowchartKnapsackInsert items={items}
-                                         currentIndex={currentIndex}
+                <FlowchartKnapsackInsert
+                    items={items}
+                    currentIndex={currentIndex}
                 />
             </div>
         </div>

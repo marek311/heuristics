@@ -7,7 +7,7 @@ import {
     performIteration,
     performRun
 } from "./AlgsKnapsackExchange";
-import ButtonsPanel from '../SimulationGeneral/ButtonsPanel';
+import SimulationHeader from '../SimulationGeneral/SimulationHeader';
 import KnapsackData from "../../InputDisplay/KnapsackData";
 
 function SimulationKnapsackExchange() {
@@ -137,39 +137,31 @@ function SimulationKnapsackExchange() {
     }, []);
 
     return (
-        <div className="flex flex-col w-full h-full text-gray-800 p-6">
-            <div className="flex justify-between items-center p-4 bg-white rounded-lg mb-4">
-                <button onClick={handleGoBack} className="px-4 py-2 bg-red-500 rounded hover:bg-red-600">
-                    Späť
-                </button>
-                <h2 className="text-lg font-semibold">
-                    Simulácia úlohy o batohu výmennou heuristikou
-                    - {strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}!
-                </h2>
-                <ButtonsPanel
-                    handleStep={handleIteration}
-                    handleRun={handleRun}
-                    handleReset={handleReset}
-                    isDisabled={isCompleted}
-                />
-            </div>
-            <div className="flex flex-col lg:flex-row w-full h-full">
-                <KnapsackData
-                    items={items}
-                    capacity={capacity}
-                    simpleMode={true}
-                    showStatus={false}
-                    highlightCurrent={false}
-                />
-                <SolKnapsackExchange
-                    exchangeHistory={exchangeHistory}
-                />
-                <FlowchartKnapsackExchange
-                    strategy={strategy}
-                />
-            </div>
+    <div className="text-gray-800 p-6">
+        <SimulationHeader
+            handleGoBack={handleGoBack}
+            title={`Simulácia úlohy o batohu výmennou heuristikou - ${strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}`}
+            handleStep={handleIteration}
+            handleRun={handleRun}
+            handleReset={handleReset}
+            isDisabled={isCompleted}
+        />
+        <div className="flex flex-col lg:flex-row w-full h-full">
+            <KnapsackData
+                items={items}
+                capacity={capacity}
+                simpleMode={true}
+                showStatus={false}
+                highlightCurrent={false}
+            />
+            <SolKnapsackExchange
+                exchangeHistory={exchangeHistory}
+            />
+            <FlowchartKnapsackExchange
+                strategy={strategy}
+            />
         </div>
-    );
-}
+    </div>
+);}
 
 export default SimulationKnapsackExchange;
