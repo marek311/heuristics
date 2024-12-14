@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice, backpackCapacity, strategy }) {
+function KnapsackExchangeFlowChart({ strategy }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -53,7 +53,7 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             ];
             strategyLinks = [
                 { source: 'improving', target: 'bestQuestion', label: 'Ano' },
-                { source: 'bestQuestion', target: 'next'},
+                { source: 'bestQuestion', target: 'next' },
                 { source: 'next', target: 'solution', label: 'Najlepšia výmena' },
             ];
         }
@@ -116,8 +116,7 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             .attr('y2', d => nodes.find(n => n.id === d.target).y - 20)
             .attr('stroke', '#fff')
             .attr('stroke-width', 2)
-            .attr('marker-end', 'url(#arrow)')
-            .attr('transform', (d) => `translate(0, ${d.offset || 0})`);
+            .attr('marker-end', 'url(#arrow)');
 
         svg.selectAll('text.link-label')
             .data(links)
@@ -142,20 +141,7 @@ function KnapsackExchangeFlowChart({ currentBackpackWeight, currentBackpackPrice
             .attr('dy', '-5')
             .text(d => d.label || '');
 
-        svg.append('g').attr('class', 'info-backpack')
-            .selectAll('text')
-            .data([
-                `Aktuálna váha: ${currentBackpackWeight}`,
-                `Voľná kapacita: ${backpackCapacity - currentBackpackWeight}`,
-            ])
-            .join('text')
-            .attr('x', 270)
-            .attr('y', (_, i) => 195 + i * 20)
-            .attr('fill', '#fff')
-            .attr('text-anchor', 'start')
-            .text(d => d);
-
-    }, [strategy, currentBackpackWeight, currentBackpackPrice, backpackCapacity]);
+    }, [strategy]);
 
     return (
         <div className="flex-1 p-1 bg-white rounded-lg">
