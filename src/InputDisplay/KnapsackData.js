@@ -1,14 +1,15 @@
 import React from 'react';
+import Colors from '../Main/Colors';
 
 function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (
-        <div className="flex-1 p-4 bg-white rounded-lg mr-2">
+        <div className={`flex-1 p-4 ${Colors.cardBackground} rounded-lg mr-2`}>
             <div className="flex justify-between mb-4">
                 <h2><strong>Predmety k dispozícii</strong></h2>
                 {capacity && <p>Kapacita batohu: {capacity}</p>}
             </div>
             <ul className="mt-4 space-y-2">
-                <li className="flex justify-between items-center p-2 bg-gray-200 rounded">
+                <li className={`flex justify-between items-center p-2 ${Colors.itemBackground} rounded`}>
                     <div>Index</div>
                     <div>Váha</div>
                     <div>Cena</div>
@@ -19,7 +20,9 @@ function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = 
                     <li
                         key={index}
                         className={`flex justify-between items-center p-2 rounded ${
-                            highlightCurrent && index === currentIndex ? 'bg-teal-500' : 'bg-gray-200'}`}>
+                            highlightCurrent && index === currentIndex
+                                ? Colors.highlightCurrentItem
+                                : Colors.itemBackground}`}>
                         <div>{item.originalIndex}</div>
                         <div>{item.weight}</div>
                         <div>{item.price}</div>
@@ -28,9 +31,9 @@ function KnapsackData({ items, currentIndex, itemStatus, capacity, showStatus = 
                             <span
                                 className={`${
                                     itemStatus?.[index] === true
-                                        ? 'text-teal-700'
+                                        ? Colors.statusItemAdded
                                         : itemStatus?.[index] === false
-                                            ? 'text-red-500'
+                                            ? Colors.statusItemNotAdded
                                             : ''
                                 } flex justify-end`}
                             >

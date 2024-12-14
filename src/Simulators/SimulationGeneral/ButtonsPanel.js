@@ -1,4 +1,5 @@
 import React from 'react';
+import Colors from '../../Main/Colors';
 
 function ButtonPanel({
                          handleStep,
@@ -10,19 +11,19 @@ function ButtonPanel({
         <div className="space-x-2">
             <button
                 onClick={handleStep}
-                className={`px-4 py-2 rounded ${isDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                className={`px-4 py-2 rounded ${isDisabled ? `${Colors.buttonDisabled} ${Colors.cursorDisabled}` : `${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}`}
                 disabled={isDisabled}>
                 Krok
             </button>
             <button
                 onClick={handleRun}
-                className={`px-4 py-2 rounded ${isDisabled ? 'bg-gray-500 cursor-not-allowed' : 'bg-teal-500 hover:bg-teal-400'}`}
+                className={`px-4 py-2 rounded ${isDisabled ? `${Colors.buttonDisabled} ${Colors.cursorDisabled}` : `${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}`}
                 disabled={isDisabled}>
                 Spusti
             </button>
             <button
                 onClick={handleReset}
-                className="px-4 py-2 rounded bg-red-500 hover:bg-red-600">
+                className={`px-4 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}>
                 Reset
             </button>
         </div>

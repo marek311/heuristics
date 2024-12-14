@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import DefaultDataKnapsack from './DefaultDataKnapsack';
+import Colors from '../Main/Colors';
 
 function InputHandlerKnapsack({mode} ) {
 
@@ -62,7 +63,7 @@ function InputHandlerKnapsack({mode} ) {
 
     return (
         <div>
-            <label className="block text-gray-800 mb-2">
+            <label className={`block mb-2 ${Colors.textPrimary}`}>
                 CSV súbor: riadok obsahuje cenu a hmotnosť vo formáte: cena;hmotnosť
             </label>
             <input
@@ -71,7 +72,10 @@ function InputHandlerKnapsack({mode} ) {
                 className="p-2 mb-4 text-black border rounded w-full"
                 onChange={handleFileUpload}
             />
-            <label className="block text-gray-800 mb-2">Zadajte kapacitu batohu:</label>
+
+            <label className={`block mb-2 ${Colors.textPrimary}`}>
+                Zadajte kapacitu batohu:
+            </label>
             <input
                 type="number"
                 className="p-2 mb-4 text-black border rounded w-full"
@@ -80,10 +84,14 @@ function InputHandlerKnapsack({mode} ) {
                 onChange={(e) => setCapacity(e.target.value)}
             />
             <div className="items-center justify-center flex space-x-4 mt-4">
-                <button onClick={handleGoBack} className="px-4 py-2 bg-red-500 rounded hover:bg-red-600">
+                <button
+                    onClick={handleGoBack}
+                    className={`px-4 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}>
                     Späť
                 </button>
-                <button onClick={handleRunClick} className="px-4 py-2 bg-teal-500 rounded hover:bg-teal-400">
+                <button
+                    onClick={handleRunClick}
+                    className={`px-4 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
                     Ďaľej
                 </button>
             </div>

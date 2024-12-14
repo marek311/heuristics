@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Colors from "./Colors";
 
 function Selector() {
 
@@ -42,8 +43,8 @@ function Selector() {
                 </select>
             </label>
             <button
-                className="px-4 py-2 bg-teal-500 rounded hover:bg-teal-400"
-                onClick={handleSubmit}>
+                onClick={handleSubmit}
+                className={`px-4 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
                 Ďaľej
             </button>
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackData from './KnapsackData';
+import Colors from '../Main/Colors';
 
 function KnapsackPage() {
 
@@ -17,13 +18,13 @@ function KnapsackPage() {
     }));
 
     const handleRunClick = () => {
-        navigate('simulate', { state: { mode,weights,prices,capacity } });
+        navigate('simulate', { state: { mode, weights, prices, capacity } });
     };
 
     return (
         <div>
             <div
-                className="mb-4 flex flex-col items-center justify-center w-fit h-fit text-gray-800 p-6 bg-white rounded-lg mx-auto my-10">
+                className={`mb-4 flex flex-col items-center justify-center w-fit h-fit ${Colors.textPrimary} p-6 ${Colors.cardBackground} rounded-lg mx-auto my-10`}>
                 <KnapsackData
                     items={items}
                     capacity={capacity}
@@ -33,12 +34,12 @@ function KnapsackPage() {
                 />
                 <div className="flex justify-between mb-4 space-x-4 mt-4">
                     <button
-                        className="px-2 py-2 rounded bg-red-500 hover:bg-red-600"
+                        className={`px-2 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}
                         onClick={() => navigate(-1)} >
                         Späť
                     </button>
                     <button
-                        className="px-2 py-2 rounded bg-teal-500 hover:bg-teal-400"
+                        className={`px-2 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}
                         onClick={handleRunClick} >
                         Spusti
                     </button>
