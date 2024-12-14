@@ -165,9 +165,6 @@ function SimulationKnapsackExchange() {
                     exchangeHistory={exchangeHistory}
                 />
                 <FlowchartKnapsackExchange
-                    currentBackpackPrice={currentPrice}
-                    currentBackpackWeight={currentWeight}
-                    backpackCapacity={capacity}
                     strategy={strategy}
                 />
             </div>

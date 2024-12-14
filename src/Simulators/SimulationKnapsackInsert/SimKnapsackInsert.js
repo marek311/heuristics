@@ -118,8 +118,6 @@ function SimulationKnapsackInsert() {
                 />
                 <FlowchartKnapsackInsert items={items}
                                          currentIndex={currentIndex}
-                                         currentBackpackWeight={currentWeight}
-                                         backpackCapacity={capacity}
                 />
             </div>
         </div>
