@@ -13,12 +13,17 @@ function Selector() {
         {id: 'TSPTabuSearch', name: 'TSP - Tabu search'},
     ];
 
-    const [selectedMode, setSelectedMode] = useState(modes[0].id);
+    const storedMode = localStorage.getItem('selectedMode');
+    const initialMode = storedMode ? storedMode : modes[0].id;
+
+    const [selectedMode, setSelectedMode] = useState(initialMode);
 
     const navigate = useNavigate();
 
     const handleModeChange = (event) => {
-        setSelectedMode(event.target.value);
+        const newMode = event.target.value;
+        setSelectedMode(newMode);
+        localStorage.setItem('selectedMode', newMode);
     };
 
     const handleSubmit = () => {
