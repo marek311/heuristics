@@ -64,7 +64,7 @@ function SolKnapsackExchange({ exchangeHistory }) {
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-            <h2 className="mb-4 font-semibold">Vykonané výmeny</h2>
+            <h2 className="mb-4 font-semibold">Performed Exchanges</h2>
             <svg ref={graphRef} className="w-full"></svg>
         </div>
     );

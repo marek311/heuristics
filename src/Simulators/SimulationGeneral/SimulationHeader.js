@@ -15,7 +15,7 @@ function SimulationHeader({
             <button
                 onClick={handleGoBack}
                 className={`${Colors.buttonSecondary} ${Colors.buttonSecondaryHover} px-4 py-2 rounded`}>
-                Späť
+                Back
             </button>
             <h2 className={`text-lg font-semibold ${Colors.textPrimary} flex-grow text-center`}>
                 {title}

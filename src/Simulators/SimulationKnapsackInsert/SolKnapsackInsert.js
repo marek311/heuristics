@@ -57,17 +57,16 @@ function SolKnapsackInsert({
     return (
         <div className="flex-1 p-4 bg-white rounded-lg mr-2">
             <div className="flex justify-between items-center mb-4 space-x-4">
-                <h2><strong>Predmety vybrané do batohu</strong></h2>
-                <p>Aktuálna váha: {currentWeight}</p>
-                <p>Aktuálna cena: {currentPrice}</p>
-                <p>Iterácia: {currentIndex}</p>
+                <h2><strong>Items Selected for the Knapsack</strong></h2>
+                <p>Current weight: {currentWeight}</p>
+                <p>Current price: {currentPrice}</p>
+                <p>Iteration: {currentIndex}</p>
             </div>
             <div className="mt-4">
-                <h3 className="mb-2"><strong>Insert Heuristic Visualization</strong></h3>
                 <svg ref={graphRef} className="w-full"></svg>
             </div>
             {currentIndex >= items.length && (
-                <p className="mt-2 flex justify-center text-center">Algoritmus skončil!</p>
+                <p className="mt-2 flex justify-center text-center">Algorithm is complete!</p>
             )}
         </div>
     );

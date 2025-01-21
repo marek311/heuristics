@@ -140,7 +140,7 @@ function SimulationKnapsackExchange() {
     <div className="text-gray-800 p-6">
         <SimulationHeader
             handleGoBack={handleGoBack}
-            title={`Simulácia úlohy o batohu výmennou heuristikou - ${strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}`}
+            title={`Knapsack Problem Simulation Using Exchange Heuristic - ${strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}`}
             handleStep={handleIteration}
             handleRun={handleRun}
             handleReset={handleReset}

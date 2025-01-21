@@ -15,16 +15,16 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'load', text: 'Aktuálny predmet', x: 200, y: 50, shape: 'rect', color: '#1e88e5' },
-            { id: 'check', text: 'Zmestí sa do batohu?', x: 200, y: 150, shape: 'diamond', color: '#ffa533' },
-            { id: 'add', text: 'Pridaj do batohu', x: 100, y: 300, shape: 'oval', color: '#4caf50' },
-            { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 400, shape: 'oval', color: '#4caf50' },
+            { id: 'load', text: 'Current Item', x: 200, y: 50, shape: 'rect', color: '#1e88e5' },
+            { id: 'check', text: 'Does it fit?', x: 200, y: 150, shape: 'diamond', color: '#ffa533' },
+            { id: 'add', text: 'Add to backpack', x: 100, y: 300, shape: 'oval', color: '#4caf50' },
+            { id: 'next', text: 'Next Iteration', x: 300, y: 400, shape: 'oval', color: '#4caf50' },
         ];
 
         const links = [
             { source: 'load', target: 'check' },
-            { source: 'check', target: 'add', label: 'Áno' },
-            { source: 'check', target: 'next', label: 'Nie' },
+            { source: 'check', target: 'add', label: 'Yes' },
+            { source: 'check', target: 'next', label: 'No' },
             { source: 'add', target: 'next' },
         ];
 
@@ -107,8 +107,8 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
             const itemInfoGroup = svg.append('g').attr('class', 'info-item');
             itemInfoGroup.selectAll('text')
                 .data([
-                    `Cena: ${currentItem.price}`,
-                    `Váha: ${currentItem.weight}`,
+                    `Price: ${currentItem.price}`,
+                    `Weight: ${currentItem.weight}`,
                 ])
                 .join('text')
                 .attr('x', 270)

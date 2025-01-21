@@ -37,7 +37,7 @@ function InputHandlerKnapsack({ data, setData }) {
     return (
         <div>
             <label className={`block mb-2 ${Colors.textPrimary}`}>
-                CSV súbor: riadok obsahuje cenu a hmotnosť vo formáte: cena;hmotnosť
+                CSV file: row contains price and weight in format: price;weight
             </label>
             <input
                 type="file"
@@ -46,7 +46,7 @@ function InputHandlerKnapsack({ data, setData }) {
                 onChange={handleFileUpload}
             />
             <label className={`block mb-2 ${Colors.textPrimary}`}>
-                Zadajte kapacitu batohu:
+                Enter backpack capacity:
             </label>
             <input
                 type="number"

@@ -87,7 +87,7 @@ function SimulationKnapsackInsert() {
         <div className=" text-gray-800 p-6">
             <SimulationHeader
                 handleGoBack={handleGoBack}
-                title="Simulácia úlohy o batohu vkladacou heuristikou s výhodnostnými koeficientami"
+                title="Knapsack Problem Simulation Using Insertion Heuristic with Profitability Coefficients"
                 handleStep={handleIteration}
                 handleRun={handleRun}
                 handleReset={handleReset}

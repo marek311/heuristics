@@ -17,19 +17,19 @@ function KnapsackExchangeFlowChart({ strategy }) {
         svg.selectAll('*').remove();
 
         const commonNodes = [
-            { id: 'inBackpack', text: 'Predmet v batohu', x: 200, y: 40, shape: 'rect', color: '#1e88e5' },
-            { id: 'notInBackpack', text: 'Predmet nie v batohu', x: 200, y: 115, shape: 'rect', color: '#1e88e5' },
-            { id: 'admissible', text: 'Pripustná výmena?', x: 200, y: 190, shape: 'diamond', color: '#ffa533' },
-            { id: 'improving', text: 'Zlepsujúca výmena?', x: 100, y: 250, shape: 'diamond', color: '#ffa533' },
-            { id: 'next', text: 'Nasledujúca iterácia', x: 300, y: 375, shape: 'oval', color: '#4caf50' },
+            { id: 'inBackpack', text: 'Item in backpack', x: 200, y: 40, shape: 'rect', color: '#1e88e5' },
+            { id: 'notInBackpack', text: 'Item Not in backpack', x: 200, y: 115, shape: 'rect', color: '#1e88e5' },
+            { id: 'admissible', text: 'Admissible exchange?', x: 200, y: 190, shape: 'diamond', color: '#ffa533' },
+            { id: 'improving', text: 'Improving exchange?', x: 100, y: 250, shape: 'diamond', color: '#ffa533' },
+            { id: 'next', text: 'Next iteration', x: 300, y: 375, shape: 'oval', color: '#4caf50' },
         ];
 
         const commonLinks = [
             { source: 'inBackpack', target: 'notInBackpack' },
             { source: 'notInBackpack', target: 'admissible' },
-            { source: 'admissible', target: 'improving', label: 'Ano' },
-            { source: 'admissible', target: 'next', label: 'Nie' },
-            { source: 'improving', target: 'next', label: 'Nie' },
+            { source: 'admissible', target: 'improving', label: 'Yes' },
+            { source: 'admissible', target: 'next', label: 'No' },
+            { source: 'improving', target: 'next', label: 'No' },
         ];
 
         let strategyNodes = [];
@@ -37,24 +37,24 @@ function KnapsackExchangeFlowChart({ strategy }) {
 
         if (strategy === 'firstFit') {
             strategyNodes = [
-                { id: 'exchange', text: 'Vykonaj výmenu', x: 100, y: 375, shape: 'oval', color: '#4caf50' },
-                { id: 'solution', text: 'Nové riešenie', x: 100, y: 450, shape: 'rect', color: '#1e88e5' },
+                { id: 'exchange', text: 'Perform exchange', x: 100, y: 375, shape: 'oval', color: '#4caf50' },
+                { id: 'solution', text: 'New solution', x: 100, y: 450, shape: 'rect', color: '#1e88e5' },
             ];
             strategyLinks = [
-                { source: 'improving', target: 'exchange', label: 'Ano' },
+                { source: 'improving', target: 'exchange', label: 'Yes' },
                 { source: 'exchange', target: 'solution' },
             ];
         }
 
         if (strategy === 'bestFit') {
             strategyNodes = [
-                { id: 'bestQuestion', text: 'Najlepsia vymena?', x: 100, y: 350, shape: 'diamond', color: '#ffa533' },
-                { id: 'solution', text: 'Nové riešenie', x: 200, y: 465, shape: 'rect', color: '#1e88e5' },
+                { id: 'bestQuestion', text: 'Best exchange?', x: 100, y: 350, shape: 'diamond', color: '#ffa533' },
+                { id: 'solution', text: 'New Solution', x: 200, y: 465, shape: 'rect', color: '#1e88e5' },
             ];
             strategyLinks = [
-                { source: 'improving', target: 'bestQuestion', label: 'Ano' },
+                { source: 'improving', target: 'bestQuestion', label: 'Yes' },
                 { source: 'bestQuestion', target: 'next' },
-                { source: 'next', target: 'solution', label: 'Najlepšia výmena' },
+                { source: 'next', target: 'solution', label: 'Best exchange' },
             ];
         }
 

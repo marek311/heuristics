@@ -34,12 +34,12 @@ function KnapsackPage() {
                 <button
                     className={`px-2 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}
                     onClick={() => navigate(-1)}>
-                    Späť
+                    Back
                 </button>
                 <button
                     className={`px-2 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}
                     onClick={handleRunClick}>
-                    Spusti
+                    Start
                 </button>
             </div>
         </div>

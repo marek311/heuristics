@@ -13,13 +13,13 @@ function ButtonPanel({
                 onClick={handleStep}
                 className={`px-4 py-2 rounded ${isDisabled ? `${Colors.buttonDisabled} ${Colors.cursorDisabled}` : `${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}`}
                 disabled={isDisabled}>
-                Krok
+                Step
             </button>
             <button
                 onClick={handleRun}
                 className={`px-4 py-2 rounded ${isDisabled ? `${Colors.buttonDisabled} ${Colors.cursorDisabled}` : `${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}`}
                 disabled={isDisabled}>
-                Spusti
+                Run
             </button>
             <button
                 onClick={handleReset}

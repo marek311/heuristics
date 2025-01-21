@@ -27,7 +27,7 @@ function Selector() {
 
     return (
         <div className="text-center p-6 bg-white rounded-lg shadow-lg flex flex-col items-center mt-4">
-            <h1 className="text-4xl font-bold mb-6">Heuristiky a metaheuristiky</h1>
+            <h1 className="text-4xl font-bold mb-6">Heuristics and Metaheuristics</h1>
             <label className="mb-4 text-gray-800">
                 Mód:
                 <select
@@ -44,7 +44,7 @@ function Selector() {
             <button
                 onClick={handleSubmit}
                 className={`px-4 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
-                Ďaľej
+                Next
             </button>
         </div>
     );

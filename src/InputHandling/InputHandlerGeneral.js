@@ -70,12 +70,12 @@ function InputHandlerGeneral() {
                 <button
                     onClick={handleGoBack}
                     className={`px-4 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}>
-                    Späť
+                    Back
                 </button>
                 <button
                     onClick={handleRunClick}
                     className={`px-4 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
-                    Ďaľej
+                    Next
                 </button>
             </div>
         </div>
