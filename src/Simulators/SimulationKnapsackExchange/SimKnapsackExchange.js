@@ -14,7 +14,7 @@ function SimulationKnapsackExchange() {
 
     const navigate = useNavigate();
     const handleGoBack = () => {
-        navigate(`/handleInputs?mode=KnapsackExchangeFirst`);
+        navigate(-1);
     };
     const location = useLocation();
 

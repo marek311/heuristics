@@ -13,7 +13,7 @@ function SimulationKnapsackInsert() {
 
     const navigate = useNavigate();
     const handleGoBack = () => {
-        navigate(`/handleInputs?mode=KnapsackInsert`);
+        navigate(-1);
     };
     const location = useLocation();
 
