@@ -29,7 +29,7 @@ function Selector() {
         <div className="text-center p-6 bg-white rounded-lg shadow-lg flex flex-col items-center mt-4">
             <h1 className="text-4xl font-bold mb-6">Heuristics and Metaheuristics</h1>
             <label className="mb-4 text-gray-800">
-                Mód:
+                Mode:
                 <select
                     value={selectedMode}
                     onChange={handleModeChange}
