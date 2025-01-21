@@ -146,7 +146,7 @@ function SimulationKnapsackExchange() {
             handleReset={handleReset}
             isDisabled={isCompleted}
         />
-        <div className="flex flex-col lg:flex-row w-full h-full">
+        <div className="flex flex-col lg:flex-row w-full" style={{height: '95vh'}}>
             <KnapsackData
                 items={items}
                 capacity={capacity}
@@ -162,6 +162,7 @@ function SimulationKnapsackExchange() {
             />
         </div>
     </div>
-);}
+    );
+}
 
 export default SimulationKnapsackExchange;
