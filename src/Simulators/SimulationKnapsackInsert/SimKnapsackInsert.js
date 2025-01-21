@@ -7,7 +7,7 @@ import {
     performRun
 } from "./AlgsKnapsackInsert";
 import SimulationHeader from '../SimulationGeneral/SimulationHeader';
-import KnapsackData from '../../InputDisplay/KnapsackData';
+import KnapsackDataForDisplay from '../../InputDisplay/KnapsackDataForDisplay';
 
 function SimulationKnapsackInsert() {
 
@@ -94,7 +94,7 @@ function SimulationKnapsackInsert() {
                 isDisabled={currentIndex >= items.length}
             />
             <div className="flex flex-col lg:flex-row w-full h-full">
-                <KnapsackData
+                <KnapsackDataForDisplay
                     items={items}
                     currentIndex={currentIndex}
                     itemStatus={itemStatus}

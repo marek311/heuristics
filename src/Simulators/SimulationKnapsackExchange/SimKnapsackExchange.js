@@ -8,7 +8,7 @@ import {
     performRun
 } from "./AlgsKnapsackExchange";
 import SimulationHeader from '../SimulationGeneral/SimulationHeader';
-import KnapsackData from "../../InputDisplay/KnapsackData";
+import KnapsackDataForDisplay from "../../InputDisplay/KnapsackDataForDisplay";
 
 function SimulationKnapsackExchange() {
 
@@ -147,7 +147,7 @@ function SimulationKnapsackExchange() {
             isDisabled={isCompleted}
         />
         <div className="flex flex-col lg:flex-row w-full" style={{height: '95vh'}}>
-            <KnapsackData
+            <KnapsackDataForDisplay
                 items={items}
                 capacity={capacity}
                 simpleMode={true}
