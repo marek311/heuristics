@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackDataForEdit from './KnapsackDataForEdit';
 import Colors from '../Main/Colors';
 
-function KnapsackPage() {
+function KnapsackDataPage() {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -68,4 +68,4 @@ function KnapsackPage() {
     );
 }
 
-export default KnapsackPage;
+export default KnapsackDataPage;
