@@ -19,8 +19,6 @@ function InputHandlerTSP({ data, setData }) {
                 const [city1, city2, distance] = line.split(';').map((value) => value.trim());
                 const parsedDistance = parseFloat(distance);
 
-                console.log(`Line ${index + 1}:`, { city1, city2, parsedDistance });
-
                 if (city1 && city2 && !isNaN(parsedDistance)) {
                     parsedEdges.push({
                         city1,
@@ -36,11 +34,12 @@ function InputHandlerTSP({ data, setData }) {
             });
 
             if (parsedEdges.length) {
-                setData({
+                const newData = {
                     ...data,
                     edges: parsedEdges,
                     cityCount: citiesSet.size,
-                });
+                };
+                setData(newData);
             } else {
                 alert('No valid edges found. Please check the CSV format.');
             }
