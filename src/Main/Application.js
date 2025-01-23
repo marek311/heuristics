@@ -14,16 +14,23 @@ function Application() {
                 <Route path="/handleInputs" element={<InputHandlerGeneral />} />
 
                 <Route path="/knapsack-insert-simulation" element={<KnapsackPage />} />
-                <Route path="/knapsack-exchange-first-simulation" element={<KnapsackPage />} />
-                <Route path="/knapsack-exchange-best-simulation" element={<KnapsackPage />} />
-                <Route path="/knapsack-genetic-simulation" element={<KnapsackPage />} />
-
                 <Route path="knapsack-insert-simulation/simulate" element={<SimKnapsackInsert />} />
+
+                <Route path="/knapsack-exchange-first-simulation" element={<KnapsackPage />} />
                 <Route path="knapsack-exchange-first-simulation/simulate" element={<SimKnapsackExchange />} />
+
+                <Route path="/knapsack-exchange-best-simulation" element={<KnapsackPage />} />
                 <Route path="knapsack-exchange-best-simulation/simulate" element={<SimKnapsackExchange />} />
 
                 <Route path="/tsp-simulated-annealing-simulation" element={<TSP/>} />
+
+
+                <Route path="/tsp-genetic-simulation" element={<TSP />} />
+
+
                 <Route path="/tsp-tabu-search-simulation" element={<TSP />} />
+
+
             </Routes>
         </div>
     );

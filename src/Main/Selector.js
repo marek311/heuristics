@@ -8,8 +8,8 @@ function Selector() {
         {id: 'KnapsackInsert', name: 'Knapsack problem - Insert heuristic'},
         {id: 'KnapsackExchangeFirst', name: 'Knapsack problem - Exchange first fit'},
         {id: 'KnapsackExchangeBest', name: 'Knapsack problem - Exchange best fit'},
-        {id: 'KnapsackGenetic', name: 'Knapsack problem - Genetic algorithm'},
         {id: 'TSPSimulatedAnnealing', name: 'TSP - Simulated annealing'},
+        {id: 'TSPGenetic', name: 'TSP - Genetic algorithm'},
         {id: 'TSPTabuSearch', name: 'TSP - Tabu search'},
     ];
 

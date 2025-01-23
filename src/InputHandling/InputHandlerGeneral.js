@@ -43,11 +43,11 @@ function InputHandlerGeneral() {
             case 'KnapsackExchangeBest':
                 simulationPath = '/knapsack-exchange-best-simulation';
                 break;
-            case 'KnapsackGenetic':
-                simulationPath = '/knapsack-genetic-simulation';
-                break;
             case 'TSPSimulatedAnnealing':
                 simulationPath = '/tsp-simulated-annealing-simulation';
+                break;
+            case 'TSPGenetic':
+                simulationPath = '/tsp-genetic-simulation';
                 break;
             case 'TSPTabuSearch':
                 simulationPath = '/tsp-tabu-search-simulation';
@@ -60,10 +60,10 @@ function InputHandlerGeneral() {
 
     return (
         <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit p-6 bg-white rounded-lg shadow-lg mx-auto my-10`}>
-            {['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest', 'KnapsackGenetic'].includes(mode) && (
+            {['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest'].includes(mode) && (
                 <InputHandlerKnapsack data={knapsackData} setData={setKnapsackData} />
             )}
-            {['TSPSimulatedAnnealing', 'TSPTabuSearch'].includes(mode) && (
+            {['TSPSimulatedAnnealing','TSPGenetic', 'TSPTabuSearch'].includes(mode) && (
                 <InputHandlerTSP data={tspData} setData={setTspData} />
             )}
             <div className="items-center justify-center flex space-x-4 mt-4">
