@@ -22,10 +22,10 @@ function Application() {
                 <Route path="/knapsack-exchange-best-simulation" element={<KnapsackPage />} />
                 <Route path="knapsack-exchange-best-simulation/simulate" element={<SimKnapsackExchange />} />
 
-                <Route path="/tsp-simulated-annealing-simulation" element={<TSP/>} />
+                <Route path="/tsp-simulated-annealing-simulation" element={<TSP />}/>
 
 
-                <Route path="/tsp-genetic-simulation" element={<TSP />} />
+                <Route path="/tsp-genetic-simulation" element={<TSP />}/>
 
 
                 <Route path="/tsp-tabu-search-simulation" element={<TSP />} />

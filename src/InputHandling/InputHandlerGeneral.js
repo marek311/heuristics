@@ -19,8 +19,8 @@ function InputHandlerGeneral() {
     });
 
     const [tspData, setTspData] = useState({
-        xCoordinates: '',
-        yCoordinates: '',
+            cityCount: 0,
+            edges: [],
     });
 
     const handleGoBack = () => {

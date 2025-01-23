@@ -1,32 +1,77 @@
 import React from 'react';
+import Colors from '../Main/Colors';
 
 function InputHandlerTSP({ data, setData }) {
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+
+        reader.onload = (e) => {
+            const text = e.target.result;
+            const lines = text.split('\n').filter((line) => line.trim() !== '');
+
+            const parsedEdges = [];
+            const citiesSet = new Set();
+
+            lines.forEach((line, index) => {
+                const [city1, city2, distance] = line.split(';').map((value) => value.trim());
+                const parsedDistance = parseFloat(distance);
+
+                console.log(`Line ${index + 1}:`, { city1, city2, parsedDistance });
+
+                if (city1 && city2 && !isNaN(parsedDistance)) {
+                    parsedEdges.push({
+                        city1,
+                        city2,
+                        distance: parsedDistance,
+                    });
+
+                    citiesSet.add(city1);
+                    citiesSet.add(city2);
+                } else {
+                    console.error(`Invalid data on line ${index + 1}:`, { city1, city2, parsedDistance });
+                }
+            });
+
+            if (parsedEdges.length) {
+                setData({
+                    ...data,
+                    edges: parsedEdges,
+                    cityCount: citiesSet.size,
+                });
+            } else {
+                alert('No valid edges found. Please check the CSV format.');
+            }
+        };
+
+        reader.readAsText(file);
+    };
+
     return (
         <div>
-            <label className="block text-gray-800 mb-2">Zadajte x suradnice miest:</label>
+            <label className={`block mb-2 ${Colors.textPrimary}`}>
+                CSV file: row contains edge in format: city1;city2;distance
+            </label>
             <input
-                type="text"
+                type="file"
+                accept=".csv"
                 className="p-2 mb-4 text-black border rounded w-full"
-                placeholder="X suradnice"
-                value={data.xCoordinates}
-                onChange={(e) =>
-                    setData({
-                        ...data,
-                        xCoordinates: e.target.value,
-                    })
-                }
+                onChange={handleFileUpload}
             />
-
-            <label className="block text-gray-800 mb-2">Zadajte y suradnice miest:</label>
+            <label className={`block mb-2 ${Colors.textPrimary}`}>
+                Enter number of cities:
+            </label>
             <input
-                type="text"
+                type="number"
                 className="p-2 mb-4 text-black border rounded w-full"
-                placeholder="Y suradnice"
-                value={data.yCoordinates}
+                placeholder="Počet miest"
+                value={data.cityCount}
                 onChange={(e) =>
                     setData({
                         ...data,
-                        yCoordinates: e.target.value,
+                        cityCount: e.target.value,
                     })
                 }
             />
