@@ -26,19 +26,18 @@ function TSPDataPage() {
                 <h3 className="mx-4"><strong>Number of Cities: </strong>{data.cityCount}</h3>
             </div>
             <div className="mb-4 w-full">
-                <h3 className="mx-4"><strong>Edges:</strong></h3>
                 {data.edges.length > 0 ? (
-                    <ul className="space-y-1">
+                    <table className="w-full table-auto border-collapse border border-gray-300">
+                        <tbody>
                         {data.edges.map((edge, index) => (
-                            <li
-                                key={index}
-                                className={`flex justify-between items-center p-1 rounded ${Colors.itemBackground}`}>
-                                <div>{edge.city1}</div>
-                                <div>{edge.city2}</div>
-                                <div>{edge.distance}</div>
-                            </li>
+                            <tr key={index} className="text-center">
+                                <td className="p-2 border">{edge.city1}</td>
+                                <td className="p-2 border">{edge.city2}</td>
+                                <td className="p-2 border">{edge.distance}</td>
+                            </tr>
                         ))}
-                    </ul>
+                        </tbody>
+                    </table>
                 ) : (
                     <p>No edges to display.</p>
                 )}
