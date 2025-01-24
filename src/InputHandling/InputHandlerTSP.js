@@ -60,19 +60,13 @@ function InputHandlerTSP({ data, setData }) {
                 onChange={handleFileUpload}
             />
             <label className={`block mb-2 ${Colors.textPrimary}`}>
-                Enter number of cities:
+                Number of cities:
             </label>
             <input
-                type="number"
+                type="text"
                 className="p-2 mb-4 text-black border rounded w-full"
-                placeholder="Počet miest"
-                value={data.cityCount}
-                onChange={(e) =>
-                    setData({
-                        ...data,
-                        cityCount: e.target.value,
-                    })
-                }
+                value={data.cityCount || ''}
+                readOnly
             />
         </div>
     );
