@@ -1,13 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Colors from '../Main/Colors';
+import TSPDefaultData from './DefaultData/TSPDefaultData';
 
 function InputHandlerTSP({ data, setData }) {
+    const defaultData = TSPDefaultData();
+
+    useEffect(() => {
+        if (!data.edges.length) {
+            setData(defaultData);
+        }
+    }, [data, setData]);
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         if (!file) return;
         const reader = new FileReader();
-
         reader.onload = (e) => {
             const text = e.target.result;
             const lines = text.split('\n').filter((line) => line.trim() !== '');

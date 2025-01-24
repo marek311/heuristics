@@ -4,6 +4,7 @@ import Colors from '../Main/Colors';
 import InputHandlerKnapsack from './InputHandlerKnapsack';
 import InputHandlerTSP from './InputHandlerTSP';
 import KnapsackDefaultData from './DefaultData/KnapsackDefaultData';
+import TSPDefaultData from './DefaultData/TSPDefaultData';
 
 function InputHandlerGeneral() {
     const location = useLocation();
@@ -18,9 +19,10 @@ function InputHandlerGeneral() {
         capacity: defaultKnapsackData.capacity,
     });
 
+    const defaultTspData = TSPDefaultData();
     const [tspData, setTspData] = useState({
-            cityCount: 0,
-            edges: [],
+        cityCount: defaultTspData.cityCount,
+        edges: defaultTspData.edges,
     });
 
     const handleGoBack = () => {
