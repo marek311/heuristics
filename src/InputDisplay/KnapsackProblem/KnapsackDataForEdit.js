@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Colors from '../Main/Colors';
+import Colors from '../../Main/Colors';
 
 function KnapsackDataForEdit({ items, capacity, onDataChange }) {
     const [editableItems, setEditableItems] = useState(items);

@@ -1,5 +1,5 @@
 import React from 'react';
-import Colors from '../Main/Colors';
+import Colors from '../../Main/Colors';
 
 function KnapsackDataForDisplay({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (

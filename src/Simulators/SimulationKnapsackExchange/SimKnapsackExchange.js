@@ -8,7 +8,7 @@ import {
     performRun
 } from "./AlgsKnapsackExchange";
 import SimulationHeader from '../SimulationGeneral/SimulationHeader';
-import KnapsackDataForDisplay from "../../InputDisplay/KnapsackDataForDisplay";
+import KnapsackDataForDisplay from "../../InputDisplay/KnapsackProblem/KnapsackDataForDisplay";
 
 function SimulationKnapsackExchange() {
 

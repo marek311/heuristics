@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import KnapsackDataForEdit from './KnapsackDataForEdit';
-import Colors from '../Main/Colors';
+import Colors from '../../Main/Colors';
 
 function KnapsackDataPage() {
     const location = useLocation();

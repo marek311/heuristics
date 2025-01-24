@@ -1,4 +1,4 @@
-function DefaultDataKnapsack() {
+function KnapsackDefaultData() {
     return {
         weights: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
         prices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -6,4 +6,4 @@ function DefaultDataKnapsack() {
     };
 }
 
-export default DefaultDataKnapsack;
+export default KnapsackDefaultData;

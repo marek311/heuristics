@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Colors from '../Main/Colors';
+import Colors from '../../Main/Colors';
 
 function TSPDataPage() {
     const location = useLocation();

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Colors from '../Main/Colors';
 import InputHandlerKnapsack from './InputHandlerKnapsack';
 import InputHandlerTSP from './InputHandlerTSP';
-import DefaultDataKnapsack from './DefaultDataKnapsack';
+import KnapsackDefaultData from './DefaultData/KnapsackDefaultData';
 
 function InputHandlerGeneral() {
     const location = useLocation();
@@ -11,7 +11,7 @@ function InputHandlerGeneral() {
     const query = new URLSearchParams(location.search);
     const mode = query.get('mode');
 
-    const defaultKnapsackData = DefaultDataKnapsack();
+    const defaultKnapsackData = KnapsackDefaultData();
     const [knapsackData, setKnapsackData] = useState({
         weights: defaultKnapsackData.weights,
         prices: defaultKnapsackData.prices,

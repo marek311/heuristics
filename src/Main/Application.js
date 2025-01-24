@@ -1,8 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import Selector from './Selector';
 import InputHandlerGeneral from '../InputHandling/InputHandlerGeneral';
-import KnapsackDataPage from "../InputDisplay/KnapsackDataPage";
-import TSPDataPage from '../InputDisplay/TSPDataPage';
+import KnapsackDataPage from "../InputDisplay/KnapsackProblem/KnapsackDataPage";
+import TSPDataPage from '../InputDisplay/TSP/TSPDataPage';
 import SimKnapsackInsert from '../Simulators/SimulationKnapsackInsert/SimKnapsackInsert'
 import SimKnapsackExchange from '../Simulators/SimulationKnapsackExchange/SimKnapsackExchange'
 
