@@ -1,12 +1,8 @@
 import React, { useEffect, useRef } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import * as d3 from 'd3';
 import Colors from '../../Main/Colors';
 
-function TempGraphForceSimulation() {
-    const location = useLocation();
-    const navigate = useNavigate();
-    const { data } = location.state || {};
+function TSPDataGraph({ data }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -14,7 +10,6 @@ function TempGraphForceSimulation() {
 
         const width = 500;
         const height = 500;
-
         const dynamicDistance = 200;
 
         const svg = d3.select(svgRef.current)
@@ -41,7 +36,6 @@ function TempGraphForceSimulation() {
             .force('center', d3.forceCenter(width / 2, height / 2));
 
         simulation.on('tick', () => {
-
             svg.selectAll('line')
                 .data(links)
                 .join('line')
@@ -94,15 +88,8 @@ function TempGraphForceSimulation() {
             <div className="flex justify-center">
                 <svg ref={svgRef}></svg>
             </div>
-            <div className="flex justify-between mt-4">
-                <button
-                    className={`px-4 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}
-                    onClick={() => navigate(-1)}>
-                    Back
-                </button>
-            </div>
         </div>
     );
 }
 
-export default TempGraphForceSimulation;
+export default TSPDataGraph;

@@ -5,7 +5,7 @@ import KP_DataPage from "../InputDisplay/KP/KP_DataPage";
 import TSP_DataTable from '../InputDisplay/TSP/TSP_DataTable';
 import SimKnapsackInsert from '../Simulators/Simulation_KP_Insert/Sim_KP_Insert'
 import SimKnapsackExchange from '../Simulators/Simulation_KP_Exchange/Sim_KP_Exchange'
-import TempGraph from "../InputDisplay/TSP/TSP_DataGraph";
+import Sim_TSP_SimulatedAnnealing from "../Simulators/Simulation_TSP_SimulatedAnnealing/Sim_TSP_SimulatedAnnealing";
 
 function Application() {
     return (
@@ -24,7 +24,7 @@ function Application() {
                 <Route path="knapsack-exchange-best-simulation/simulate" element={<SimKnapsackExchange />} />
 
                 <Route path="/tsp-simulated-annealing-simulation" element={<TSP_DataTable />}/>
-                <Route path="/tsp-simulated-annealing-simulation/simulate" element={<TempGraph />} />
+                <Route path="/tsp-simulated-annealing-simulation/simulate" element={<Sim_TSP_SimulatedAnnealing />} />
 
                 <Route path="/tsp-genetic-simulation" element={<TSP_DataTable />}/>
 
