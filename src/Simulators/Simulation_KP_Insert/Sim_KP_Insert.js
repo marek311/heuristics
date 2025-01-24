@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SolKnapsackInsert from './SolKnapsackInsert';
-import FlowchartKnapsackInsert from './FlowchartKnapsackInsert.js';
+import Sol_KP_Insert from './Sol_KP_Insert';
+import FlowchartKnapsackInsert from './Flowchart_KP_Insert.js';
 import {
     performIteration,
     performRun
-} from "./AlgsKnapsackInsert";
-import SimulationHeader from '../SimulationGeneral/SimulationHeader';
-import KnapsackDataForDisplay from '../../InputDisplay/KnapsackProblem/KnapsackDataForDisplay';
+} from "./Algs_KP_Insert";
+import Simulation_Header from '../Simulation_General/Simulation_Header';
+import KPDataForDisplay from '../../InputDisplay/KP/KP_DataDisplay';
 
 function SimulationKnapsackInsert() {
 
@@ -85,7 +85,7 @@ function SimulationKnapsackInsert() {
 
     return (
         <div className=" text-gray-800 p-6">
-            <SimulationHeader
+            <Simulation_Header
                 handleGoBack={handleGoBack}
                 title="Knapsack Problem Simulation Using Insertion Heuristic with Profitability Coefficients"
                 handleStep={handleIteration}
@@ -94,7 +94,7 @@ function SimulationKnapsackInsert() {
                 isDisabled={currentIndex >= items.length}
             />
             <div className="flex flex-col lg:flex-row w-full h-full">
-                <KnapsackDataForDisplay
+                <KPDataForDisplay
                     items={items}
                     currentIndex={currentIndex}
                     itemStatus={itemStatus}
@@ -103,7 +103,7 @@ function SimulationKnapsackInsert() {
                     highlightCurrent={true}
                     simpleMode={false}
                 />
-                <SolKnapsackInsert
+                <Sol_KP_Insert
                     currentWeight={currentWeight}
                     currentPrice={currentPrice}
                     currentIndex={currentIndex}

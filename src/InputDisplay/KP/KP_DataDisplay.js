@@ -1,7 +1,7 @@
 import React from 'react';
 import Colors from '../../Main/Colors';
 
-function KnapsackDataForDisplay({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
+function KPDataForDisplay({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (
         <div className={`flex-1 p-4 rounded-lg mr-2 ${Colors.cardBackground}`}>
             <div className="flex justify-between mb-4">
@@ -46,4 +46,4 @@ function KnapsackDataForDisplay({ items, currentIndex, itemStatus, capacity, sho
     );
 }
 
-export default KnapsackDataForDisplay;
+export default KPDataForDisplay;

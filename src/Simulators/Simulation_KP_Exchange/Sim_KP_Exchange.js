@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SolKnapsackExchange from './SolKnapsackExchange';
-import FlowchartKnapsackExchange from './FlowchartKnapsackExchange.js';
+import Sol_KP_Exchange from './Sol_KP_Exchange';
+import FlowchartKnapsackExchange from './Flowchart_KP_Exchange.js';
 import {
     performInitializeSolution,
     performIteration,
     performRun
-} from "./AlgsKnapsackExchange";
-import SimulationHeader from '../SimulationGeneral/SimulationHeader';
-import KnapsackDataForDisplay from "../../InputDisplay/KnapsackProblem/KnapsackDataForDisplay";
+} from "./Algs_KP_Exchange";
+import Simulation_Header from '../Simulation_General/Simulation_Header';
+import KPDataForDisplay from "../../InputDisplay/KP/KP_DataDisplay";
 
 function SimulationKnapsackExchange() {
 
@@ -138,7 +138,7 @@ function SimulationKnapsackExchange() {
 
     return (
     <div className="text-gray-800 p-6">
-        <SimulationHeader
+        <Simulation_Header
             handleGoBack={handleGoBack}
             title={`Knapsack Problem Simulation Using Exchange Heuristic - ${strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}`}
             handleStep={handleIteration}
@@ -147,14 +147,14 @@ function SimulationKnapsackExchange() {
             isDisabled={isCompleted}
         />
         <div className="flex flex-col lg:flex-row w-full" style={{height: '95vh'}}>
-            <KnapsackDataForDisplay
+            <KPDataForDisplay
                 items={items}
                 capacity={capacity}
                 simpleMode={true}
                 showStatus={false}
                 highlightCurrent={false}
             />
-            <SolKnapsackExchange
+            <Sol_KP_Exchange
                 exchangeHistory={exchangeHistory}
             />
             <FlowchartKnapsackExchange

@@ -1,8 +1,8 @@
-import KnapsackDefaultData from './DefaultData/KnapsackDefaultData';
+import DefaultData_KP from './DefaultData/DefaultData_KP';
 import Colors from '../Main/Colors';
 
-function InputHandlerKnapsack({ data, setData }) {
-    const defaultData = KnapsackDefaultData();
+function InputHandler_KP({ data, setData }) {
+    const defaultData = DefaultData_KP();
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
@@ -64,4 +64,4 @@ function InputHandlerKnapsack({ data, setData }) {
     );
 }
 
-export default InputHandlerKnapsack;
+export default InputHandler_KP;

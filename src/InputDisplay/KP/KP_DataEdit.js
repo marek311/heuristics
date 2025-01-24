@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Colors from '../../Main/Colors';
 
-function KnapsackDataForEdit({ items, capacity, onDataChange }) {
+function KP_DataEdit({ items, capacity, onDataChange }) {
     const [editableItems, setEditableItems] = useState(items);
 
     const handleInputChange = (e, index, field) => {
@@ -51,4 +51,4 @@ function KnapsackDataForEdit({ items, capacity, onDataChange }) {
     );
 }
 
-export default KnapsackDataForEdit;
+export default KP_DataEdit;

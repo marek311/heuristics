@@ -1,25 +1,25 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Colors from '../Main/Colors';
-import InputHandlerKnapsack from './InputHandlerKnapsack';
-import InputHandlerTSP from './InputHandlerTSP';
-import KnapsackDefaultData from './DefaultData/KnapsackDefaultData';
-import TSPDefaultData from './DefaultData/TSPDefaultData';
+import InputHandler_KP from './InputHandler_KP';
+import InputHandler_TSP from './InputHandler_TSP';
+import DefaultData_KP from './DefaultData/DefaultData_KP';
+import DefaultData_TSP from './DefaultData/DefaultData_TSP';
 
-function InputHandlerGeneral() {
+function InputHandler_General() {
     const location = useLocation();
     const navigate = useNavigate();
     const query = new URLSearchParams(location.search);
     const mode = query.get('mode');
 
-    const defaultKnapsackData = KnapsackDefaultData();
+    const defaultKnapsackData = DefaultData_KP();
     const [knapsackData, setKnapsackData] = useState({
         weights: defaultKnapsackData.weights,
         prices: defaultKnapsackData.prices,
         capacity: defaultKnapsackData.capacity,
     });
 
-    const defaultTspData = TSPDefaultData();
+    const defaultTspData = DefaultData_TSP();
     const [tspData, setTspData] = useState({
         cityCount: defaultTspData.cityCount,
         edges: defaultTspData.edges,
@@ -63,10 +63,10 @@ function InputHandlerGeneral() {
     return (
         <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit p-6 bg-white rounded-lg shadow-lg mx-auto my-10`}>
             {['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest'].includes(mode) && (
-                <InputHandlerKnapsack data={knapsackData} setData={setKnapsackData} />
+                <InputHandler_KP data={knapsackData} setData={setKnapsackData} />
             )}
             {['TSPSimulatedAnnealing','TSPGenetic', 'TSPTabuSearch'].includes(mode) && (
-                <InputHandlerTSP data={tspData} setData={setTspData} />
+                <InputHandler_TSP data={tspData} setData={setTspData} />
             )}
             <div className="items-center justify-center flex space-x-4 mt-4">
                 <button
@@ -84,4 +84,4 @@ function InputHandlerGeneral() {
     );
 }
 
-export default InputHandlerGeneral;
+export default InputHandler_General;

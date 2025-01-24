@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import Colors from '../Main/Colors';
-import TSPDefaultData from './DefaultData/TSPDefaultData';
+import DefaultData_TSP from './DefaultData/DefaultData_TSP';
 
-function InputHandlerTSP({ data, setData }) {
-    const defaultData = TSPDefaultData();
+function InputHandler_TSP({ data, setData }) {
+    const defaultData = DefaultData_TSP();
 
     useEffect(() => {
         if (!data.edges.length) {
@@ -79,4 +79,4 @@ function InputHandlerTSP({ data, setData }) {
     );
 }
 
-export default InputHandlerTSP;
+export default InputHandler_TSP;

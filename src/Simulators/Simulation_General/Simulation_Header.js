@@ -1,8 +1,8 @@
 import React from 'react';
-import ButtonsPanel from './SimulationButtonsPanel';
+import ButtonsPanel from './Simulation_ButtonsPanel';
 import Colors from '../../Main/Colors';
 
-function SimulationHeader({
+function Simulation_Header({
                               handleGoBack,
                               title,
                               handleStep,
@@ -32,4 +32,4 @@ function SimulationHeader({
     );
 }
 
-export default SimulationHeader;
+export default Simulation_Header;

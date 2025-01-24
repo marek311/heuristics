@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import KnapsackDataForEdit from './KnapsackDataForEdit';
+import KP_DataEdit from './KP_DataEdit';
 import Colors from '../../Main/Colors';
 
-function KnapsackDataPage() {
+function KP_DataPage() {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function KnapsackDataPage() {
 
     return (
         <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit ${Colors.textPrimary} p-6 ${Colors.cardBackground} rounded-lg mx-auto my-10`}>
-            <KnapsackDataForEdit
+            <KP_DataEdit
                 items={items}
                 capacity={currentCapacity}
                 onDataChange={handleDataChange}
@@ -68,4 +68,4 @@ function KnapsackDataPage() {
     );
 }
 
-export default KnapsackDataPage;
+export default KP_DataPage;
