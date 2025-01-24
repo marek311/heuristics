@@ -15,11 +15,7 @@ function TempGraphForceSimulation() {
         const width = 500;
         const height = 500;
 
-        const townCount = data.cityCount || 1;
-        const maxDistance = 200;
-        const minDistance = 80;
-
-        const dynamicDistance = maxDistance - (townCount - 5) * ((maxDistance - minDistance) / 5);
+        const dynamicDistance = 200;
 
         const svg = d3.select(svgRef.current)
             .attr('width', width)
