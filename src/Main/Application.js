@@ -2,10 +2,10 @@ import { Routes, Route } from 'react-router-dom';
 import Selector from './Selector';
 import InputHandlerGeneral from '../InputHandling/InputHandlerGeneral';
 import KnapsackDataPage from "../InputDisplay/KnapsackProblem/KnapsackDataPage";
-import TSPDataPage from '../InputDisplay/TSP/TSPDataPage';
+import TSPDataTable from '../InputDisplay/TSP/TSPDataTable';
 import SimKnapsackInsert from '../Simulators/SimulationKnapsackInsert/SimKnapsackInsert'
 import SimKnapsackExchange from '../Simulators/SimulationKnapsackExchange/SimKnapsackExchange'
-import TempGraph from "../Simulators/SimulationTSPSimulatedAnnealing/TempGraph";
+import TempGraph from "../InputDisplay/TSP/TSPDataGraph";
 
 function Application() {
     return (
@@ -23,13 +23,13 @@ function Application() {
                 <Route path="/knapsack-exchange-best-simulation" element={<KnapsackDataPage />} />
                 <Route path="knapsack-exchange-best-simulation/simulate" element={<SimKnapsackExchange />} />
 
-                <Route path="/tsp-simulated-annealing-simulation" element={<TSPDataPage />}/>
+                <Route path="/tsp-simulated-annealing-simulation" element={<TSPDataTable />}/>
                 <Route path="/tsp-simulated-annealing-simulation/simulate" element={<TempGraph />} />
 
-                <Route path="/tsp-genetic-simulation" element={<TSPDataPage />}/>
+                <Route path="/tsp-genetic-simulation" element={<TSPDataTable />}/>
 
 
-                <Route path="/tsp-tabu-search-simulation" element={<TSPDataPage />} />
+                <Route path="/tsp-tabu-search-simulation" element={<TSPDataTable />} />
 
 
             </Routes>

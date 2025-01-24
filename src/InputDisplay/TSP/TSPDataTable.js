@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Colors from '../../Main/Colors';
 
-function TSPDataPage() {
+function TSPDataTable() {
     const location = useLocation();
     const navigate = useNavigate();
     const { data } = location.state || {};
@@ -21,7 +21,6 @@ function TSPDataPage() {
 
     return (
         <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit p-6 ${Colors.cardBackground} rounded-lg mx-auto my-10`}>
-            <h2 className="mx-4 mb-4 text-xl font-bold">TSP Data</h2>
             <div className="mb-4 w-full">
                 <h3 className="mx-4"><strong>Number of Cities: </strong>{data.cityCount}</h3>
             </div>
@@ -58,4 +57,4 @@ function TSPDataPage() {
     );
 }
 
-export default TSPDataPage;
+export default TSPDataTable;

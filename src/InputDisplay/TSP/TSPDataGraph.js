@@ -91,7 +91,6 @@ function TempGraphForceSimulation() {
 
     return (
         <div className={`p-4 ${Colors.cardBackground} rounded-lg mx-auto my-10`}>
-            <h2 className="mb-4 text-xl font-bold text-center">Force-Directed Layout</h2>
             <div className="flex justify-center">
                 <svg ref={svgRef}></svg>
             </div>
