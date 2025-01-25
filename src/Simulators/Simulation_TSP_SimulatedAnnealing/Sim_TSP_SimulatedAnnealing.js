@@ -12,6 +12,10 @@ function SimulationTSPAnnealing() {
     const [currentTour, setCurrentTour] = useState([]);
     const [currentCost, setCurrentCost] = useState(0);
 
+    const [temperature, setTemeperature] = useState(100);
+    const [coolingRate, setCoolingRate] = useState(0.95);
+    const [iteration, setIteration] = useState(0);
+
     useEffect(() => {
         if (data && data.edges) {
             const cities = Array.from(new Set(data.edges.flatMap((edge) => [edge.city1, edge.city2])));
@@ -35,6 +39,11 @@ function SimulationTSPAnnealing() {
 
     const handleIteration = () => {
         // TODO
+        //Randomly swapping two cities in the currentTour.
+        //Calculating the cost of the new tour.
+        //Accepting or rejecting the new tour based on the cost difference and temperature.
+        //Updating the temperature (lower it over time).
+        //Incrementing the iteration count.
     };
 
     const handleRun = () => {
@@ -57,8 +66,8 @@ function SimulationTSPAnnealing() {
                     <h2 className="text-lg font-semibold mb-4">Current Simulation Details</h2>
                     <ul className="space-y-2">
                         <li>Cost: {currentCost}</li>
-                        <li>Iteration: 0</li>
-                        <li>Temperature: 0</li>
+                        <li>Iteration: {iteration}</li>
+                        <li>Temperature: {temperature.toFixed(2)}</li>
                         <li>
                             <strong>Current Tour:</strong>
                             <ul>
