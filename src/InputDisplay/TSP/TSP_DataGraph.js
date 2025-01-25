@@ -84,7 +84,7 @@ function TSPDataGraph({ data }) {
     }
 
     return (
-        <div className={`p-4 ${Colors.cardBackground} rounded-lg mx-auto my-10`}>
+        <div className={`p-4 ${Colors.cardBackground} rounded-lg mx-auto`}>
             <div className="flex justify-center">
                 <svg ref={svgRef}></svg>
             </div>
