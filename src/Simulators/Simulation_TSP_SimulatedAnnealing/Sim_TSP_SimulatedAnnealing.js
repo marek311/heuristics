@@ -54,17 +54,21 @@ function SimulationTSPAnnealing() {
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <TSPDataGraph data={data} tour={currentTour}/>
                 <div className="p-4 bg-white rounded-lg shadow-md w-full lg:w-1/3">
-                    <h2 className="text-lg font-semibold mb-4">Simulation Details</h2>
+                    <h2 className="text-lg font-semibold mb-4">Current Simulation Details</h2>
                     <ul className="space-y-2">
-                        <li>Initial Cost: {currentCost}</li>
+                        <li>Cost: {currentCost}</li>
                         <li>Iteration: 0</li>
-                        <li>Current Temperature:</li>
+                        <li>Temperature:</li>
                         <li>
                             <strong>Current Tour:</strong>
                             <ul>
-                                {currentTour.map((city, index) => (
-                                    <li key={index}>{city}</li>
-                                ))}
+                                <li>
+                                    {currentTour.map((city, index) => (
+                                        <span key={index}> {city}
+                                            {index < currentTour.length - 1 ? ',' : ''}
+                                        </span>
+                                    ))}
+                                </li>
                             </ul>
                         </li>
                     </ul>
