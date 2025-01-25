@@ -52,13 +52,13 @@ function SimulationTSPAnnealing() {
                 title="TSP Simulation Using Simulated Annealing"
             />
             <div className="flex flex-col lg:flex-row w-full h-full">
-                <TSPDataGraph data={data} tour={currentTour}/>
+                <TSPDataGraph data={data} tour={currentTour} />
                 <div className="p-4 bg-white rounded-lg shadow-md w-full lg:w-1/3">
                     <h2 className="text-lg font-semibold mb-4">Current Simulation Details</h2>
                     <ul className="space-y-2">
                         <li>Cost: {currentCost}</li>
                         <li>Iteration: 0</li>
-                        <li>Temperature:</li>
+                        <li>Temperature: 0</li>
                         <li>
                             <strong>Current Tour:</strong>
                             <ul>

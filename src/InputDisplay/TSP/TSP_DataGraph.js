@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 import Colors from '../../Main/Colors';
 
-function TSPDataGraph({ data }) {
+function TSPDataGraph({ data, tour }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -30,6 +30,14 @@ function TSPDataGraph({ data }) {
             distance: edge.distance,
         }));
 
+        const tourEdges = new Set();
+        for (let i = 0; i < tour.length - 1; i++) {
+            const city1 = tour[i];
+            const city2 = tour[i + 1];
+            tourEdges.add(`${city1}-${city2}`);
+            tourEdges.add(`${city2}-${city1}`);
+        }
+
         const simulation = d3.forceSimulation(cities)
             .force('link', d3.forceLink(links).id((d) => d.id).distance(dynamicDistance))
             .force('charge', d3.forceManyBody().strength(-300))
@@ -43,8 +51,12 @@ function TSPDataGraph({ data }) {
                 .attr('y1', (d) => d.source.y)
                 .attr('x2', (d) => d.target.x)
                 .attr('y2', (d) => d.target.y)
-                .attr('stroke', '#888')
-                .attr('stroke-width', 2);
+                .attr('stroke', (d) =>
+                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#4fc832' : '#888'
+                )
+                .attr('stroke-width', (d) =>
+                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? 4 : 2
+                );
 
             svg.selectAll('text.edge-label')
                 .data(links)
@@ -64,7 +76,7 @@ function TSPDataGraph({ data }) {
                 .attr('cx', (d) => d.x)
                 .attr('cy', (d) => d.y)
                 .attr('r', 10)
-                .attr('fill', '#1e88e5');
+                .attr('fill', (d) => (tour.includes(d.id) ? '#f70909' : '#1e88e5'));
 
             svg.selectAll('text.city-label')
                 .data(cities)
@@ -77,7 +89,7 @@ function TSPDataGraph({ data }) {
                 .style('font-size', '12px')
                 .text((d) => d.id);
         });
-    }, [data]);
+    }, [data, tour]);
 
     if (!data) {
         return <div>No TSP data available.</div>;
