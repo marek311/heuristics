@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
+import SolTSPSimulatedAnnealing from "./Sol_TSP_SimulatedAnnealing";
 import {
     initializeTour,
     handleIteration,
@@ -69,46 +70,21 @@ function SimulationTSPAnnealing() {
                 handleStep={handleStep}
             />
             <div className="flex flex-col lg:flex-row w-full h-full">
-                <TSPDataGraph data={data} tour={currentTour} />
-                <div className="p-4 bg-white rounded-lg shadow-md w-full lg:w-1/3">
-                    <h2 className="text-lg font-semibold mb-4">Best Found Solution</h2>
-                    <ul className="space-y-2">
-                        <li>Best Cost: {bestCost}</li>
-                        <li>
-                            <strong>Best Tour:</strong>
-                            <ul>
-                                <li>
-                                    {bestTour.map((city, index) => (
-                                        <span key={index}>
-                                            {city}{index < bestTour.length - 1 ? ',' : ''}
-                                        </span>
-                                    ))}
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <h2 className="text-lg font-semibold mb-4">Current Simulation Details</h2>
-                    <ul className="space-y-2">
-                        <li>Cost: {currentCost}</li>
-                        <li>Iteration: {iteration}</li>
-                        <li>Temperature: {temperature.toFixed(2)}</li>
-                        <li>
-                            <strong>Current Tour:</strong>
-                            <ul>
-                                <li>
-                                    {currentTour.map((city, index) => (
-                                        <span key={index}>
-                                            {city}{index < currentTour.length - 1 ? ',' : ''}
-                                        </span>
-                                    ))}
-                                </li>
-                            </ul>
-                        </li>
-                        <li>Cost Difference: {costDifference}</li>
-                        <li>Acceptance Probability: {acceptanceProbability.toFixed(4)}</li>
-                        <li>Random Value: {randomValue.toFixed(4)}</li>
-                    </ul>
-                </div>
+                <TSPDataGraph
+                    data={data}
+                    tour={currentTour}
+                />
+                <SolTSPSimulatedAnnealing
+                    bestCost={bestCost}
+                    bestTour={bestTour}
+                    currentCost={currentCost}
+                    iteration={iteration}
+                    temperature={temperature}
+                    currentTour={currentTour}
+                    costDifference={costDifference}
+                    acceptanceProbability={acceptanceProbability}
+                    randomValue={randomValue}
+                />
             </div>
         </div>
     );
