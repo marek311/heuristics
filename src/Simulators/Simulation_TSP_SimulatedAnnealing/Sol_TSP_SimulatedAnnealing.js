@@ -5,7 +5,6 @@ function SolTSPSimAnnealing({
                                 bestTour,
                                 currentCost,
                                 iteration,
-                                temperature,
                                 currentTour,
                                 costDifference,
                                 acceptanceProbability,
@@ -19,7 +18,6 @@ function SolTSPSimAnnealing({
                 <h2 className="text-lg font-semibold mb-2 text-blue-600">Simulation Details</h2>
                 <ul className="space-y-2 text-gray-800">
                     <li><strong>Iteration:</strong> {iteration}</li>
-                    <li><strong>Temperature:</strong> {temperature.toFixed(2)}</li>
                     <li><strong>Current Cost:</strong> {currentCost}</li>
                     <li>
                         <strong>Current Tour:</strong>

@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import SolTSPSimulatedAnnealing from "./Sol_TSP_SimulatedAnnealing";
+import TemperatureBar from "./TemperatureBar";
 import {
     initializeTour,
     handleIteration,
@@ -83,13 +84,15 @@ function SimulationTSPAnnealing() {
                     bestTour={bestTour}
                     currentCost={currentCost}
                     iteration={iteration}
-                    temperature={temperature}
                     currentTour={currentTour}
                     costDifference={costDifference}
                     acceptanceProbability={acceptanceProbability}
                     randomValue={randomValue}
                     proposedTour={proposedTour}
                     proposedCost={proposedCost}
+                />
+                <TemperatureBar
+                    temperature={temperature}
                 />
             </div>
         </div>
