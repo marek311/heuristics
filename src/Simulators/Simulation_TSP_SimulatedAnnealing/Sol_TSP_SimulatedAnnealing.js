@@ -16,9 +16,9 @@ function SolTSPSimAnnealing({
             <div className="bg-blue-100 p-4 rounded-lg mb-2">
                 <h2 className="text-lg font-semibold mb-2 text-blue-600">Simulation Details</h2>
                 <ul className="space-y-2 text-gray-800">
-                    <li><strong>Cost:</strong> {currentCost}</li>
                     <li><strong>Iteration:</strong> {iteration}</li>
                     <li><strong>Temperature:</strong> {temperature.toFixed(2)}</li>
+                    <li><strong>Cost:</strong> {currentCost}</li>
                     <li>
                         <strong>Current Tour:</strong>
                         <p> {currentTour.join(', ')} </p>
