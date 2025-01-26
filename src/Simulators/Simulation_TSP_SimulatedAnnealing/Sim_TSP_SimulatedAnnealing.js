@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
-import TSPDataGraph from "../../InputDisplay/TSP/TSP_DataGraph";
+import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
+import {
+    initializeTour
+} from './Algs_TSP_SimulatedAnnealing';
 
 function SimulationTSPAnnealing() {
     const navigate = useNavigate();
@@ -11,28 +14,14 @@ function SimulationTSPAnnealing() {
 
     const [currentTour, setCurrentTour] = useState([]);
     const [currentCost, setCurrentCost] = useState(0);
-
-    const [temperature, setTemeperature] = useState(100);
+    const [temperature, setTemperature] = useState(100);
     const [coolingRate, setCoolingRate] = useState(0.95);
     const [iteration, setIteration] = useState(0);
 
     useEffect(() => {
         if (data && data.edges) {
-            const cities = Array.from(new Set(data.edges.flatMap((edge) => [edge.city1, edge.city2])));
-            let randomTour = [...cities].sort(() => Math.random() - 0.5);
-
-            randomTour.push(randomTour[0]);
+            const { randomTour, totalCost } = initializeTour(data);
             setCurrentTour(randomTour);
-
-            let totalCost = 0;
-            for (let i = 0; i < randomTour.length - 1; i++) {
-                const edge = data.edges.find((e) =>
-                    (e.city1 === randomTour[i] && e.city2 === randomTour[i + 1]) ||
-                    (e.city1 === randomTour[i + 1] && e.city2 === randomTour[i])
-                );
-                totalCost += edge.distance;
-            }
-
             setCurrentCost(totalCost);
         }
     }, [data]);
@@ -73,8 +62,8 @@ function SimulationTSPAnnealing() {
                             <ul>
                                 <li>
                                     {currentTour.map((city, index) => (
-                                        <span key={index}> {city}
-                                            {index < currentTour.length - 1 ? ',' : ''}
+                                        <span key={index}>
+                                            {city}{index < currentTour.length - 1 ? ',' : ''}
                                         </span>
                                     ))}
                                 </li>
