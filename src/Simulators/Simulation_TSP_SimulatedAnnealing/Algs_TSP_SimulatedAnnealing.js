@@ -1,7 +1,7 @@
 export const initializeTour = (data) => {
     const cities = Array.from(new Set(data.edges.flatMap((edge) => [edge.city1, edge.city2])));
     let randomTour = [...cities].sort(() => Math.random() - 0.5);
-    randomTour.push(randomTour[0]); // Make it a closed tour
+    randomTour.push(randomTour[0]);
 
     let totalCost = calculateCost(randomTour, data.edges);
     return { randomTour, totalCost };
@@ -29,7 +29,10 @@ export const handleIteration = (
     setTemperature,
     iteration,
     setIteration,
-    data
+    data,
+    setCostDifference,
+    setAcceptanceProbability,
+    setRandomValue
 ) => {
     if (currentTour.length < 2 || temperature <= 1e-5) return;
 
@@ -43,20 +46,17 @@ export const handleIteration = (
     [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
 
     const newCost = calculateCost(newTour, data.edges);
-
     const costDifference = newCost - currentCost;
+    const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
+    const randomValue = Math.random();
 
-    if (costDifference < 0) {
+    setCostDifference(costDifference);
+    setAcceptanceProbability(acceptanceProbability);
+    setRandomValue(randomValue);
 
+    if (costDifference < 0 || randomValue < acceptanceProbability) {
         setCurrentTour(newTour);
         setCurrentCost(newCost);
-    } else {
-        const acceptanceProbability = Math.exp(-costDifference / temperature);
-        const randomValue = Math.random();  //[0,1]
-        if (randomValue < acceptanceProbability) {
-            setCurrentTour(newTour);
-            setCurrentCost(newCost);
-        }
     }
 
     setTemperature((prevTemperature) => prevTemperature * 0.95);

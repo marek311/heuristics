@@ -16,8 +16,10 @@ function SimulationTSPAnnealing() {
     const [currentTour, setCurrentTour] = useState([]);
     const [currentCost, setCurrentCost] = useState(0);
     const [temperature, setTemperature] = useState(100);
-    const [coolingRate, setCoolingRate] = useState(0.95);
     const [iteration, setIteration] = useState(0);
+    const [costDifference, setCostDifference] = useState(0);
+    const [acceptanceProbability, setAcceptanceProbability] = useState(0);
+    const [randomValue, setRandomValue] = useState(0);
 
     useEffect(() => {
         if (data && data.edges) {
@@ -37,7 +39,10 @@ function SimulationTSPAnnealing() {
             setTemperature,
             iteration,
             setIteration,
-            data
+            data,
+            setCostDifference,
+            setAcceptanceProbability,
+            setRandomValue
         );
     };
 
@@ -54,7 +59,7 @@ function SimulationTSPAnnealing() {
             <SimulationHeader
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Simulated Annealing"
-                handleStep ={handleStep}
+                handleStep={handleStep}
             />
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <TSPDataGraph data={data} tour={currentTour} />
@@ -76,6 +81,9 @@ function SimulationTSPAnnealing() {
                                 </li>
                             </ul>
                         </li>
+                        <li>Cost Difference: {costDifference}</li>
+                        <li>Acceptance Probability: {acceptanceProbability.toFixed(4)}</li>
+                        <li>Random Value: {randomValue.toFixed(4)}</li>
                     </ul>
                 </div>
             </div>
