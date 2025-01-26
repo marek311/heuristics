@@ -1,7 +1,9 @@
 export const initializeTour = (data) => {
     const cities = Array.from(new Set(data.edges.flatMap((edge) => [edge.city1, edge.city2])));
-    let randomTour = [...cities].sort(() => Math.random() - 0.5);
-    randomTour.push(randomTour[0]);
+    const startingCity = data.startingCity || cities[0];
+
+    const otherCities = cities.filter((city) => city !== startingCity);
+    let randomTour = [startingCity, ...otherCities.sort(() => Math.random() - 0.5), startingCity]; // Ensure the tour starts and ends with the starting city
 
     let totalCost = calculateCost(randomTour, data.edges);
     return { randomTour, totalCost };
