@@ -1,14 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Colors from '../Main/Colors';
 import DefaultData_TSP from './DefaultData/DefaultData_TSP';
 
 function InputHandler_TSP({ data, setData }) {
     const defaultData = DefaultData_TSP();
+    const [cities, setCities] = useState([]);
+    const [startEndCity, setStartEndCity] = useState('');
 
     useEffect(() => {
         if (!data.edges.length) {
             setData(defaultData);
         }
+
+        const citiesSet = new Set();
+        data.edges.forEach((edge) => {
+            citiesSet.add(edge.city1);
+            citiesSet.add(edge.city2);
+        });
+        setCities(Array.from(citiesSet));
     }, [data, setData]);
 
     const handleFileUpload = (event) => {
@@ -55,6 +64,23 @@ function InputHandler_TSP({ data, setData }) {
         reader.readAsText(file);
     };
 
+    const handleStartEndCityChange = (e) => {
+        const selectedCity = e.target.value;
+        setStartEndCity(selectedCity);
+        updateDataWithStartEnd(selectedCity);
+    };
+
+    const updateDataWithStartEnd = (city) => {
+        if (city) {
+            const newData = {
+                ...data,
+                startingCity: city,
+                endingCity: city,
+            };
+            setData(newData);
+        }
+    };
+
     return (
         <div>
             <label className={`block mb-2 ${Colors.textPrimary}`}>
@@ -67,14 +93,20 @@ function InputHandler_TSP({ data, setData }) {
                 onChange={handleFileUpload}
             />
             <label className={`block mb-2 ${Colors.textPrimary}`}>
-                Number of cities:
+                Select Starting/Ending City:
             </label>
-            <input
-                type="text"
+            <select
                 className="p-2 mb-4 text-black border rounded w-full"
-                value={data.cityCount || ''}
-                readOnly
-            />
+                value={startEndCity}
+                onChange={handleStartEndCityChange}
+            >
+                <option value="">Select City</option>
+                {cities.map((city, index) => (
+                    <option key={index} value={city}>
+                        {city}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 }
