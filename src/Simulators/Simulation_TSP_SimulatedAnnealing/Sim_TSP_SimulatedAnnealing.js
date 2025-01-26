@@ -23,6 +23,8 @@ function SimulationTSPAnnealing() {
     const [costDifference, setCostDifference] = useState(0);
     const [acceptanceProbability, setAcceptanceProbability] = useState(0);
     const [randomValue, setRandomValue] = useState(0);
+    const [proposedTour, setProposedTour] = useState([]);
+    const [proposedCost, setProposedCost] = useState(0);
 
     useEffect(() => {
         if (data && data.edges) {
@@ -50,7 +52,9 @@ function SimulationTSPAnnealing() {
             setRandomValue,
             setBestTour,
             bestCost,
-            setBestCost
+            setBestCost,
+            setProposedTour,
+            setProposedCost
         );
     };
 
@@ -84,6 +88,8 @@ function SimulationTSPAnnealing() {
                     costDifference={costDifference}
                     acceptanceProbability={acceptanceProbability}
                     randomValue={randomValue}
+                    proposedTour={proposedTour}
+                    proposedCost={proposedCost}
                 />
             </div>
         </div>
