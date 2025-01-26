@@ -32,7 +32,10 @@ export const handleIteration = (
     data,
     setCostDifference,
     setAcceptanceProbability,
-    setRandomValue
+    setRandomValue,
+    setBestTour,
+    bestCost,
+    setBestCost
 ) => {
     if (currentTour.length < 2 || temperature <= 1e-5) return;
 
@@ -57,6 +60,11 @@ export const handleIteration = (
     if (costDifference < 0 || randomValue < acceptanceProbability) {
         setCurrentTour(newTour);
         setCurrentCost(newCost);
+
+        if (newCost < bestCost) {
+            setBestTour(newTour);
+            setBestCost(newCost);
+        }
     }
 
     setTemperature((prevTemperature) => prevTemperature * 0.95);

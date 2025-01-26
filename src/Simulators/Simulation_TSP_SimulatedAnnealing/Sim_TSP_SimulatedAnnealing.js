@@ -15,6 +15,8 @@ function SimulationTSPAnnealing() {
 
     const [currentTour, setCurrentTour] = useState([]);
     const [currentCost, setCurrentCost] = useState(0);
+    const [bestTour, setBestTour] = useState([]);
+    const [bestCost, setBestCost] = useState(Infinity);
     const [temperature, setTemperature] = useState(100);
     const [iteration, setIteration] = useState(0);
     const [costDifference, setCostDifference] = useState(0);
@@ -26,6 +28,8 @@ function SimulationTSPAnnealing() {
             const { randomTour, totalCost } = initializeTour(data);
             setCurrentTour(randomTour);
             setCurrentCost(totalCost);
+            setBestTour(randomTour);
+            setBestCost(totalCost);
         }
     }, [data]);
 
@@ -42,7 +46,10 @@ function SimulationTSPAnnealing() {
             data,
             setCostDifference,
             setAcceptanceProbability,
-            setRandomValue
+            setRandomValue,
+            setBestTour,
+            bestCost,
+            setBestCost
         );
     };
 
@@ -64,6 +71,22 @@ function SimulationTSPAnnealing() {
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <TSPDataGraph data={data} tour={currentTour} />
                 <div className="p-4 bg-white rounded-lg shadow-md w-full lg:w-1/3">
+                    <h2 className="text-lg font-semibold mb-4">Best Found Solution</h2>
+                    <ul className="space-y-2">
+                        <li>Best Cost: {bestCost}</li>
+                        <li>
+                            <strong>Best Tour:</strong>
+                            <ul>
+                                <li>
+                                    {bestTour.map((city, index) => (
+                                        <span key={index}>
+                                            {city}{index < bestTour.length - 1 ? ',' : ''}
+                                        </span>
+                                    ))}
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
                     <h2 className="text-lg font-semibold mb-4">Current Simulation Details</h2>
                     <ul className="space-y-2">
                         <li>Cost: {currentCost}</li>
