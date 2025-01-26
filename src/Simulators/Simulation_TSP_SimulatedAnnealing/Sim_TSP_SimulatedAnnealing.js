@@ -3,7 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import {
-    initializeTour
+    initializeTour,
+    handleIteration,
 } from './Algs_TSP_SimulatedAnnealing';
 
 function SimulationTSPAnnealing() {
@@ -26,13 +27,18 @@ function SimulationTSPAnnealing() {
         }
     }, [data]);
 
-    const handleIteration = () => {
-        // TODO
-        //Randomly swapping two cities in the currentTour.
-        //Calculating the cost of the new tour.
-        //Accepting or rejecting the new tour based on the cost difference and temperature.
-        //Updating the temperature (lower it over time).
-        //Incrementing the iteration count.
+    const handleStep = () => {
+        handleIteration(
+            currentTour,
+            setCurrentTour,
+            currentCost,
+            setCurrentCost,
+            temperature,
+            setTemperature,
+            iteration,
+            setIteration,
+            data
+        );
     };
 
     const handleRun = () => {
@@ -48,6 +54,7 @@ function SimulationTSPAnnealing() {
             <SimulationHeader
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Simulated Annealing"
+                handleStep ={handleStep}
             />
             <div className="flex flex-col lg:flex-row w-full h-full">
                 <TSPDataGraph data={data} tour={currentTour} />
