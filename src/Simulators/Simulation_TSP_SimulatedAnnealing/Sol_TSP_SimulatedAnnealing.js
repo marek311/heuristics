@@ -14,19 +14,22 @@ function SolTSPSimAnnealing({
                             }) {
     return (
         <div className="p-4 bg-white rounded-lg shadow-md w-full">
-            <div className="bg-blue-100 p-2 rounded-lg mb-2">
-                <h2 className="text-lg font-semibold mb-2 text-blue-600">Simulation Details</h2>
+            <div className="text-center text-lg">
+                Iteration: {iteration}
+            </div>
+            <div className="bg-red-100 p-2 rounded-lg mb-2">
+                <h2 className="text-lg font-semibold text-red-600">Current Solution</h2>
                 <ul className="space-y-2 text-gray-800">
-                    <li><strong>Iteration:</strong> {iteration}</li>
                     <li><strong>Current Cost:</strong> {currentCost}</li>
                     <li>
                         <strong>Current Tour:</strong>
                         <p>{currentTour.join(', ')}</p>
                     </li>
-                    <li><strong>Cost Difference:</strong> {costDifference}</li>
-                    <li><strong>Acceptance Probability:</strong> {acceptanceProbability.toFixed(4)}</li>
-                    <li><strong>Random Value:</strong> {randomValue.toFixed(4)}</li>
-                    <h2 className="text-lg font-semibold mb-2 text-blue-600">Proposed Solution</h2>
+                </ul>
+            </div>
+            <div className="bg-blue-100 p-2 rounded-lg mb-2">
+                <ul className="space-y-2 text-gray-800">
+                    <h2 className="text-lg font-semibold text-blue-600">Proposed Solution</h2>
                     <ul className="space-y-2 text-gray-800">
                         <li><strong>Proposed Cost:</strong> {proposedCost}</li>
                         <li>
@@ -34,9 +37,12 @@ function SolTSPSimAnnealing({
                             <p>{proposedTour.join(', ')}</p>
                         </li>
                     </ul>
+                    <li><strong>Cost Difference:</strong> {costDifference}</li>
+                    <li><strong>Acceptance Probability:</strong> {acceptanceProbability.toFixed(4)}</li>
+                    <li><strong>Random Value:</strong> {randomValue.toFixed(4)}</li>
                 </ul>
             </div>
-            <div className="bg-green-100 p-2 rounded-lg mt-2">
+            <div className="bg-green-100 p-2 rounded-lg mb-2">
                 <h2 className="text-lg font-semibold text-green-600">Best Found Solution</h2>
                 <ul className="space-y-2 text-gray-800">
                     <li><strong>Best Cost:</strong> {bestCost}</li>
