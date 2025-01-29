@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function CostBarChart({ currentCost, proposedCost, bestCost }) {
+function CostChart({ currentCost, proposedCost, bestCost }) {
     const svgRef = useRef();
 
     useEffect(() => {
         const width = 50;
-        const height = 500;
+        const height = 350;
         const margin = 10;
 
         const svg = d3.select(svgRef.current)
@@ -46,10 +46,23 @@ function CostBarChart({ currentCost, proposedCost, bestCost }) {
                     <h2 className="text-lg font-semibold text-gray-800">Costs</h2>
                 </div>
                 <svg ref={svgRef}></svg>
+                <div className="mt-4 flex flex-col space-y-2">
+                    <div className="flex items-center">
+                        <div className="w-4 h-4 bg-blue-500 mr-2"></div>
+                        <span className="text-sm text-gray-700">Proposed</span>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="w-4 h-4 bg-red-500 mr-2"></div>
+                        <span className="text-sm text-gray-700">Current</span>
+                    </div>
+                    <div className="flex items-center">
+                        <div className="w-4 h-4 bg-green-500 mr-2"></div>
+                        <span className="text-sm text-gray-700">Best</span>
+                    </div>
+                </div>
             </div>
         </div>
-
     );
 }
 
-export default CostBarChart;
+export default CostChart;
