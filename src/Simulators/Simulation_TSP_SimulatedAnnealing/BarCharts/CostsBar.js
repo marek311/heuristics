@@ -41,8 +41,14 @@ function CostBarChart({ currentCost, proposedCost, bestCost }) {
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
-            <svg ref={svgRef}></svg>
+            <div className="flex flex-col items-center justify-center">
+                <div className="text-center text-lg">
+                    Costs
+                </div>
+                <svg ref={svgRef}></svg>
+            </div>
         </div>
+
     );
 }
 
