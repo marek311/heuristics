@@ -52,7 +52,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('x2', (d) => d.target.x)
                 .attr('y2', (d) => d.target.y)
                 .attr('stroke', (d) =>
-                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#4fc832' : '#888'
+                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#f70909' : '#888'
                 )
                 .attr('stroke-width', (d) =>
                     tourEdges.has(`${d.source.id}-${d.target.id}`) ? 4 : 2
