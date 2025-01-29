@@ -96,8 +96,11 @@ function TSPDataGraph({ data, tour }) {
     }
 
     return (
-        <div className={`p-4 ${Colors.cardBackground} rounded-lg mr-auto`}>
-            <div className="flex justify-center">
+        <div className="p-4 bg-white rounded-lg shadow-md">
+            <div className="flex flex-col items-center justify-center">
+                <div className="text-center text-lg">
+                    Graphical Representation
+                </div>
                 <svg ref={svgRef}></svg>
             </div>
         </div>
