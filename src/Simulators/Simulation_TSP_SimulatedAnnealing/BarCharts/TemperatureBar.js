@@ -6,7 +6,7 @@ function TemperatureBar({ temperature }) {
 
     useEffect(() => {
         const width = 50;
-        const height = 500;
+        const height = 350;
         const margin = 10;
 
         const svg = d3.select(svgRef.current)
@@ -67,12 +67,14 @@ function TemperatureBar({ temperature }) {
     }, [temperature]);
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow-md">
+        <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
             <div className="flex flex-col items-center justify-center">
-                <div className="text-center text-lg">
-                    <h2 className="text-lg font-semibold text-gray-800">Temperature</h2>
-                </div>
+                <h2 className="text-lg font-semibold text-gray-800">Temperature</h2>
                 <svg ref={svgRef}></svg>
+                <div className="mt-2 text-center">
+                    <p><strong>Cooling:</strong></p>
+                    <p>Each iteration reduces the temperature by 5%.</p>
+                </div>
             </div>
         </div>
     );
