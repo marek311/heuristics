@@ -4,6 +4,7 @@ import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import SolTSPSimulatedAnnealing from "./Sol_TSP_SimulatedAnnealing";
 import TemperatureBar from "./TemperatureBar";
+import ProbabilityBar from "./ProbabilityBar";
 import {
     initializeTour,
     handleIteration,
@@ -93,6 +94,10 @@ function SimulationTSPAnnealing() {
                 />
                 <TemperatureBar
                     temperature={temperature}
+                />
+                <ProbabilityBar
+                    acceptanceProbability={acceptanceProbability}
+                    randomValue={randomValue}
                 />
             </div>
         </div>
