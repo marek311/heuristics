@@ -22,7 +22,6 @@ function SolTSPSimAnnealing({
                 <ul className="space-y-2 text-gray-800">
                     <li><strong>Current Cost:</strong> {currentCost}</li>
                     <li>
-                        <strong>Current Tour:</strong>
                         <p>{currentTour.join(', ')}</p>
                     </li>
                 </ul>
@@ -33,7 +32,6 @@ function SolTSPSimAnnealing({
                     <ul className="space-y-2 text-gray-800">
                         <li><strong>Proposed Cost:</strong> {proposedCost}</li>
                         <li>
-                            <strong>Proposed Tour:</strong>
                             <p>{proposedTour.join(', ')}</p>
                         </li>
                     </ul>
@@ -47,7 +45,6 @@ function SolTSPSimAnnealing({
                 <ul className="space-y-2 text-gray-800">
                     <li><strong>Best Cost:</strong> {bestCost}</li>
                     <li>
-                        <strong>Best Tour:</strong>
                         <p> {bestTour.join(', ')} </p>
                     </li>
                 </ul>
