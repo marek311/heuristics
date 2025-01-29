@@ -76,10 +76,15 @@ function SimulationTSPAnnealing() {
                 title="TSP Simulation Using Simulated Annealing"
                 handleStep={handleStep}
             />
-            <div className="flex flex-col lg:flex-row w-full h-full">
+            <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <TSPDataGraph
                     data={data}
                     tour={currentTour}
+                />
+                <CostsBar
+                    currentCost={currentCost}
+                    proposedCost={proposedCost}
+                    bestCost={bestCost}
                 />
                 <SolTSPSimulatedAnnealing
                     bestCost={bestCost}
@@ -93,17 +98,12 @@ function SimulationTSPAnnealing() {
                     proposedTour={proposedTour}
                     proposedCost={proposedCost}
                 />
-                <TemperatureBar
-                    temperature={temperature}
-                />
                 <ProbabilityBar
                     acceptanceProbability={acceptanceProbability}
                     randomValue={randomValue}
                 />
-                <CostsBar
-                    currentCost={currentCost}
-                    proposedCost={proposedCost}
-                    bestCost={bestCost}
+                <TemperatureBar
+                    temperature={temperature}
                 />
             </div>
         </div>
