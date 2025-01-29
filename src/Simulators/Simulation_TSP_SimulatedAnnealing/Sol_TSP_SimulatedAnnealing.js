@@ -24,7 +24,8 @@ function SolTSPSimAnnealing({
                     <li><p>{proposedTour.join(', ')}</p></li>
                     <li><strong>Cost:</strong> {proposedCost}</li>
                     <li><strong>Cost Difference:</strong> {costDifference}</li>
-                    <li><strong>Status:</strong> {solutionStatus}</li>
+                    <li><strong>Status:</strong></li>
+                    <li>{solutionStatus}</li>
                 </ul>
             </div>
             <div className="bg-red-100 p-2 rounded-lg mb-2">

@@ -65,13 +65,12 @@ export const handleIteration = (
     setRandomValue(randomValue);
 
     let status;
-
     if (costDifference < 0) {
-        status = "Accepted: Better Solution - No Experiment";
+        status = "Accepted - Better Solution - No Experiment";
     } else if (randomValue < acceptanceProbability) {
-        status = "Accepted: Worse Solution - Experiment Successful";
+        status = "Accepted - Worse Solution - Experiment Successful";
     } else {
-        status = "Declined: Worse Solution - Experiment Unsuccessful";
+        status = "Declined - Worse Solution - Experiment Unsuccessful";
     }
 
     if (costDifference < 0 || randomValue < acceptanceProbability) {
