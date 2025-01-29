@@ -70,7 +70,7 @@ function TemperatureBar({ temperature }) {
         <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
                 <div className="text-center text-lg">
-                    Temperature
+                    <h2 className="text-lg font-semibold text-gray-800">Temperature</h2>
                 </div>
                 <svg ref={svgRef}></svg>
             </div>

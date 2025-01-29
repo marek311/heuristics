@@ -93,8 +93,6 @@ function SimulationTSPAnnealing() {
                     iteration={iteration}
                     currentTour={currentTour}
                     costDifference={costDifference}
-                    acceptanceProbability={acceptanceProbability}
-                    randomValue={randomValue}
                     proposedTour={proposedTour}
                     proposedCost={proposedCost}
                 />

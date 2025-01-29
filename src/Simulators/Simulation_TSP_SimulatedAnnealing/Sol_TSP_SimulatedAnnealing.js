@@ -7,8 +7,6 @@ function SolTSPSimAnnealing({
                                 iteration,
                                 currentTour,
                                 costDifference,
-                                acceptanceProbability,
-                                randomValue,
                                 proposedTour,
                                 proposedCost,
                             }) {
@@ -23,14 +21,12 @@ function SolTSPSimAnnealing({
                         <h2 className="text-lg font-semibold text-blue-600">Proposed Solution</h2>
                     </div>
                     <ul className="space-y-2 text-gray-800">
-                        <li><strong>Cost:</strong> {proposedCost}</li>
                         <li>
                             <p>{proposedTour.join(', ')}</p>
                         </li>
+                        <li><strong>Cost:</strong> {proposedCost}</li>
                     </ul>
                     <li><strong>Cost Difference:</strong> {costDifference}</li>
-                    <li><strong>Acceptance Probability:</strong> {acceptanceProbability.toFixed(4)}</li>
-                    <li><strong>Random Value:</strong> {randomValue.toFixed(4)}</li>
                 </ul>
             </div>
             <div className="bg-red-100 p-2 rounded-lg mb-2">
@@ -38,10 +34,10 @@ function SolTSPSimAnnealing({
                     <h2 className="text-lg font-semibold text-red-600">Current Solution</h2>
                 </div>
                 <ul className="space-y-2 text-gray-800">
-                    <li><strong>Cost:</strong> {currentCost}</li>
                     <li>
                         <p>{currentTour.join(', ')}</p>
                     </li>
+                    <li><strong>Cost:</strong> {currentCost}</li>
                 </ul>
             </div>
             <div className="bg-green-100 p-2 rounded-lg mb-2">
@@ -49,10 +45,10 @@ function SolTSPSimAnnealing({
                     <h2 className="text-lg font-semibold text-green-600">Best Found Solution</h2>
                 </div>
                 <ul className="space-y-2 text-gray-800">
-                    <li><strong>Cost:</strong> {bestCost}</li>
                     <li>
                         <p> {bestTour.join(', ')} </p>
                     </li>
+                    <li><strong>Cost:</strong> {bestCost}</li>
                 </ul>
             </div>
         </div>

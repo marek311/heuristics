@@ -6,7 +6,7 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
 
     useEffect(() => {
         const width = 50;
-        const height = 500;
+        const height = 350;
         const margin = 10;
 
         const svg = d3.select(svgRef.current)
@@ -39,15 +39,14 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
     }, [acceptanceProbability, randomValue]);
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow-md">
-            <div className="flex flex-col items-center justify-center">
-                <div className="text-center text-lg">
-                    Probability
-                </div>
-                <svg ref={svgRef}></svg>
+        <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
+            <h2 className="text-lg font-semibold text-gray-800">Probability</h2>
+            <svg ref={svgRef}></svg>
+            <div className="mt-2 text-center">
+                <p><strong>Acceptance Probability:</strong> {acceptanceProbability.toFixed(4)}</p>
+                <p><strong>Random Value:</strong> {randomValue.toFixed(4)}</p>
             </div>
         </div>
-
     );
 }
 
