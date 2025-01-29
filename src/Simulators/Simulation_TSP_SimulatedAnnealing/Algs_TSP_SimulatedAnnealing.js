@@ -55,8 +55,15 @@ export const handleIteration = (
 
     const newCost = calculateCost(newTour, data.edges);
     const costDifference = newCost - currentCost;
-    const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
-    const randomValue = Math.random();
+    let acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
+    let randomValue = 0;
+
+    if (costDifference < 0) {
+        acceptanceProbability = 1;
+    } else {
+        acceptanceProbability = Math.exp(-costDifference / temperature);
+        randomValue = Math.random();
+    }
 
     setProposedTour(newTour);
     setProposedCost(newCost);
