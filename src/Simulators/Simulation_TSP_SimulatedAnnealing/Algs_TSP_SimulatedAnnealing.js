@@ -39,7 +39,8 @@ export const handleIteration = (
     bestCost,
     setBestCost,
     setProposedTour,
-    setProposedCost
+    setProposedCost,
+    setSolutionStatus
 ) => {
     if (currentTour.length < 2 || temperature <= 1e-5) return;
 
@@ -63,6 +64,16 @@ export const handleIteration = (
     setAcceptanceProbability(acceptanceProbability);
     setRandomValue(randomValue);
 
+    let status;
+
+    if (costDifference < 0) {
+        status = "Accepted: Better Solution - No Experiment";
+    } else if (randomValue < acceptanceProbability) {
+        status = "Accepted: Worse Solution - Experiment Successful";
+    } else {
+        status = "Declined: Worse Solution - Experiment Unsuccessful";
+    }
+
     if (costDifference < 0 || randomValue < acceptanceProbability) {
         setCurrentTour(newTour);
         setCurrentCost(newCost);
@@ -73,6 +84,7 @@ export const handleIteration = (
         }
     }
 
+    setSolutionStatus(status);
     setTemperature((prevTemperature) => prevTemperature * 0.95);
     setIteration((prevIteration) => prevIteration + 1);
 };

@@ -28,6 +28,7 @@ function SimulationTSPAnnealing() {
     const [randomValue, setRandomValue] = useState(0);
     const [proposedTour, setProposedTour] = useState([]);
     const [proposedCost, setProposedCost] = useState(0);
+    const [solutionStatus, setSolutionStatus] = useState("");
 
     useEffect(() => {
         if (data && data.edges) {
@@ -57,7 +58,8 @@ function SimulationTSPAnnealing() {
             bestCost,
             setBestCost,
             setProposedTour,
-            setProposedCost
+            setProposedCost,
+            setSolutionStatus
         );
     };
 
@@ -95,6 +97,7 @@ function SimulationTSPAnnealing() {
                     costDifference={costDifference}
                     proposedTour={proposedTour}
                     proposedCost={proposedCost}
+                    solutionStatus={solutionStatus}
                 />
                 <ProbabilityBar
                     acceptanceProbability={acceptanceProbability}
