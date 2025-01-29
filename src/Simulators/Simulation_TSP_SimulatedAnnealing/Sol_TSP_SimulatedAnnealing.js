@@ -19,11 +19,11 @@ function SolTSPSimAnnealing({
             </div>
             <div className="bg-blue-100 p-2 rounded-lg mb-2">
                 <ul className="space-y-2 text-gray-800">
-                    <div className="bg-blue-200 p-2 rounded-lg mb-2">
+                    <div className="bg-blue-200 rounded-lg mb-2">
                         <h2 className="text-lg font-semibold text-blue-600">Proposed Solution</h2>
                     </div>
                     <ul className="space-y-2 text-gray-800">
-                        <li><strong>Proposed Cost:</strong> {proposedCost}</li>
+                        <li><strong>Cost:</strong> {proposedCost}</li>
                         <li>
                             <p>{proposedTour.join(', ')}</p>
                         </li>
@@ -34,22 +34,22 @@ function SolTSPSimAnnealing({
                 </ul>
             </div>
             <div className="bg-red-100 p-2 rounded-lg mb-2">
-                <div className="bg-red-200 p-2 rounded-lg mb-2">
+                <div className="bg-red-200 rounded-lg mb-2">
                     <h2 className="text-lg font-semibold text-red-600">Current Solution</h2>
                 </div>
                 <ul className="space-y-2 text-gray-800">
-                    <li><strong>Current Cost:</strong> {currentCost}</li>
+                    <li><strong>Cost:</strong> {currentCost}</li>
                     <li>
                         <p>{currentTour.join(', ')}</p>
                     </li>
                 </ul>
             </div>
             <div className="bg-green-100 p-2 rounded-lg mb-2">
-                <div className="bg-green-200 p-2 rounded-lg mb-2">
+                <div className="bg-green-200 rounded-lg mb-2">
                     <h2 className="text-lg font-semibold text-green-600">Best Found Solution</h2>
                 </div>
                 <ul className="space-y-2 text-gray-800">
-                    <li><strong>Best Cost:</strong> {bestCost}</li>
+                    <li><strong>Cost:</strong> {bestCost}</li>
                     <li>
                         <p> {bestTour.join(', ')} </p>
                     </li>
