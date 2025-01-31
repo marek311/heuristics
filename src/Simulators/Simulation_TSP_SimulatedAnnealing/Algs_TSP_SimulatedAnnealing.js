@@ -47,8 +47,12 @@ const modifyTourAndCalculateCost = (tour, edges, temperature) => {
 export const handleIteration = (
     currentTour,
     setCurrentTour,
+    previousTour,
+    setPreviousTour,
     currentCost,
     setCurrentCost,
+    previousCost,
+    setPreviousCost,
     temperature,
     setTemperature,
     iteration,
@@ -95,6 +99,8 @@ export const handleIteration = (
     }
 
     if (costDifference <= 0 || randomValue < acceptanceProbability) {
+        setPreviousTour([...currentTour]);
+        setPreviousCost(currentCost);
         setCurrentTour(newTour);
         setCurrentCost(newCost);
 
@@ -112,8 +118,12 @@ export const handleIteration = (
 export const handleRun = (
     currentTour,
     setCurrentTour,
+    previousTour,
+    setPreviousTour,
     currentCost,
     setCurrentCost,
+    previousCost,
+    setPreviousCost,
     temperature,
     setTemperature,
     iteration,
@@ -161,6 +171,8 @@ export const handleRun = (
         setSwappedIndexes(swappedIndexes);
 
         if (costDifference <= 0 || randomValue < acceptanceProbability) {
+            setPreviousTour([...current]);
+            setPreviousCost(cost);
             current = newTour;
             cost = newCost;
             noChangeCounter = 0;

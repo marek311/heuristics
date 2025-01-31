@@ -31,6 +31,8 @@ function SimulationTSPAnnealing() {
     const [proposedCost, setProposedCost] = useState(0);
     const [solutionStatus, setSolutionStatus] = useState("");
     const [swappedIndexes, setSwappedIndexes] = useState([]);
+    const [previousTour, setPreviousTour] = useState([]);
+    const [previousCost, setPreviousCost] = useState(0);
 
     useEffect(() => {
         if (data && data.edges) {
@@ -46,8 +48,12 @@ function SimulationTSPAnnealing() {
         handleIteration(
             currentTour,
             setCurrentTour,
+            previousTour,
+            setPreviousTour,
             currentCost,
             setCurrentCost,
+            previousCost,
+            setPreviousCost,
             temperature,
             setTemperature,
             iteration,
@@ -70,8 +76,12 @@ function SimulationTSPAnnealing() {
         handleRun(
             currentTour,
             setCurrentTour,
+            previousTour,
+            setPreviousTour,
             currentCost,
             setCurrentCost,
+            previousCost,
+            setPreviousCost,
             temperature,
             setTemperature,
             iteration,
@@ -128,6 +138,7 @@ function SimulationTSPAnnealing() {
                     currentCost={currentCost}
                     proposedCost={proposedCost}
                     bestCost={bestCost}
+                    previousCost={previousCost}
                 />
                 <SolTSPSimulatedAnnealing
                     bestTour={bestTour}
@@ -137,6 +148,7 @@ function SimulationTSPAnnealing() {
                     proposedTour={proposedTour}
                     solutionStatus={solutionStatus}
                     swappedIndexes={swappedIndexes}
+                    previousTour={previousTour}
                 />
                 <ProbabilityBar
                     acceptanceProbability={acceptanceProbability}

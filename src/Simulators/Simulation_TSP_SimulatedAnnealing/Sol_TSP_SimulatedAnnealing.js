@@ -7,7 +7,8 @@ function SolTSPSimAnnealing({
                                 costDifference,
                                 proposedTour,
                                 solutionStatus,
-                                swappedIndexes
+                                swappedIndexes,
+                                previousTour,
                             }) {
     return (
         <div className="p-4 bg-white rounded-lg shadow-md w-full">
@@ -21,6 +22,12 @@ function SolTSPSimAnnealing({
                 <ul className="space-y-2 text-gray-800">
                     <li><p>{proposedTour.join(', ')}</p></li>
                 </ul>
+                <div>
+                    Swapped Indexes: {swappedIndexes.join('⟷')}
+                </div>
+                <div>
+                    Cost Difference: {costDifference}<br/>
+                </div>
             </div>
             <div className="bg-red-100 p-2 rounded-lg mb-4">
                 <div className="bg-red-200 rounded-lg mb-2">
@@ -30,6 +37,16 @@ function SolTSPSimAnnealing({
                     <li>
                         <p>{currentTour.join(', ')}</p>
                     </li>
+                </ul>
+            </div>
+            <div className="bg-yellow-100 p-2 rounded-lg mb-4">
+                <div className="bg-yellow-200 rounded-lg mb-2">
+                    <h2 className="text-lg font-semibold text-red-600">Previous Solution</h2>
+                </div>
+                <ul className="space-y-2 text-gray-800">
+                    <ul className="space-y-2 text-gray-800">
+                        <li>{previousTour.join(', ')}</li>
+                    </ul>
                 </ul>
             </div>
             <div className="bg-green-100 p-2 rounded-lg mb-4">
@@ -43,13 +60,7 @@ function SolTSPSimAnnealing({
                 </ul>
             </div>
             <div className="bg-gray-100 p-2 rounded-lg mb-4">
-                <div className="text-center text-lg pb-4">
-                    Swapped Indexes: {swappedIndexes.join('⟷')}
-                </div>
-                <div className="text-center text-lg pb-4">
-                    Cost Difference: {costDifference}<br/>
-                </div>
-                <div className="text-center text-lg pb-4">
+                <div className="text-center pb-4">
                     Status: {solutionStatus}
                 </div>
             </div>

@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function CostChart({ currentCost, proposedCost, bestCost }) {
+function CostChart({ currentCost, proposedCost, bestCost, previousCost }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 150;
+        const width = 200;
         const height = 500;
         const margin = { top: 20, right: 10, bottom: 50, left: 10 };
         const barWidth = 30;
@@ -19,7 +19,7 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
 
         svg.selectAll("*").remove();
 
-        const maxCost = Math.max(currentCost, proposedCost, bestCost) + (Math.max(currentCost, proposedCost, bestCost) / 5);
+        const maxCost = Math.max(currentCost, proposedCost, bestCost, previousCost) + (Math.max(currentCost, proposedCost, bestCost, previousCost) / 5);
 
         const yScale = d3.scaleLinear()
             .domain([0, maxCost])
@@ -28,7 +28,8 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
         const costs = [
             { label: "Proposed", value: proposedCost, color: "blue", x: margin.left },
             { label: "Current", value: currentCost, color: "red", x: margin.left + barWidth + barSpacing },
-            { label: "Best", value: bestCost, color: "green", x: margin.left + 2 * (barWidth + barSpacing) }
+            { label: "Best", value: bestCost, color: "green", x: margin.left + 2 * (barWidth + barSpacing) },
+            { label: "Previous", value: previousCost, color: "yellow", x: margin.left + 3 * (barWidth + barSpacing) }
         ];
 
         svg.selectAll(".bar")
@@ -63,7 +64,7 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
             .attr("font-size", "12px")
             .text(d => d.label);
 
-    }, [currentCost, proposedCost, bestCost]);
+    }, [currentCost, proposedCost, bestCost, previousCost]);
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
