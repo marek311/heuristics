@@ -86,7 +86,8 @@ function SimulationTSPAnnealing() {
             setBestCost,
             setProposedTour,
             setProposedCost,
-            setSolutionStatus
+            setSolutionStatus,
+            setSwappedIndexes
         );
     };
 

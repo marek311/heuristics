@@ -128,7 +128,8 @@ export const handleRun = (
     setBestCost,
     setProposedTour,
     setProposedCost,
-    setSolutionStatus
+    setSolutionStatus,
+    setSwappedIndexes
 ) => {
     if (currentTour.length < 2 || temperature <= 1e-5) return;
 
@@ -142,13 +143,14 @@ export const handleRun = (
     let noChangeCounter = 0;
     let terminationReason = "";
 
-    while (temp > 1e-5 && noChangeCounter < 10) {
+    while (temp > 1e-5 && noChangeCounter < 15) {
         const {
             newTour,
             newCost,
             costDifference,
             acceptanceProbability,
-            randomValue
+            randomValue,
+            swappedIndexes
         } = modifyTourAndCalculateCost(current, data.edges, temp);
 
         setProposedTour(newTour);
@@ -156,6 +158,7 @@ export const handleRun = (
         setCostDifference(costDifference);
         setAcceptanceProbability(acceptanceProbability);
         setRandomValue(randomValue);
+        setSwappedIndexes(swappedIndexes);
 
         if (costDifference <= 0 || randomValue < acceptanceProbability) {
             current = newTour;
