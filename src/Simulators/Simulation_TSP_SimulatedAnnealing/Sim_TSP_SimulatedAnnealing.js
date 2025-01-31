@@ -130,14 +130,11 @@ function SimulationTSPAnnealing() {
                     bestCost={bestCost}
                 />
                 <SolTSPSimulatedAnnealing
-                    bestCost={bestCost}
                     bestTour={bestTour}
-                    currentCost={currentCost}
                     iteration={iteration}
                     currentTour={currentTour}
                     costDifference={costDifference}
                     proposedTour={proposedTour}
-                    proposedCost={proposedCost}
                     solutionStatus={solutionStatus}
                     swappedIndexes={swappedIndexes}
                 />

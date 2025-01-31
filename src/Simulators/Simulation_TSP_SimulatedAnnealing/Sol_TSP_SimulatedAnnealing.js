@@ -1,21 +1,18 @@
 import React from 'react';
 
 function SolTSPSimAnnealing({
-                                bestCost,
                                 bestTour,
-                                currentCost,
                                 iteration,
                                 currentTour,
                                 costDifference,
                                 proposedTour,
-                                proposedCost,
                                 solutionStatus,
                                 swappedIndexes
                             }) {
     return (
         <div className="p-4 bg-white rounded-lg shadow-md w-full">
             <div className="text-center text-lg">
-                Iteration: {iteration}
+                <h2 className="text-lg font-semibold text-gray-800">Iteration: {iteration}</h2>
             </div>
             <div className="bg-blue-100 p-2 rounded-lg mb-2">
                 <div className="bg-blue-200 rounded-lg mb-2">
@@ -24,7 +21,6 @@ function SolTSPSimAnnealing({
                 <ul className="space-y-2 text-gray-800">
                     <li><strong>Swapped Indexes:</strong> {swappedIndexes.join('⟷')}</li>
                     <li><p>{proposedTour.join(', ')}</p></li>
-                    <li><strong>Cost:</strong> {proposedCost}</li>
                     <li><strong>Cost Difference:</strong> {costDifference}</li>
                     <li><strong>Status:</strong></li>
                     <li>{solutionStatus}</li>
@@ -38,7 +34,6 @@ function SolTSPSimAnnealing({
                     <li>
                         <p>{currentTour.join(', ')}</p>
                     </li>
-                    <li><strong>Cost:</strong> {currentCost}</li>
                 </ul>
             </div>
             <div className="bg-green-100 p-2 rounded-lg mb-2">
@@ -49,7 +44,6 @@ function SolTSPSimAnnealing({
                     <li>
                         <p> {bestTour.join(', ')} </p>
                     </li>
-                    <li><strong>Cost:</strong> {bestCost}</li>
                 </ul>
             </div>
         </div>
