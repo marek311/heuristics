@@ -5,9 +5,9 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 150; // Adjust width for multiple bars
-        const height = 350;
-        const margin = { top: 10, right: 10, bottom: 30, left: 10 };
+        const width = 150;
+        const height = 500;
+        const margin = { top: 20, right: 10, bottom: 50, left: 10 };
         const barWidth = 30;
         const barSpacing = 20;
 
@@ -41,6 +41,28 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
             .attr("height", d => height - margin.bottom - yScale(d.value))
             .attr("fill", d => d.color);
 
+        svg.selectAll(".label")
+            .data(costs)
+            .enter()
+            .append("text")
+            .attr("x", d => d.x + barWidth / 2)
+            .attr("y", d => yScale(d.value) - 5)
+            .attr("text-anchor", "middle")
+            .attr("fill", "black")
+            .attr("font-size", "12px")
+            .text(d => d.value);
+
+        svg.selectAll(".legend-label")
+            .data(costs)
+            .enter()
+            .append("text")
+            .attr("x", d => d.x + barWidth / 2)
+            .attr("y", height - margin.bottom + 20)
+            .attr("text-anchor", "middle")
+            .attr("fill", "black")
+            .attr("font-size", "12px")
+            .text(d => d.label);
+
     }, [currentCost, proposedCost, bestCost]);
 
     return (
@@ -48,20 +70,6 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-lg font-semibold text-gray-800">Costs</h2>
                 <svg ref={svgRef}></svg>
-                <div className="mt-4 flex flex-col space-y-2">
-                    <div className="flex items-center">
-                        <div className="w-4 h-4 bg-blue-500 mr-2"></div>
-                        <span className="text-sm text-gray-700">Proposed</span>
-                    </div>
-                    <div className="flex items-center">
-                        <div className="w-4 h-4 bg-red-500 mr-2"></div>
-                        <span className="text-sm text-gray-700">Current</span>
-                    </div>
-                    <div className="flex items-center">
-                        <div className="w-4 h-4 bg-green-500 mr-2"></div>
-                        <span className="text-sm text-gray-700">Best</span>
-                    </div>
-                </div>
             </div>
         </div>
     );
