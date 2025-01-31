@@ -72,7 +72,7 @@ function TemperatureBar({ temperature }) {
                 <h2 className="text-lg font-semibold text-gray-800">Temperature</h2>
                 <svg ref={svgRef}></svg>
                 <div className="mt-2 text-center">
-                    <p><strong>Cooling:</strong></p>
+                    <p><strong>Cooling Schedule:</strong></p>
                     <p>Each iteration reduces the temperature by 5%.</p>
                 </div>
             </div>

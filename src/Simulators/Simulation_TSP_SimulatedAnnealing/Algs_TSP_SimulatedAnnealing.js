@@ -36,7 +36,7 @@ const modifyTourAndCalculateCost = (tour, edges, temperature) => {
     const newCost = calculateCost(newTour, edges);
     const costDifference = newCost - calculateCost(tour, edges);
     const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
-    const randomValue = costDifference < 0 ? 0 : Math.random();
+    const randomValue = costDifference <= 0 ? 0 : Math.random();
 
     return { newTour, newCost, costDifference, acceptanceProbability, randomValue };
 };
