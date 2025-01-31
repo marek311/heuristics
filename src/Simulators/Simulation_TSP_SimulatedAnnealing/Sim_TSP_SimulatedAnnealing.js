@@ -88,8 +88,22 @@ function SimulationTSPAnnealing() {
         );
     };
 
-    const handleReset = () => {
-        // TODO
+    const handleResetUI = () => {
+        if (data && data.edges) {
+            const { randomTour, totalCost } = initializeTour(data);
+            setCurrentTour(randomTour);
+            setCurrentCost(totalCost);
+            setBestTour(randomTour);
+            setBestCost(totalCost);
+            setTemperature(100);
+            setIteration(0);
+            setCostDifference(0);
+            setAcceptanceProbability(0);
+            setRandomValue(0);
+            setProposedTour([]);
+            setProposedCost(0);
+            setSolutionStatus("");
+        }
     };
 
     return (
@@ -99,6 +113,7 @@ function SimulationTSPAnnealing() {
                 title="TSP Simulation Using Simulated Annealing"
                 handleStep={handleStep}
                 handleRun={handleRunSimulation}
+                handleReset={handleResetUI}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <TSPDataGraph
