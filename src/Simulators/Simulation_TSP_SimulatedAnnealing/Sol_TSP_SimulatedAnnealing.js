@@ -9,7 +9,8 @@ function SolTSPSimAnnealing({
                                 costDifference,
                                 proposedTour,
                                 proposedCost,
-                                solutionStatus
+                                solutionStatus,
+                                swappedIndexes
                             }) {
     return (
         <div className="p-4 bg-white rounded-lg shadow-md w-full">
@@ -21,6 +22,7 @@ function SolTSPSimAnnealing({
                     <h2 className="text-lg font-semibold text-blue-600">Proposed Solution</h2>
                 </div>
                 <ul className="space-y-2 text-gray-800">
+                    <li><strong>Swapped Indexes:</strong> {swappedIndexes.join('⟷')}</li>
                     <li><p>{proposedTour.join(', ')}</p></li>
                     <li><strong>Cost:</strong> {proposedCost}</li>
                     <li><strong>Cost Difference:</strong> {costDifference}</li>

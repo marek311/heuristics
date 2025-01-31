@@ -31,6 +31,9 @@ const modifyTourAndCalculateCost = (tour, edges, temperature) => {
         j = Math.floor(Math.random() * (newTour.length - 2)) + 1;
     } while (i === j);
 
+    let swappedIndexes;
+    swappedIndexes = [i, j];
+
     [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
 
     const newCost = calculateCost(newTour, edges);
@@ -38,7 +41,7 @@ const modifyTourAndCalculateCost = (tour, edges, temperature) => {
     const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
     const randomValue = costDifference <= 0 ? 0 : Math.random();
 
-    return { newTour, newCost, costDifference, acceptanceProbability, randomValue };
+    return { newTour, newCost, costDifference, acceptanceProbability, randomValue, swappedIndexes };
 };
 
 export const handleIteration = (
@@ -59,7 +62,8 @@ export const handleIteration = (
     setBestCost,
     setProposedTour,
     setProposedCost,
-    setSolutionStatus
+    setSolutionStatus,
+    setSwappedIndexes
 ) => {
     if (currentTour.length < 2 || temperature <= 1e-5) return;
 
@@ -68,7 +72,8 @@ export const handleIteration = (
         newCost,
         costDifference,
         acceptanceProbability,
-        randomValue
+        randomValue,
+        swappedIndexes
     } = modifyTourAndCalculateCost(currentTour, data.edges, temperature);
 
     setProposedTour(newTour);
@@ -76,6 +81,7 @@ export const handleIteration = (
     setCostDifference(costDifference);
     setAcceptanceProbability(acceptanceProbability);
     setRandomValue(randomValue);
+    setSwappedIndexes(swappedIndexes);
 
     let status;
     if (costDifference < 0) {
