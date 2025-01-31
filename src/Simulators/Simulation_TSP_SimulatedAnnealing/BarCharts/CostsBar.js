@@ -5,9 +5,11 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 50;
+        const width = 150; // Adjust width for multiple bars
         const height = 350;
-        const margin = 10;
+        const margin = { top: 10, right: 10, bottom: 30, left: 10 };
+        const barWidth = 30;
+        const barSpacing = 20;
 
         const svg = d3.select(svgRef.current)
             .attr("width", width)
@@ -17,34 +19,34 @@ function CostChart({ currentCost, proposedCost, bestCost }) {
 
         svg.selectAll("*").remove();
 
-        const maxCost = Math.max(currentCost, proposedCost, bestCost);
+        const maxCost = Math.max(currentCost, proposedCost, bestCost) + (Math.max(currentCost, proposedCost, bestCost) / 5);
 
         const yScale = d3.scaleLinear()
-            .domain([0, maxCost || 1])
-            .range([height - margin, margin]);
+            .domain([0, maxCost])
+            .range([height - margin.bottom, margin.top]);
 
-        const drawLine = (cost, color) => {
-            svg.append("line")
-                .attr("x1", margin)
-                .attr("x2", width - margin)
-                .attr("y1", yScale(cost))
-                .attr("y2", yScale(cost))
-                .attr("stroke", color)
-                .attr("stroke-width", 3);
-        };
+        const costs = [
+            { label: "Proposed", value: proposedCost, color: "blue", x: margin.left },
+            { label: "Current", value: currentCost, color: "red", x: margin.left + barWidth + barSpacing },
+            { label: "Best", value: bestCost, color: "green", x: margin.left + 2 * (barWidth + barSpacing) }
+        ];
 
-        drawLine(proposedCost, "blue");
-        drawLine(bestCost, "green");
-        drawLine(currentCost, "red");
+        svg.selectAll(".bar")
+            .data(costs)
+            .enter()
+            .append("rect")
+            .attr("x", d => d.x)
+            .attr("width", barWidth)
+            .attr("y", d => yScale(d.value))
+            .attr("height", d => height - margin.bottom - yScale(d.value))
+            .attr("fill", d => d.color);
 
     }, [currentCost, proposedCost, bestCost]);
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <div className="text-center text-lg">
-                    <h2 className="text-lg font-semibold text-gray-800">Costs</h2>
-                </div>
+                <h2 className="text-lg font-semibold text-gray-800">Costs</h2>
                 <svg ref={svgRef}></svg>
                 <div className="mt-4 flex flex-col space-y-2">
                     <div className="flex items-center">

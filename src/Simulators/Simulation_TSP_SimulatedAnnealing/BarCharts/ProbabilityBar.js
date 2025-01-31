@@ -17,10 +17,20 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
 
         svg.selectAll("*").remove();
 
-        const probabilityHeight = acceptanceProbability * (height - 2 * margin);
+        const totalHeight = height - 2 * margin;
+        const probabilityHeight = acceptanceProbability * totalHeight;
         const probabilityY = height - margin - probabilityHeight;
-        const randomY = height - margin - (randomValue * (height - 2 * margin));
+        const randomY = height - margin - (randomValue * totalHeight);
 
+        // Red background (full height)
+        svg.append("rect")
+            .attr("x", margin)
+            .attr("y", margin)
+            .attr("width", width - 2 * margin)
+            .attr("height", totalHeight)
+            .attr("fill", "red");
+
+        // Green overlay for acceptance probability
         svg.append("rect")
             .attr("x", margin)
             .attr("y", probabilityY)
@@ -28,6 +38,7 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
             .attr("height", probabilityHeight)
             .attr("fill", "green");
 
+        // Black line for random value
         svg.append("line")
             .attr("x1", margin)
             .attr("x2", width - margin)
