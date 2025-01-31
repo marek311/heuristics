@@ -28,8 +28,8 @@ function CostChart({ currentCost, proposedCost, bestCost, previousCost }) {
         const costs = [
             { label: "Proposed", value: proposedCost, color: "blue", x: margin.left },
             { label: "Current", value: currentCost, color: "red", x: margin.left + barWidth + barSpacing },
-            { label: "Best", value: bestCost, color: "green", x: margin.left + 2 * (barWidth + barSpacing) },
-            { label: "Previous", value: previousCost, color: "yellow", x: margin.left + 3 * (barWidth + barSpacing) }
+            { label: "Previous", value: previousCost, color: "yellow", x: margin.left + 2 * (barWidth + barSpacing) },
+            { label: "Best", value: bestCost, color: "green", x: margin.left + 3 * (barWidth + barSpacing) }
         ];
 
         svg.selectAll(".bar")
