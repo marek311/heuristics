@@ -9,6 +9,7 @@ import CostsBar from "./BarCharts/CostsBar";
 import {
     initializeTour,
     handleIteration,
+    handleRun,
 } from './Algs_TSP_SimulatedAnnealing';
 
 function SimulationTSPAnnealing() {
@@ -63,8 +64,28 @@ function SimulationTSPAnnealing() {
         );
     };
 
-    const handleRun = () => {
-        // TODO
+    const handleRunSimulation = () => {
+        handleRun(
+            currentTour,
+            setCurrentTour,
+            currentCost,
+            setCurrentCost,
+            temperature,
+            setTemperature,
+            iteration,
+            setIteration,
+            data,
+            setCostDifference,
+            setAcceptanceProbability,
+            setRandomValue,
+            bestTour,
+            setBestTour,
+            bestCost,
+            setBestCost,
+            setProposedTour,
+            setProposedCost,
+            setSolutionStatus
+        );
     };
 
     const handleReset = () => {
@@ -77,6 +98,7 @@ function SimulationTSPAnnealing() {
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Simulated Annealing"
                 handleStep={handleStep}
+                handleRun={handleRunSimulation}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <TSPDataGraph
