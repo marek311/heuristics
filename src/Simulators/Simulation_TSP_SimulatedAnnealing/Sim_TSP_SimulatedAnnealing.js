@@ -141,14 +141,8 @@ function SimulationTSPAnnealing() {
                     previousCost={previousCost}
                 />
                 <SolTSPSimulatedAnnealing
-                    bestTour={bestTour}
-                    iteration={iteration}
                     currentTour={currentTour}
-                    costDifference={costDifference}
                     proposedTour={proposedTour}
-                    solutionStatus={solutionStatus}
-                    swappedIndexes={swappedIndexes}
-                    previousTour={previousTour}
                 />
                 <ProbabilityBar
                     acceptanceProbability={acceptanceProbability}
