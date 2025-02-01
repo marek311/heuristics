@@ -5,20 +5,20 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 400;
+        const width = 500;
         const height = 500;
-
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#818181')
+            .style('background', '#f0f0f0')
+            .style('border', '1px solid #ccc')
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'load', text: 'Current Item', x: 200, y: 50, shape: 'rect', color: '#1e88e5' },
-            { id: 'check', text: 'Does it fit?', x: 200, y: 150, shape: 'diamond', color: '#ffa533' },
-            { id: 'add', text: 'Add to backpack', x: 100, y: 300, shape: 'oval', color: '#4caf50' },
-            { id: 'next', text: 'Next Iteration', x: 300, y: 400, shape: 'oval', color: '#4caf50' },
+            { id: 'load', text: 'Current Item', x: 250, y: 100, shape: 'rect', color: '#1e88e5' },
+            { id: 'check', text: 'Does it fit?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
+            { id: 'add', text: 'Add to Backpack', x: 100, y: 300, shape: 'oval', color: '#4caf50' },
+            { id: 'next', text: 'Next Iteration', x: 250, y: 400, shape: 'rect', color: '#1e88e5' },
         ];
 
         const links = [
@@ -28,17 +28,35 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
             { source: 'add', target: 'next' },
         ];
 
-        svg.append('defs').append('marker')
-            .attr('id', 'arrow')
-            .attr('viewBox', '0 -5 12 10')
-            .attr('refX', 15)
-            .attr('refY', 0)
-            .attr('markerWidth', 8)
-            .attr('markerHeight', 8)
-            .attr('orient', 'auto')
-            .append('path')
-            .attr('d', 'M0,-4L10,0L0,4')
-            .attr('fill', 'red');
+        const linkLines = svg.selectAll('line')
+            .data(links)
+            .join('line')
+            .attr('x1', d => nodes.find(n => n.id === d.source).x)
+            .attr('y1', d => nodes.find(n => n.id === d.source).y)
+            .attr('x2', d => nodes.find(n => n.id === d.target).x)
+            .attr('y2', d => nodes.find(n => n.id === d.target).y)
+            .attr('stroke', '#333')
+            .attr('stroke-width', 2);
+
+        svg.selectAll('text.link-label')
+            .data(links)
+            .join('text')
+            .attr('class', 'link-label')
+            .attr('x', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.x + targetNode.x) / 2;
+            })
+            .attr('y', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.y + targetNode.y) / 2 - 10;
+            })
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#000')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold')
+            .text(d => d.label || '');
 
         const nodeGroups = svg.selectAll('g.node')
             .data(nodes)
@@ -64,36 +82,24 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
                     .attr('height', 60)
                     .attr('x', -70)
                     .attr('y', -30)
-                    .attr('fill', d.color);
+                    .attr('fill', d.color)
+                    .attr('rx', 10)
+                    .attr('ry', 10);
             }
         });
 
-        nodeGroups.append('text')
-            .attr('text-anchor', 'middle')
-            .attr('dy', '0.35em')
-            .attr('fill', '#fff')
-            .style('font-size', '14px')
-            .text(d => d.text);
-
-        svg.selectAll('line')
-            .data(links)
-            .join('line')
-            .attr('x1', d => nodes.find(n => n.id === d.source).x)
-            .attr('y1', d => nodes.find(n => n.id === d.source).y + 20)
-            .attr('x2', d => nodes.find(n => n.id === d.target).x)
-            .attr('y2', d => nodes.find(n => n.id === d.target).y - 20)
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 2)
-            .attr('marker-end', 'url(#arrow)');
-
-        svg.selectAll('text.link-label')
-            .data(links)
+        svg.selectAll('text.label')
+            .data(nodes)
             .join('text')
-            .attr('class', 'link-label')
-            .attr('x', d => (nodes.find(n => n.id === d.source).x + nodes.find(n => n.id === d.target).x) / 2)
-            .attr('y', d => (nodes.find(n => n.id === d.source).y + nodes.find(n => n.id === d.target).y) / 2 - 10)
-            .attr('fill', '#fff')
-            .text(d => d.label || '');
+            .attr('class', 'label')
+            .attr('x', d => d.x)
+            .attr('y', d => d.y)
+            .attr('dy', 5)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#000')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold')
+            .text(d => d.text);
 
     }, []);
 
@@ -106,23 +112,23 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
         if (currentItem) {
             const itemInfoGroup = svg.append('g').attr('class', 'info-item');
             itemInfoGroup.selectAll('text')
-                .data([
-                    `Price: ${currentItem.price}`,
-                    `Weight: ${currentItem.weight}`,
-                ])
+                .data([`Price: ${currentItem.price}`, `Weight: ${currentItem.weight}`])
                 .join('text')
-                .attr('x', 270)
-                .attr('y', (_, i) => 50 + i * 20)
-                .attr('fill', '#fff')
+                .attr('x', 320)
+                .attr('y', (_, i) => 100 + i * 20)
+                .attr('fill', '#000')
                 .attr('text-anchor', 'start')
+                .style('font-size', '14px')
                 .text(d => d);
         }
-
     }, [currentIndex, items]);
 
     return (
-        <div className="flex-1 p-1 bg-white rounded-lg">
-            <svg ref={svgRef} className="w-full"></svg>
+        <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
+            <div className="flex flex-col items-center justify-center">
+                <h2 className="text-lg font-semibold text-gray-800">Knapsack Insert Flowchart</h2>
+                <svg ref={svgRef}></svg>
+            </div>
         </div>
     );
 }

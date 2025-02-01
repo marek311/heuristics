@@ -11,7 +11,7 @@ function Solution_KP_Insert({
     const graphRef = useRef();
 
     useEffect(() => {
-        const width = 800;
+        const width = 500;
         const paddingLeft = 10;
         const rectSize = 25;
         const rectGap = 2;
@@ -55,18 +55,20 @@ function Solution_KP_Insert({
     }, [binarySolution, currentIndex, currentWeight, currentPrice, items.length]);
 
     return (
-        <div className="flex-1 p-4 bg-white rounded-lg mr-2">
-            <div className="flex justify-between items-center mb-4 space-x-4">
-                <h2><strong>Items Selected for the Knapsack</strong></h2>
-                <p>Current weight: {currentWeight}</p>
-                <p>Current price: {currentPrice}</p>
-                <p>Iteration: {currentIndex}</p>
+        <div className="flex-1 p-6 bg-white rounded-lg shadow-lg mr-4">
+            <div>
+                <h2 className="text-xl font-semibold text-gray-800">Items Selected for the Knapsack</h2>
+                <div className="text-sm text-gray-600">
+                    <p><strong>Current Weight:</strong> {currentWeight}</p>
+                    <p><strong>Current Price:</strong> {currentPrice}</p>
+                    <p><strong>Iteration:</strong> {currentIndex}</p>
+                </div>
             </div>
-            <div className="mt-4">
-                <svg ref={graphRef} className="w-full"></svg>
+            <div className="flex justify-center items-center mt-6">
+                <svg ref={graphRef} className="w-full max-w-[90%] rounded-lg shadow-md"></svg>
             </div>
             {currentIndex >= items.length && (
-                <p className="mt-2 flex justify-center text-center">Algorithm is complete!</p>
+                <p className="mt-4 text-center font-medium">Algorithm is complete!</p>
             )}
         </div>
     );
