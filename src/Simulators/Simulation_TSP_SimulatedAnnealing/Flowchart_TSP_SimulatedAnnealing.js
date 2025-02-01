@@ -118,7 +118,6 @@ function SolutionSimulatedAnnealingTSP() {
     return (
         <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Simulated Annealing - TSP</h2>
                 <svg ref={svgRef}></svg>
             </div>
         </div>

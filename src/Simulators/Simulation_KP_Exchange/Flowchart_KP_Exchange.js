@@ -5,23 +5,24 @@ function KnapsackExchangeFlowChart({ strategy }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 400;
-        const height = 500;
+        const width = 500;
+        const height = 550;
 
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#818181')
+            .style('background', '#f0f0f0')
+            .style('border', '1px solid #ccc')
             .style('overflow', 'visible');
 
         svg.selectAll('*').remove();
 
         const commonNodes = [
-            { id: 'inBackpack', text: 'Item in backpack', x: 200, y: 40, shape: 'rect', color: '#1e88e5' },
-            { id: 'notInBackpack', text: 'Item Not in backpack', x: 200, y: 115, shape: 'rect', color: '#1e88e5' },
-            { id: 'admissible', text: 'Admissible exchange?', x: 200, y: 190, shape: 'diamond', color: '#ffa533' },
-            { id: 'improving', text: 'Improving exchange?', x: 100, y: 250, shape: 'diamond', color: '#ffa533' },
-            { id: 'next', text: 'Next iteration', x: 300, y: 375, shape: 'oval', color: '#4caf50' },
+            { id: 'inBackpack', text: 'Item in backpack', x: 250, y: 40, shape: 'rect', color: '#1e88e5' },
+            { id: 'notInBackpack', text: 'Item Not in backpack', x: 250, y: 115, shape: 'rect', color: '#1e88e5' },
+            { id: 'admissible', text: 'Admissible exchange?', x: 250, y: 190, shape: 'diamond', color: '#ffa533' },
+            { id: 'improving', text: 'Improving exchange?', x: 150, y: 260, shape: 'diamond', color: '#ffa533' },
+            { id: 'next', text: 'Next iteration', x: 350, y: 400, shape: 'oval', color: '#4caf50' },
         ];
 
         const commonLinks = [
@@ -37,8 +38,8 @@ function KnapsackExchangeFlowChart({ strategy }) {
 
         if (strategy === 'firstFit') {
             strategyNodes = [
-                { id: 'exchange', text: 'Perform exchange', x: 100, y: 375, shape: 'oval', color: '#4caf50' },
-                { id: 'solution', text: 'New solution', x: 100, y: 450, shape: 'rect', color: '#1e88e5' },
+                { id: 'exchange', text: 'Perform exchange', x: 150, y: 400, shape: 'oval', color: '#4caf50' },
+                { id: 'solution', text: 'New solution', x: 150, y: 470, shape: 'rect', color: '#1e88e5' },
             ];
             strategyLinks = [
                 { source: 'improving', target: 'exchange', label: 'Yes' },
@@ -48,8 +49,8 @@ function KnapsackExchangeFlowChart({ strategy }) {
 
         if (strategy === 'bestFit') {
             strategyNodes = [
-                { id: 'bestQuestion', text: 'Best exchange?', x: 100, y: 350, shape: 'diamond', color: '#ffa533' },
-                { id: 'solution', text: 'New Solution', x: 200, y: 465, shape: 'rect', color: '#1e88e5' },
+                { id: 'bestQuestion', text: 'Best exchange?', x: 150, y: 375, shape: 'diamond', color: '#ffa533' },
+                { id: 'solution', text: 'New Solution', x: 250, y: 500, shape: 'rect', color: '#1e88e5' },
             ];
             strategyLinks = [
                 { source: 'improving', target: 'bestQuestion', label: 'Yes' },
@@ -61,17 +62,36 @@ function KnapsackExchangeFlowChart({ strategy }) {
         const nodes = [...commonNodes, ...strategyNodes];
         const links = [...commonLinks, ...strategyLinks];
 
-        svg.append('defs').append('marker')
-            .attr('id', 'arrow')
-            .attr('viewBox', '0 -5 12 10')
-            .attr('refX', 15)
-            .attr('refY', 0)
-            .attr('markerWidth', 8)
-            .attr('markerHeight', 8)
-            .attr('orient', 'auto')
-            .append('path')
-            .attr('d', 'M0,-4L10,0L0,4')
-            .attr('fill', 'red');
+        const linkLines = svg.selectAll('line')
+            .data(links)
+            .join('line')
+            .attr('x1', d => nodes.find(n => n.id === d.source).x)
+            .attr('y1', d => nodes.find(n => n.id === d.source).y)
+            .attr('x2', d => nodes.find(n => n.id === d.target).x)
+            .attr('y2', d => nodes.find(n => n.id === d.target).y)
+            .attr('stroke', '#333')
+            .attr('stroke-width', 2);
+
+        svg.selectAll('text.link-label')
+            .data(links)
+            .join('text')
+            .attr('class', 'link-label')
+            .attr('x', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.x + targetNode.x) / 2;
+            })
+            .attr('y', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.y + targetNode.y) / 2;
+            })
+            .attr('dy', -10)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#000')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold')
+            .text(d => d.label || '');
 
         const nodeGroups = svg.selectAll('g.node')
             .data(nodes)
@@ -81,6 +101,7 @@ function KnapsackExchangeFlowChart({ strategy }) {
 
         nodeGroups.each(function (d) {
             const group = d3.select(this);
+
             if (d.shape === 'oval') {
                 group.append('ellipse')
                     .attr('rx', 70)
@@ -96,56 +117,31 @@ function KnapsackExchangeFlowChart({ strategy }) {
                     .attr('height', 60)
                     .attr('x', -70)
                     .attr('y', -30)
-                    .attr('fill', d.color);
+                    .attr('fill', d.color)
+                    .attr('rx', 10)
+                    .attr('ry', 10);
             }
         });
 
-        nodeGroups.append('text')
-            .attr('text-anchor', 'middle')
-            .attr('dy', '0.35em')
-            .attr('fill', '#fff')
-            .style('font-size', '14px')
-            .text(d => d.text);
-
-        svg.selectAll('line')
-            .data(links)
-            .join('line')
-            .attr('x1', d => nodes.find(n => n.id === d.source).x)
-            .attr('y1', d => nodes.find(n => n.id === d.source).y + 20)
-            .attr('x2', d => nodes.find(n => n.id === d.target).x)
-            .attr('y2', d => nodes.find(n => n.id === d.target).y - 20)
-            .attr('stroke', '#fff')
-            .attr('stroke-width', 2)
-            .attr('marker-end', 'url(#arrow)');
-
-        svg.selectAll('text.link-label')
-            .data(links)
+        svg.selectAll('text.label')
+            .data(nodes)
             .join('text')
-            .attr('class', 'link-label')
-            .attr('x', d => {
-                const sourceNode = nodes.find(n => n.id === d.source);
-                const targetNode = nodes.find(n => n.id === d.target);
-                if (!sourceNode || !targetNode) return 0;
-                const ratio = 0.5;
-                return sourceNode.x + (targetNode.x - sourceNode.x) * ratio;
-            })
-            .attr('y', d => {
-                const sourceNode = nodes.find(n => n.id === d.source);
-                const targetNode = nodes.find(n => n.id === d.target);
-                if (!sourceNode || !targetNode) return 0;
-                const ratio = 0.5;
-                return sourceNode.y + (targetNode.y - sourceNode.y) * ratio;
-            })
-            .attr('fill', '#fff')
+            .attr('class', 'label')
+            .attr('x', d => d.x)
+            .attr('y', d => d.y)
+            .attr('dy', 5)
             .attr('text-anchor', 'middle')
-            .attr('dy', '-5')
-            .text(d => d.label || '');
-
+            .attr('fill', '#000')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold')
+            .text(d => d.text);
     }, [strategy]);
 
     return (
-        <div className="flex-1 p-1 bg-white rounded-lg">
-            <svg ref={svgRef} className="w-full"></svg>
+        <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
+            <div className="flex flex-col items-center justify-center">
+                <svg ref={svgRef}></svg>
+            </div>
         </div>
     );
 }
