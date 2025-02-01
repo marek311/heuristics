@@ -117,6 +117,8 @@ function SimulationTSPAnnealing() {
             setProposedCost(0);
             setSolutionStatus("");
             setSwappedIndexes([]);
+            setPreviousTour([]);
+            setPreviousCost(0);
         }
     };
 
