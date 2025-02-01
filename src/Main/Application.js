@@ -3,9 +3,9 @@ import Selector from './Selector';
 import InputHandler_General from '../InputHandling/InputHandler_General';
 import KP_DataPage from "../InputDisplay/KP/KP_DataPage";
 import TSP_DataTable from '../InputDisplay/TSP/TSP_DataTable';
-import SimKnapsackInsert from '../Simulators/Simulation_KP_Insert/Sim_KP_Insert'
-import SimKnapsackExchange from '../Simulators/Simulation_KP_Exchange/Sim_KP_Exchange'
-import SimTSPSimulatedAnnealing from "../Simulators/Simulation_TSP_SimulatedAnnealing/Sim_TSP_SimulatedAnnealing";
+import SimKnapsackInsert from '../Simulators/Simulation_KP_Insert/Simulation_KP_Insert'
+import SimKnapsackExchange from '../Simulators/Simulation_KP_Exchange/Simulation_KP_Exchange'
+import SimTSPSimulatedAnnealing from "../Simulators/Simulation_TSP_SimulatedAnnealing/Simulation_TSP_SimulatedAnnealing";
 
 function Application() {
     return (

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function Sol_KP_Insert({
+function Solution_KP_Insert({
                                currentWeight,
                                currentPrice,
                                currentIndex,
@@ -72,4 +72,4 @@ function Sol_KP_Insert({
     );
 }
 
-export default Sol_KP_Insert;
+export default Solution_KP_Insert;

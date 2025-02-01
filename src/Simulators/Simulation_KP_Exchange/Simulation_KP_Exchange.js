@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Sol_KP_Exchange from './Sol_KP_Exchange';
+import Solution_KP_Exchange from './Solution_KP_Exchange';
 import FlowchartKnapsackExchange from './Flowchart_KP_Exchange.js';
 import {
     performInitializeSolution,
@@ -154,7 +154,7 @@ function SimulationKnapsackExchange() {
                 showStatus={false}
                 highlightCurrent={false}
             />
-            <Sol_KP_Exchange
+            <Solution_KP_Exchange
                 exchangeHistory={exchangeHistory}
             />
             <FlowchartKnapsackExchange

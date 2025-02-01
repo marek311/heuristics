@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function Sol_KP_Exchange({ exchangeHistory }) {
+function Solution_KP_Exchange({ exchangeHistory }) {
     const graphRef = useRef();
 
     useEffect(() => {
@@ -73,4 +73,4 @@ function Sol_KP_Exchange({ exchangeHistory }) {
     );
 }
 
-export default Sol_KP_Exchange;
+export default Solution_KP_Exchange;

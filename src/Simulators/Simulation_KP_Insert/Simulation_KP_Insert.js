@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Sol_KP_Insert from './Sol_KP_Insert';
+import Solution_KP_Insert from './Solution_KP_Insert';
 import FlowchartKnapsackInsert from './Flowchart_KP_Insert.js';
 import {
     performIteration,
@@ -103,7 +103,7 @@ function SimulationKnapsackInsert() {
                     highlightCurrent={true}
                     simpleMode={false}
                 />
-                <Sol_KP_Insert
+                <Solution_KP_Insert
                     currentWeight={currentWeight}
                     currentPrice={currentPrice}
                     currentIndex={currentIndex}

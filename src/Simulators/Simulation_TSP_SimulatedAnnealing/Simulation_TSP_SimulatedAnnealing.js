@@ -5,7 +5,7 @@ import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import SolTSPSimulatedAnnealing from "./Flowchart_TSP_SimulatedAnnealing";
 import Bar_Temperature from "./Bar_Temperature";
 import Bar_Experiment from "./Bar_Experiment";
-import CostsBar from "./Sol_TSP_SimulatedAnnealing";
+import CostsBar from "./Solution_TSP_SimulatedAnnealing";
 import {
     initializeTour,
     handleIteration,

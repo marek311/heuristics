@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function Sol_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, previousCost, currentTour, proposedTour, bestTour, previousTour }) {
+function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, previousCost, currentTour, proposedTour, bestTour, previousTour }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -90,4 +90,4 @@ function Sol_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, previ
     );
 }
 
-export default Sol_TSP_SimulatedAnnealing;
+export default Solution_TSP_SimulatedAnnealing;
