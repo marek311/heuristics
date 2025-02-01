@@ -55,7 +55,7 @@ function Solution_KP_Insert({
     }, [binarySolution, currentIndex, currentWeight, currentPrice, items.length]);
 
     return (
-        <div className="flex-1 p-6 bg-white rounded-lg shadow-lg mr-4">
+        <div className="flex-1 p-6 bg-white rounded-lg shadow-lg mr-2">
             <div>
                 <h2 className="text-xl font-semibold text-gray-800">Items Selected for the Knapsack</h2>
                 <div className="text-sm text-gray-600">
