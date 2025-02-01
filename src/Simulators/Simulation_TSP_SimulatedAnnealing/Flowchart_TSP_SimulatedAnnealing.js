@@ -15,14 +15,14 @@ function SolutionSimulatedAnnealingTSP() {
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'current', text: 'Current Solution', x: 250, y: 50, shape: 'rect', color: '#1e88e5'},
-            { id: 'neighbor', text: 'Find Proposed Solution', x: 250, y: 125, shape: 'oval', color: '#4caf50'},
+            { id: 'current', text: 'Current Solution', x: 250, y: 40, shape: 'rect', color: '#1e88e5'},
+            { id: 'neighbor', text: 'Find Proposed Solution', x: 250, y: 120, shape: 'oval', color: '#4caf50'},
             { id: 'better', text: 'Better than Current?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'new', text: 'New Current Solution', x: 100, y: 325, shape: 'rect', color: '#1e88e5' },
-            { id: 'betterBest', text: 'Better than Best?', x: 100, y: 400, shape: 'diamond', color: '#ffa533' },
-            { id: 'newBest', text: 'New Best Solution', x: 100, y: 525, shape: 'rect', color: '#1e88e5' },
-            { id: 'experiment', text: 'Perform Experiment', x: 400, y: 275, shape: 'oval', color: '#4caf50' },
-            { id: 'cooldown', text: 'Cool Down Temperature', x: 250, y: 450, shape: 'oval', color: '#4caf50' },
+            { id: 'new', text: 'New Current Solution', x: 100, y: 290, shape: 'rect', color: '#1e88e5' },
+            { id: 'betterBest', text: 'Better than Best?', x: 100, y: 370, shape: 'diamond', color: '#ffa533' },
+            { id: 'newBest', text: 'New Best Solution', x: 100, y: 480, shape: 'rect', color: '#1e88e5' },
+            { id: 'experiment', text: 'Perform Experiment', x: 400, y: 250, shape: 'oval', color: '#4caf50' },
+            { id: 'cooldown', text: 'Cool Down Temperature', x: 400, y: 490, shape: 'oval', color: '#4caf50' },
             { id: 'newIteration', text: 'New Iteration', x: 250, y: 550, shape: 'rect', color: '#1e88e5' },
         ];
 
@@ -36,8 +36,8 @@ function SolutionSimulatedAnnealingTSP() {
             { source: 'betterBest', target: 'cooldown', label: 'No' },
             { source: 'experiment', target: 'new', label: 'Accepted' },
             { source: 'experiment', target: 'cooldown', label: 'Declined' },
+            { source: 'newBest', target: 'cooldown' },
             { source: 'cooldown', target: 'newIteration' },
-            { source: 'newBest', target: 'newIteration' },
         ];
 
         const linkLines = svg.selectAll('line')
