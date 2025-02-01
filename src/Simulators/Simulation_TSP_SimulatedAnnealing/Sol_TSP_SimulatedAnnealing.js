@@ -71,12 +71,20 @@ function Sol_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, previ
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-lg font-semibold text-gray-800">Tours</h2>
                 <svg ref={svgRef}></svg>
-                <ul>
-                    <li><strong>Best Tour:</strong> {bestTour.join(',')}</li>
-                    <li><strong>Proposed Tour:</strong> {proposedTour.join(',')}</li>
-                    <li><strong>Current Tour:</strong> {currentTour.join(',')}</li>
-                    <li><strong>Previous Tour:</strong> {previousTour.join(',')}</li>
-                </ul>
+                <div className="tour-list mt-4 space-y-2">
+                    <div className="bg-blue-300 rounded-lg">
+                        <strong>Proposed Tour:</strong> {proposedTour.join(',')}
+                    </div>
+                    <div className="bg-red-300 rounded-lg">
+                        <strong>Current Tour:</strong> {currentTour.join(',')}
+                    </div>
+                    <div className="bg-yellow-300 rounded-lg">
+                        <strong>Previous Tour:</strong> {previousTour.join(',')}
+                    </div>
+                    <div className="bg-green-300 rounded-lg">
+                        <strong>Best Tour:</strong> {bestTour.join(',')}
+                    </div>
+                </div>
             </div>
         </div>
     );

@@ -6,7 +6,7 @@ function Bar_Temperature({ temperature }) {
 
     useEffect(() => {
         const width = 50;
-        const height = 400;
+        const height = 450;
         const margin = 10;
 
         const svg = d3.select(svgRef.current)
