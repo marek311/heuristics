@@ -42,7 +42,7 @@ function SolutionSimulatedAnnealingTSP() {
         svg.append('defs').append('marker')
             .attr('id', 'arrow')
             .attr('viewBox', '0 -5 12 10')
-            .attr('refX', 10)
+            .attr('refX', 6)  // Change refX to center the arrow on the line
             .attr('refY', 0)
             .attr('markerWidth', 8)
             .attr('markerHeight', 8)
@@ -51,7 +51,7 @@ function SolutionSimulatedAnnealingTSP() {
             .attr('d', 'M0,-4L10,0L0,4')
             .attr('fill', '#000');
 
-        svg.selectAll('line')
+        const linkLines = svg.selectAll('line')
             .data(links)
             .join('line')
             .attr('x1', d => nodes.find(n => n.id === d.source).x)
@@ -61,6 +61,27 @@ function SolutionSimulatedAnnealingTSP() {
             .attr('stroke', '#333')
             .attr('stroke-width', 2)
             .attr('marker-end', 'url(#arrow)');
+
+        svg.selectAll('text.link-label')
+            .data(links)
+            .join('text')
+            .attr('class', 'link-label')
+            .attr('x', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.x + targetNode.x) / 2;
+            })
+            .attr('y', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.y + targetNode.y) / 2;
+            })
+            .attr('dy', -10)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#000')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold')
+            .text(d => d.label || '');
 
         const nodeGroups = svg.selectAll('g.node')
             .data(nodes)
@@ -103,13 +124,13 @@ function SolutionSimulatedAnnealingTSP() {
             .attr('fill', '#000')
             .style('font-size', '12px')
             .style('font-weight', 'bold')
-            .text(d => d.label || d.text);
+            .text(d => d.text);
     }, []);
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Simulated Annealing - TSP</h2>
+                <h2 className="text-lg font-semibold text-gray-800">Simulated Annealing - TSP2</h2>
                 <svg ref={svgRef}></svg>
             </div>
         </div>

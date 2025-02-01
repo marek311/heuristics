@@ -72,10 +72,10 @@ function TourBar({ currentCost, proposedCost, bestCost, previousCost, currentTou
                 <h2 className="text-lg font-semibold text-gray-800">Tours</h2>
                 <svg ref={svgRef}></svg>
                 <ul>
-                    <li><strong>Best Tour:</strong> {bestTour.join(' -> ')}</li>
-                    <li><strong>Proposed Tour:</strong> {proposedTour.join(' -> ')}</li>
-                    <li><strong>Current Tour:</strong> {currentTour.join(' -> ')}</li>
-                    <li><strong>Previous Tour:</strong> {previousTour.join(' -> ')}</li>
+                    <li><strong>Best Tour:</strong> {bestTour.join(',')}</li>
+                    <li><strong>Proposed Tour:</strong> {proposedTour.join(',')}</li>
+                    <li><strong>Current Tour:</strong> {currentTour.join(',')}</li>
+                    <li><strong>Previous Tour:</strong> {previousTour.join(',')}</li>
                 </ul>
             </div>
         </div>

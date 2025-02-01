@@ -7,7 +7,7 @@ function TSPDataGraph({ data, tour }) {
     useEffect(() => {
         if (!data || !data.edges || !data.cityCount) return;
 
-        const width = 600;
+        const width = 400;
         const height = 500;
         const dynamicDistance = 200;
 

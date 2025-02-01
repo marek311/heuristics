@@ -6,7 +6,7 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
 
     useEffect(() => {
         const width = 50;
-        const height = 350;
+        const height = 400;
         const margin = 10;
 
         const svg = d3.select(svgRef.current)
@@ -22,7 +22,6 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
         const probabilityY = height - margin - probabilityHeight;
         const randomY = height - margin - (randomValue * totalHeight);
 
-        // Red background (full height)
         svg.append("rect")
             .attr("x", margin)
             .attr("y", margin)
@@ -30,7 +29,6 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
             .attr("height", totalHeight)
             .attr("fill", "red");
 
-        // Green overlay for acceptance probability
         svg.append("rect")
             .attr("x", margin)
             .attr("y", probabilityY)
@@ -38,7 +36,6 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
             .attr("height", probabilityHeight)
             .attr("fill", "green");
 
-        // Black line for random value
         svg.append("line")
             .attr("x1", margin)
             .attr("x2", width - margin)
