@@ -46,7 +46,10 @@ function Bar_Experiment({ acceptanceProbability, randomValue }) {
 
     }, [acceptanceProbability, randomValue]);
 
-    const experimentPassed = randomValue <= acceptanceProbability;
+    const experimentPassed =
+        acceptanceProbability === 1 && randomValue === 0
+            ? false
+            : randomValue < acceptanceProbability;
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
