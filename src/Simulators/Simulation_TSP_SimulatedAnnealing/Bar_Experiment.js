@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function ProbabilityBar({ acceptanceProbability, randomValue }) {
+function Bar_Experiment({ acceptanceProbability, randomValue }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -48,7 +48,7 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
-            <h2 className="text-lg font-semibold text-gray-800">Probability</h2>
+            <h2 className="text-lg font-semibold text-gray-800">Experiment</h2>
             <svg ref={svgRef}></svg>
             <div className="mt-2 text-center">
                 <p><strong>Acceptance Probability:</strong> {acceptanceProbability.toFixed(4)}</p>
@@ -58,4 +58,4 @@ function ProbabilityBar({ acceptanceProbability, randomValue }) {
     );
 }
 
-export default ProbabilityBar;
+export default Bar_Experiment;

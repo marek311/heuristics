@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function TemperatureBar({ temperature }) {
+function Bar_Temperature({ temperature }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -80,4 +80,4 @@ function TemperatureBar({ temperature }) {
     );
 }
 
-export default TemperatureBar;
+export default Bar_Temperature;
