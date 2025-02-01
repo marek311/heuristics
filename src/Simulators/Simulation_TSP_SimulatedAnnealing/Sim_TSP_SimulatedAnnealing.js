@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
-import SolTSPSimulatedAnnealing from "./Sol_TSP_SimulatedAnnealing";
-import TemperatureBar from "./BarCharts/TemperatureBar";
-import ProbabilityBar from "./BarCharts/ProbabilityBar";
-import CostsBar from "./BarCharts/TourBar";
+import SolTSPSimulatedAnnealing from "./Flowchart_TSP_SimulatedAnnealing";
+import TemperatureBar from "./TemperatureBar";
+import ProbabilityBar from "./ProbabilityBar";
+import CostsBar from "./Sol_TSP_SimulatedAnnealing";
 import {
     initializeTour,
     handleIteration,
