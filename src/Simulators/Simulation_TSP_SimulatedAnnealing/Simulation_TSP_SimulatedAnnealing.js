@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
-import SolTSPSimulatedAnnealing from "./Flowchart_TSP_SimulatedAnnealing";
-import Bar_Temperature from "./Bar_Temperature";
-import Bar_Experiment from "./Bar_Experiment";
-import CostsBar from "./Solution_TSP_SimulatedAnnealing";
+import FlowchartTSPSimulatedAnnealing from "./Flowchart_TSP_SimulatedAnnealing";
+import BarTemperature from "./Bar_Temperature";
+import BarExperiment from "./Bar_Experiment";
+import Solution from "./Solution_TSP_SimulatedAnnealing";
 import {
     initializeTour,
     handleIteration,
@@ -134,7 +134,7 @@ function SimulationTSPAnnealing() {
                     data={data}
                     tour={currentTour}
                 />
-                <CostsBar
+                <Solution
                     currentCost={currentCost}
                     proposedCost={proposedCost}
                     bestCost={bestCost}
@@ -143,16 +143,19 @@ function SimulationTSPAnnealing() {
                     proposedTour={proposedTour}
                     bestTour={bestTour}
                     previousTour={previousTour}
+                    costDifference={costDifference}
+                    solutionStatus={solutionStatus}
+                    iteration={iteration}
                 />
-                <SolTSPSimulatedAnnealing
+                <FlowchartTSPSimulatedAnnealing
                     currentTour={currentTour}
                     proposedTour={proposedTour}
                 />
-                <Bar_Experiment
+                <BarExperiment
                     acceptanceProbability={acceptanceProbability}
                     randomValue={randomValue}
                 />
-                <Bar_Temperature
+                <BarTemperature
                     temperature={temperature}
                 />
             </div>

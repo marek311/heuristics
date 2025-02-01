@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, previousCost, currentTour, proposedTour, bestTour, previousTour }) {
+function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, previousCost, currentTour, proposedTour, bestTour, previousTour, costDifference, solutionStatus, iteration }) {
     const svgRef = useRef();
 
     useEffect(() => {
         const width = 200;
-        const height = 350;
+        const height = 200;
         const margin = { top: 20, right: 10, bottom: 50, left: 10 };
         const barWidth = 30;
         const barSpacing = 20;
@@ -70,19 +70,35 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
         <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-lg font-semibold text-gray-800">Tours</h2>
+                <div>
+                    Iteration: {iteration}
+                </div>
                 <svg ref={svgRef}></svg>
                 <div className="tour-list mt-4 space-y-2">
                     <div className="bg-blue-300 rounded-lg">
-                        <strong>Proposed Tour:</strong> {proposedTour.join(',')}
+                        <strong>Proposed Tour:</strong> <br/>
+                        {proposedTour.join(',')}
                     </div>
                     <div className="bg-red-300 rounded-lg">
-                        <strong>Current Tour:</strong> {currentTour.join(',')}
+                        <strong>Current Tour:</strong><br/>
+                        {currentTour.join(',')}
                     </div>
                     <div className="bg-yellow-300 rounded-lg">
-                        <strong>Previous Tour:</strong> {previousTour.join(',')}
+                        <strong>Previous Tour:</strong><br/>
+                        {previousTour.join(',')}
                     </div>
                     <div className="bg-green-300 rounded-lg">
-                        <strong>Best Tour:</strong> {bestTour.join(',')}
+                        <strong>Best Tour:</strong><br/>
+                        {bestTour.join(',')}
+                    </div>
+                    <div className="p-2 bg-gray-200 rounded-lg">
+                        <div className=" mb-2 p-2 bg-gray-400 rounded-lg">
+                            <strong>Cost Difference: </strong> {costDifference.toFixed(2)}
+                        </div>
+                        <div className="p-2 bg-gray-400 rounded-lg">
+                            <strong>Status: </strong>
+                            {solutionStatus}
+                        </div>
                     </div>
                 </div>
             </div>

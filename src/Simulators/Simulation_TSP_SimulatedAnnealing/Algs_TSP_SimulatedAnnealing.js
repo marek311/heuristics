@@ -89,13 +89,13 @@ export const handleIteration = (
 
     let status;
     if (costDifference < 0) {
-        status = "ACCEPTED\nBetter Solution - No Experiment";
+        status = "Proposed ACCEPTED as Current\n>Better Solution\nNo Experiment";
     } else if (costDifference === 0) {
-        status = "ACCEPTED\nEqual Solution"
+        status = "Proposed ACCEPTED as Current\nEqual Solution"
     } else if (randomValue < acceptanceProbability) {
-        status = "ACCEPTED\nWorse Solution - Experiment Successful";
+        status = "Proposed ACCEPTED as Current \nWorse Solution\nExperiment Successful";
     } else {
-        status = "DECLINED\nWorse Solution - Experiment Unsuccessful";
+        status = "Proposed DECLINED as Current\nWorse Solution\nExperiment Unsuccessful";
     }
 
     if (costDifference <= 0 || randomValue < acceptanceProbability) {
@@ -190,9 +190,9 @@ export const handleRun = (
     }
 
     if (temp <= 1e-5) {
-        terminationReason = "Algorithm Ended: Temperature too low.";
+        terminationReason = "Algorithm Ended\nTemperature too low.";
     } else if (noChangeCounter >= 15) {
-        terminationReason = "Algorithm Ended: No solution change for 15 iterations.";
+        terminationReason = "Algorithm Ended\nNo solution change for 15 iterations.";
     }
 
     setCurrentTour(current);
