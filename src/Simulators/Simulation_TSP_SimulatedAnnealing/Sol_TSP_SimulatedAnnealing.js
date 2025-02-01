@@ -19,9 +19,9 @@ function SolutionSimulatedAnnealingTSP() {
             { id: 'neighbor', text: 'Find Proposed Solution', x: 250, y: 125, shape: 'oval', color: '#4caf50'},
             { id: 'better', text: 'Better than Current?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
             { id: 'new', text: 'New Current Solution', x: 100, y: 325, shape: 'rect', color: '#1e88e5' },
-            { id: 'betterBest', text: 'Better than Best?', x: 100, y: 425, shape: 'diamond', color: '#ffa533' },
-            { id: 'newBest', text: 'New Best Solution', x: 100, y: 550, shape: 'rect', color: '#1e88e5' },
-            { id: 'experiment', text: 'Perform Experiment', x: 400, y: 300, shape: 'oval', color: '#4caf50' },
+            { id: 'betterBest', text: 'Better than Best?', x: 100, y: 400, shape: 'diamond', color: '#ffa533' },
+            { id: 'newBest', text: 'New Best Solution', x: 100, y: 525, shape: 'rect', color: '#1e88e5' },
+            { id: 'experiment', text: 'Perform Experiment', x: 400, y: 275, shape: 'oval', color: '#4caf50' },
             { id: 'cooldown', text: 'Cool Down Temperature', x: 250, y: 450, shape: 'oval', color: '#4caf50' },
             { id: 'newIteration', text: 'New Iteration', x: 250, y: 550, shape: 'rect', color: '#1e88e5' },
         ];
@@ -34,22 +34,11 @@ function SolutionSimulatedAnnealingTSP() {
             { source: 'new', target: 'betterBest' },
             { source: 'betterBest', target: 'newBest', label: 'Yes' },
             { source: 'betterBest', target: 'cooldown', label: 'No' },
-            { source: 'experiment', target: 'new', label: 'Yes' },
-            { source: 'experiment', target: 'cooldown', label: 'No' },
+            { source: 'experiment', target: 'new', label: 'Accepted' },
+            { source: 'experiment', target: 'cooldown', label: 'Declined' },
             { source: 'cooldown', target: 'newIteration' },
+            { source: 'newBest', target: 'newIteration' },
         ];
-
-        svg.append('defs').append('marker')
-            .attr('id', 'arrow')
-            .attr('viewBox', '0 -5 12 10')
-            .attr('refX', 6)  // Change refX to center the arrow on the line
-            .attr('refY', 0)
-            .attr('markerWidth', 8)
-            .attr('markerHeight', 8)
-            .attr('orient', 'auto')
-            .append('path')
-            .attr('d', 'M0,-4L10,0L0,4')
-            .attr('fill', '#000');
 
         const linkLines = svg.selectAll('line')
             .data(links)
@@ -59,8 +48,7 @@ function SolutionSimulatedAnnealingTSP() {
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
             .attr('stroke', '#333')
-            .attr('stroke-width', 2)
-            .attr('marker-end', 'url(#arrow)');
+            .attr('stroke-width', 2);
 
         svg.selectAll('text.link-label')
             .data(links)
@@ -130,7 +118,7 @@ function SolutionSimulatedAnnealingTSP() {
     return (
         <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Simulated Annealing - TSP2</h2>
+                <h2 className="text-lg font-semibold text-gray-800">Simulated Annealing - TSP</h2>
                 <svg ref={svgRef}></svg>
             </div>
         </div>

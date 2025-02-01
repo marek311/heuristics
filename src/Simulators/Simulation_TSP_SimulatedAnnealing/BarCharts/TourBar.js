@@ -6,7 +6,7 @@ function TourBar({ currentCost, proposedCost, bestCost, previousCost, currentTou
 
     useEffect(() => {
         const width = 200;
-        const height = 400;
+        const height = 350;
         const margin = { top: 20, right: 10, bottom: 50, left: 10 };
         const barWidth = 30;
         const barSpacing = 20;
