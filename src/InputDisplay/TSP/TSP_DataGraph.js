@@ -8,7 +8,7 @@ function TSPDataGraph({ data, tour }) {
         if (!data || !data.edges || !data.cityCount) return;
 
         const width = 400;
-        const height = 500;
+        const height = 600;
         const dynamicDistance = 200;
 
         const svg = d3.select(svgRef.current)
