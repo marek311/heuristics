@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function CostChart({ currentCost, proposedCost, bestCost, previousCost }) {
+function TourBar({ currentCost, proposedCost, bestCost, previousCost, currentTour, proposedTour, bestTour, previousTour }) {
     const svgRef = useRef();
 
     useEffect(() => {
         const width = 200;
-        const height = 500;
+        const height = 400;
         const margin = { top: 20, right: 10, bottom: 50, left: 10 };
         const barWidth = 30;
         const barSpacing = 20;
@@ -69,11 +69,17 @@ function CostChart({ currentCost, proposedCost, bestCost, previousCost }) {
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Costs</h2>
+                <h2 className="text-lg font-semibold text-gray-800">Tours</h2>
                 <svg ref={svgRef}></svg>
+                <ul>
+                    <li><strong>Best Tour:</strong> {bestTour.join(' -> ')}</li>
+                    <li><strong>Proposed Tour:</strong> {proposedTour.join(' -> ')}</li>
+                    <li><strong>Current Tour:</strong> {currentTour.join(' -> ')}</li>
+                    <li><strong>Previous Tour:</strong> {previousTour.join(' -> ')}</li>
+                </ul>
             </div>
         </div>
     );
 }
 
-export default CostChart;
+export default TourBar;

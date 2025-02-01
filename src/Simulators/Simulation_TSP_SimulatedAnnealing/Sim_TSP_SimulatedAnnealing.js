@@ -5,7 +5,7 @@ import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import SolTSPSimulatedAnnealing from "./Sol_TSP_SimulatedAnnealing";
 import TemperatureBar from "./BarCharts/TemperatureBar";
 import ProbabilityBar from "./BarCharts/ProbabilityBar";
-import CostsBar from "./BarCharts/CostsBar";
+import CostsBar from "./BarCharts/TourBar";
 import {
     initializeTour,
     handleIteration,
@@ -139,6 +139,10 @@ function SimulationTSPAnnealing() {
                     proposedCost={proposedCost}
                     bestCost={bestCost}
                     previousCost={previousCost}
+                    currentTour={currentTour}
+                    proposedTour={proposedTour}
+                    bestTour={bestTour}
+                    previousTour={previousTour}
                 />
                 <SolTSPSimulatedAnnealing
                     currentTour={currentTour}
