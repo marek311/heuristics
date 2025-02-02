@@ -53,7 +53,8 @@ export const proposeNewSolution = (
     setRandomValue,
     setSwappedIndexes,
     data,
-    temperature
+    temperature,
+    setSolutionStatus
 ) => {
     const { newTour, newCost, costDifference, acceptanceProbability, randomValue, swappedIndexes } =
         modifyTourAndCalculateCost(currentTour, data.edges, temperature);
@@ -64,6 +65,7 @@ export const proposeNewSolution = (
     setAcceptanceProbability(acceptanceProbability);
     setRandomValue(randomValue);
     setSwappedIndexes(swappedIndexes);
+    setSolutionStatus("Proposed a new solution, calculated cost difference: proposed cost - current cost.");
 };
 
 export const decideAcceptance = (
@@ -86,13 +88,13 @@ export const decideAcceptance = (
 ) => {
     let status;
     if (costDifference < 0) {
-        status = "Proposed => Better as Current => Accepted Without Experiment";
+        status = "Proposed solution: Better as Current => Accepted Without Experiment";
     } else if (costDifference === 0) {
-        status = "Proposed => Equal as Current => Accepted Without Experiment";
+        status = "Proposed solution: Equal as Current => Accepted Without Experiment";
     } else if (randomValue < acceptanceProbability) {
-        status = "Proposed => Worse as Current => Accepted by Random Experiment";
+        status = "Proposed solution: Worse as Current => Accepted by Random Experiment";
     } else {
-        status = "Proposed => Worse as Current => Declined by Random Experiment";
+        status = "Proposed solution: Worse as Current => Declined by Random Experiment";
     }
 
     if (costDifference <= 0 || randomValue < acceptanceProbability) {
@@ -110,9 +112,10 @@ export const decideAcceptance = (
     setSolutionStatus(status);
 };
 
-export const updateStateAndCoolDown = (setTemperature, setIteration, temperature, iteration) => {
+export const updateStateAndCoolDown = (setTemperature, setIteration, temperature, iteration, setSolutionStatus) => {
     setTemperature((prevTemperature) => prevTemperature * 0.95);
     setIteration((prevIteration) => prevIteration + 1);
+    setSolutionStatus("Iteration++, Temperature =* 0.95;");
 };
 
 export const handleRun = (
