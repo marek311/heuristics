@@ -58,7 +58,8 @@ function SimulationTSPAnnealing() {
                 setRandomValue,
                 setSwappedIndexes,
                 data,
-                temperature
+                temperature,
+                setSolutionStatus
             );
         } else if (stepIndex === 1) {
             decideAcceptance(
@@ -80,7 +81,7 @@ function SimulationTSPAnnealing() {
                 setSolutionStatus
             );
         } else if (stepIndex === 2) {
-            updateStateAndCoolDown(setTemperature, setIteration, temperature, iteration);
+            updateStateAndCoolDown(setTemperature, setIteration, temperature, iteration, setSolutionStatus);
         }
 
         setStepIndex((prevStepIndex) => (prevStepIndex + 1) % 3);
