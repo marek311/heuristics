@@ -107,11 +107,11 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
                 <div>Iteration: {iteration}</div>
                 <svg ref={svgRef}></svg>
                 <div className="p-2 bg-gray-200 rounded-lg mt-4">
-                    <div className="mb-2 p-2 bg-gray-400 rounded-lg">
-                        <strong>Cost Difference: </strong> {costDifference.toFixed(2)}
-                    </div>
                     <div className="p-2 bg-gray-400 rounded-lg">
                         <strong>Status: </strong>{solutionStatus}
+                    </div>
+                    <div className="mb-2 p-2 bg-gray-400 rounded-lg">
+                        <strong>Cost Difference: </strong> {costDifference.toFixed(2)}
                     </div>
                 </div>
             </div>
