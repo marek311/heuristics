@@ -22,7 +22,7 @@ const calculateCost = (tour, edges) => {
     return totalCost;
 };
 
-const modifyTourAndCalculateCost = (tour, edges, temperature) => {
+const modifyTourAndCalculateCost = (tour, edges) => {
     let newTour = [...tour];
     let i, j;
 
@@ -31,17 +31,14 @@ const modifyTourAndCalculateCost = (tour, edges, temperature) => {
         j = Math.floor(Math.random() * (newTour.length - 2)) + 1;
     } while (i === j);
 
-    let swappedIndexes;
-    swappedIndexes = [i, j];
+    let swappedIndexes = [i, j];
 
     [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
 
     const newCost = calculateCost(newTour, edges);
     const costDifference = newCost - calculateCost(tour, edges);
-    const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
-    const randomValue = costDifference <= 0 ? 0 : Math.random();
 
-    return { newTour, newCost, costDifference, acceptanceProbability, randomValue, swappedIndexes };
+    return { newTour, newCost, costDifference, swappedIndexes };
 };
 
 export const proposeNewSolution = (
@@ -49,33 +46,26 @@ export const proposeNewSolution = (
     setProposedTour,
     setProposedCost,
     setCostDifference,
-    setAcceptanceProbability,
-    setRandomValue,
     setSwappedIndexes,
     data,
-    temperature,
     setSolutionStatus
 ) => {
-    const { newTour, newCost, costDifference, acceptanceProbability, randomValue, swappedIndexes } =
-        modifyTourAndCalculateCost(currentTour, data.edges, temperature);
+    const { newTour, newCost, costDifference, swappedIndexes } = modifyTourAndCalculateCost(currentTour, data.edges);
 
     setProposedTour(newTour);
     setProposedCost(newCost);
     setCostDifference(costDifference);
-    setAcceptanceProbability(acceptanceProbability);
-    setRandomValue(randomValue);
     setSwappedIndexes(swappedIndexes);
     setSolutionStatus("Proposed a new solution, calculated cost difference: proposed cost - current cost.");
 };
 
-export const decideAcceptance = (
+export const calculateAcceptanceAndDecide = (
     currentTour,
     proposedTour,
     currentCost,
     proposedCost,
     costDifference,
-    acceptanceProbability,
-    randomValue,
+    temperature,
     setPreviousTour,
     setPreviousCost,
     setCurrentTour,
@@ -84,8 +74,13 @@ export const decideAcceptance = (
     bestCost,
     setBestTour,
     setBestCost,
+    setAcceptanceProbability,
+    setRandomValue,
     setSolutionStatus
 ) => {
+    const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
+    const randomValue = costDifference <= 0 ? 0 : Math.random();
+
     let status;
     if (costDifference < 0) {
         status = "Proposed solution: Better as Current => Accepted Without Experiment";
@@ -96,6 +91,9 @@ export const decideAcceptance = (
     } else {
         status = "Proposed solution: Worse as Current => Declined by Random Experiment";
     }
+
+    setAcceptanceProbability(acceptanceProbability);
+    setRandomValue(randomValue);
 
     if (costDifference <= 0 || randomValue < acceptanceProbability) {
         setPreviousTour([...currentTour]);
@@ -157,21 +155,18 @@ export const handleRun = (
     let terminationReason = "";
 
     while (temp > 1e-5 && noChangeCounter < 15) {
-        const {
-            newTour,
-            newCost,
-            costDifference,
-            acceptanceProbability,
-            randomValue,
-            swappedIndexes
-        } = modifyTourAndCalculateCost(current, data.edges, temp);
+        const { newTour, newCost, costDifference, swappedIndexes } = modifyTourAndCalculateCost(current, data.edges);
 
         setProposedTour(newTour);
         setProposedCost(newCost);
         setCostDifference(costDifference);
+        setSwappedIndexes(swappedIndexes);
+
+        const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temp);
+        const randomValue = costDifference <= 0 ? 0 : Math.random();
+
         setAcceptanceProbability(acceptanceProbability);
         setRandomValue(randomValue);
-        setSwappedIndexes(swappedIndexes);
 
         if (costDifference <= 0 || randomValue < acceptanceProbability) {
             setPreviousTour([...current]);
@@ -187,15 +182,14 @@ export const handleRun = (
         } else {
             noChangeCounter++;
         }
-
         iter++;
         temp *= 0.95;
     }
 
     if (temp <= 1e-5) {
-        terminationReason = "Algorithm Ended => Temperature too low.";
+        terminationReason = "Algorithm Ended: Temperature too low.";
     } else if (noChangeCounter >= 15) {
-        terminationReason = "Algorithm Ended => No solution change for 15 iterations in row.";
+        terminationReason = "Algorithm Ended: No solution change for 15 iterations in a row.";
     }
 
     setCurrentTour(current);

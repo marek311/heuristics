@@ -9,7 +9,7 @@ import Solution from "./Solution_TSP_SimulatedAnnealing";
 import {
     initializeTour,
     proposeNewSolution,
-    decideAcceptance,
+    calculateAcceptanceAndDecide,
     updateStateAndCoolDown,
     handleRun,
 } from './Algs_TSP_SimulatedAnnealing';
@@ -54,22 +54,18 @@ function SimulationTSPAnnealing() {
                 setProposedTour,
                 setProposedCost,
                 setCostDifference,
-                setAcceptanceProbability,
-                setRandomValue,
                 setSwappedIndexes,
                 data,
-                temperature,
                 setSolutionStatus
             );
         } else if (stepIndex === 1) {
-            decideAcceptance(
+            calculateAcceptanceAndDecide(
                 currentTour,
                 proposedTour,
                 currentCost,
                 proposedCost,
                 costDifference,
-                acceptanceProbability,
-                randomValue,
+                temperature,
                 setPreviousTour,
                 setPreviousCost,
                 setCurrentTour,
@@ -78,6 +74,8 @@ function SimulationTSPAnnealing() {
                 bestCost,
                 setBestTour,
                 setBestCost,
+                setAcceptanceProbability,
+                setRandomValue,
                 setSolutionStatus
             );
         } else if (stepIndex === 2) {
