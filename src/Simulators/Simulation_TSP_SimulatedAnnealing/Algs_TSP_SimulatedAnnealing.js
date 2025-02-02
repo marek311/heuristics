@@ -44,41 +44,19 @@ const modifyTourAndCalculateCost = (tour, edges, temperature) => {
     return { newTour, newCost, costDifference, acceptanceProbability, randomValue, swappedIndexes };
 };
 
-export const handleIteration = (
+export const proposeNewSolution = (
     currentTour,
-    setCurrentTour,
-    previousTour,
-    setPreviousTour,
-    currentCost,
-    setCurrentCost,
-    previousCost,
-    setPreviousCost,
-    temperature,
-    setTemperature,
-    iteration,
-    setIteration,
-    data,
+    setProposedTour,
+    setProposedCost,
     setCostDifference,
     setAcceptanceProbability,
     setRandomValue,
-    setBestTour,
-    bestCost,
-    setBestCost,
-    setProposedTour,
-    setProposedCost,
-    setSolutionStatus,
-    setSwappedIndexes
+    setSwappedIndexes,
+    data,
+    temperature
 ) => {
-    if (currentTour.length < 2 || temperature <= 1e-5) return;
-
-    const {
-        newTour,
-        newCost,
-        costDifference,
-        acceptanceProbability,
-        randomValue,
-        swappedIndexes
-    } = modifyTourAndCalculateCost(currentTour, data.edges, temperature);
+    const { newTour, newCost, costDifference, acceptanceProbability, randomValue, swappedIndexes } =
+        modifyTourAndCalculateCost(currentTour, data.edges, temperature);
 
     setProposedTour(newTour);
     setProposedCost(newCost);
@@ -86,12 +64,31 @@ export const handleIteration = (
     setAcceptanceProbability(acceptanceProbability);
     setRandomValue(randomValue);
     setSwappedIndexes(swappedIndexes);
+};
 
+export const decideAcceptance = (
+    currentTour,
+    proposedTour,
+    currentCost,
+    proposedCost,
+    costDifference,
+    acceptanceProbability,
+    randomValue,
+    setPreviousTour,
+    setPreviousCost,
+    setCurrentTour,
+    setCurrentCost,
+    bestTour,
+    bestCost,
+    setBestTour,
+    setBestCost,
+    setSolutionStatus
+) => {
     let status;
     if (costDifference < 0) {
         status = "Proposed => Better as Current => Accepted Without Experiment";
     } else if (costDifference === 0) {
-        status = "Proposed => Equal as Current => Accepted Without Experiment"
+        status = "Proposed => Equal as Current => Accepted Without Experiment";
     } else if (randomValue < acceptanceProbability) {
         status = "Proposed => Worse as Current => Accepted by Random Experiment";
     } else {
@@ -101,16 +98,19 @@ export const handleIteration = (
     if (costDifference <= 0 || randomValue < acceptanceProbability) {
         setPreviousTour([...currentTour]);
         setPreviousCost(currentCost);
-        setCurrentTour(newTour);
-        setCurrentCost(newCost);
+        setCurrentTour(proposedTour);
+        setCurrentCost(proposedCost);
 
-        if (newCost < bestCost) {
-            setBestTour(newTour);
-            setBestCost(newCost);
+        if (proposedCost < bestCost) {
+            setBestTour(proposedTour);
+            setBestCost(proposedCost);
         }
     }
 
     setSolutionStatus(status);
+};
+
+export const updateStateAndCoolDown = (setTemperature, setIteration, temperature, iteration) => {
     setTemperature((prevTemperature) => prevTemperature * 0.95);
     setIteration((prevIteration) => prevIteration + 1);
 };

@@ -8,7 +8,9 @@ import BarExperiment from "./Bar_Experiment";
 import Solution from "./Solution_TSP_SimulatedAnnealing";
 import {
     initializeTour,
-    handleIteration,
+    proposeNewSolution,
+    decideAcceptance,
+    updateStateAndCoolDown,
     handleRun,
 } from './Algs_TSP_SimulatedAnnealing';
 
@@ -33,6 +35,7 @@ function SimulationTSPAnnealing() {
     const [swappedIndexes, setSwappedIndexes] = useState([]);
     const [previousTour, setPreviousTour] = useState([]);
     const [previousCost, setPreviousCost] = useState(0);
+    const [stepIndex, setStepIndex] = useState(0)
 
     useEffect(() => {
         if (data && data.edges) {
@@ -45,31 +48,42 @@ function SimulationTSPAnnealing() {
     }, [data]);
 
     const handleStep = () => {
-        handleIteration(
-            currentTour,
-            setCurrentTour,
-            previousTour,
-            setPreviousTour,
-            currentCost,
-            setCurrentCost,
-            previousCost,
-            setPreviousCost,
-            temperature,
-            setTemperature,
-            iteration,
-            setIteration,
-            data,
-            setCostDifference,
-            setAcceptanceProbability,
-            setRandomValue,
-            setBestTour,
-            bestCost,
-            setBestCost,
-            setProposedTour,
-            setProposedCost,
-            setSolutionStatus,
-            setSwappedIndexes
-        );
+        if (stepIndex === 0) {
+            proposeNewSolution(
+                currentTour,
+                setProposedTour,
+                setProposedCost,
+                setCostDifference,
+                setAcceptanceProbability,
+                setRandomValue,
+                setSwappedIndexes,
+                data,
+                temperature
+            );
+        } else if (stepIndex === 1) {
+            decideAcceptance(
+                currentTour,
+                proposedTour,
+                currentCost,
+                proposedCost,
+                costDifference,
+                acceptanceProbability,
+                randomValue,
+                setPreviousTour,
+                setPreviousCost,
+                setCurrentTour,
+                setCurrentCost,
+                bestTour,
+                bestCost,
+                setBestTour,
+                setBestCost,
+                setSolutionStatus
+            );
+        } else if (stepIndex === 2) {
+            updateStateAndCoolDown(setTemperature, setIteration, temperature, iteration);
+        }
+
+        setStepIndex((prevStepIndex) => (prevStepIndex + 1) % 3);
     };
 
     const handleRunSimulation = () => {
@@ -119,6 +133,7 @@ function SimulationTSPAnnealing() {
             setSwappedIndexes([]);
             setPreviousTour([]);
             setPreviousCost(0);
+            setStepIndex(0);
         }
     };
 
