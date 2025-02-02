@@ -6,7 +6,7 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
 
     useEffect(() => {
         const width = 350;
-        const height = 500;
+        const height = 400;
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
         const barChartHeight = height / 2;
         const barWidth = 40;
@@ -67,9 +67,9 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
 
         const tourData = [
             { label: "Proposed", tour: proposedTour, color: "blue", y: barChartHeight + 20 },
-            { label: "Current", tour: currentTour, color: "red", y: barChartHeight + 70 },
-            { label: "Previous", tour: previousTour, color: "yellow", y: barChartHeight + 120 },
-            { label: "Best", tour: bestTour, color: "green", y: barChartHeight + 170 }
+            { label: "Current", tour: currentTour, color: "red", y: barChartHeight + 60 },
+            { label: "Previous", tour: previousTour, color: "yellow", y: barChartHeight + 100 },
+            { label: "Best", tour: bestTour, color: "green", y: barChartHeight + 140 }
         ];
 
         const rectWidth = width - 40;
@@ -106,11 +106,11 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
                 <h2 className="text-lg font-semibold text-gray-800">Tours</h2>
                 <div>Iteration: {iteration}</div>
                 <svg ref={svgRef}></svg>
-                <div className="p-2 bg-gray-200 rounded-lg mt-4">
-                    <div className="p-2 bg-gray-400 rounded-lg">
+                <div className="p-2 bg-gray-200 rounded-lg mt-2">
+                    <div className="mb-2 p-2 bg-gray-400 rounded-lg w-[385px] h-[85px]">
                         <strong>Status: </strong>{solutionStatus}
                     </div>
-                    <div className="mb-2 p-2 bg-gray-400 rounded-lg">
+                    <div className="mt-2 p-2 bg-gray-400 rounded-lg">
                         <strong>Cost Difference: </strong> {costDifference.toFixed(2)}
                     </div>
                 </div>
