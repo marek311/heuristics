@@ -27,6 +27,13 @@ function TSP_DataTable() {
             <div className="mb-4 w-full">
                 {data.edges.length > 0 ? (
                     <table className="w-full table-auto border-collapse border border-gray-300">
+                        <thead className="bg-gray-200">
+                        <tr>
+                            <th className="p-2 border">City 1</th>
+                            <th className="p-2 border">City 2</th>
+                            <th className="p-2 border">Distance</th>
+                        </tr>
+                        </thead>
                         <tbody>
                         {data.edges.map((edge, index) => (
                             <tr key={index} className="text-center">
