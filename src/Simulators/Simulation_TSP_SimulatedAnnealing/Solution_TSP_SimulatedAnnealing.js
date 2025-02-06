@@ -15,8 +15,8 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
         const svg = d3.select(svgRef.current)
             .attr("width", width)
             .attr("height", height)
-            .style("background", "#f0f0f0")
-            .style("border", "1px solid #ccc");
+            .style("background", "#f9f9f9")
+            .style("border", "1px solid #e0e0e0");
 
         svg.selectAll("*").remove();
 
@@ -27,10 +27,10 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
             .range([barChartHeight - margin.bottom, margin.top]);
 
         const costs = [
-            { label: "Proposed", value: proposedCost, color: "blue", x: margin.left },
-            { label: "Current", value: currentCost, color: "red", x: margin.left + barWidth + barSpacing },
-            { label: "Previous", value: previousCost, color: "yellow", x: margin.left + 2 * (barWidth + barSpacing) },
-            { label: "Best", value: bestCost, color: "green", x: margin.left + 3 * (barWidth + barSpacing) }
+            { label: "Proposed", value: proposedCost, color: "#1e88e5", x: margin.left },
+            { label: "Current", value: currentCost, color: "#f73e3e", x: margin.left + barWidth + barSpacing }, // Light red
+            { label: "Previous", value: previousCost, color: "#ffa533", x: margin.left + 2 * (barWidth + barSpacing) }, // Light yellow
+            { label: "Best", value: bestCost, color: "#4caf50", x: margin.left + 3 * (barWidth + barSpacing) } // Light green
         ];
 
         svg.selectAll(".bar")
@@ -66,10 +66,10 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
             .text(d => d.label);
 
         const tourData = [
-            { label: "Proposed", tour: proposedTour, color: "blue", y: barChartHeight + 20 },
-            { label: "Current", tour: currentTour, color: "red", y: barChartHeight + 60 },
-            { label: "Previous", tour: previousTour, color: "yellow", y: barChartHeight + 100 },
-            { label: "Best", tour: bestTour, color: "green", y: barChartHeight + 140 }
+            { label: "Proposed", tour: proposedTour, color: "#1e88e5", y: barChartHeight + 20 },
+            { label: "Current", tour: currentTour, color: "#f73e3e", y: barChartHeight + 60 },
+            { label: "Previous", tour: previousTour, color: "#ffa533", y: barChartHeight + 100 },
+            { label: "Best", tour: bestTour, color: "#4caf50", y: barChartHeight + 140 }
         ];
 
         const rectWidth = width - 40;

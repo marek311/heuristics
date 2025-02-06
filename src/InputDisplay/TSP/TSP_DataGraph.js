@@ -54,7 +54,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('x2', (d) => d.target.x)
                 .attr('y2', (d) => d.target.y)
                 .attr('stroke', (d) =>
-                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#f70909' : '#888'
+                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#f73e3e' : '#888'
                 )
                 .attr('stroke-width', (d) =>
                     tourEdges.has(`${d.source.id}-${d.target.id}`) ? 4 : 2
@@ -78,7 +78,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('cx', (d) => d.x)
                 .attr('cy', (d) => d.y)
                 .attr('r', 10)
-                .attr('fill', (d) => (tour.includes(d.id) ? '#f70909' : '#1e88e5'));
+                .attr('fill', (d) => (tour.includes(d.id) ? '#f73e3e' : '#1e88e5'));
 
             svg.selectAll('text.city-label')
                 .data(cities)
