@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
 
 function TSPDataGraph({ data, tour }) {
     const svgRef = useRef();
+    const [showAllRoutes, setShowAllRoutes] = useState(true);
 
     useEffect(() => {
         if (!data || !data.edges || !data.cityCount) return;
@@ -43,8 +44,10 @@ function TSPDataGraph({ data, tour }) {
             .force('center', d3.forceCenter(width / 2, height / 2));
 
         simulation.on('tick', () => {
+            const filteredLinks = showAllRoutes ? links : links.filter((d) => tourEdges.has(`${d.source.id}-${d.target.id}`));
+
             svg.selectAll('line')
-                .data(links)
+                .data(filteredLinks)
                 .join('line')
                 .attr('x1', (d) => d.source.x)
                 .attr('y1', (d) => d.source.y)
@@ -58,7 +61,7 @@ function TSPDataGraph({ data, tour }) {
                 );
 
             svg.selectAll('text.edge-label')
-                .data(links)
+                .data(filteredLinks)
                 .join('text')
                 .attr('class', 'edge-label')
                 .attr('x', (d) => (d.source.x + d.target.x) / 2)
@@ -88,7 +91,7 @@ function TSPDataGraph({ data, tour }) {
                 .style('font-size', '12px')
                 .text((d) => d.id);
         });
-    }, [data, tour]);
+    }, [data, tour, showAllRoutes]);
 
     if (!data) {
         return <div>No TSP data available.</div>;
@@ -97,8 +100,18 @@ function TSPDataGraph({ data, tour }) {
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <div className="text-center text-lg">
-                    <h2 className="text-lg font-semibold text-gray-800">Graphical Representation</h2>
+                <h2 className="text-lg font-semibold text-gray-800">Graphical Representation</h2>
+                <div className="flex items-center space-x-2 mt-2">
+                    <input
+                        type="checkbox"
+                        id="showAllRoutes"
+                        checked={showAllRoutes}
+                        onChange={() => setShowAllRoutes((prev) => !prev)}
+                        className="cursor-pointer"
+                    />
+                    <label htmlFor="showAllRoutes" className="text-gray-700 cursor-pointer">
+                        Show all routes
+                    </label>
                 </div>
                 <svg ref={svgRef}></svg>
             </div>
