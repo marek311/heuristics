@@ -28,9 +28,9 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
 
         const costs = [
             { label: "Proposed", value: proposedCost, color: "#1e88e5", x: margin.left },
-            { label: "Current", value: currentCost, color: "#f73e3e", x: margin.left + barWidth + barSpacing }, // Light red
-            { label: "Previous", value: previousCost, color: "#ffa533", x: margin.left + 2 * (barWidth + barSpacing) }, // Light yellow
-            { label: "Best", value: bestCost, color: "#4caf50", x: margin.left + 3 * (barWidth + barSpacing) } // Light green
+            { label: "Current", value: currentCost, color: "#f73e3e", x: margin.left + barWidth + barSpacing },
+            { label: "Previous", value: previousCost, color: "#ffa533", x: margin.left + 2 * (barWidth + barSpacing) },
+            { label: "Best", value: bestCost, color: "#4caf50", x: margin.left + 3 * (barWidth + barSpacing) }
         ];
 
         svg.selectAll(".bar")
