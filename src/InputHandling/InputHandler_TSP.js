@@ -23,6 +23,7 @@ function InputHandler_TSP({ data, setData }) {
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         if (!file) return;
+
         const reader = new FileReader();
         reader.onload = (e) => {
             const text = e.target.result;
@@ -30,24 +31,44 @@ function InputHandler_TSP({ data, setData }) {
 
             const parsedEdges = [];
             const citiesSet = new Set();
+            const adjacencyMap = new Map();
 
             lines.forEach((line, index) => {
                 const [city1, city2, distance] = line.split(';').map((value) => value.trim());
                 const parsedDistance = parseFloat(distance);
 
                 if (city1 && city2 && !isNaN(parsedDistance)) {
-                    parsedEdges.push({
-                        city1,
-                        city2,
-                        distance: parsedDistance,
-                    });
-
+                    parsedEdges.push({ city1, city2, distance: parsedDistance });
                     citiesSet.add(city1);
                     citiesSet.add(city2);
+
+                    if (!adjacencyMap.has(city1)) adjacencyMap.set(city1, new Set());
+                    if (!adjacencyMap.has(city2)) adjacencyMap.set(city2, new Set());
+
+                    adjacencyMap.get(city1).add(city2);
+                    adjacencyMap.get(city2).add(city1);
                 } else {
                     console.error(`Invalid data on line ${index + 1}:`, { city1, city2, parsedDistance });
                 }
             });
+
+            if (citiesSet.size > 20) {
+                alert('Error: The number of cities exceeds the limit of 20. Please provide a valid file.');
+                return;
+            }
+
+            const cityList = Array.from(citiesSet);
+            for (let i = 0; i < cityList.length; i++) {
+                for (let j = i + 1; j < cityList.length; j++) {
+                    if (
+                        !adjacencyMap.get(cityList[i])?.has(cityList[j]) ||
+                        !adjacencyMap.get(cityList[j])?.has(cityList[i])
+                    ) {
+                        alert(`Error: The graph is not complete. Missing route between ${cityList[i]} and ${cityList[j]}.`);
+                        return;
+                    }
+                }
+            }
 
             if (parsedEdges.length) {
                 const newData = {
@@ -57,7 +78,7 @@ function InputHandler_TSP({ data, setData }) {
                 };
                 setData(newData);
             } else {
-                alert('No valid edges found. Please check the CSV format.');
+                alert('Error: No valid edges found. Please check the CSV format.');
             }
         };
 
