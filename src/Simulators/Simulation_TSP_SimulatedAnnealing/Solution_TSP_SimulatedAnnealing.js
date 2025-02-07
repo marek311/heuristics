@@ -6,11 +6,12 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
 
     useEffect(() => {
         const width = 350;
-        const height = 400;
+        const height = 425;
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
-        const barChartHeight = height / 2;
-        const barWidth = 40;
-        const barSpacing = 30;
+
+        const barChartHeight = height / 4;
+        const tourChartHeight = (3 * height) / 4;
+        const barWidth = 30;
 
         const svg = d3.select(svgRef.current)
             .attr("width", width)
@@ -20,24 +21,29 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
 
         svg.selectAll("*").remove();
 
-        const maxCost = Math.max(currentCost, proposedCost, bestCost, previousCost) + (Math.max(currentCost, proposedCost, bestCost, previousCost) / 5);
+        const maxCost = Math.max(currentCost, proposedCost, bestCost, previousCost) * 1.2;
 
         const yScale = d3.scaleLinear()
             .domain([0, maxCost])
             .range([barChartHeight - margin.bottom, margin.top]);
 
+        const xScale = d3.scaleBand()
+            .domain(["Proposed", "Current", "Previous", "Best"])
+            .range([margin.left, width - margin.right])
+            .padding(0.5);
+
         const costs = [
-            { label: "Proposed", value: proposedCost, color: "#1e88e5", x: margin.left },
-            { label: "Current", value: currentCost, color: "#f73e3e", x: margin.left + barWidth + barSpacing },
-            { label: "Previous", value: previousCost, color: "#ffa533", x: margin.left + 2 * (barWidth + barSpacing) },
-            { label: "Best", value: bestCost, color: "#4caf50", x: margin.left + 3 * (barWidth + barSpacing) }
+            { label: "Proposed", value: proposedCost, color: "#1e88e5" },
+            { label: "Current", value: currentCost, color: "#f73e3e" },
+            { label: "Previous", value: previousCost, color: "#ffa533" },
+            { label: "Best", value: bestCost, color: "#4caf50" }
         ];
 
         svg.selectAll(".bar")
             .data(costs)
             .enter()
             .append("rect")
-            .attr("x", d => d.x)
+            .attr("x", d => xScale(d.label) + xScale.bandwidth() / 4)
             .attr("width", barWidth)
             .attr("y", d => yScale(d.value))
             .attr("height", d => barChartHeight - margin.bottom - yScale(d.value))
@@ -47,33 +53,34 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
             .data(costs)
             .enter()
             .append("text")
-            .attr("x", d => d.x + barWidth / 2)
+            .attr("x", d => xScale(d.label) + xScale.bandwidth() / 2)
             .attr("y", d => yScale(d.value) - 5)
             .attr("text-anchor", "middle")
             .attr("fill", "black")
-            .attr("font-size", "12px")
-            .text(d => d.value);
+            .attr("font-size", "10px")
+            .text(d => d.value.toFixed(2));
 
         svg.selectAll(".legend-label")
             .data(costs)
             .enter()
             .append("text")
-            .attr("x", d => d.x + barWidth / 2)
+            .attr("x", d => xScale(d.label) + xScale.bandwidth() / 2)
             .attr("y", barChartHeight - 10)
             .attr("text-anchor", "middle")
             .attr("fill", "black")
-            .attr("font-size", "12px")
+            .attr("font-size", "10px")
             .text(d => d.label);
 
         const tourData = [
-            { label: "Proposed", tour: proposedTour, color: "#1e88e5", y: barChartHeight + 20 },
-            { label: "Current", tour: currentTour, color: "#f73e3e", y: barChartHeight + 60 },
-            { label: "Previous", tour: previousTour, color: "#ffa533", y: barChartHeight + 100 },
-            { label: "Best", tour: bestTour, color: "#4caf50", y: barChartHeight + 140 }
+            { label: "Proposed", tour: proposedTour, color: "#1e88e5", y: barChartHeight + 10 },
+            { label: "Current", tour: currentTour, color: "#f73e3e", y: barChartHeight + 85 },
+            { label: "Previous", tour: previousTour, color: "#ffa533", y: barChartHeight + 160 },
+            { label: "Best", tour: bestTour, color: "#4caf50", y: barChartHeight + 235 }
         ];
 
         const rectWidth = width - 40;
-        const rectHeight = 30;
+        const rectHeight = 70;
+        const maxCitiesPerLine = 6;
 
         svg.selectAll(".tour-rect")
             .data(tourData)
@@ -90,13 +97,45 @@ function Solution_TSP_SimulatedAnnealing({ currentCost, proposedCost, bestCost, 
         svg.selectAll(".tour-text")
             .data(tourData)
             .enter()
-            .append("text")
-            .attr("x", margin.left + 10)
-            .attr("y", d => d.y + rectHeight / 2)
-            .attr("alignment-baseline", "middle")
-            .attr("fill", "black")
-            .attr("font-size", "12px")
-            .text(d => `${d.label}: ${d.tour.join(" → ")}`);
+            .each(function (d) {
+                const numLines = Math.ceil(d.tour.length / maxCitiesPerLine);
+                const lines = [];
+
+                for (let i = 0; i < numLines; i++) {
+                    lines.push(d.tour.slice(i * maxCitiesPerLine, (i + 1) * maxCitiesPerLine).join(" → "));
+                }
+
+                d3.select(this)
+                    .append("text")
+                    .attr("x", margin.left + 10)
+                    .attr("y", d.y + 20)
+                    .attr("alignment-baseline", "middle")
+                    .attr("fill", "black")
+                    .attr("font-size", "10px")
+                    .text(`${d.label}: ${lines[0]}`);
+
+                if (lines[1]) {
+                    d3.select(this)
+                        .append("text")
+                        .attr("x", margin.left + 10)
+                        .attr("y", d.y + 40)
+                        .attr("alignment-baseline", "middle")
+                        .attr("fill", "black")
+                        .attr("font-size", "10px")
+                        .text(lines[1]);
+                }
+
+                if (lines[2]) {
+                    d3.select(this)
+                        .append("text")
+                        .attr("x", margin.left + 10)
+                        .attr("y", d.y + 60)
+                        .attr("alignment-baseline", "middle")
+                        .attr("fill", "black")
+                        .attr("font-size", "10px")
+                        .text(lines[2]);
+                }
+            });
 
     }, [currentCost, proposedCost, bestCost, previousCost, currentTour, proposedTour, bestTour, previousTour]);
 
