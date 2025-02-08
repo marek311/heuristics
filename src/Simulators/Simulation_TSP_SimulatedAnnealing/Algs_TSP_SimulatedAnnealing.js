@@ -48,7 +48,8 @@ export const proposeNewSolution = (
     setCostDifference,
     setSwappedIndexes,
     data,
-    setSolutionStatus
+    setSolutionStatus,
+    setHighlightedLinks
 ) => {
     const { newTour, newCost, costDifference, swappedIndexes } = modifyTourAndCalculateCost(currentTour, data.edges);
 
@@ -57,6 +58,12 @@ export const proposeNewSolution = (
     setCostDifference(costDifference);
     setSwappedIndexes(swappedIndexes);
     setSolutionStatus("Proposed a new solution, calculated cost difference: proposed cost - current cost.");
+
+    const highlightedLinks = [
+        { source: 'current', target: 'neighbor' },
+        { source: 'neighbor', target: 'better' }
+    ];
+    setHighlightedLinks(highlightedLinks);
 };
 
 export const calculateAcceptanceAndDecide = (

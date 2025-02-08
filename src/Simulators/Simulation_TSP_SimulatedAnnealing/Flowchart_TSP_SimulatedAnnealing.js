@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function SolutionSimulatedAnnealingTSP() {
+function FlowchartSimulatedAnnealingTSP({ highlightLinks }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -47,7 +47,7 @@ function SolutionSimulatedAnnealingTSP() {
             .attr('y1', d => nodes.find(n => n.id === d.source).y)
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
-            .attr('stroke', '#333')
+            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
             .attr('stroke-width', 2);
 
         svg.selectAll('text.link-label')
@@ -113,7 +113,7 @@ function SolutionSimulatedAnnealingTSP() {
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
-    }, []);
+    }, [highlightLinks]);
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
@@ -124,4 +124,4 @@ function SolutionSimulatedAnnealingTSP() {
     );
 }
 
-export default SolutionSimulatedAnnealingTSP;
+export default FlowchartSimulatedAnnealingTSP;

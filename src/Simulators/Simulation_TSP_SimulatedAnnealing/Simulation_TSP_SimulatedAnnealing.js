@@ -35,7 +35,8 @@ function SimulationTSPAnnealing() {
     const [swappedIndexes, setSwappedIndexes] = useState([]);
     const [previousTour, setPreviousTour] = useState([]);
     const [previousCost, setPreviousCost] = useState(0);
-    const [stepIndex, setStepIndex] = useState(0)
+    const [stepIndex, setStepIndex] = useState(0);
+    const [highlightLinks, setHighlightLinks] = useState([]);
 
     useEffect(() => {
         if (data && data.edges) {
@@ -56,7 +57,8 @@ function SimulationTSPAnnealing() {
                 setCostDifference,
                 setSwappedIndexes,
                 data,
-                setSolutionStatus
+                setSolutionStatus,
+                setHighlightLinks
             );
         } else if (stepIndex === 1) {
             calculateAcceptanceAndDecide(
@@ -164,8 +166,7 @@ function SimulationTSPAnnealing() {
                     iteration={iteration}
                 />
                 <FlowchartTSPSimulatedAnnealing
-                    currentTour={currentTour}
-                    proposedTour={proposedTour}
+                    highlightLinks={highlightLinks}
                 />
                 <BarExperiment
                     acceptanceProbability={acceptanceProbability}
