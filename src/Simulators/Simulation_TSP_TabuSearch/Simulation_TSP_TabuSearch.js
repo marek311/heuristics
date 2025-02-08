@@ -10,7 +10,6 @@ function SimulationTSPTabu() {
     const { data } = location.state || {};
 
     const [currentTour, setCurrentTour] = useState([]);
-    const [currentCost, setCurrentCost] = useState(0);
 
     useEffect(() => {
         if (!data || !data.edges) return;
@@ -25,7 +24,21 @@ function SimulationTSPTabu() {
     }, [data]);
 
     const handleStep = () => {
+        //inicializacia - random poradie miest
+        //iteracia
+        //-najdi susedne riesenia - mnozinu
+        //-vyber riesenie s najnizsou ucelovkou ktore nie je v tabu liste alebo je globalne najlepsie
+        //vykonaj prechod
+        //skontroluj ci nie je najlepsie najdene - ak ano prepis
+        //pridaj prechod do tabu zoznamu
+        //ukonci ak x iteraci nedoslo k zlepseniu reisenia
 
+        //tabu zoznam ak bude susedne riesenie najdene swapom dvoch miest - zakazat swap tychto miest
+
+        //Casti simulacie
+        //-graf - hotovo
+        //-tabu tabulka
+        //-solution - popis co sa deje
     };
 
     const handleRunSimulation = () => {
