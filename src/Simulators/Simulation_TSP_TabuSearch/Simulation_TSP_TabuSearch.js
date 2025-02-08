@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
+import TabuTable from './TabuTable';
 
 function SimulationTSPTabu() {
     const navigate = useNavigate();
@@ -10,6 +11,7 @@ function SimulationTSPTabu() {
     const { data } = location.state || {};
 
     const [currentTour, setCurrentTour] = useState([]);
+    const [tabuList, setTabuList] = useState([]);
 
     useEffect(() => {
         if (!data || !data.edges) return;
@@ -24,13 +26,29 @@ function SimulationTSPTabu() {
     }, [data]);
 
     const handleStep = () => {
+
+        const iteration = tabuList.length + 1;
+        const index1 = Math.floor(Math.random() * (currentTour.length - 2)) + 1;
+        let index2;
+        do {
+            index2 = Math.floor(Math.random() * (currentTour.length - 2)) + 1;
+        } while (index1 === index2);
+
+        const newTour = [...currentTour];
+        [newTour[index1], newTour[index2]] = [newTour[index2], newTour[index1]];
+
+        setCurrentTour(newTour);
+        setTabuList([...tabuList, { iteration, swap: [index1, index2] }]);
+
         //inicializacia - random poradie miest
         //iteracia
         //-najdi susedne riesenia - mnozinu
         //-vyber riesenie s najnizsou ucelovkou ktore nie je v tabu liste alebo je globalne najlepsie
-        //vykonaj prechod
-        //skontroluj ci nie je najlepsie najdene - ak ano prepis
+        //--ak prechod nie je zakazany - vyber toto riesenie ako aktualne
+        //--ak je prechod zakazany - vymaz z mnoziny
+        //vykonaj vybrany prechod
         //pridaj prechod do tabu zoznamu
+        //skontroluj ci nie je najlepsie najdene - ak ano prepis
         //ukonci ak x iteraci nedoslo k zlepseniu reisenia
 
         //tabu zoznam ak bude susedne riesenie najdene swapom dvoch miest - zakazat swap tychto miest
@@ -38,6 +56,7 @@ function SimulationTSPTabu() {
         //Casti simulacie
         //-graf - hotovo
         //-tabu tabulka
+        //-flowchart
         //-solution - popis co sa deje
     };
 
@@ -46,7 +65,7 @@ function SimulationTSPTabu() {
     };
 
     const handleResetUI = () => {
-
+        setTabuList([]);
     };
 
     return (
@@ -63,13 +82,8 @@ function SimulationTSPTabu() {
                     data={data}
                     tour={currentTour}
                 />
-                <TSPDataGraph
-                    data={data}
-                    tour={currentTour}
-                />
-                <TSPDataGraph
-                    data={data}
-                    tour={currentTour}
+                <TabuTable
+                    tabuList={tabuList}
                 />
             </div>
         </div>
