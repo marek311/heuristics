@@ -95,20 +95,23 @@ export const calculateAcceptanceAndDecide = (
         status = "Proposed solution: Better as Current => Accepted Without Experiment";
         setHighLightLinks(prevLinks => [
             ...prevLinks,
-            { source: 'better', target: 'new' }
+            { source: 'better', target: 'new' },
+            { source: 'new', target: 'betterBest' }
         ]);
     } else if (costDifference === 0) {
         status = "Proposed solution: Equal as Current => Accepted Without Experiment";
         setHighLightLinks(prevLinks => [
             ...prevLinks,
-            { source: 'better', target: 'new' }
+            { source: 'better', target: 'new' },
+            { source: 'new', target: 'betterBest' }
         ]);
     } else if (randomValue < acceptanceProbability) {
         status = "Proposed solution: Worse as Current => Accepted by Random Experiment";
         setHighLightLinks(prevLinks => [
             ...prevLinks,
             { source: 'better', target: 'experiment' },
-            { source: 'experiment', target: 'new' }
+            { source: 'experiment', target: 'new' },
+            { source: 'new', target: 'betterBest' }
         ]);
     } else {
         status = "Proposed solution: Worse as Current => Declined by Random Experiment";
@@ -131,6 +134,17 @@ export const calculateAcceptanceAndDecide = (
         if (proposedCost < bestCost) {
             setBestTour(proposedTour);
             setBestCost(proposedCost);
+
+            setHighLightLinks(prevLinks => [
+                ...prevLinks,
+                { source: 'betterBest', target: 'newBest' },
+                { source: 'newBest', target: 'cooldown' }
+            ]);
+        } else {
+            setHighLightLinks(prevLinks => [
+                ...prevLinks,
+                { source: 'betterBest', target: 'cooldown' }
+            ]);
         }
     }
 
@@ -148,6 +162,10 @@ export const updateStateAndCoolDown = (
     setTemperature((prevTemperature) => prevTemperature * 0.95);
     setIteration((prevIteration) => prevIteration + 1);
     setSolutionStatus("Iteration++, Temperature =* 0.95;");
+    setHighlightLinks(prevLinks => [
+        ...prevLinks,
+        { source: 'cooldown', target: 'newIteration' }
+    ]);
 };
 
 export const handleRun = (
