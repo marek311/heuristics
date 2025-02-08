@@ -93,12 +93,30 @@ export const calculateAcceptanceAndDecide = (
     let status;
     if (costDifference < 0) {
         status = "Proposed solution: Better as Current => Accepted Without Experiment";
+        setHighLightLinks(prevLinks => [
+            ...prevLinks,
+            { source: 'better', target: 'new' }
+        ]);
     } else if (costDifference === 0) {
         status = "Proposed solution: Equal as Current => Accepted Without Experiment";
+        setHighLightLinks(prevLinks => [
+            ...prevLinks,
+            { source: 'better', target: 'new' }
+        ]);
     } else if (randomValue < acceptanceProbability) {
         status = "Proposed solution: Worse as Current => Accepted by Random Experiment";
+        setHighLightLinks(prevLinks => [
+            ...prevLinks,
+            { source: 'better', target: 'experiment' },
+            { source: 'experiment', target: 'new' }
+        ]);
     } else {
         status = "Proposed solution: Worse as Current => Declined by Random Experiment";
+        setHighLightLinks(prevLinks => [
+            ...prevLinks,
+            { source: 'better', target: 'experiment' },
+            { source: 'experiment', target: 'cooldown' }
+        ]);
     }
 
     setAcceptanceProbability(acceptanceProbability);
