@@ -147,7 +147,8 @@ export const handleRun = (
     setProposedTour,
     setProposedCost,
     setSolutionStatus,
-    setSwappedIndexes
+    setSwappedIndexes,
+    setHighlightLinks
 ) => {
     if (currentTour.length < 2 || temperature <= 1e-5) return;
 
@@ -199,6 +200,7 @@ export const handleRun = (
         terminationReason = "Algorithm Ended: No solution change for 15 iterations in a row.";
     }
 
+    setHighlightLinks([]);
     setCurrentTour(current);
     setCurrentCost(cost);
     setBestTour(best);

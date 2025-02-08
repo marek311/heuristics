@@ -112,7 +112,8 @@ function SimulationTSPAnnealing() {
             setProposedTour,
             setProposedCost,
             setSolutionStatus,
-            setSwappedIndexes
+            setSwappedIndexes,
+            setHighlightLinks
         );
     };
 
@@ -135,6 +136,7 @@ function SimulationTSPAnnealing() {
             setPreviousTour([]);
             setPreviousCost(0);
             setStepIndex(0);
+            setHighlightLinks([]);
         }
     };
 
