@@ -6,6 +6,7 @@ import TSP_DataTable from '../InputDisplay/TSP/TSP_DataTable';
 import SimKnapsackInsert from '../Simulators/Simulation_KP_Insert/Simulation_KP_Insert'
 import SimKnapsackExchange from '../Simulators/Simulation_KP_Exchange/Simulation_KP_Exchange'
 import SimTSPSimulatedAnnealing from "../Simulators/Simulation_TSP_SimulatedAnnealing/Simulation_TSP_SimulatedAnnealing";
+import SimTSPTabuSearch from "../Simulators/Simulation_TSP_TabuSearch/Simulation_TSP_TabuSearch";
 
 function Application() {
     return (
@@ -26,11 +27,10 @@ function Application() {
                 <Route path="/tsp-simulated-annealing-simulation" element={<TSP_DataTable />}/>
                 <Route path="/tsp-simulated-annealing-simulation/simulate" element={<SimTSPSimulatedAnnealing />} />
 
-                <Route path="/tsp-genetic-simulation" element={<TSP_DataTable />}/>
-
-
                 <Route path="/tsp-tabu-search-simulation" element={<TSP_DataTable />} />
+                <Route path="/tsp-tabu-search-simulation/simulate" element={<SimTSPTabuSearch />} />
 
+                <Route path="/tsp-genetic-simulation" element={<TSP_DataTable />}/>
 
             </Routes>
         </div>
