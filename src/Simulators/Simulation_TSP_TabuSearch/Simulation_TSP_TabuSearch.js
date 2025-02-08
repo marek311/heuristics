@@ -11,6 +11,11 @@ function SimulationTSPTabu() {
     const { data } = location.state || {};
 
     const [currentTour, setCurrentTour] = useState([]);
+    const [currentCost, setCurrentCost] = useState(Infinity);
+    const [previousTour, setPreviousTour] = useState([]);
+    const [previousCost, setPreviousCost] = useState(Infinity);
+    const [bestTour, setBestTour] = useState([]);
+    const [bestCost, setBestCost] = useState(Infinity);
     const [tabuList, setTabuList] = useState([]);
 
     useEffect(() => {
@@ -23,48 +28,89 @@ function SimulationTSPTabu() {
         const randomizedTour = [startingCity, ...otherCities.sort(() => Math.random() - 0.5), startingCity];
 
         setCurrentTour(randomizedTour);
+        setCurrentCost(calculateTourCost(randomizedTour));
+        setBestTour(randomizedTour);
+        setBestCost(calculateTourCost(randomizedTour));
     }, [data]);
 
+    const calculateTourCost = (tour) => {
+        let cost = 0;
+        for (let i = 0; i < tour.length - 1; i++) {
+            const city1 = tour[i];
+            const city2 = tour[i + 1];
+            const edge = data.edges.find(e =>
+                (e.city1 === city1 && e.city2 === city2) || (e.city1 === city2 && e.city2 === city1)
+            );
+            if (edge) {
+                cost += edge.distance;
+            }
+        }
+        return cost;
+    };
+
     const handleStep = () => {
+        if (currentTour.length < 4) return;
 
         const iteration = tabuList.length + 1;
-        const index1 = Math.floor(Math.random() * (currentTour.length - 2)) + 1;
-        let index2;
-        do {
-            index2 = Math.floor(Math.random() * (currentTour.length - 2)) + 1;
-        } while (index1 === index2);
+        let bestNeighbor = null;
+        let bestNeighborCost = Infinity;
+        let bestSwap = null;
 
-        const newTour = [...currentTour];
-        [newTour[index1], newTour[index2]] = [newTour[index2], newTour[index1]];
+        for (let i = 1; i < currentTour.length - 2; i++) {
+            for (let j = i + 1; j < currentTour.length - 1; j++) {
+                const isTabu = tabuList.some(entry =>
+                    (entry.swap[0] === i && entry.swap[1] === j) || (entry.swap[0] === j && entry.swap[1] === i));
 
-        setCurrentTour(newTour);
-        setTabuList([...tabuList, { iteration, swap: [index1, index2] }]);
+                const newTour = [...currentTour];
+                [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
+                const newCost = calculateTourCost(newTour);
 
-        //inicializacia - random poradie miest
-        //iteracia
-        //-najdi susedne riesenia - mnozinu
-        //-vyber riesenie s najnizsou ucelovkou ktore nie je v tabu liste alebo je globalne najlepsie
-        //--ak prechod nie je zakazany - vyber toto riesenie ako aktualne
-        //--ak je prechod zakazany - vymaz z mnoziny
-        //vykonaj vybrany prechod
-        //pridaj prechod do tabu zoznamu
-        //skontroluj ci nie je najlepsie najdene - ak ano prepis
-        //ukonci ak x iteraci nedoslo k zlepseniu reisenia
+                if (!isTabu || (isTabu && newCost < bestCost)) {
+                    if (newCost < bestNeighborCost) {
+                        bestNeighbor = newTour;
+                        bestNeighborCost = newCost;
+                        bestSwap = [i, j];
+                    }
+                }
+            }
+        }
 
-        //tabu zoznam ak bude susedne riesenie najdene swapom dvoch miest - zakazat swap tychto miest
+        if (bestNeighbor) {
+            setPreviousTour(currentTour);
+            setPreviousCost(currentCost);
 
-        //Casti simulacie
-        //-graf - hotovo
-        //-tabu tabulka
-        //-flowchart
-        //-solution - popis co sa deje
+            setCurrentTour(bestNeighbor);
+            setCurrentCost(bestNeighborCost);
+            setTabuList([...tabuList, { iteration, swap: bestSwap }]);
+
+            if (bestNeighborCost < bestCost) {
+                setBestCost(bestNeighborCost);
+                setBestTour(bestNeighbor);
+            }
+        }
     };
 
     const handleRunSimulation = () => {
-
+        //POZNAMKY
+        //Iteracia
+        //-najdi susedne riesenia - mnozinu
+        //-vyber riesenie z mnoziny s najnizsou ucelovkou
+        //--ktore nie je v tabu liste alebo je globalne najlepsie
+        //--ak prechod nie je zakazany alebo je najlepsie - vyber toto riesenie ako aktualne
+        //--ak je prechod zakazany  a nie je najlepsi - vymaz z mnoziny susednych rieseni
+        //-vykonaj vybrany prechod
+        //-pridaj prechod do tabu zoznamu
+        //-skontroluj ci nie je najlepsie najdene - ak ano prepis
+        //ukonci ak x iteraci nedoslo k zlepseniu reisenia
     };
 
     const handleResetUI = () => {
+        setCurrentTour([]);
+        setPreviousTour([]);
+        setBestTour([]);
+        setCurrentCost(Infinity);
+        setPreviousCost(Infinity);
+        setBestCost(Infinity);
         setTabuList([]);
     };
 
@@ -82,9 +128,32 @@ function SimulationTSPTabu() {
                     data={data}
                     tour={currentTour}
                 />
+
+                <div className="mb-4 p-4 bg-gray-100 rounded-lg">
+                    <div className="mb-4 p-4 bg-gray-100 rounded-lg">
+                        <h2 className="text-lg font-bold">Tabu Search Progress:</h2>
+                        <p><strong>Aktuálna trasa:</strong></p>
+                        <p>{currentTour.join("→")}</p>
+                        <p><strong>Cost:</strong> {currentCost}</p>
+                        <p><strong>Predchádzajúca trasa:</strong></p>
+                        <p> {previousTour.join("→")}</p>
+                        <p><strong>Cost:</strong> {previousCost}</p>
+                        <p><strong>Najlepšia trasa:</strong></p>
+                        <p> {bestTour.join("→")}</p>
+                        <p><strong>Cost:</strong> {bestCost}</p>
+                    </div>
+                    <p><strong>Tabu zoznam (last 5 steps):</strong></p>
+                    <ul className="list-disc pl-5">
+                        {tabuList.slice(-5).map((entry, index) => (
+                            <li key={index}>Iterácia {entry.iteration}: swap {entry.swap.join(" ⇄ ")}</li>
+                        ))}
+                    </ul>
+                </div>
+
                 <TabuTable
                     tabuList={tabuList}
                 />
+
             </div>
         </div>
     );
