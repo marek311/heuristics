@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function Bar_Experiment({ acceptanceProbability, randomValue }) {
+function BarExperiment({ acceptanceProbability, randomValue }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -66,4 +66,4 @@ function Bar_Experiment({ acceptanceProbability, randomValue }) {
     );
 }
 
-export default Bar_Experiment;
+export default BarExperiment;

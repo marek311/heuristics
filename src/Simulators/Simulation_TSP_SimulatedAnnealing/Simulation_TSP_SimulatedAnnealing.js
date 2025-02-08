@@ -3,8 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import FlowchartTSPSimulatedAnnealing from "./Flowchart_TSP_SimulatedAnnealing";
-import BarTemperature from "./Bar_Temperature";
-import BarExperiment from "./Bar_Experiment";
+import BarTemperature from "./BarTemperature";
+import BarExperiment from "./BarExperiment";
 import Solution from "./Solution_TSP_SimulatedAnnealing";
 import {
     initializeTour,
