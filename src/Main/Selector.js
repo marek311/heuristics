@@ -9,8 +9,8 @@ function Selector() {
         {id: 'KnapsackExchangeFirst', name: 'Knapsack problem - Exchange first fit'},
         {id: 'KnapsackExchangeBest', name: 'Knapsack problem - Exchange best fit'},
         {id: 'TSPSimulatedAnnealing', name: 'TSP - Simulated annealing'},
-        {id: 'TSPGenetic', name: 'TSP - Genetic algorithm'},
         {id: 'TSPTabuSearch', name: 'TSP - Tabu search'},
+        {id: 'TSPGenetic', name: 'TSP - Genetic algorithm'},
     ];
 
     const storedMode = localStorage.getItem('selectedMode');
