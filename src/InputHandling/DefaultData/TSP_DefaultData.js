@@ -1,4 +1,4 @@
-function DefaultData_TSP() {
+function TSP_DefaultData() {
     return {
         cityCount: 7,
         edges: [
@@ -27,4 +27,4 @@ function DefaultData_TSP() {
     };
 }
 
-export default DefaultData_TSP;
+export default TSP_DefaultData;

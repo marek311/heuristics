@@ -3,8 +3,8 @@ import { useState } from 'react';
 import Colors from '../Main/Colors';
 import InputHandler_KP from './InputHandler_KP';
 import InputHandler_TSP from './InputHandler_TSP';
-import DefaultData_KP from './DefaultData/DefaultData_KP';
-import DefaultData_TSP from './DefaultData/DefaultData_TSP';
+import KP_DefaultData from './DefaultData/KP_DefaultData';
+import TSP_DefaultData from './DefaultData/TSP_DefaultData';
 
 function InputHandler_General() {
     const location = useLocation();
@@ -12,14 +12,14 @@ function InputHandler_General() {
     const query = new URLSearchParams(location.search);
     const mode = query.get('mode');
 
-    const defaultKnapsackData = DefaultData_KP();
+    const defaultKnapsackData = KP_DefaultData();
     const [knapsackData, setKnapsackData] = useState({
         weights: defaultKnapsackData.weights,
         prices: defaultKnapsackData.prices,
         capacity: defaultKnapsackData.capacity,
     });
 
-    const defaultTspData = DefaultData_TSP();
+    const defaultTspData = TSP_DefaultData();
     const [tspData, setTspData] = useState({
         cityCount: defaultTspData.cityCount,
         edges: defaultTspData.edges,
