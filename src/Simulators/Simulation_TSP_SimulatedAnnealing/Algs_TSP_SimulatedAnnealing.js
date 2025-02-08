@@ -49,7 +49,7 @@ export const proposeNewSolution = (
     setSwappedIndexes,
     data,
     setSolutionStatus,
-    setHighlightedLinks
+    setHighlightLinks
 ) => {
     const { newTour, newCost, costDifference, swappedIndexes } = modifyTourAndCalculateCost(currentTour, data.edges);
 
@@ -63,7 +63,8 @@ export const proposeNewSolution = (
         { source: 'current', target: 'neighbor' },
         { source: 'neighbor', target: 'better' }
     ];
-    setHighlightedLinks(highlightedLinks);
+    setHighlightLinks([]);
+    setHighlightLinks(highlightedLinks);
 };
 
 export const calculateAcceptanceAndDecide = (
@@ -83,7 +84,8 @@ export const calculateAcceptanceAndDecide = (
     setBestCost,
     setAcceptanceProbability,
     setRandomValue,
-    setSolutionStatus
+    setSolutionStatus,
+    setHighLightLinks
 ) => {
     const acceptanceProbability = costDifference < 0 ? 1 : Math.exp(-costDifference / temperature);
     const randomValue = costDifference <= 0 ? 0 : Math.random();
@@ -117,7 +119,14 @@ export const calculateAcceptanceAndDecide = (
     setSolutionStatus(status);
 };
 
-export const updateStateAndCoolDown = (setTemperature, setIteration, temperature, iteration, setSolutionStatus) => {
+export const updateStateAndCoolDown = (
+    setTemperature,
+    setIteration,
+    temperature,
+    iteration,
+    setSolutionStatus,
+    setHighlightLinks
+) => {
     setTemperature((prevTemperature) => prevTemperature * 0.95);
     setIteration((prevIteration) => prevIteration + 1);
     setSolutionStatus("Iteration++, Temperature =* 0.95;");

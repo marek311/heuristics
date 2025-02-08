@@ -78,10 +78,18 @@ function SimulationTSPAnnealing() {
                 setBestCost,
                 setAcceptanceProbability,
                 setRandomValue,
-                setSolutionStatus
+                setSolutionStatus,
+                setHighlightLinks
             );
         } else if (stepIndex === 2) {
-            updateStateAndCoolDown(setTemperature, setIteration, temperature, iteration, setSolutionStatus);
+            updateStateAndCoolDown(
+                setTemperature,
+                setIteration,
+                temperature,
+                iteration,
+                setSolutionStatus,
+                setHighlightLinks
+            );
         }
 
         setStepIndex((prevStepIndex) => (prevStepIndex + 1) % 3);
