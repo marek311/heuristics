@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import KP_DataEdit from './KP_DataEdit';
+import KPDataEdit from './KPDataEdit';
 import Colors from '../../Main/Colors';
 
-function KP_DataPage() {
+function KPDataPage() {
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -47,7 +47,7 @@ function KP_DataPage() {
 
     return (
         <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit ${Colors.textPrimary} p-6 ${Colors.cardBackground} rounded-lg mx-auto my-10`}>
-            <KP_DataEdit
+            <KPDataEdit
                 items={items}
                 capacity={currentCapacity}
                 onDataChange={handleDataChange}
@@ -68,4 +68,4 @@ function KP_DataPage() {
     );
 }
 
-export default KP_DataPage;
+export default KPDataPage;

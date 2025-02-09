@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import SimulationHeader from '../Simulation_General/Simulation_Header';
-import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
+import Header from '../../Components/Header';
+import TSPDataGraph from '../../../InputDisplay/TSP/TSPDataGraph';
 import TabuTable from './TabuTable';
-import { useTabuSearch } from './Algs_TSP_TabuSearch';
-import Flowchart_TSP_TabuSearch from "./Flowchart_TSP_TabuSearch";
-import Solution_TSP_TabuSearch from "./Solution_TSP_TabuSearch";
+import { useTabuSearch } from './AlgorithmsTabuSearch';
+import Flowchart_TSP_TabuSearch from "./FlowchartTabuSearch";
+import Solution_TSP_TabuSearch from "./SolutionTabuSearch";
 
-function SimulationTSPTabu() {
+function MainComponentTabuSearch() {
     const navigate = useNavigate();
     const location = useLocation();
     const { data } = location.state || {};
@@ -29,7 +29,7 @@ function SimulationTSPTabu() {
 
     return (
         <div className="text-gray-800 p-6">
-            <SimulationHeader
+            <Header
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Tabu Search"
                 handleStep={step}
@@ -58,4 +58,4 @@ function SimulationTSPTabu() {
     );
 }
 
-export default SimulationTSPTabu;
+export default MainComponentTabuSearch;

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Solution_KP_Insert from './Solution_KP_Insert';
-import FlowchartKnapsackInsert from './Flowchart_KP_Insert.js';
+import SolutionInsert from './SolutionInsert';
+import FlowchartKnapsackInsert from './FlowchartInsert.js';
 import {
     performIteration,
     performRun
-} from "./Algs_KP_Insert";
-import Simulation_Header from '../Simulation_General/Simulation_Header';
-import KPDataForDisplay from '../../InputDisplay/KP/KP_DataDisplay';
+} from "./AlgorithmsInsert";
+import Header from '../../Components/Header';
+import KPDataDisplay from '../../../InputDisplay/KP/KPDataDisplay';
 
-function SimulationKnapsackInsert() {
+function MainComponentInsert() {
 
     const navigate = useNavigate();
     const handleGoBack = () => {
@@ -85,7 +85,7 @@ function SimulationKnapsackInsert() {
 
     return (
         <div className=" text-gray-800 p-6">
-            <Simulation_Header
+            <Header
                 handleGoBack={handleGoBack}
                 title="Knapsack Problem Simulation Using Insertion Heuristic with Profitability Coefficients"
                 handleStep={handleIteration}
@@ -94,7 +94,7 @@ function SimulationKnapsackInsert() {
                 isDisabled={currentIndex >= items.length}
             />
             <div className="flex flex-col lg:flex-row w-full h-full">
-                <KPDataForDisplay
+                <KPDataDisplay
                     items={items}
                     currentIndex={currentIndex}
                     itemStatus={itemStatus}
@@ -103,7 +103,7 @@ function SimulationKnapsackInsert() {
                     highlightCurrent={true}
                     simpleMode={false}
                 />
-                <Solution_KP_Insert
+                <SolutionInsert
                     currentWeight={currentWeight}
                     currentPrice={currentPrice}
                     currentIndex={currentIndex}
@@ -119,4 +119,4 @@ function SimulationKnapsackInsert() {
     );
 }
 
-export default SimulationKnapsackInsert;
+export default MainComponentInsert;

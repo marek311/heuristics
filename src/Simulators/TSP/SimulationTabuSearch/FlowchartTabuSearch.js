@@ -1,12 +1,12 @@
-import React, { useEffect, useRef } from 'react';
-import * as d3 from 'd3';
+import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
 
-function KnapsackInsertFlowChart({ items, currentIndex }) {
+function FlowchartTabuSearch() {
     const svgRef = useRef();
 
     useEffect(() => {
         const width = 500;
-        const height = 500;
+        const height = 600;
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
@@ -15,17 +15,29 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'load', text: 'Current Item', x: 250, y: 100, shape: 'rect', color: '#1e88e5' },
-            { id: 'check', text: 'Does it fit?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'add', text: 'Add to Backpack', x: 100, y: 300, shape: 'oval', color: '#4caf50' },
-            { id: 'next', text: 'Next Iteration', x: 250, y: 400, shape: 'rect', color: '#1e88e5' },
+            { id: 'initial', text: 'Initial Solution', x: 250, y: 40, shape: 'rect', color: '#1e88e5' },
+            { id: 'neighbor', text: 'Find Best Neighbor', x: 250, y: 120, shape: 'oval', color: '#4caf50' },
+            { id: 'tabuCheck', text: 'Move in Tabu List?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
+            { id: 'aspiration', text: 'Aspiration Criteria?', x: 100, y: 290, shape: 'diamond', color: '#ffa533' },
+            { id: 'acceptMove', text: 'Accept Move', x: 100, y: 370, shape: 'rect', color: '#1e88e5' },
+            { id: 'updateTabu', text: 'Update Tabu List', x: 100, y: 480, shape: 'oval', color: '#4caf50' },
+            { id: 'bestCheck', text: 'Best Solution Update?', x: 400, y: 290, shape: 'diamond', color: '#ffa533' },
+            { id: 'updateBest', text: 'Update Best Solution', x: 400, y: 380, shape: 'rect', color: '#1e88e5' },
+            { id: 'nextIteration', text: 'Next Iteration', x: 250, y: 550, shape: 'rect', color: '#1e88e5' },
         ];
 
         const links = [
-            { source: 'load', target: 'check' },
-            { source: 'check', target: 'add', label: 'Yes' },
-            { source: 'check', target: 'next', label: 'No' },
-            { source: 'add', target: 'next' },
+            { source: 'initial', target: 'neighbor' },
+            { source: 'neighbor', target: 'tabuCheck' },
+            { source: 'tabuCheck', target: 'aspiration', label: 'Yes' },
+            { source: 'tabuCheck', target: 'bestCheck', label: 'No' },
+            { source: 'aspiration', target: 'acceptMove', label: 'Yes' },
+            { source: 'aspiration', target: 'neighbor', label: 'No' },
+            { source: 'acceptMove', target: 'updateTabu' },
+            { source: 'updateTabu', target: 'nextIteration' },
+            { source: 'bestCheck', target: 'updateBest', label: 'Yes' },
+            { source: 'bestCheck', target: 'nextIteration', label: 'No' },
+            { source: 'updateBest', target: 'nextIteration' },
         ];
 
         const linkLines = svg.selectAll('line')
@@ -50,8 +62,9 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
             .attr('y', d => {
                 const sourceNode = nodes.find(n => n.id === d.source);
                 const targetNode = nodes.find(n => n.id === d.target);
-                return (sourceNode.y + targetNode.y) / 2 - 10;
+                return (sourceNode.y + targetNode.y) / 2;
             })
+            .attr('dy', -10)
             .attr('text-anchor', 'middle')
             .attr('fill', '#000')
             .style('font-size', '12px')
@@ -100,28 +113,7 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
-
-    }, []);
-
-    useEffect(() => {
-        const svg = d3.select(svgRef.current);
-
-        svg.selectAll('g.info-item').remove();
-
-        const currentItem = items[currentIndex];
-        if (currentItem) {
-            const itemInfoGroup = svg.append('g').attr('class', 'info-item');
-            itemInfoGroup.selectAll('text')
-                .data([`Price: ${currentItem.price}`, `Weight: ${currentItem.weight}`])
-                .join('text')
-                .attr('x', 320)
-                .attr('y', (_, i) => 100 + i * 20)
-                .attr('fill', '#000')
-                .attr('text-anchor', 'start')
-                .style('font-size', '14px')
-                .text(d => d);
-        }
-    }, [currentIndex, items]);
+    }, );
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
@@ -132,4 +124,4 @@ function KnapsackInsertFlowChart({ items, currentIndex }) {
     );
 }
 
-export default KnapsackInsertFlowChart;
+export default FlowchartTabuSearch;

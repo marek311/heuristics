@@ -1,12 +1,12 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import Colors from '../Main/Colors';
-import InputHandler_KP from './InputHandler_KP';
-import InputHandler_TSP from './InputHandler_TSP';
+import InputHandlerKP from './InputHandlerKP';
+import InputHandlerTSP from './InputHandlerTSP';
 import KP_DefaultData from './DefaultData/KP_DefaultData';
 import TSP_DefaultData from './DefaultData/TSP_DefaultData';
 
-function InputHandler_General() {
+function InputHandlerGeneral() {
     const location = useLocation();
     const navigate = useNavigate();
     const query = new URLSearchParams(location.search);
@@ -63,10 +63,10 @@ function InputHandler_General() {
     return (
         <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit p-6 bg-white rounded-lg shadow-lg mx-auto my-10`}>
             {['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest'].includes(mode) && (
-                <InputHandler_KP data={knapsackData} setData={setKnapsackData} />
+                <InputHandlerKP data={knapsackData} setData={setKnapsackData} />
             )}
             {['TSPSimulatedAnnealing','TSPGenetic', 'TSPTabuSearch'].includes(mode) && (
-                <InputHandler_TSP data={tspData} setData={setTspData} />
+                <InputHandlerTSP data={tspData} setData={setTspData} />
             )}
             <div className="items-center justify-center flex space-x-4 mt-4">
                 <button
@@ -84,4 +84,4 @@ function InputHandler_General() {
     );
 }
 
-export default InputHandler_General;
+export default InputHandlerGeneral;

@@ -2,7 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Colors from '../../Main/Colors';
 
-function TSP_DataTable() {
+function TSPDataTable() {
     const location = useLocation();
     const navigate = useNavigate();
     const { data } = location.state || {};
@@ -64,4 +64,4 @@ function TSP_DataTable() {
     );
 }
 
-export default TSP_DataTable;
+export default TSPDataTable;

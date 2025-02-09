@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Solution_KP_Exchange from './Solution_KP_Exchange';
-import FlowchartKnapsackExchange from './Flowchart_KP_Exchange.js';
+import SolutionExchange from './SolutionExchange';
+import FlowchartKnapsackExchange from './FlowchartExchange.js';
 import {
     performInitializeSolution,
     performIteration,
     performRun
-} from "./Algs_KP_Exchange";
-import Simulation_Header from '../Simulation_General/Simulation_Header';
-import KPDataForDisplay from "../../InputDisplay/KP/KP_DataDisplay";
+} from "./AlgorithmsExchange";
+import Header from '../../Components/Header';
+import KPDataDisplay from "../../../InputDisplay/KP/KPDataDisplay";
 
-function SimulationKnapsackExchange() {
+function MainComponentExchange() {
 
     const navigate = useNavigate();
     const handleGoBack = () => {
@@ -138,7 +138,7 @@ function SimulationKnapsackExchange() {
 
     return (
     <div className="text-gray-800 p-6">
-        <Simulation_Header
+        <Header
             handleGoBack={handleGoBack}
             title={`Knapsack Problem Simulation Using Exchange Heuristic - ${strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}`}
             handleStep={handleIteration}
@@ -147,14 +147,14 @@ function SimulationKnapsackExchange() {
             isDisabled={isCompleted}
         />
         <div className="flex flex-col lg:flex-row w-full" style={{height: '95vh'}}>
-            <KPDataForDisplay
+            <KPDataDisplay
                 items={items}
                 capacity={capacity}
                 simpleMode={true}
                 showStatus={false}
                 highlightCurrent={false}
             />
-            <Solution_KP_Exchange
+            <SolutionExchange
                 exchangeHistory={exchangeHistory}
             />
             <FlowchartKnapsackExchange
@@ -165,4 +165,4 @@ function SimulationKnapsackExchange() {
     );
 }
 
-export default SimulationKnapsackExchange;
+export default MainComponentExchange;

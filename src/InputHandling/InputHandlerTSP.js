@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Colors from '../Main/Colors';
 import TSP_DefaultData from './DefaultData/TSP_DefaultData';
 
-function InputHandler_TSP({ data, setData }) {
+function InputHandlerTSP({ data, setData }) {
     const defaultData = TSP_DefaultData();
     const [cities, setCities] = useState([]);
     const [startEndCity, setStartEndCity] = useState('');
@@ -133,4 +133,4 @@ function InputHandler_TSP({ data, setData }) {
     );
 }
 
-export default InputHandler_TSP;
+export default InputHandlerTSP;

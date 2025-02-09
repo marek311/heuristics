@@ -1,12 +1,13 @@
-import React, { useEffect, useRef } from "react";
-import * as d3 from "d3";
+import React, { useEffect, useRef } from 'react';
+import * as d3 from 'd3';
 
-function FlowchartSimulatedAnnealingTSP({ highlightLinks }) {
+function FlowchartExchange({ strategy }) {
     const svgRef = useRef();
 
     useEffect(() => {
         const width = 500;
-        const height = 600;
+        const height = 550;
+
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
@@ -14,31 +15,52 @@ function FlowchartSimulatedAnnealingTSP({ highlightLinks }) {
             .style('border', '1px solid #ccc')
             .style('overflow', 'visible');
 
-        const nodes = [
-            { id: 'current', text: 'Current Solution', x: 250, y: 40, shape: 'rect', color: '#1e88e5'},
-            { id: 'neighbor', text: 'Find Proposed Solution', x: 250, y: 120, shape: 'oval', color: '#4caf50'},
-            { id: 'better', text: 'Better than Current?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'new', text: 'New Current Solution', x: 100, y: 290, shape: 'rect', color: '#1e88e5' },
-            { id: 'betterBest', text: 'Better than Best?', x: 100, y: 370, shape: 'diamond', color: '#ffa533' },
-            { id: 'newBest', text: 'New Best Solution', x: 100, y: 480, shape: 'rect', color: '#1e88e5' },
-            { id: 'experiment', text: 'Perform Experiment', x: 400, y: 250, shape: 'oval', color: '#4caf50' },
-            { id: 'cooldown', text: 'Cool Down Temperature', x: 400, y: 490, shape: 'oval', color: '#4caf50' },
-            { id: 'newIteration', text: 'New Iteration', x: 250, y: 550, shape: 'rect', color: '#1e88e5' },
+        svg.selectAll('*').remove();
+
+        const commonNodes = [
+            { id: 'inBackpack', text: 'Item in backpack', x: 250, y: 40, shape: 'rect', color: '#1e88e5' },
+            { id: 'notInBackpack', text: 'Item Not in backpack', x: 250, y: 115, shape: 'rect', color: '#1e88e5' },
+            { id: 'admissible', text: 'Admissible exchange?', x: 250, y: 190, shape: 'diamond', color: '#ffa533' },
+            { id: 'improving', text: 'Improving exchange?', x: 150, y: 260, shape: 'diamond', color: '#ffa533' },
+            { id: 'next', text: 'Next iteration', x: 350, y: 400, shape: 'oval', color: '#4caf50' },
         ];
 
-        const links = [
-            { source: 'current', target: 'neighbor' },
-            { source: 'neighbor', target: 'better' },
-            { source: 'better', target: 'new', label: 'Yes' },
-            { source: 'better', target: 'experiment', label: 'No' },
-            { source: 'new', target: 'betterBest' },
-            { source: 'betterBest', target: 'newBest', label: 'Yes' },
-            { source: 'betterBest', target: 'cooldown', label: 'No' },
-            { source: 'experiment', target: 'new', label: 'Accepted' },
-            { source: 'experiment', target: 'cooldown', label: 'Declined' },
-            { source: 'newBest', target: 'cooldown' },
-            { source: 'cooldown', target: 'newIteration' },
+        const commonLinks = [
+            { source: 'inBackpack', target: 'notInBackpack' },
+            { source: 'notInBackpack', target: 'admissible' },
+            { source: 'admissible', target: 'improving', label: 'Yes' },
+            { source: 'admissible', target: 'next', label: 'No' },
+            { source: 'improving', target: 'next', label: 'No' },
         ];
+
+        let strategyNodes = [];
+        let strategyLinks = [];
+
+        if (strategy === 'firstFit') {
+            strategyNodes = [
+                { id: 'exchange', text: 'Perform exchange', x: 150, y: 400, shape: 'oval', color: '#4caf50' },
+                { id: 'solution', text: 'New solution', x: 150, y: 470, shape: 'rect', color: '#1e88e5' },
+            ];
+            strategyLinks = [
+                { source: 'improving', target: 'exchange', label: 'Yes' },
+                { source: 'exchange', target: 'solution' },
+            ];
+        }
+
+        if (strategy === 'bestFit') {
+            strategyNodes = [
+                { id: 'bestQuestion', text: 'Best exchange?', x: 150, y: 375, shape: 'diamond', color: '#ffa533' },
+                { id: 'solution', text: 'New Solution', x: 250, y: 500, shape: 'rect', color: '#1e88e5' },
+            ];
+            strategyLinks = [
+                { source: 'improving', target: 'bestQuestion', label: 'Yes' },
+                { source: 'bestQuestion', target: 'next' },
+                { source: 'next', target: 'solution', label: 'Best exchange' },
+            ];
+        }
+
+        const nodes = [...commonNodes, ...strategyNodes];
+        const links = [...commonLinks, ...strategyLinks];
 
         const linkLines = svg.selectAll('line')
             .data(links)
@@ -47,7 +69,7 @@ function FlowchartSimulatedAnnealingTSP({ highlightLinks }) {
             .attr('y1', d => nodes.find(n => n.id === d.source).y)
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
-            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
+            .attr('stroke', '#333')
             .attr('stroke-width', 2);
 
         svg.selectAll('text.link-label')
@@ -113,7 +135,7 @@ function FlowchartSimulatedAnnealingTSP({ highlightLinks }) {
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
-    }, [highlightLinks]);
+    }, [strategy]);
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
@@ -124,4 +146,4 @@ function FlowchartSimulatedAnnealingTSP({ highlightLinks }) {
     );
 }
 
-export default FlowchartSimulatedAnnealingTSP;
+export default FlowchartExchange;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Solution({ currentTour, currentCost, bestTour, bestCost, iteration }) {
+function SolutionTabuSearch({ currentTour, currentCost, bestTour, bestCost, iteration }) {
     return (
         <div className="bg-white shadow-md rounded-lg p-4 w-full lg:w-1/3">
             <div className="mb-4 p-4 bg-gray-100 rounded-lg">
@@ -20,4 +20,4 @@ function Solution({ currentTour, currentCost, bestTour, bestCost, iteration }) {
     );
 }
 
-export default Solution;
+export default SolutionTabuSearch;
