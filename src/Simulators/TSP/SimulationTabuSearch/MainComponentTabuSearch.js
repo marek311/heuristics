@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
 import TSPDataGraph from '../../../InputDisplay/TSP/TSPDataGraph';
@@ -12,16 +12,28 @@ function MainComponentTabuSearch() {
     const location = useLocation();
     const { data } = location.state || {};
 
-    const {
+    const [currentTour, setCurrentTour] = useState([]);
+    const [currentCost, setCurrentCost] = useState(Infinity);
+    const [bestTour, setBestTour] = useState([]);
+    const [bestCost, setBestCost] = useState(Infinity);
+    const [tabuList, setTabuList] = useState([]);
+    const [iteration, setIteration] = useState(0);
+
+    const { initialize, step } = useTabuSearch({
+        data,
         currentTour,
         currentCost,
         bestTour,
         bestCost,
         tabuList,
         iteration,
-        initialize,
-        step
-    } = useTabuSearch(data);
+        setCurrentTour,
+        setCurrentCost,
+        setBestTour,
+        setBestCost,
+        setTabuList,
+        setIteration
+    });
 
     useEffect(() => {
         initialize();

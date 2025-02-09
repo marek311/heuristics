@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 const TABU_TENURE = 5;
 
 const initializeTour = (data) => {
@@ -25,13 +23,22 @@ const calculateTourCost = (tour, edges) => {
     }, 0);
 };
 
-export const useTabuSearch = (data) => {
-    const [currentTour, setCurrentTour] = useState([]);
-    const [currentCost, setCurrentCost] = useState(Infinity);
-    const [bestTour, setBestTour] = useState([]);
-    const [bestCost, setBestCost] = useState(Infinity);
-    const [tabuList, setTabuList] = useState([]);
-    const [iteration, setIteration] = useState(0);
+// Now, `useTabuSearch` will just be a pure function that receives variables and returns updated state
+export const useTabuSearch = ({
+                                  data,
+                                  currentTour,
+                                  currentCost,
+                                  bestTour,
+                                  bestCost,
+                                  tabuList,
+                                  iteration,
+                                  setCurrentTour,
+                                  setCurrentCost,
+                                  setBestTour,
+                                  setBestCost,
+                                  setTabuList,
+                                  setIteration
+                              }) => {
 
     const initialize = () => {
         if (!data || !data.edges) return;
@@ -93,5 +100,5 @@ export const useTabuSearch = (data) => {
         }
     };
 
-    return { currentTour, currentCost, bestTour, bestCost, tabuList, iteration, initialize, step };
+    return { initialize, step };
 };
