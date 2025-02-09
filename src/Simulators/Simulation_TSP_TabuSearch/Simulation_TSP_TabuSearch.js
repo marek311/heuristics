@@ -5,6 +5,7 @@ import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import TabuTable from './TabuTable';
 import { useTabuSearch } from './Algs_TSP_TabuSearch';
 import Flowchart_TSP_TabuSearch from "./Flowchart_TSP_TabuSearch";
+import Solution_TSP_TabuSearch from "./Solution_TSP_TabuSearch";
 
 function SimulationTSPTabu() {
     const navigate = useNavigate();
@@ -39,22 +40,13 @@ function SimulationTSPTabu() {
                     data={data}
                     tour={currentTour}
                 />
-
-                <div className="mb-4 p-4 bg-gray-100 rounded-lg">
-                    <div className="mb-4 p-4 bg-gray-100 rounded-lg">
-                        <h2 className="text-lg font-bold">Tabu Search Progress:</h2>
-                        <p><strong>Aktuálna trasa:</strong></p>
-                        <p>{currentTour.join("→")}</p>
-                        <p><strong>Cost:</strong> {currentCost}</p>
-                        <p><strong>Najlepšia trasa:</strong></p>
-                        <p> {bestTour.join("→")}</p>
-                        <p><strong>Cost:</strong> {bestCost}</p>
-                    </div>
-                    <div className="p-4 bg-white shadow-lg rounded-lg">
-                        <h2 className="text-lg font-bold">Iteration</h2>
-                        <p>{iteration}</p>
-                    </div>
-                </div>
+                <Solution_TSP_TabuSearch
+                    currentTour={currentTour}
+                    currentCost={currentCost}
+                    bestTour={bestTour}
+                    bestCost={bestCost}
+                    iteration={iteration}
+                />
                 <TabuTable
                     tabuList={tabuList}
                 />
