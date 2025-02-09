@@ -18,6 +18,8 @@ function MainComponentTabuSearch() {
     const [bestCost, setBestCost] = useState(Infinity);
     const [tabuList, setTabuList] = useState([]);
     const [iteration, setIteration] = useState(0);
+    const [previousTour, setPreviousTour] = useState([]);
+    const [previousCost, setPreviousCost] = useState(null);
 
     const { initialize, step } = useTabuSearch({
         data,
@@ -32,7 +34,9 @@ function MainComponentTabuSearch() {
         setBestTour,
         setBestCost,
         setTabuList,
-        setIteration
+        setIteration,
+        setPreviousTour,
+        setPreviousCost
     });
 
     useEffect(() => {
@@ -57,6 +61,8 @@ function MainComponentTabuSearch() {
                     currentCost={currentCost}
                     bestTour={bestTour}
                     bestCost={bestCost}
+                    previousTour={previousTour}
+                    previousCost={previousCost}
                     iteration={iteration}
                 />
                 <FlowchartTabuSearch

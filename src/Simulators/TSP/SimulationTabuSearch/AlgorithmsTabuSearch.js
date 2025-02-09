@@ -36,7 +36,9 @@ export const useTabuSearch = ({
                                   setBestTour,
                                   setBestCost,
                                   setTabuList,
-                                  setIteration
+                                  setIteration,
+                                  setPreviousTour,
+                                  setPreviousCost
                               }) => {
 
     const initialize = () => {
@@ -86,6 +88,8 @@ export const useTabuSearch = ({
         const { bestNeighbor, bestNeighborCost, bestSwap } = findBestNeighbor();
 
         if (bestNeighbor) {
+            setPreviousTour(currentTour);
+            setPreviousCost(currentCost);
             setCurrentTour(bestNeighbor);
             setCurrentCost(bestNeighborCost);
 

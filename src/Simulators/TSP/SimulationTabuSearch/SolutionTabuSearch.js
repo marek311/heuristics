@@ -1,6 +1,13 @@
 import React from 'react';
 
-function SolutionTabuSearch({ currentTour, currentCost, bestTour, bestCost, iteration }) {
+function SolutionTabuSearch({
+                                currentTour,
+                                currentCost,
+                                bestTour,
+                                bestCost,
+                                previousTour,
+                                previousCost,
+                                iteration }) {
     return (
         <div className="bg-white shadow-md rounded-lg p-4 w-full lg:w-1/3">
             <div className="mb-4 p-4 bg-gray-100 rounded-lg">
@@ -11,6 +18,9 @@ function SolutionTabuSearch({ currentTour, currentCost, bestTour, bestCost, iter
                 <p><strong>Najlepšia trasa:</strong></p>
                 <p>{bestTour.join("→")}</p>
                 <p><strong>Cost:</strong> {bestCost}</p>
+                <p><strong>Predošlá trasa:</strong></p>
+                <p>{previousTour.join("→")}</p>
+                <p><strong>Cost:</strong> {previousCost}</p>
             </div>
             <div className="p-4 bg-white shadow-lg rounded-lg">
                 <h2 className="text-lg font-bold">Iteration</h2>
