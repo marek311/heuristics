@@ -23,7 +23,6 @@ const calculateTourCost = (tour, edges) => {
     }, 0);
 };
 
-// Now, `useTabuSearch` will just be a pure function that receives variables and returns updated state
 export const useTabuSearch = ({
                                   data,
                                   currentTour,
