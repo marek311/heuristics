@@ -4,6 +4,7 @@ import SimulationHeader from '../Simulation_General/Simulation_Header';
 import TSPDataGraph from '../../InputDisplay/TSP/TSP_DataGraph';
 import TabuTable from './TabuTable';
 import { useTabuSearch } from './Algs_TSP_TabuSearch';
+import Flowchart_TSP_TabuSearch from "./Flowchart_TSP_TabuSearch";
 
 function SimulationTSPTabu() {
     const navigate = useNavigate();
@@ -54,7 +55,12 @@ function SimulationTSPTabu() {
                         <p>{iteration}</p>
                     </div>
                 </div>
-                <TabuTable tabuList={tabuList} />
+                <TabuTable
+                    tabuList={tabuList}
+                />
+                <Flowchart_TSP_TabuSearch
+
+                />
             </div>
         </div>
     );
