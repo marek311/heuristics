@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
 import TSPDataGraph from '../../../InputDisplay/TSP/TSPDataGraph';
-import Flowchart_TSP_TabuSearch from "./FlowchartTabuSearch";
+import FlowchartTabuSearch from "./FlowchartTabuSearch";
 import TabuTable from './TabuTable';
-import Solution_TSP_TabuSearch from "./SolutionTabuSearch";
+import SolutionTSPTabuSearch from "./SolutionTabuSearch";
 import { useTabuSearch } from './AlgorithmsTabuSearch';
 
 function MainComponentTabuSearch() {
@@ -52,14 +52,14 @@ function MainComponentTabuSearch() {
                     data={data}
                     tour={currentTour}
                 />
-                <Solution_TSP_TabuSearch
+                <SolutionTSPTabuSearch
                     currentTour={currentTour}
                     currentCost={currentCost}
                     bestTour={bestTour}
                     bestCost={bestCost}
                     iteration={iteration}
                 />
-                <Flowchart_TSP_TabuSearch
+                <FlowchartTabuSearch
                 />
                 <TabuTable
                     tabuList={tabuList}
