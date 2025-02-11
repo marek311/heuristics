@@ -38,7 +38,8 @@ export const useTabuSearch = ({
                                   setTabuList,
                                   setIteration,
                                   setPreviousTour,
-                                  setPreviousCost
+                                  setPreviousCost,
+                                  setNeighborhood
                               }) => {
 
     const initialize = () => {
@@ -50,12 +51,14 @@ export const useTabuSearch = ({
         setBestCost(cost);
         setTabuList([]);
         setIteration(0);
+        setNeighborhood([]);
     };
 
     const findBestNeighbor = () => {
         let bestNeighbor = null;
         let bestNeighborCost = Infinity;
         let bestSwap = null;
+        let neighborhood = [];
 
         for (let i = 1; i < currentTour.length - 2; i++) {
             for (let j = i + 1; j < currentTour.length - 1; j++) {
@@ -68,24 +71,37 @@ export const useTabuSearch = ({
                 [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
                 const newCost = calculateTourCost(newTour, data.edges);
 
+                const neighbor = {
+                    tour: newTour,
+                    cost: newCost,
+                    isTabu: isTabu,
+                    isChosen: false
+                };
+
+                neighborhood.push(neighbor);
+
                 if (!isTabu || newCost < bestCost) {
                     if (newCost < bestNeighborCost) {
                         bestNeighbor = newTour;
                         bestNeighborCost = newCost;
                         bestSwap = [i, j];
+                        neighborhood.forEach(n => (n.isChosen = false));
+                        neighbor.isChosen = true;
                     }
                 }
             }
         }
 
-        return { bestNeighbor, bestNeighborCost, bestSwap };
+        return { bestNeighbor, bestNeighborCost, bestSwap, neighborhood };
     };
 
     const step = () => {
         if (currentTour.length < 4) return;
 
         setIteration(prev => prev + 1);
-        const { bestNeighbor, bestNeighborCost, bestSwap } = findBestNeighbor();
+        const { bestNeighbor, bestNeighborCost, bestSwap,neighborhood } = findBestNeighbor();
+
+        setNeighborhood(neighborhood);
 
         if (bestNeighbor) {
             setPreviousTour(currentTour);

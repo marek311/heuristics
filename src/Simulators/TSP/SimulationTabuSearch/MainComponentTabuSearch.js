@@ -20,6 +20,7 @@ function MainComponentTabuSearch() {
     const [iteration, setIteration] = useState(0);
     const [previousTour, setPreviousTour] = useState([]);
     const [previousCost, setPreviousCost] = useState(null);
+    const [neighborhood, setNeighborhood] = useState([]);
 
     const { initialize, step } = useTabuSearch({
         data,
@@ -36,7 +37,8 @@ function MainComponentTabuSearch() {
         setTabuList,
         setIteration,
         setPreviousTour,
-        setPreviousCost
+        setPreviousCost,
+        setNeighborhood
     });
 
     useEffect(() => {
@@ -64,6 +66,7 @@ function MainComponentTabuSearch() {
                     previousTour={previousTour}
                     previousCost={previousCost}
                     iteration={iteration}
+                    neighborhood={neighborhood}
                 />
                 <FlowchartTabuSearch
                 />
