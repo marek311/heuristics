@@ -5,6 +5,7 @@ import TSPDataGraph from '../../../InputDisplay/TSP/TSPDataGraph';
 import FlowchartTabuSearch from "./FlowchartTabuSearch";
 import TabuTable from './TabuTable';
 import SolutionTSPTabuSearch from "./SolutionTabuSearch";
+import Neighborhood from "./Neighborhood";
 import { useTabuSearch } from './AlgorithmsTabuSearch';
 
 function MainComponentTabuSearch() {
@@ -69,11 +70,11 @@ function MainComponentTabuSearch() {
                     previousTour={previousTour}
                     previousCost={previousCost}
                     iteration={iteration}
-                    neighborhood={neighborhood}
                     status={status}
                 />
-                <FlowchartTabuSearch />
+                <Neighborhood neighborhood={neighborhood}/>
                 <TabuTable tabuList={tabuList} />
+                <FlowchartTabuSearch />
             </div>
         </div>
     );
