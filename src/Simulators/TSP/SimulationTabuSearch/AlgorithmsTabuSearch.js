@@ -119,5 +119,85 @@ export const useTabuSearch = ({
         }
     };
 
-    return { initialize, step };
+    const run = () => {
+        if (currentTour.length < 4) return;
+
+        let noImprovementCounter = 0;
+        let lastBestCost = bestCost;
+
+        let finalTour = currentTour;
+        let finalCost = currentCost;
+        let finalBestTour = bestTour;
+        let finalBestCost = bestCost;
+        let finalTabuList = [...tabuList];
+        let finalIteration = iteration;
+        let finalNeighborhood = [];
+
+        for (let iter = 0; iter < 1000; iter++) {
+            let bestNeighbor = null;
+            let bestNeighborCost = Infinity;
+            let bestSwap = null;
+            let neighborhood = [];
+
+            for (let i = 1; i < finalTour.length - 2; i++) {
+                for (let j = i + 1; j < finalTour.length - 1; j++) {
+                    const isTabu = finalTabuList.some(entry =>
+                        (entry.swap[0] === i && entry.swap[1] === j) ||
+                        (entry.swap[0] === j && entry.swap[1] === i)
+                    );
+
+                    let newTour = [...finalTour];
+                    [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
+                    let newCost = calculateTourCost(newTour, data.edges);
+
+                    neighborhood.push({
+                        tour: newTour,
+                        cost: newCost,
+                        isTabu: isTabu,
+                        isChosen: false
+                    });
+
+                    if (!isTabu || newCost < finalBestCost) {
+                        if (newCost < bestNeighborCost) {
+                            bestNeighbor = newTour;
+                            bestNeighborCost = newCost;
+                            bestSwap = [i, j];
+                        }
+                    }
+                }
+            }
+
+            if (!bestNeighbor) break;
+
+            finalTour = bestNeighbor;
+            finalCost = bestNeighborCost;
+            finalIteration += 1;
+            finalNeighborhood = neighborhood;
+
+            finalTabuList = finalTabuList.filter(entry => entry.expiryIteration > finalIteration);
+            finalTabuList.push({ iteration: finalIteration, swap: bestSwap, expiryIteration: finalIteration + 5 }); // Tabu tenure = 5
+
+            if (bestNeighborCost < finalBestCost) {
+                finalBestTour = bestNeighbor;
+                finalBestCost = bestNeighborCost;
+                noImprovementCounter = 0;
+            } else {
+                noImprovementCounter++;
+            }
+            if (noImprovementCounter >= 15) break;
+        }
+
+        setPreviousTour(currentTour);
+        setPreviousCost(currentCost);
+        setCurrentTour(finalTour);
+        setCurrentCost(finalCost);
+        setBestTour(finalBestTour);
+        setBestCost(finalBestCost);
+        setTabuList(finalTabuList);
+        setIteration(finalIteration);
+        setNeighborhood(finalNeighborhood);
+    };
+
+
+    return { initialize, step, run };
 };

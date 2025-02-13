@@ -22,7 +22,7 @@ function MainComponentTabuSearch() {
     const [previousCost, setPreviousCost] = useState(null);
     const [neighborhood, setNeighborhood] = useState([]);
 
-    const { initialize, step } = useTabuSearch({
+    const { initialize, step, run } = useTabuSearch({
         data,
         currentTour,
         currentCost,
@@ -52,6 +52,7 @@ function MainComponentTabuSearch() {
                 title="TSP Simulation Using Tabu Search"
                 handleStep={step}
                 handleReset={initialize}
+                handleRun={run}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <TSPDataGraph
@@ -68,11 +69,8 @@ function MainComponentTabuSearch() {
                     iteration={iteration}
                     neighborhood={neighborhood}
                 />
-                <FlowchartTabuSearch
-                />
-                <TabuTable
-                    tabuList={tabuList}
-                />
+                <FlowchartTabuSearch />
+                <TabuTable tabuList={tabuList} />
             </div>
         </div>
     );
