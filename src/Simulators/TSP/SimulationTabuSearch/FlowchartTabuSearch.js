@@ -15,29 +15,26 @@ function FlowchartTabuSearch() {
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'initial', text: 'Initial Solution', x: 250, y: 40, shape: 'rect', color: '#1e88e5' },
-            { id: 'neighbor', text: 'Find Best Neighbor', x: 250, y: 120, shape: 'oval', color: '#4caf50' },
-            { id: 'tabuCheck', text: 'Move in Tabu List?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'aspiration', text: 'Aspiration Criteria?', x: 100, y: 290, shape: 'diamond', color: '#ffa533' },
-            { id: 'acceptMove', text: 'Accept Move', x: 100, y: 370, shape: 'rect', color: '#1e88e5' },
-            { id: 'updateTabu', text: 'Update Tabu List', x: 100, y: 480, shape: 'oval', color: '#4caf50' },
-            { id: 'bestCheck', text: 'Best Solution Update?', x: 400, y: 290, shape: 'diamond', color: '#ffa533' },
-            { id: 'updateBest', text: 'Update Best Solution', x: 400, y: 380, shape: 'rect', color: '#1e88e5' },
-            { id: 'nextIteration', text: 'Next Iteration', x: 250, y: 550, shape: 'rect', color: '#1e88e5' },
+            { id: 'current', text: 'Current Solution', x: 250, y: 40, shape: 'rect', color: '#1e88e5' },
+            { id: 'neighbor', text: 'Find Neighbor Solutions', x: 250, y: 120, shape: 'oval', color: '#4caf50' },
+            { id: 'bestNeighbor', text: 'Find Best Neighbor', x: 250, y: 200, shape: 'oval', color: '#4caf50' },
+            { id: 'tabuCheck', text: 'Tabu Swap?', x: 250, y: 290, shape: 'diamond', color: '#ffa533' },
+            { id: 'aspirationCheck', text: 'Aspiration Criteria?', x: 400, y: 350, shape: 'diamond', color: '#ffa533' },
+            { id: 'delete', text: 'Delete Swap', x: 400, y: 180, shape: 'oval', color: '#4caf50' },
+            { id: 'newSolution', text: 'New Solution', x: 250, y: 430, shape: 'rect', color: '#1e88e5' },
+            { id: 'newIteration', text: 'New Iteration', x: 250, y: 510, shape: 'rect', color: '#1e88e5' },
         ];
 
         const links = [
-            { source: 'initial', target: 'neighbor' },
-            { source: 'neighbor', target: 'tabuCheck' },
-            { source: 'tabuCheck', target: 'aspiration', label: 'Yes' },
-            { source: 'tabuCheck', target: 'bestCheck', label: 'No' },
-            { source: 'aspiration', target: 'acceptMove', label: 'Yes' },
-            { source: 'aspiration', target: 'neighbor', label: 'No' },
-            { source: 'acceptMove', target: 'updateTabu' },
-            { source: 'updateTabu', target: 'nextIteration' },
-            { source: 'bestCheck', target: 'updateBest', label: 'Yes' },
-            { source: 'bestCheck', target: 'nextIteration', label: 'No' },
-            { source: 'updateBest', target: 'nextIteration' },
+            { source: 'current', target: 'neighbor' },
+            { source: 'neighbor', target: 'bestNeighbor' },
+            { source: 'bestNeighbor', target: 'tabuCheck' },
+            { source: 'tabuCheck', target: 'aspirationCheck', label:'Yes' },
+            { source: 'aspirationCheck', target: 'delete', label:'No' },
+            { source: 'delete', target: 'bestNeighbor'},
+            { source: 'aspirationCheck', target: 'newSolution', label:'Yes'},
+            { source: 'tabuCheck', target: 'newSolution', label:'No'},
+            { source: 'newSolution', target: 'newIteration'},
         ];
 
         const linkLines = svg.selectAll('line')
