@@ -8,13 +8,16 @@ function SolutionTabuSearch({
                                 previousTour,
                                 previousCost,
                                 iteration,
-                                neighborhood
+                                neighborhood,
+                                status
                             }) {
     return (
         <div className="bg-white shadow-md rounded-lg p-4 w-full lg:w-1/3">
             <div className="p-4 bg-white shadow-lg rounded-lg">
                 <h2 className="text-lg font-bold">Iteration</h2>
                 <p>{iteration}</p>
+                <h2 className="text-lg font-bold">Status</h2>
+                <p>{status}</p>
             </div>
             <div className="mb-4 p-4 bg-gray-100 rounded-lg">
                 <h2 className="text-lg font-bold">Tabu Search Progress:</h2>

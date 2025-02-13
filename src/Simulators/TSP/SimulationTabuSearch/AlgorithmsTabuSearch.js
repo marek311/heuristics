@@ -39,7 +39,8 @@ export const useTabuSearch = ({
                                   setIteration,
                                   setPreviousTour,
                                   setPreviousCost,
-                                  setNeighborhood
+                                  setNeighborhood,
+                                  setStatus
                               }) => {
 
     const initialize = () => {
@@ -52,6 +53,7 @@ export const useTabuSearch = ({
         setTabuList([]);
         setIteration(0);
         setNeighborhood([]);
+        setStatus("Initialized Random Solution.");
     };
 
     const findBestNeighbor = () => {
@@ -117,6 +119,7 @@ export const useTabuSearch = ({
                 setBestTour(bestNeighbor);
             }
         }
+        setStatus("Iteration Complete.");
     };
 
     const run = () => {
@@ -195,6 +198,7 @@ export const useTabuSearch = ({
         setTabuList(finalTabuList);
         setIteration(finalIteration);
         setNeighborhood(finalNeighborhood);
+        setStatus("Run Complete.");
     };
 
     return { initialize, step, run };
