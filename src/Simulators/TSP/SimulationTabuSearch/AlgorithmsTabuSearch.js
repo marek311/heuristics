@@ -125,15 +125,15 @@ export const useTabuSearch = ({
         let noImprovementCounter = 0;
         let lastBestCost = bestCost;
 
-        let finalTour = currentTour;
+        let finalTour = [...currentTour];
         let finalCost = currentCost;
-        let finalBestTour = bestTour;
+        let finalBestTour = [...bestTour];
         let finalBestCost = bestCost;
         let finalTabuList = [...tabuList];
         let finalIteration = iteration;
         let finalNeighborhood = [];
 
-        for (let iter = 0; iter < 1000; iter++) {
+        while (noImprovementCounter < 15) {
             let bestNeighbor = null;
             let bestNeighborCost = Infinity;
             let bestSwap = null;
@@ -175,7 +175,7 @@ export const useTabuSearch = ({
             finalNeighborhood = neighborhood;
 
             finalTabuList = finalTabuList.filter(entry => entry.expiryIteration > finalIteration);
-            finalTabuList.push({ iteration: finalIteration, swap: bestSwap, expiryIteration: finalIteration + 5 }); // Tabu tenure = 5
+            finalTabuList.push({ iteration: finalIteration, swap: bestSwap, expiryIteration: finalIteration + TABU_TENURE });
 
             if (bestNeighborCost < finalBestCost) {
                 finalBestTour = bestNeighbor;
@@ -184,7 +184,6 @@ export const useTabuSearch = ({
             } else {
                 noImprovementCounter++;
             }
-            if (noImprovementCounter >= 15) break;
         }
 
         setPreviousTour(currentTour);
@@ -197,7 +196,6 @@ export const useTabuSearch = ({
         setIteration(finalIteration);
         setNeighborhood(finalNeighborhood);
     };
-
 
     return { initialize, step, run };
 };
