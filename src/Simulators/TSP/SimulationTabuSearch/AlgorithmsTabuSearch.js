@@ -108,7 +108,7 @@ export const useTabuSearch = ({
                 }
             }
         }
-
+        setStatus("Neighborhood generated - best neighbor found");
         setNeighborhood(neighborhood);
         return { bestNeighbor, bestNeighborCost, bestSwap };
     };
@@ -132,7 +132,7 @@ export const useTabuSearch = ({
         }
 
         setIteration(prev => prev + 1);
-        setStatus("Iteration Updated.");
+        setStatus("Best Neighbor accepted as current");
     };
 
     const iterationMethod = () => {
