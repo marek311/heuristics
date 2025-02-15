@@ -23,8 +23,9 @@ function MainComponentTabuSearch() {
     const [tabuList, setTabuList] = useState([]);
     const [iteration, setIteration] = useState(0);
     const [status, setStatus] = useState("");
+    const [step, setStep] = useState(0);
 
-    const { initialize, step, run } = useTabuSearch({
+    const { initialize, iterationMethod, run } = useTabuSearch({
         data,
         currentTour,
         setCurrentTour,
@@ -53,7 +54,7 @@ function MainComponentTabuSearch() {
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Tabu Search"
-                handleStep={step}
+                handleStep={iterationMethod}
                 handleReset={initialize}
                 handleRun={run}
             />

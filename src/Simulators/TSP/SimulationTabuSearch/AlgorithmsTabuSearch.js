@@ -107,7 +107,7 @@ export const useTabuSearch = ({
         return { bestNeighbor, bestNeighborCost, bestSwap, neighborhood };
     };
 
-    const step = () => {
+    const iterationMethod = () => {
         if (currentTour.length < 4) return;
 
         const newIteration = iteration + 1;
@@ -225,5 +225,5 @@ export const useTabuSearch = ({
         setStatus("Run Complete.");
     };
 
-    return { initialize, step, run };
+    return { initialize, iterationMethod, run };
 };
