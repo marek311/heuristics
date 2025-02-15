@@ -58,7 +58,7 @@ export const useTabuSearch = ({
         setStatus("Initialized Random Solution.");
     };
 
-    const findBestNeighbor = () => {
+    const findBestNeighborStep = () => {
         let bestNeighbor = null;
         let bestNeighborCost = Infinity;
         let bestSwap = null;
@@ -104,36 +104,36 @@ export const useTabuSearch = ({
             }
         }
 
-        return { bestNeighbor, bestNeighborCost, bestSwap, neighborhood };
+        setNeighborhood(neighborhood);
+        return { bestNeighbor, bestNeighborCost, bestSwap };
+    };
+
+    const updateSolutionStep = ({ bestNeighbor, bestNeighborCost, bestSwap }) => {
+        if (!bestNeighbor) return;
+
+        setPreviousTour(currentTour);
+        setPreviousCost(currentCost);
+        setCurrentTour(bestNeighbor);
+        setCurrentCost(bestNeighborCost);
+
+        setTabuList(prevTabuList => {
+            const updatedTabuList = prevTabuList.filter(entry => entry.expiryIteration >= iteration + 1);
+            return [...updatedTabuList, { iteration: iteration + 1, swap: bestSwap, expiryIteration: iteration + 1 + TABU_TENURE }];
+        });
+
+        if (bestNeighborCost < bestCost) {
+            setBestCost(bestNeighborCost);
+            setBestTour(bestNeighbor);
+        }
+
+        setIteration(prev => prev + 1);
+        setStatus("Iteration Updated.");
     };
 
     const iterationMethod = () => {
         if (currentTour.length < 4) return;
-
-        const newIteration = iteration + 1;
-        setIteration(newIteration);
-
-        const { bestNeighbor, bestNeighborCost, bestSwap, neighborhood } = findBestNeighbor();
-
-        setNeighborhood(neighborhood);
-
-        if (bestNeighbor) {
-            setPreviousTour(currentTour);
-            setPreviousCost(currentCost);
-            setCurrentTour(bestNeighbor);
-            setCurrentCost(bestNeighborCost);
-
-            setTabuList(prevTabuList => {
-                const updatedTabuList = prevTabuList.filter(entry => entry.expiryIteration >= newIteration);
-                return [...updatedTabuList, { iteration: newIteration, swap: bestSwap, expiryIteration: newIteration + TABU_TENURE }];
-            });
-
-            if (bestNeighborCost < bestCost) {
-                setBestCost(bestNeighborCost);
-                setBestTour(bestNeighbor);
-            }
-        }
-        setStatus("Iteration Complete.");
+        const { bestNeighbor, bestNeighborCost, bestSwap } = findBestNeighborStep();
+        updateSolutionStep({ bestNeighbor, bestNeighborCost, bestSwap });
     };
 
     const run = () => {
