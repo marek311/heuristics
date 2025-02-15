@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-const SolutionTabuSearch = ({ neighborhood }) => {
+const Neighborhood = ({ neighborhood }) => {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -76,4 +76,4 @@ const SolutionTabuSearch = ({ neighborhood }) => {
     );
 };
 
-export default SolutionTabuSearch;
+export default Neighborhood;
