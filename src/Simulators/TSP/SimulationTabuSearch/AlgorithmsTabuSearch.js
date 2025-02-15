@@ -64,34 +64,40 @@ export const useTabuSearch = ({
         let bestSwap = null;
         let neighborhood = [];
 
-        for (let i = 1; i < currentTour.length - 2; i++) {
-            for (let j = i + 1; j < currentTour.length - 1; j++) {
-                const isTabu = tabuList.some(entry =>
-                    (entry.swap[0] === i && entry.swap[1] === j) ||
-                    (entry.swap[0] === j && entry.swap[1] === i)
-                );
+        const numCities = currentTour.length - 2;
 
-                const newTour = [...currentTour];
-                [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
-                const newCost = calculateTourCost(newTour, data.edges);
+        for (let i = 1; i <= numCities; i++) {
 
-                const neighbor = {
-                    tour: newTour,
-                    cost: newCost,
-                    isTabu: isTabu,
-                    isChosen: false
-                };
+            let j;
+            do {
+                j = Math.floor(Math.random() * numCities) + 1;
+            } while (i === j);
 
-                neighborhood.push(neighbor);
+            const isTabu = tabuList.some(entry =>
+                (entry.swap[0] === i && entry.swap[1] === j) ||
+                (entry.swap[0] === j && entry.swap[1] === i)
+            );
 
-                if (!isTabu || newCost < bestCost) {
-                    if (newCost < bestNeighborCost) {
-                        bestNeighbor = newTour;
-                        bestNeighborCost = newCost;
-                        bestSwap = [i, j];
-                        neighborhood.forEach(n => (n.isChosen = false));
-                        neighbor.isChosen = true;
-                    }
+            const newTour = [...currentTour];
+            [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
+            const newCost = calculateTourCost(newTour, data.edges);
+
+            const neighbor = {
+                tour: newTour,
+                cost: newCost,
+                isTabu: isTabu,
+                isChosen: false
+            };
+
+            neighborhood.push(neighbor);
+
+            if (!isTabu || newCost < bestCost) {
+                if (newCost < bestNeighborCost) {
+                    bestNeighbor = newTour;
+                    bestNeighborCost = newCost;
+                    bestSwap = [i, j];
+                    neighborhood.forEach(n => (n.isChosen = false));
+                    neighbor.isChosen = true;
                 }
             }
         }
@@ -129,14 +135,14 @@ export const useTabuSearch = ({
 
         let noImprovementCounter = 0;
         let lastBestCost = bestCost;
-
         let finalTour = [...currentTour];
         let finalCost = currentCost;
         let finalBestTour = [...bestTour];
         let finalBestCost = bestCost;
         let finalTabuList = [...tabuList];
         let finalIteration = iteration;
-        let finalNeighborhood = [];
+        let lastPreviousTour = [...currentTour];
+        let lastPreviousCost = currentCost;
 
         while (noImprovementCounter < 15) {
             let bestNeighbor = null;
@@ -144,40 +150,47 @@ export const useTabuSearch = ({
             let bestSwap = null;
             let neighborhood = [];
 
-            for (let i = 1; i < finalTour.length - 2; i++) {
-                for (let j = i + 1; j < finalTour.length - 1; j++) {
-                    const isTabu = finalTabuList.some(entry =>
-                        (entry.swap[0] === i && entry.swap[1] === j) ||
-                        (entry.swap[0] === j && entry.swap[1] === i)
-                    );
+            const numCities = finalTour.length - 2;
 
-                    let newTour = [...finalTour];
-                    [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
-                    let newCost = calculateTourCost(newTour, data.edges);
+            for (let i = 1; i <= numCities; i++) {
+                let j;
+                do {
+                    j = Math.floor(Math.random() * numCities) + 1;
+                } while (i === j);
 
-                    neighborhood.push({
-                        tour: newTour,
-                        cost: newCost,
-                        isTabu: isTabu,
-                        isChosen: false
-                    });
+                const isTabu = finalTabuList.some(entry =>
+                    (entry.swap[0] === i && entry.swap[1] === j) ||
+                    (entry.swap[0] === j && entry.swap[1] === i)
+                );
 
-                    if (!isTabu || newCost < finalBestCost) {
-                        if (newCost < bestNeighborCost) {
-                            bestNeighbor = newTour;
-                            bestNeighborCost = newCost;
-                            bestSwap = [i, j];
-                        }
+                let newTour = [...finalTour];
+                [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
+                let newCost = calculateTourCost(newTour, data.edges);
+
+                neighborhood.push({
+                    tour: newTour,
+                    cost: newCost,
+                    isTabu: isTabu,
+                    isChosen: false
+                });
+
+                if (!isTabu || newCost < finalBestCost) {
+                    if (newCost < bestNeighborCost) {
+                        bestNeighbor = newTour;
+                        bestNeighborCost = newCost;
+                        bestSwap = [i, j];
                     }
                 }
             }
 
             if (!bestNeighbor) break;
 
+            lastPreviousTour = [...finalTour];
+            lastPreviousCost = finalCost;
+
             finalTour = bestNeighbor;
             finalCost = bestNeighborCost;
             finalIteration += 1;
-            finalNeighborhood = neighborhood;
 
             finalTabuList = finalTabuList.filter(entry => entry.expiryIteration > finalIteration);
             finalTabuList.push({ iteration: finalIteration, swap: bestSwap, expiryIteration: finalIteration + TABU_TENURE });
@@ -191,15 +204,14 @@ export const useTabuSearch = ({
             }
         }
 
-        setPreviousTour(currentTour);
-        setPreviousCost(currentCost);
+        setPreviousTour(lastPreviousTour);
+        setPreviousCost(lastPreviousCost);
         setCurrentTour(finalTour);
         setCurrentCost(finalCost);
         setBestTour(finalBestTour);
         setBestCost(finalBestCost);
         setTabuList(finalTabuList);
         setIteration(finalIteration);
-        setNeighborhood(finalNeighborhood);
         setStatus("Run Complete.");
     };
 
