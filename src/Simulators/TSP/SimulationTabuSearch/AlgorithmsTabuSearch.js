@@ -50,9 +50,11 @@ export const useTabuSearch = ({
         setCurrentCost(cost);
         setBestTour(tour);
         setBestCost(cost);
+        setPreviousTour([]);
+        setPreviousCost(null);
+        setNeighborhood([]);
         setTabuList([]);
         setIteration(0);
-        setNeighborhood([]);
         setStatus("Initialized Random Solution.");
     };
 

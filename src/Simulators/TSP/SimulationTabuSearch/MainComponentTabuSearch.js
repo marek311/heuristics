@@ -14,14 +14,14 @@ function MainComponentTabuSearch() {
     const { data } = location.state || {};
 
     const [currentTour, setCurrentTour] = useState([]);
-    const [currentCost, setCurrentCost] = useState(Infinity);
+    const [currentCost, setCurrentCost] = useState(0);
     const [bestTour, setBestTour] = useState([]);
     const [bestCost, setBestCost] = useState(Infinity);
-    const [tabuList, setTabuList] = useState([]);
-    const [iteration, setIteration] = useState(0);
     const [previousTour, setPreviousTour] = useState([]);
     const [previousCost, setPreviousCost] = useState(null);
     const [neighborhood, setNeighborhood] = useState([]);
+    const [tabuList, setTabuList] = useState([]);
+    const [iteration, setIteration] = useState(0);
     const [status, setStatus] = useState("");
 
     const { initialize, step, run } = useTabuSearch({
