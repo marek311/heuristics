@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-const Neighborhood = ({ neighborhood }) => {
+const Neighborhood = ({ neighborhood, tabuList, iteration }) => {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -30,6 +30,11 @@ const Neighborhood = ({ neighborhood }) => {
             const totalWidth = tour.length * boxSize + (tour.length - 1) * gap;
             const offsetX = 10;
 
+            const isTabuNow = tabuList.some(entry =>
+                (entry.swap[0] === indexI && entry.swap[1] === indexJ) ||
+                (entry.swap[0] === indexJ && entry.swap[1] === indexI)
+            ) && tabuList.some(entry => entry.expiryIteration >= iteration);
+
             rowGroup.selectAll("rect")
                 .data(tour)
                 .enter()
@@ -39,7 +44,7 @@ const Neighborhood = ({ neighborhood }) => {
                 .attr("width", boxSize)
                 .attr("height", boxSize)
                 .attr("fill", (d, i) => (i === indexI || i === indexJ ? "#4caf50" : "#1e88e5"))
-                .attr("stroke", isTabu ? "red" : "black")
+                .attr("stroke", isTabuNow ? "red" : "black")
                 .attr("stroke-width", isChosen ? 3 : 1);
 
             rowGroup.selectAll("text.city")
@@ -62,7 +67,7 @@ const Neighborhood = ({ neighborhood }) => {
                 .text(`Cost: ${cost}, I: ${indexI}, J: ${indexJ}`);
         });
 
-    }, [neighborhood]);
+    }, [neighborhood, tabuList, iteration]);
 
     return (
         <div className="bg-white shadow-md rounded-lg p-4 w-full">

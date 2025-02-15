@@ -72,8 +72,14 @@ function MainComponentTabuSearch() {
                     iteration={iteration}
                     status={status}
                 />
-                <Neighborhood neighborhood={neighborhood}/>
-                <TabuTable tabuList={tabuList} />
+                <Neighborhood
+                    neighborhood={neighborhood}
+                    tabuList={tabuList}
+                    iteration={iteration}
+                />
+                <TabuTable
+                    tabuList={tabuList}
+                />
                 <FlowchartTabuSearch />
             </div>
         </div>

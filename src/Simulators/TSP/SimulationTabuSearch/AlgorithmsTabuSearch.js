@@ -76,7 +76,7 @@ export const useTabuSearch = ({
             const isTabu = tabuList.some(entry =>
                 (entry.swap[0] === i && entry.swap[1] === j) ||
                 (entry.swap[0] === j && entry.swap[1] === i)
-            );
+            ) && tabuList.some(entry => entry.expiryIteration >= iteration);
 
             const newTour = [...currentTour];
             [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
@@ -163,7 +163,7 @@ export const useTabuSearch = ({
                 const isTabu = finalTabuList.some(entry =>
                     (entry.swap[0] === i && entry.swap[1] === j) ||
                     (entry.swap[0] === j && entry.swap[1] === i)
-                );
+                ) && finalTabuList.some(entry => entry.expiryIteration >= iteration);
 
                 let newTour = [...finalTour];
                 [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
