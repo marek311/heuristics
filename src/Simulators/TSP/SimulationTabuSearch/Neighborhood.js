@@ -8,6 +8,8 @@ function SolutionTabuSearch({ neighborhood}) {
                 <div key={index} className="border p-2 rounded my-2">
                     <p><strong>Tour:</strong> {neighbor.tour.join("→")}</p>
                     <p><strong>Cost:</strong> {neighbor.cost}</p>
+                    <p><strong>I:</strong> {neighbor.indexI}</p>
+                    <p><strong>J:</strong> {neighbor.indexJ}</p>
                     <p><strong>Tabu:</strong> {neighbor.isTabu ? "Yes" : "No"}</p>
                     {neighbor.isChosen && <p className="text-green-800 font-semibold">Chosen Solution</p>}
                 </div>

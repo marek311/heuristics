@@ -86,7 +86,9 @@ export const useTabuSearch = ({
                 tour: newTour,
                 cost: newCost,
                 isTabu: isTabu,
-                isChosen: false
+                isChosen: false,
+                indexI: i,
+                indexJ: j
             };
 
             neighborhood.push(neighbor);
@@ -171,7 +173,9 @@ export const useTabuSearch = ({
                     tour: newTour,
                     cost: newCost,
                     isTabu: isTabu,
-                    isChosen: false
+                    isChosen: false,
+                    indexI: i,
+                    indexJ: j
                 });
 
                 if (!isTabu || newCost < finalBestCost) {
