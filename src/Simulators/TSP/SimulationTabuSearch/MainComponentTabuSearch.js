@@ -24,6 +24,7 @@ function MainComponentTabuSearch() {
     const [iteration, setIteration] = useState(0);
     const [status, setStatus] = useState("");
     const [step, setStep] = useState(0);
+    const [bestNeighborData, setBestNeighborData] = useState(null);
 
     const { initialize, iterationMethod, run } = useTabuSearch({
         data,
@@ -42,7 +43,11 @@ function MainComponentTabuSearch() {
         iteration,
         setIteration,
         setNeighborhood,
-        setStatus
+        setStatus,
+        step,
+        setStep,
+        bestNeighborData,
+        setBestNeighborData
     });
 
     useEffect(() => {
