@@ -187,6 +187,8 @@ export const useTabuSearch = ({
                 }
             }
 
+            setNeighborhood(neighborhood);
+
             if (!bestNeighbor) break;
 
             lastPreviousTour = [...finalTour];
