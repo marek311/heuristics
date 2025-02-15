@@ -18,8 +18,8 @@ function SolutionTabuSearch({
         const height = 425;
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
-        const barChartHeight = height / 4;
-        const tourChartHeight = (3 * height) / 4;
+        const barChartHeight = 2*height / 5;
+        const tourChartHeight = 2*height / 5;
         const barWidth = 30;
 
         const svg = d3.select(svgRef.current)
@@ -152,7 +152,7 @@ function SolutionTabuSearch({
                 <h2 className="text-lg font-semibold text-gray-800">Tabu Search Progress</h2>
                 <div>Iteration: {iteration}</div>
                 <svg ref={svgRef}></svg>
-                <div className="p-2 bg-gray-200 rounded-lg">
+                <div className="mt-2 p-2 bg-gray-200 rounded-lg">
                     <div className="p-2 bg-gray-400 rounded-lg w-[340px] h-[85px]">
                         <strong>Status: </strong>{status}
                     </div>
