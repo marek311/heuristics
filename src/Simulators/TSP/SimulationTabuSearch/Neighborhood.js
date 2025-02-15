@@ -28,7 +28,7 @@ const SolutionTabuSearch = ({ neighborhood }) => {
             const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
 
             const totalWidth = tour.length * boxSize + (tour.length - 1) * gap;
-            const offsetX = 20;
+            const offsetX = 10;
 
             rowGroup.selectAll("rect")
                 .data(tour)
