@@ -26,19 +26,19 @@ const calculateTourCost = (tour, edges) => {
 export const useTabuSearch = ({
                                   data,
                                   currentTour,
-                                  currentCost,
-                                  bestTour,
-                                  bestCost,
-                                  tabuList,
-                                  iteration,
                                   setCurrentTour,
+                                  currentCost,
                                   setCurrentCost,
+                                  bestTour,
                                   setBestTour,
+                                  bestCost,
                                   setBestCost,
-                                  setTabuList,
-                                  setIteration,
                                   setPreviousTour,
                                   setPreviousCost,
+                                  tabuList,
+                                  setTabuList,
+                                  iteration,
+                                  setIteration,
                                   setNeighborhood,
                                   setStatus
                               }) => {
@@ -122,7 +122,7 @@ export const useTabuSearch = ({
             setCurrentCost(bestNeighborCost);
 
             const updatedTabuList = tabuList.filter(entry => entry.expiryIteration >= iteration);
-            setTabuList([...updatedTabuList, { iteration, swap: bestSwap, expiryIteration: iteration + TABU_TENURE }]);
+            setTabuList([...updatedTabuList, { iteration: iteration, swap: bestSwap, expiryIteration: iteration + TABU_TENURE }]);
 
             if (bestNeighborCost < bestCost) {
                 setBestCost(bestNeighborCost);
