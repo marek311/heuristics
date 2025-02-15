@@ -7,11 +7,12 @@ const SolutionTabuSearch = ({ neighborhood }) => {
     useEffect(() => {
         if (!neighborhood || neighborhood.length === 0) return;
 
-        const width = 800;
         const boxSize = 30;
         const gap = 5;
         const rowSpacing = 50;
 
+        const maxTourLength = Math.max(...neighborhood.map(neighbor => neighbor.tour.length));
+        const width = maxTourLength * boxSize + (maxTourLength - 1) * gap + 100;
         const height = neighborhood.length * (boxSize + rowSpacing) + 50;
 
         const svg = d3.select(svgRef.current)
@@ -27,7 +28,7 @@ const SolutionTabuSearch = ({ neighborhood }) => {
             const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
 
             const totalWidth = tour.length * boxSize + (tour.length - 1) * gap;
-            const offsetX = (width - totalWidth) / 2;
+            const offsetX = 20;
 
             rowGroup.selectAll("rect")
                 .data(tour)
