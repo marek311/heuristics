@@ -24,17 +24,17 @@ function MainComponentSimulatedAnnealing() {
     const [currentCost, setCurrentCost] = useState(0);
     const [bestTour, setBestTour] = useState([]);
     const [bestCost, setBestCost] = useState(Infinity);
+    const [previousTour, setPreviousTour] = useState([]);
+    const [previousCost, setPreviousCost] = useState(0);
+    const [proposedTour, setProposedTour] = useState([]);
+    const [proposedCost, setProposedCost] = useState(0);
     const [temperature, setTemperature] = useState(100);
     const [iteration, setIteration] = useState(0);
     const [costDifference, setCostDifference] = useState(0);
     const [acceptanceProbability, setAcceptanceProbability] = useState(0);
     const [randomValue, setRandomValue] = useState(0);
-    const [proposedTour, setProposedTour] = useState([]);
-    const [proposedCost, setProposedCost] = useState(0);
     const [solutionStatus, setSolutionStatus] = useState("");
     const [swappedIndexes, setSwappedIndexes] = useState([]);
-    const [previousTour, setPreviousTour] = useState([]);
-    const [previousCost, setPreviousCost] = useState(0);
     const [stepIndex, setStepIndex] = useState(0);
     const [highlightLinks, setHighlightLinks] = useState([]);
 
@@ -132,17 +132,17 @@ function MainComponentSimulatedAnnealing() {
             setCurrentCost(totalCost);
             setBestTour(randomTour);
             setBestCost(totalCost);
+            setPreviousTour([]);
+            setPreviousCost(0);
+            setProposedTour([]);
+            setProposedCost(0);
             setTemperature(100);
             setIteration(0);
             setCostDifference(0);
             setAcceptanceProbability(0);
             setRandomValue(0);
-            setProposedTour([]);
-            setProposedCost(0);
             setSolutionStatus("");
             setSwappedIndexes([]);
-            setPreviousTour([]);
-            setPreviousCost(0);
             setStepIndex(0);
             setHighlightLinks([]);
         }
