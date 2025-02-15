@@ -121,7 +121,7 @@ export const useTabuSearch = ({
             setCurrentTour(bestNeighbor);
             setCurrentCost(bestNeighborCost);
 
-            const updatedTabuList = tabuList.filter(entry => entry.expiryIteration > iteration);
+            const updatedTabuList = tabuList.filter(entry => entry.expiryIteration >= iteration);
             setTabuList([...updatedTabuList, { iteration, swap: bestSwap, expiryIteration: iteration + TABU_TENURE }]);
 
             if (bestNeighborCost < bestCost) {
@@ -196,7 +196,7 @@ export const useTabuSearch = ({
             finalCost = bestNeighborCost;
             finalIteration += 1;
 
-            finalTabuList = finalTabuList.filter(entry => entry.expiryIteration > finalIteration);
+            finalTabuList = finalTabuList.filter(entry => entry.expiryIteration >= finalIteration);
             finalTabuList.push({ iteration: finalIteration, swap: bestSwap, expiryIteration: finalIteration + TABU_TENURE });
 
             if (bestNeighborCost < finalBestCost) {
