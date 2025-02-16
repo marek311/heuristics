@@ -14,7 +14,7 @@ function TabuTable({ tabuList }) {
                 </thead>
                 <tbody>
                 {tabuList.length > 0 ? (
-                    tabuList.map((entry, index) => (
+                    [...tabuList].reverse().map((entry, index) => (
                         <tr key={index} className="border border-gray-300">
                             <td className="border border-gray-300 p-2 text-center">{entry.iteration}</td>
                             <td className="border border-gray-300 p-2 text-center">{`${entry.swap[0]} - ${entry.swap[1]}`}</td>
