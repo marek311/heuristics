@@ -44,7 +44,8 @@ export const useTabuSearch = ({
                                   step,
                                   setStep,
                                   bestNeighborData,
-                                  setBestNeighborData
+                                  setBestNeighborData,
+                                  setHighlightLinks
                               }) => {
 
     const initialize = () => {
@@ -61,6 +62,7 @@ export const useTabuSearch = ({
         setIteration(0);
         setStatus("Initialized Random Solution.");
         setStep(0);
+        setHighlightLinks([]);
     };
 
     const findBestNeighborStep = () => {
@@ -108,6 +110,14 @@ export const useTabuSearch = ({
                 }
             }
         }
+
+        const highlightedLinks = [
+            { source: 'current', target: 'neighbor' },
+            { source: 'neighbor', target: 'bestNeighbor' }
+        ];
+        setHighlightLinks([]);
+        setHighlightLinks(highlightedLinks);
+
         setStatus("Neighborhood generated - best neighbor found");
         setNeighborhood(neighborhood);
         return { bestNeighbor, bestNeighborCost, bestSwap };

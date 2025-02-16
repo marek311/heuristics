@@ -25,6 +25,7 @@ function MainComponentTabuSearch() {
     const [status, setStatus] = useState("");
     const [step, setStep] = useState(0);
     const [bestNeighborData, setBestNeighborData] = useState(null);
+    const [highlightLinks, setHighlightLinks] = useState([]);
 
     const { initialize, iterationMethod, run } = useTabuSearch({
         data,
@@ -47,7 +48,8 @@ function MainComponentTabuSearch() {
         step,
         setStep,
         bestNeighborData,
-        setBestNeighborData
+        setBestNeighborData,
+        setHighlightLinks
     });
 
     useEffect(() => {
@@ -86,7 +88,9 @@ function MainComponentTabuSearch() {
                 <TabuTable
                     tabuList={tabuList}
                 />
-                <FlowchartTabuSearch />
+                <FlowchartTabuSearch
+                    highlightLinks={highlightLinks}
+                />
             </div>
         </div>
     );
