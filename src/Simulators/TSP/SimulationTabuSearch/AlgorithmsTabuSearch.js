@@ -110,8 +110,9 @@ export const useTabuSearch = ({
         let bestNeighborCost = Infinity;
         let bestSwap = null;
 
-        neighborhood.forEach(neighbor => {
+        const updatedNeighborhood = neighborhood.map(n => ({ ...n, isChosen: false }));
 
+        updatedNeighborhood.forEach(neighbor => {
             if (!neighbor.isTabu || neighbor.cost < bestCost) {
 
                 if (neighbor.cost < bestNeighborCost) {
@@ -121,15 +122,13 @@ export const useTabuSearch = ({
                         { source: 'neighbor', target: 'bestNeighbor' }
                     ]);
 
-                    if(!neighbor.isTabu) {
+                    if (!neighbor.isTabu) {
                         setHighlightLinks(prevLinks => [
                             ...prevLinks,
                             { source: 'bestNeighbor', target: 'tabuCheck' },
                             { source: 'tabuCheck', target: 'newSolution' }
                         ]);
-                    }
-                    else
-                    {
+                    } else {
                         setHighlightLinks(prevLinks => [
                             ...prevLinks,
                             { source: 'bestNeighbor', target: 'tabuCheck' },
@@ -142,12 +141,13 @@ export const useTabuSearch = ({
                     bestNeighborCost = neighbor.cost;
                     bestSwap = [neighbor.indexI, neighbor.indexJ];
 
-                    neighborhood.forEach(n => (n.isChosen = false));
+                    updatedNeighborhood.forEach(n => (n.isChosen = false));
                     neighbor.isChosen = true;
                 }
             }
         });
 
+        setNeighborhood(updatedNeighborhood);
         setBestNeighborData({ bestNeighbor, bestNeighborCost, bestSwap });
         setStatus("Best neighbor found.");
     };
