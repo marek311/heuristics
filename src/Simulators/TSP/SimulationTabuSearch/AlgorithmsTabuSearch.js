@@ -102,6 +102,30 @@ export const useTabuSearch = ({
 
             if (!isTabu || newCost < bestCost) {
                 if (newCost < bestNeighborCost) {
+
+                    setHighlightLinks([]);
+
+                    if(!isTabu) {
+                        setHighlightLinks([
+                            { source: 'current', target: 'neighbor' },
+                            { source: 'neighbor', target: 'bestNeighbor' },
+                            { source: 'bestNeighbor', target: 'tabuCheck' },
+                            { source: 'tabuCheck', target: 'newSolution' },
+                            { source: 'newSolution', target: 'newIteration' },
+                        ]);
+                    }
+                    else
+                    {
+                        setHighlightLinks([
+                            { source: 'current', target: 'neighbor' },
+                            { source: 'neighbor', target: 'bestNeighbor' },
+                            { source: 'bestNeighbor', target: 'tabuCheck' },
+                            { source: 'tabuCheck', target: 'aspirationCheck' },
+                            { source: 'aspirationCheck', target: 'newSolution' },
+                            { source: 'newSolution', target: 'newIteration' },
+                        ]);
+                    }
+
                     bestNeighbor = newTour;
                     bestNeighborCost = newCost;
                     bestSwap = [i, j];
@@ -110,13 +134,6 @@ export const useTabuSearch = ({
                 }
             }
         }
-
-        const highlightedLinks = [
-            { source: 'current', target: 'neighbor' },
-            { source: 'neighbor', target: 'bestNeighbor' }
-        ];
-        setHighlightLinks([]);
-        setHighlightLinks(highlightedLinks);
 
         setStatus("Neighborhood generated - best neighbor found");
         setNeighborhood(neighborhood);
