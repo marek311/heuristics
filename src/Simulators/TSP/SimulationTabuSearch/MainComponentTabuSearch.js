@@ -43,6 +43,7 @@ function MainComponentTabuSearch() {
         setTabuList,
         iteration,
         setIteration,
+        neighborhood,
         setNeighborhood,
         setStatus,
         step,

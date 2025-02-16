@@ -39,6 +39,7 @@ export const useTabuSearch = ({
                                   setTabuList,
                                   iteration,
                                   setIteration,
+                                  neighborhood,
                                   setNeighborhood,
                                   setStatus,
                                   step,
@@ -65,83 +66,96 @@ export const useTabuSearch = ({
         setHighlightLinks([]);
     };
 
-    const findBestNeighborStep = () => {
-        let bestNeighbor = null;
-        let bestNeighborCost = Infinity;
-        let bestSwap = null;
+    const generateNeighborhood = () => {
         let neighborhood = [];
-
         const numCities = currentTour.length - 2;
 
         for (let i = 1; i <= numCities; i++) {
-
             let j;
             do {
                 j = Math.floor(Math.random() * numCities) + 1;
             } while (i === j);
+
+            const newTour = [...currentTour];
+            [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
+            const newCost = calculateTourCost(newTour, data.edges);
 
             const isTabu = tabuList.some(entry =>
                 (entry.swap[0] === i && entry.swap[1] === j) ||
                 (entry.swap[0] === j && entry.swap[1] === i)
             ) && tabuList.some(entry => entry.expiryIteration >= iteration);
 
-            const newTour = [...currentTour];
-            [newTour[i], newTour[j]] = [newTour[j], newTour[i]];
-            const newCost = calculateTourCost(newTour, data.edges);
-
-            const neighbor = {
+            neighborhood.push({
                 tour: newTour,
                 cost: newCost,
                 isTabu: isTabu,
                 isChosen: false,
                 indexI: i,
                 indexJ: j
-            };
+            });
+        }
 
-            neighborhood.push(neighbor);
+        setHighlightLinks([]);
+        setHighlightLinks([
+            { source: 'current', target: 'neighbor' },
+            { source: 'neighbor', target: 'bestNeighbor' }
+        ]);
 
-            if (!isTabu || newCost < bestCost) {
-                if (newCost < bestNeighborCost) {
+        setNeighborhood(neighborhood);
+        setStatus("Neighborhood generated.");
+    };
 
-                    setHighlightLinks([]);
+    const findBestNeighbor = () => {
+        let bestNeighbor = null;
+        let bestNeighborCost = Infinity;
+        let bestSwap = null;
 
-                    if(!isTabu) {
-                        setHighlightLinks([
-                            { source: 'current', target: 'neighbor' },
-                            { source: 'neighbor', target: 'bestNeighbor' },
+        neighborhood.forEach(neighbor => {
+
+            if (!neighbor.isTabu || neighbor.cost < bestCost) {
+
+                if (neighbor.cost < bestNeighborCost) {
+
+                    setHighlightLinks([
+                        { source: 'current', target: 'neighbor' },
+                        { source: 'neighbor', target: 'bestNeighbor' }
+                    ]);
+
+                    if(!neighbor.isTabu) {
+                        setHighlightLinks(prevLinks => [
+                            ...prevLinks,
                             { source: 'bestNeighbor', target: 'tabuCheck' },
-                            { source: 'tabuCheck', target: 'newSolution' },
-                            { source: 'newSolution', target: 'newIteration' },
+                            { source: 'tabuCheck', target: 'newSolution' }
                         ]);
                     }
                     else
                     {
-                        setHighlightLinks([
-                            { source: 'current', target: 'neighbor' },
-                            { source: 'neighbor', target: 'bestNeighbor' },
+                        setHighlightLinks(prevLinks => [
+                            ...prevLinks,
                             { source: 'bestNeighbor', target: 'tabuCheck' },
                             { source: 'tabuCheck', target: 'aspirationCheck' },
-                            { source: 'aspirationCheck', target: 'newSolution' },
-                            { source: 'newSolution', target: 'newIteration' },
+                            { source: 'aspirationCheck', target: 'newSolution' }
                         ]);
                     }
 
-                    bestNeighbor = newTour;
-                    bestNeighborCost = newCost;
-                    bestSwap = [i, j];
+                    bestNeighbor = neighbor.tour;
+                    bestNeighborCost = neighbor.cost;
+                    bestSwap = [neighbor.indexI, neighbor.indexJ];
+
                     neighborhood.forEach(n => (n.isChosen = false));
                     neighbor.isChosen = true;
                 }
             }
-        }
+        });
 
-        setStatus("Neighborhood generated - best neighbor found");
-        setNeighborhood(neighborhood);
-        return { bestNeighbor, bestNeighborCost, bestSwap };
+        setBestNeighborData({ bestNeighbor, bestNeighborCost, bestSwap });
+        setStatus("Best neighbor found.");
     };
 
-    const updateSolutionStep = ({ bestNeighbor, bestNeighborCost, bestSwap }) => {
-        if (!bestNeighbor) return;
+    const updateSolutionStep = () => {
+        if (!bestNeighborData || !bestNeighborData.bestNeighbor) return;
+
+        const { bestNeighbor, bestNeighborCost, bestSwap } = bestNeighborData;
 
         setPreviousTour(currentTour);
         setPreviousCost(currentCost);
@@ -158,21 +172,27 @@ export const useTabuSearch = ({
             setBestTour(bestNeighbor);
         }
 
+
+        setHighlightLinks(prevLinks => [
+            ...prevLinks,
+            { source: 'newSolution', target: 'newIteration' }
+        ]);
+
         setIteration(prev => prev + 1);
-        setStatus("Best Neighbor accepted as current");
+        setStatus("Best neighbor accepted as current.");
     };
 
     const iterationMethod = () => {
         if (currentTour.length < 4) return;
+
         if (step === 0) {
-            const { bestNeighbor, bestNeighborCost, bestSwap } = findBestNeighborStep();
-            setBestNeighborData({ bestNeighbor, bestNeighborCost, bestSwap });
+            generateNeighborhood();
             setStep(1);
-        }
-        if (step === 1) {
-            if (bestNeighborData) {
-                updateSolutionStep(bestNeighborData);
-            }
+        } else if (step === 1) {
+            findBestNeighbor();
+            setStep(2);
+        } else if (step === 2) {
+            updateSolutionStep();
             setStep(0);
         }
     };
@@ -181,7 +201,6 @@ export const useTabuSearch = ({
         if (currentTour.length < 4) return;
 
         let noImprovementCounter = 0;
-        let lastBestCost = bestCost;
         let finalTour = [...currentTour];
         let finalCost = currentCost;
         let finalBestTour = [...bestTour];
