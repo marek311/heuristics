@@ -7,6 +7,7 @@ import SimKnapsackInsert from '../Simulators/KP/SimulationInsert/MainComponentIn
 import SimKnapsackExchange from '../Simulators/KP/SimulationExchange/MainComponentExchange'
 import SimTSPSimulatedAnnealing from "../Simulators/TSP/SimulationSimulatedAnnealing/MainComponentSimulatedAnnealing";
 import SimTSPTabuSearch from "../Simulators/TSP/SimulationTabuSearch/MainComponentTabuSearch";
+import SimTSPGeneticAlgorithm from "../Simulators/TSP/SimulationGeneticAlgorithm/MainComponentGeneticAlgorithm"
 
 function Application() {
     return (
@@ -31,6 +32,7 @@ function Application() {
                 <Route path="/tsp-tabu-search-simulation/simulate" element={<SimTSPTabuSearch />} />
 
                 <Route path="/tsp-genetic-simulation" element={<TSPDataTable />}/>
+                <Route path="/tsp-genetic-simulation/simulate" element={<SimTSPGeneticAlgorithm />} />
 
             </Routes>
         </div>
