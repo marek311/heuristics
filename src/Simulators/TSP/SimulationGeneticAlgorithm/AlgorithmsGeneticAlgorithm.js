@@ -81,3 +81,28 @@ export const rouletteWheelSelection = (
     setRandomValues(randomValues);
     setSelectedPopulation(selected);
 };
+
+export const orderCrossoverSingleChild = (parent1, parent2) => {
+    if (!parent1 || !parent2 || parent1.length !== parent2.length) return null;
+
+    const length = parent1.length;
+    const middleIndex = Math.floor((length - 1) / 2);
+    const child = new Array(length).fill(null);
+
+    for (let i = 0; i <= middleIndex; i++) {
+        child[i] = parent1[i];
+    }
+
+    let index = middleIndex + 1;
+    for (let city of parent2) {
+        if (!child.includes(city)) {
+            child[index] = city;
+            index++;
+        }
+    }
+
+    child[0] = parent1[0];
+    child[length - 1] = parent1[length - 1];
+
+    return child;
+};

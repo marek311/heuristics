@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
 import {
     generateInitialPopulation,
-    orderCrossover,
+    orderCrossoverSingleChild,
     rouletteWheelSelection
 } from './AlgorithmsGeneticAlgorithm';
 import SelectionComponent from "./SelectionComponent";
@@ -21,8 +21,7 @@ function MainComponentGeneticAlgorithm() {
     const [cumulativeProbabilities, setCumulativeProbabilities] = useState([]);
     const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [randomValues, setRandomValues] = useState([]);
-    const [offspring, setOffspring] = useState([]);
-    const [crossoverDetails, setCrossoverDetails] = useState([]);
+    const [child, setChild] = useState(null);
 
     useEffect(() => {
         if (data) {
@@ -40,10 +39,9 @@ function MainComponentGeneticAlgorithm() {
     }, [data]);
 
     useEffect(() => {
-        if (selectedPopulation.length > 1) {
-            const { offspring, crossoverDetails } = orderCrossover(selectedPopulation);
-            setOffspring(offspring);
-            setCrossoverDetails(crossoverDetails);
+        if (selectedPopulation.length >= 2) {
+            const newChild = orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[1]);
+            setChild(newChild);
         }
     }, [selectedPopulation]);
 
@@ -75,16 +73,15 @@ function MainComponentGeneticAlgorithm() {
                     />
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-                    <h2 className="text-xl font-semibold text-center">Crossover - Order Crossover</h2>
-                    {crossoverDetails.map((detail, index) => (
-                        <div key={index} className="mt-4 p-4 border rounded-md">
-                            <p><strong>Parent 1:</strong> {JSON.stringify(detail.parent1)}</p>
-                            <p><strong>Parent 2:</strong> {JSON.stringify(detail.parent2)}</p>
-                            <p><strong>Crossover Points:</strong> {detail.crossoverPoint1}, {detail.crossoverPoint2}</p>
-                            <p><strong>Child 1:</strong> {JSON.stringify(detail.child1)}</p>
-                            <p><strong>Child 2:</strong> {JSON.stringify(detail.child2)}</p>
+                    <h2 className="text-xl font-semibold text-center">Crossover</h2>
+                    {child && (
+                        <div className="mt-4 p-4 border rounded-md">
+                            <p><strong>Parent 1:</strong> {JSON.stringify(selectedPopulation[0])}</p>
+                            <p><strong>Parent 2:</strong> {JSON.stringify(selectedPopulation[1])}</p>
+                            <p><strong>Midpoint:</strong> {Math.floor((selectedPopulation[0].length - 1) / 2)}</p>
+                            <p><strong>Child:</strong> {JSON.stringify(child)}</p>
                         </div>
-                    ))}
+                    )}
                 </div>
             </div>
         </div>
