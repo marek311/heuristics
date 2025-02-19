@@ -5,7 +5,7 @@ function RouletteWheelVisualization({ population, fitnessValues, randomValues })
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 250;
+        const width = 280;
         const height = 250;
         const radius = (Math.min(width, height) - 50) / 2;
 

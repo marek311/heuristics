@@ -44,16 +44,18 @@ function MainComponentGeneticAlgorithm() {
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
                     <h2 className="text-xl font-semibold text-center">Initial Population</h2>
                     {population.map((tour, index) => (
-                        <div key={index} className="flex items-center justify-center space-x-2 text-gray-700 py-2 whitespace-nowrap overflow-x-auto">
+                        <div
+                            key={index}
+                            className="flex items-center justify-center space-x-2 text-gray-700 py-2 whitespace-nowrap overflow-x-auto">
                             <span className="font-medium text-gray-900">{index + 1}.</span>
                             {tour.map((city, i) => (
                                 <span key={i} className="whitespace-nowrap">
                                     {city} {i !== tour.length - 1 && <span className="text-gray-500">→</span>}
                                 </span>
                             ))}
-                                <span className="ml-4 text-sm text-gray-600">
-                                    (Fitness: {fitnessValues[index]?.toFixed(4)})
-                                </span>
+                            <span className="ml-4 text-sm text-gray-600">
+                                (Fitness: {fitnessValues[index]?.toFixed(4)})
+                            </span>
                         </div>
                     ))}
                 </div>
@@ -74,29 +76,33 @@ function MainComponentGeneticAlgorithm() {
                         </tr>
                         </thead>
                         <tbody>
-                        {probabilities.map((prob, index) => (
-                            <tr key={index}>
-                                <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
-                                <td className="border border-gray-300 px-4 py-2">{fitnessValues[index]?.toFixed(4)}</td>
-                                <td className="border border-gray-300 px-4 py-2">{prob.toFixed(4)}</td>
-                                <td className="border border-gray-300 px-4 py-2">{cumulativeProbabilities[index]?.toFixed(4)}</td>
-                            </tr>
-                        ))}
+                        {probabilities.map((prob, index) => {
+                            const isSelected = selectedPopulation.some(
+                                (selectedTour) =>
+                                    JSON.stringify(selectedTour) === JSON.stringify(population[index])
+                            );
+                            return (
+                                <tr
+                                    key={index}
+                                    className={`border border-gray-300 ${isSelected ? 'bg-green-200 text-green-800 font-bold' : ''}`}>
+                                    <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{fitnessValues[index]?.toFixed(4)}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{prob.toFixed(4)}</td>
+                                    <td className="border border-gray-300 px-4 py-2">{cumulativeProbabilities[index]?.toFixed(4)}</td>
+                                </tr>
+                            );
+                        })}
                         </tbody>
                     </table>
-                    <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-                        <h2 className="text-xl font-semibold text-center">Selected Population</h2>
-                        {selectedPopulation.map((tour, index) => (
-                            <div key={index} className="flex items-center justify-center space-x-2 text-green-700 py-2">
-                                <span className="font-medium">{index + 1}.</span>
-                                {tour.map((city, i) => (
-                                    <span key={i}>
-                                    {city} {i !== tour.length - 1 && <span className="text-green-500">→</span>}
-                                </span>
-                                ))}
-                            </div>
+                    <h3 className="mt-4 text-lg font-semibold">Random Numbers Used for Selection:</h3>
+                    <div className="flex flex-wrap gap-2 mt-2">
+                        {randomValues.map((rand, index) => (
+                            <span key={index} className="px-3 py-1 bg-blue-200 rounded text-blue-800 font-semibold">
+                                {rand.toFixed(4)}
+                            </span>
                         ))}
                     </div>
+
                 </div>
             </div>
         </div>
