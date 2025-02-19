@@ -48,7 +48,7 @@ function MainComponentGeneticAlgorithm() {
                     fitnessValues={fitnessValues}
                 />
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-                    <h2 className="text-xl font-semibold text-center">Selection - Roulette Whee</h2>
+                    <h2 className="text-xl font-semibold text-center">Selection - Roulette Wheel</h2>
                     <RouletteWheel
                         fitnessValues={fitnessValues}
                         probabilities={probabilities}
