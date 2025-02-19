@@ -70,7 +70,6 @@ function RouletteWheelVisualization({ population, fitnessValues, randomValues })
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
-            <h2 className="text-lg font-semibold text-gray-800">Selection - Roulette Wheel</h2>
             <svg ref={svgRef}></svg>
         </div>
     );
