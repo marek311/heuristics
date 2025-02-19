@@ -64,26 +64,18 @@ export const rouletteWheelSelection = (
     const selected = [];
     const selectedIndices = new Set();
 
-    const bestIndex = fitnessValues.indexOf(Math.max(...fitnessValues));
-    selected.push(population[bestIndex]);
-    selectedIndices.add(bestIndex);
-
     while (selected.length < selectionSize) {
-        const randomValue = Math.random();
+        let randomValue;
+        let selectedIndex;
+
+        do {
+            randomValue = Math.random();
+            selectedIndex = cumulativeProbabilities.findIndex(prob => randomValue < prob);
+        } while (selectedIndices.has(selectedIndex));
+
         randomValues.push(randomValue);
-
-        let selectedIndex = -1;
-        for (let j = 0; j < cumulativeProbabilities.length; j++) {
-            if (randomValue < cumulativeProbabilities[j] && !selectedIndices.has(j)) {
-                selectedIndex = j;
-                break;
-            }
-        }
-
-        if (selectedIndex !== -1) {
-            selected.push(population[selectedIndex]);
-            selectedIndices.add(selectedIndex);
-        }
+        selected.push(population[selectedIndex]);
+        selectedIndices.add(selectedIndex);
     }
 
     setRandomValues(randomValues);
