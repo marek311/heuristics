@@ -84,14 +84,6 @@ function MainComponentGeneticAlgorithm() {
                         ))}
                         </tbody>
                     </table>
-                    <h3 className="mt-4 text-lg font-semibold">Random Numbers Used for Selection:</h3>
-                    <div className="flex flex-wrap gap-2 mt-2">
-                        {randomValues.map((rand, index) => (
-                            <span key={index} className="px-3 py-1 bg-blue-200 rounded text-blue-800 font-semibold">
-                                {rand.toFixed(4)}
-                            </span>
-                        ))}
-                    </div>
                     <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
                         <h2 className="text-xl font-semibold text-center">Selected Population</h2>
                         {selectedPopulation.map((tour, index) => (
