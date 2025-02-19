@@ -38,24 +38,26 @@ export const calculateFitness = (tour, data) => {
     return totalDistance === 0 ? 0 : 1000 / totalDistance;
 };
 
-export const rouletteWheelSelection = (population, data, selectionSize) => {
-    if (!population || population.length === 0) return [];
+export const rouletteWheelSelection = (
+    population, data, selectionSize,
+    setFitnessValues, setProbabilities,
+    setCumulativeProbabilities, setSelectedPopulation
+) => {
+    if (!population || population.length === 0) return;
 
     const fitnessValues = population.map(tour => calculateFitness(tour, data));
+    setFitnessValues(fitnessValues);
 
     const totalFitness = fitnessValues.reduce((sum, f) => sum + f, 0);
 
-    if (totalFitness === 0) {
-        return [...population].sort(() => Math.random() - 0.5).slice(0, selectionSize);
-    }
+    const probabilities = totalFitness === 0
+        ? fitnessValues.map(() => 1 / fitnessValues.length)
+        : fitnessValues.map(f => f / totalFitness);
+    setProbabilities(probabilities);
 
-    const probabilities = fitnessValues.map(f => f / totalFitness);
-
-    const cumulativeProbabilities = [];
-    probabilities.reduce((sum, prob, index) => {
-        cumulativeProbabilities[index] = sum + prob;
-        return cumulativeProbabilities[index];
-    }, 0);
+    let cumulative = 0;
+    const cumulativeProbabilities = probabilities.map(prob => cumulative += prob);
+    setCumulativeProbabilities(cumulativeProbabilities);
 
     const selected = [];
     for (let i = 0; i < selectionSize; i++) {
@@ -68,5 +70,5 @@ export const rouletteWheelSelection = (population, data, selectionSize) => {
         }
     }
 
-    return selected;
+    setSelectedPopulation(selected);
 };
