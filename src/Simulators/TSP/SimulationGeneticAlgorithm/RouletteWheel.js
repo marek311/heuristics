@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function RouletteWheelVisualization({ population, fitnessValues, randomValues }) {
+function RouletteWheelVisualization({ fitnessValues, randomValues }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -66,7 +66,7 @@ function RouletteWheelVisualization({ population, fitnessValues, randomValues })
                 .text(randomValue.toFixed(4));
         });
 
-    }, [population, fitnessValues, randomValues]);
+    }, [fitnessValues, randomValues]);
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">

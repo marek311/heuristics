@@ -50,8 +50,9 @@ function MainComponentGeneticAlgorithm() {
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
                     <h2 className="text-lg font-semibold text-gray-800">Selection - Roulette Wheel</h2>
                     <RouletteWheel
-                        population={population}
                         fitnessValues={fitnessValues}
+                        probabilities={probabilities}
+                        cumulativeProbabilities={cumulativeProbabilities}
                         randomValues={randomValues}
                     />
                     <SelectionComponent
