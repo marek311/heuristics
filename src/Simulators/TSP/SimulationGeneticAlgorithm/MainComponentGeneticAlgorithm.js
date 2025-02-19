@@ -19,7 +19,7 @@ function MainComponentGeneticAlgorithm() {
         if (data) {
             const initialPop = generateInitialPopulation(data, 5);
             setPopulation(initialPop);
-            setSelectedPopulation(rouletteWheelSelection(initialPop, data, 3)); // Vyberáme 3 najlepšie riešenia
+            setSelectedPopulation(rouletteWheelSelection(initialPop, data, 3));
         }
     }, [data]);
 
