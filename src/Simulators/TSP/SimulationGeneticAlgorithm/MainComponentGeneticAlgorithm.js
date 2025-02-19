@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
 import {
     generateInitialPopulation,
+    orderCrossover,
     rouletteWheelSelection
 } from './AlgorithmsGeneticAlgorithm';
 import SelectionComponent from "./SelectionComponent";
@@ -20,6 +21,8 @@ function MainComponentGeneticAlgorithm() {
     const [cumulativeProbabilities, setCumulativeProbabilities] = useState([]);
     const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [randomValues, setRandomValues] = useState([]);
+    const [offspring, setOffspring] = useState([]);
+    const [crossoverDetails, setCrossoverDetails] = useState([]);
 
     useEffect(() => {
         if (data) {
@@ -35,6 +38,14 @@ function MainComponentGeneticAlgorithm() {
             );
         }
     }, [data]);
+
+    useEffect(() => {
+        if (selectedPopulation.length > 1) {
+            const { offspring, crossoverDetails } = orderCrossover(selectedPopulation);
+            setOffspring(offspring);
+            setCrossoverDetails(crossoverDetails);
+        }
+    }, [selectedPopulation]);
 
     return (
         <div className="text-gray-800 p-6">
@@ -62,6 +73,18 @@ function MainComponentGeneticAlgorithm() {
                         cumulativeProbabilities={cumulativeProbabilities}
                         selectedPopulation={selectedPopulation}
                     />
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                    <h2 className="text-xl font-semibold text-center">Crossover - Order Crossover</h2>
+                    {crossoverDetails.map((detail, index) => (
+                        <div key={index} className="mt-4 p-4 border rounded-md">
+                            <p><strong>Parent 1:</strong> {JSON.stringify(detail.parent1)}</p>
+                            <p><strong>Parent 2:</strong> {JSON.stringify(detail.parent2)}</p>
+                            <p><strong>Crossover Points:</strong> {detail.crossoverPoint1}, {detail.crossoverPoint2}</p>
+                            <p><strong>Child 1:</strong> {JSON.stringify(detail.child1)}</p>
+                            <p><strong>Child 2:</strong> {JSON.stringify(detail.child2)}</p>
+                        </div>
+                    ))}
                 </div>
             </div>
         </div>
