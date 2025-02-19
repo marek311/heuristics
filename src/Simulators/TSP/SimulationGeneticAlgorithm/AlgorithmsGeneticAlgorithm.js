@@ -37,3 +37,36 @@ export const calculateFitness = (tour, data) => {
 
     return totalDistance === 0 ? 0 : 1000 / totalDistance;
 };
+
+export const rouletteWheelSelection = (population, data, selectionSize) => {
+    if (!population || population.length === 0) return [];
+
+    const fitnessValues = population.map(tour => calculateFitness(tour, data));
+
+    const totalFitness = fitnessValues.reduce((sum, f) => sum + f, 0);
+
+    if (totalFitness === 0) {
+        return [...population].sort(() => Math.random() - 0.5).slice(0, selectionSize);
+    }
+
+    const probabilities = fitnessValues.map(f => f / totalFitness);
+
+    const cumulativeProbabilities = [];
+    probabilities.reduce((sum, prob, index) => {
+        cumulativeProbabilities[index] = sum + prob;
+        return cumulativeProbabilities[index];
+    }, 0);
+
+    const selected = [];
+    for (let i = 0; i < selectionSize; i++) {
+        const randomValue = Math.random();
+        for (let j = 0; j < cumulativeProbabilities.length; j++) {
+            if (randomValue < cumulativeProbabilities[j]) {
+                selected.push(population[j]);
+                break;
+            }
+        }
+    }
+
+    return selected;
+};
