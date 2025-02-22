@@ -1,8 +1,6 @@
 import React from "react";
 
 const CrossoverComponent = ({ selectedPopulation, children }) => {
-    if (!children || children.length === 0 || selectedPopulation.length < 3) return null;
-
     return (
         <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
             <h2 className="text-xl font-semibold text-center">Crossover</h2>

@@ -22,8 +22,8 @@ function MainComponentGeneticAlgorithm() {
     const [fitnessValues, setFitnessValues] = useState([]);
     const [probabilities, setProbabilities] = useState([]);
     const [cumulativeProbabilities, setCumulativeProbabilities] = useState([]);
-    const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [randomValues, setRandomValues] = useState([]);
+    const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [children, setChildren] = useState([]);
     const [mutatedChildren, setMutatedChildren] = useState([]);
     const [step, setStep] = useState(0);
@@ -65,6 +65,7 @@ function MainComponentGeneticAlgorithm() {
 
         if (step === 3 && children.length > 0) {
             setPopulation(mutatedChildren);
+            setSelectedPopulation([]);
             setChildren([]);
             setMutatedChildren([]);
         }
