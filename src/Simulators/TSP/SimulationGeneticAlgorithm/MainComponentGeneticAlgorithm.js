@@ -62,7 +62,11 @@ function MainComponentGeneticAlgorithm() {
             setMutatedChildren(mutatedChildren);
         }
 
-        setStep((prevStep) => (prevStep + 1) % 4);
+        if (step === 4 && mutatedChildren.length > 0) {
+            setPopulation(mutatedChildren);
+        }
+
+        setStep((prevStep) => (prevStep + 1) % 5);
     }
 
     return (
