@@ -23,13 +23,17 @@ function MainComponentGeneticAlgorithm() {
     const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [randomValues, setRandomValues] = useState([]);
     const [children, setChildren] = useState([]);
+    const [step, setStep] = useState(0);
 
-    useEffect(() => {
-        if (data) {
+    function handleStep() {
+        if (step === 0) {
             const initialPop = generateInitialPopulation(data, 6);
             setPopulation(initialPop);
+        }
+
+        if (step === 1) {
             rouletteWheelSelection(
-                initialPop, data, 3,
+                population, data, 3,
                 setFitnessValues,
                 setProbabilities,
                 setCumulativeProbabilities,
@@ -37,10 +41,8 @@ function MainComponentGeneticAlgorithm() {
                 setRandomValues
             );
         }
-    }, [data]);
 
-    useEffect(() => {
-        if (selectedPopulation.length === 3) {
+        if (step === 2 && selectedPopulation.length === 3) {
             const newChildren = [
                 orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[1]),
                 orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[0]),
@@ -51,13 +53,16 @@ function MainComponentGeneticAlgorithm() {
             ];
             setChildren(newChildren);
         }
-    }, [selectedPopulation]);
+
+        setStep((prevStep) => (prevStep + 1) % 3);
+    }
 
     return (
         <div className="text-gray-800 p-6">
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Genetic Algorithm"
+                handleStep={handleStep}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <PopulationComponent
