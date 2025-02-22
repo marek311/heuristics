@@ -1,28 +1,76 @@
-import React from 'react';
+import React, { useEffect, useRef } from "react";
+import * as d3 from "d3";
 
-function PopulationComponent({ population, fitnessValues,step }) {
+const PopulationComponent = ({ population, fitnessValues, step }) => {
+    const svgRef = useRef();
+
+    useEffect(() => {
+        if (!population || population.length === 0) return;
+
+        const boxSize = 30;
+        const gap = 5;
+        const rowSpacing = 50;
+
+        const maxTourLength = Math.max(...population.map(tour => tour.length));
+        const width = maxTourLength * boxSize + (maxTourLength - 1) * gap + 100;
+        const height = population.length * (boxSize + rowSpacing) + 50;
+
+        const svg = d3.select(svgRef.current)
+            .attr("width", width)
+            .attr("height", height);
+
+        svg.selectAll("*").remove();
+
+        population.forEach((tour, rowIndex) => {
+            const yOffset = rowIndex * (boxSize + rowSpacing);
+            const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
+
+            const offsetX = 10;
+            const fitness = fitnessValues[rowIndex] || 0;
+
+            rowGroup.selectAll("rect")
+                .data(tour)
+                .enter()
+                .append("rect")
+                .attr("x", (_, i) => offsetX + i * (boxSize + gap))
+                .attr("y", 0)
+                .attr("width", boxSize)
+                .attr("height", boxSize)
+                .attr("fill", "#1e88e5")
+                .attr("stroke", "black")
+                .attr("stroke-width", 1);
+
+            rowGroup.selectAll("text.city")
+                .data(tour)
+                .enter()
+                .append("text")
+                .attr("x", (_, i) => offsetX + i * (boxSize + gap) + boxSize / 2)
+                .attr("y", boxSize / 2)
+                .attr("text-anchor", "middle")
+                .attr("dominant-baseline", "middle")
+                .attr("fill", "white")
+                .attr("font-size", "12px")
+                .text(d => d);
+
+            rowGroup.append("text")
+                .attr("x", offsetX)
+                .attr("y", boxSize + 20)
+                .attr("fill", "black")
+                .attr("font-size", "14px")
+                .text(`Fitness: ${fitness.toFixed(4)}`);
+        });
+
+    }, [population, fitnessValues, step]);
+
     return (
-        <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-            <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
-                Population
-            </h2>
-            {population.map((tour, index) => (
-                <div
-                    key={index}
-                    className="flex items-center justify-center space-x-2 text-gray-700 py-2 whitespace-nowrap overflow-x-auto">
-                    <span className="font-medium text-gray-900">{index + 1}.</span>
-                    {tour.map((city, i) => (
-                        <span key={i} className="whitespace-nowrap">
-                            {city} {i !== tour.length - 1 && <span className="text-gray-500">→</span>}
-                        </span>
-                    ))}
-                    <span className="ml-4 text-sm text-gray-600">
-                        (Fitness: {fitnessValues[index]?.toFixed(4)})
-                    </span>
+        <div className="bg-white shadow-md rounded-lg p-4 w-full">
+            <div className="flex flex-col items-center justify-center">
+                <div style={{width: '100%', height: '500px', overflowY: 'scroll'}}>
+                    <svg ref={svgRef}></svg>
                 </div>
-            ))}
+            </div>
         </div>
     );
-}
+};
 
 export default PopulationComponent;
