@@ -28,13 +28,14 @@ function MainComponentGeneticAlgorithm() {
     const [mutatedChildren, setMutatedChildren] = useState([]);
     const [step, setStep] = useState(0);
 
+    useEffect(() => {
+        if (data) {
+            setPopulation(generateInitialPopulation(data, 6));
+        }
+    }, [data]);
+
     function handleStep() {
         if (step === 0) {
-            const initialPop = generateInitialPopulation(data, 6);
-            setPopulation(initialPop);
-        }
-
-        if (step === 1) {
             rouletteWheelSelection(
                 population, data, 3,
                 setFitnessValues,
@@ -45,7 +46,7 @@ function MainComponentGeneticAlgorithm() {
             );
         }
 
-        if (step === 2 && selectedPopulation.length === 3) {
+        if (step === 1) {
             const newChildren = [
                 orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[1]),
                 orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[0]),
@@ -57,16 +58,18 @@ function MainComponentGeneticAlgorithm() {
             setChildren(newChildren);
         }
 
-        if (step === 3 && children.length > 0) {
+        if (step === 2 && selectedPopulation.length === 3) {
             const mutatedChildren = children.map(child => mutateTour(child, 0.2));
             setMutatedChildren(mutatedChildren);
         }
 
-        if (step === 4 && mutatedChildren.length > 0) {
+        if (step === 3 && children.length > 0) {
             setPopulation(mutatedChildren);
+            setChildren([]);
+            setMutatedChildren([]);
         }
 
-        setStep((prevStep) => (prevStep + 1) % 5);
+        setStep((prevStep) => (prevStep + 1) % 4);
     }
 
     return (
