@@ -46,12 +46,32 @@ function MainComponentGeneticAlgorithm() {
         }
 
         if (step === 1) {
-            const newChildren = [
-                crossover(selectedPopulation[0], selectedPopulation[1]),
-                crossover(selectedPopulation[1], selectedPopulation[0]),
-                crossover(selectedPopulation[1], selectedPopulation[2]),
-                crossover(selectedPopulation[2], selectedPopulation[1]),
-            ];
+            const newChildren = [];
+            const generatedChildrenSet = new Set();
+
+            const serializeChild = (child) => JSON.stringify(child);
+
+            for (let i = 0; i < selectedPopulation.length; i++) {
+                for (let j = i + 1; j < selectedPopulation.length; j++) {
+                    const parent1 = selectedPopulation[i];
+                    const parent2 = selectedPopulation[j];
+
+                    const child1 = crossover(parent1, parent2);
+                    const serializedChild1 = serializeChild(child1);
+                    if (!generatedChildrenSet.has(serializedChild1)) {
+                        newChildren.push(child1);
+                        generatedChildrenSet.add(serializedChild1);
+                    }
+
+                    const child2 = crossover(parent2, parent1);
+                    const serializedChild2 = serializeChild(child2);
+                    if (!generatedChildrenSet.has(serializedChild2)) {
+                        newChildren.push(child2);
+                        generatedChildrenSet.add(serializedChild2);
+                    }
+                }
+            }
+
             setChildren(newChildren);
         }
 
