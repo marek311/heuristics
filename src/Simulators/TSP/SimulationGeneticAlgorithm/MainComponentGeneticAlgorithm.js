@@ -10,8 +10,7 @@ import {
 import SelectionComponent from "./SelectionComponent";
 import PopulationComponent from "./PopulationComponent";
 import RouletteWheel from "./RouletteWheel";
-import CrossoverComponent from "./CrossoverComponent";
-import MutatedChildrenComponent from "./MutationComponent";
+import CrossoverAndMutationComponent from "./CrossoverAndMutationComponent";
 
 function MainComponentGeneticAlgorithm() {
     const navigate = useNavigate();
@@ -98,11 +97,7 @@ function MainComponentGeneticAlgorithm() {
                         selectedPopulation={selectedPopulation}
                     />
                 </div>
-                <CrossoverComponent
-                    selectedPopulation={selectedPopulation}
-                    children={children}
-                />
-                <MutatedChildrenComponent
+                <CrossoverAndMutationComponent
                     children={children}
                     mutatedChildren={mutatedChildren}
                 />
