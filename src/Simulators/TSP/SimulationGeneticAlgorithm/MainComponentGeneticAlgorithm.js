@@ -29,7 +29,7 @@ function MainComponentGeneticAlgorithm() {
 
     useEffect(() => {
         if (data) {
-            setPopulation(generateInitialPopulation(data, 5));
+            setPopulation(generateInitialPopulation(data, 4));
         }
     }, [data]);
 
@@ -48,8 +48,9 @@ function MainComponentGeneticAlgorithm() {
         if (step === 1) {
             const newChildren = [
                 orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[1]),
-                orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[2]),
+                orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[0]),
                 orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[2]),
+                orderCrossoverSingleChild(selectedPopulation[2], selectedPopulation[1]),
             ];
             setChildren(newChildren);
         }
@@ -62,8 +63,6 @@ function MainComponentGeneticAlgorithm() {
         if (step === 3 && children.length > 0) {
             setPopulation(mutatedChildren);
             setSelectedPopulation([]);
-            setChildren([]);
-            setMutatedChildren([]);
         }
 
         setStep((prevStep) => (prevStep + 1) % 4);
