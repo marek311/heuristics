@@ -22,11 +22,11 @@ function MainComponentGeneticAlgorithm() {
     const [cumulativeProbabilities, setCumulativeProbabilities] = useState([]);
     const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [randomValues, setRandomValues] = useState([]);
-    const [child, setChild] = useState(null);
+    const [children, setChildren] = useState([]);
 
     useEffect(() => {
         if (data) {
-            const initialPop = generateInitialPopulation(data, 5);
+            const initialPop = generateInitialPopulation(data, 6);
             setPopulation(initialPop);
             rouletteWheelSelection(
                 initialPop, data, 3,
@@ -40,9 +40,16 @@ function MainComponentGeneticAlgorithm() {
     }, [data]);
 
     useEffect(() => {
-        if (selectedPopulation.length >= 2) {
-            const newChild = orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[1]);
-            setChild(newChild);
+        if (selectedPopulation.length === 3) {
+            const newChildren = [
+                orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[1]),
+                orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[0]),
+                orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[2]),
+                orderCrossoverSingleChild(selectedPopulation[2], selectedPopulation[0]),
+                orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[2]),
+                orderCrossoverSingleChild(selectedPopulation[2], selectedPopulation[1])
+            ];
+            setChildren(newChildren);
         }
     }, [selectedPopulation]);
 
@@ -75,7 +82,7 @@ function MainComponentGeneticAlgorithm() {
                 </div>
                 <CrossoverComponent
                     selectedPopulation={selectedPopulation}
-                    child={child}
+                    children={children}
                 />
             </div>
         </div>
