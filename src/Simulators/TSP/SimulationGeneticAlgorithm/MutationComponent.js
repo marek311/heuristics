@@ -5,7 +5,7 @@ const MutationComponent = ({ children, mutatedChildren }) => {
 
     return (
         <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-            <h2 className="text-xl font-semibold text-center">Mutated Children</h2>
+            <h2 className="text-xl font-semibold text-center">Mutation</h2>
             <div className="mt-4 p-4 border rounded-md">
                 <h3 className="text-lg font-semibold">Before Mutation:</h3>
                 {children.map((child, index) => (
