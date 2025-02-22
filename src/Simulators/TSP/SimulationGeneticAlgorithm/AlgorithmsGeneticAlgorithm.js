@@ -38,7 +38,7 @@ export const calculateFitness = (tour, data) => {
     return totalDistance === 0 ? 0 : 1000 / totalDistance;
 };
 
-export const rouletteWheelSelection = (
+export const selection = (
     population, data, selectionSize,
     setFitnessValues, setProbabilities,
     setCumulativeProbabilities, setSelectedPopulation,
@@ -82,7 +82,7 @@ export const rouletteWheelSelection = (
     setSelectedPopulation(selected);
 };
 
-export const orderCrossoverSingleChild = (parent1, parent2) => {
+export const crossover = (parent1, parent2) => {
     if (!parent1 || !parent2 || parent1.length !== parent2.length) return null;
 
     const length = parent1.length;
@@ -107,7 +107,7 @@ export const orderCrossoverSingleChild = (parent1, parent2) => {
     return child;
 };
 
-export const mutateTour = (tour, mutationRate = 0.1) => {
+export const mutation = (tour, mutationRate = 0.1) => {
     if (Math.random() > mutationRate) return tour;
 
     const mutatedTour = [...tour];

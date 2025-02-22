@@ -3,9 +3,9 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
 import {
     generateInitialPopulation,
-    orderCrossoverSingleChild,
-    rouletteWheelSelection,
-    mutateTour
+    crossover,
+    selection,
+    mutation
 } from './AlgorithmsGeneticAlgorithm';
 import SelectionComponent from "./SelectionComponent";
 import PopulationComponent from "./PopulationComponent";
@@ -35,7 +35,7 @@ function MainComponentGeneticAlgorithm() {
 
     function handleStep() {
         if (step === 0) {
-            rouletteWheelSelection(
+            selection(
                 population, data, 3,
                 setFitnessValues,
                 setProbabilities,
@@ -47,16 +47,16 @@ function MainComponentGeneticAlgorithm() {
 
         if (step === 1) {
             const newChildren = [
-                orderCrossoverSingleChild(selectedPopulation[0], selectedPopulation[1]),
-                orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[0]),
-                orderCrossoverSingleChild(selectedPopulation[1], selectedPopulation[2]),
-                orderCrossoverSingleChild(selectedPopulation[2], selectedPopulation[1]),
+                crossover(selectedPopulation[0], selectedPopulation[1]),
+                crossover(selectedPopulation[1], selectedPopulation[0]),
+                crossover(selectedPopulation[1], selectedPopulation[2]),
+                crossover(selectedPopulation[2], selectedPopulation[1]),
             ];
             setChildren(newChildren);
         }
 
         if (step === 2 && selectedPopulation.length === 3) {
-            const mutatedChildren = children.map(child => mutateTour(child, 0.2));
+            const mutatedChildren = children.map(child => mutation(child, 0.2));
             setMutatedChildren(mutatedChildren);
         }
 
