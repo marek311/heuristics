@@ -3,11 +3,11 @@ import Selector from './Selector';
 import InputHandlerGeneral from '../InputHandling/InputHandlerGeneral';
 import KPDataPage from "../InputDisplay/KP/KPDataPage";
 import TSPDataTable from '../InputDisplay/TSP/TSPDataTable';
-import SimKnapsackInsert from '../Simulators/KP/SimulationInsert/MainComponentInsert'
-import SimKnapsackExchange from '../Simulators/KP/SimulationExchange/MainComponentExchange'
-import SimTSPSimulatedAnnealing from "../Simulators/TSP/SimulationSimulatedAnnealing/MainComponentSimulatedAnnealing";
-import SimTSPTabuSearch from "../Simulators/TSP/SimulationTabuSearch/MainComponentTabuSearch";
-import SimTSPGeneticAlgorithm from "../Simulators/TSP/SimulationGeneticAlgorithm/MainComponentGeneticAlgorithm"
+import SimKnapsackInsert from '../Simulators/KP/InsertHeuristic/MainComponentInsert'
+import SimKnapsackExchange from '../Simulators/KP/ExchangeHeuristic/MainComponentExchange'
+import SimTSPSimulatedAnnealing from "../Simulators/TSP/SimulatedAnnealing/MainComponentSimulatedAnnealing";
+import SimTSPTabuSearch from "../Simulators/TSP/TabuSearch/MainComponentTabuSearch";
+import SimTSPGeneticAlgorithm from "../Simulators/TSP/GeneticAlgorithm/MainComponentGeneticAlgorithm"
 
 function Application() {
     return (
