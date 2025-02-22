@@ -1,9 +1,11 @@
 import React from 'react';
 
-function PopulationComponent({ population, fitnessValues }) {
+function PopulationComponent({ population, fitnessValues,step }) {
     return (
         <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-            <h2 className="text-xl font-semibold text-center">Population</h2>
+            <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
+                Population
+            </h2>
             {population.map((tour, index) => (
                 <div
                     key={index}

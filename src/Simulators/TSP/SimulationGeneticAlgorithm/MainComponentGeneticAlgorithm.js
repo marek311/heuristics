@@ -79,9 +79,12 @@ function MainComponentGeneticAlgorithm() {
                 <PopulationComponent
                     population={population}
                     fitnessValues={fitnessValues}
+                    step={step}
                 />
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-                    <h2 className="text-xl font-semibold text-center">Selection</h2>
+                    <h2 className={`text-xl font-semibold text-center ${step === 0 ? 'bg-green-500 text-white' : ''}`}>
+                        Selection
+                    </h2>
                     <RouletteWheel
                         fitnessValues={fitnessValues}
                         probabilities={probabilities}
@@ -99,6 +102,7 @@ function MainComponentGeneticAlgorithm() {
                 <CrossoverAndMutationComponent
                     children={children}
                     mutatedChildren={mutatedChildren}
+                    step={step}
                 />
             </div>
         </div>
