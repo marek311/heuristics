@@ -107,6 +107,36 @@ export const crossover = (parent1, parent2) => {
     return child;
 };
 
+export const generateUniqueChildren = (selectedPopulation) => {
+    const newChildren = [];
+    const generatedChildrenSet = new Set();
+
+    const serializeChild = (child) => JSON.stringify(child);
+
+    for (let i = 0; i < selectedPopulation.length; i++) {
+        for (let j = i + 1; j < selectedPopulation.length; j++) {
+            const parent1 = selectedPopulation[i];
+            const parent2 = selectedPopulation[j];
+
+            const child1 = crossover(parent1, parent2);
+            const serializedChild1 = serializeChild(child1);
+            if (!generatedChildrenSet.has(serializedChild1)) {
+                newChildren.push(child1);
+                generatedChildrenSet.add(serializedChild1);
+            }
+
+            const child2 = crossover(parent2, parent1);
+            const serializedChild2 = serializeChild(child2);
+            if (!generatedChildrenSet.has(serializedChild2)) {
+                newChildren.push(child2);
+                generatedChildrenSet.add(serializedChild2);
+            }
+        }
+    }
+
+    return newChildren;
+};
+
 export const mutation = (tour, mutationRate = 0.1) => {
     if (Math.random() > mutationRate) return tour;
 
