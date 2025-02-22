@@ -108,7 +108,7 @@ export const crossover = (parent1, parent2) => {
 };
 
 export const generateUniqueChildren = (selectedPopulation) => {
-    const newChildren = [];
+    let newChildren = [];
     const generatedChildrenSet = new Set();
 
     const serializeChild = (child) => JSON.stringify(child);
@@ -132,6 +132,10 @@ export const generateUniqueChildren = (selectedPopulation) => {
                 generatedChildrenSet.add(serializedChild2);
             }
         }
+    }
+
+    if (newChildren.length > 4) {
+        newChildren = newChildren.slice(0, 4);
     }
 
     return newChildren;
