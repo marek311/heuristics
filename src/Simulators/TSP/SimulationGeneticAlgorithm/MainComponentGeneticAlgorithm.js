@@ -49,9 +49,16 @@ function MainComponentGeneticAlgorithm() {
             setChildren(generateUniqueChildren(selectedPopulation));
         }
 
-        if (step === 2 && selectedPopulation.length === 3) {
-            const mutatedChildren = children.map(child => mutation(child, 0.2));
-            setMutatedChildren(mutatedChildren);
+        if (step === 2) {
+            let updatedChildren = [...children];
+
+            while (updatedChildren.length < 4) {
+                const randomIndex = Math.floor(Math.random() * updatedChildren.length);
+                const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
+                updatedChildren.push(mutatedChild);
+            }
+
+            setMutatedChildren(updatedChildren);
         }
 
         if (step === 3 && children.length > 0) {
