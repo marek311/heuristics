@@ -77,11 +77,16 @@ function MainComponentGeneticAlgorithm() {
                 handleStep={handleStep}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
-                <PopulationComponent
-                    population={population}
-                    fitnessValues={fitnessValues}
-                    step={step}
-                />
+                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                    <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
+                        Population
+                    </h2>
+                    <PopulationComponent
+                        population={population}
+                        fitnessValues={fitnessValues}
+                        step={step}
+                    />
+                </div>
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
                     <h2 className={`text-xl font-semibold text-center ${step === 0 ? 'bg-green-500 text-white' : ''}`}>
                         Selection
@@ -100,11 +105,13 @@ function MainComponentGeneticAlgorithm() {
                         selectedPopulation={selectedPopulation}
                     />
                 </div>
-                <CrossoverAndMutationComponent
-                    children={children}
-                    mutatedChildren={mutatedChildren}
-                    step={step}
-                />
+                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                    <CrossoverAndMutationComponent
+                        children={children}
+                        mutatedChildren={mutatedChildren}
+                        step={step}
+                    />
+                </div>
             </div>
         </div>
     );
