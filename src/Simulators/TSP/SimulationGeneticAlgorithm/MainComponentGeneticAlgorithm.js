@@ -4,12 +4,14 @@ import Header from '../../Components/Header';
 import {
     generateInitialPopulation,
     orderCrossoverSingleChild,
-    rouletteWheelSelection
+    rouletteWheelSelection,
+    mutateTour
 } from './AlgorithmsGeneticAlgorithm';
 import SelectionComponent from "./SelectionComponent";
 import PopulationComponent from "./PopulationComponent";
 import RouletteWheel from "./RouletteWheel";
-import CrossoverComponent from "./CrossoverComponent"
+import CrossoverComponent from "./CrossoverComponent";
+import MutatedChildrenComponent from "./MutationComponent";
 
 function MainComponentGeneticAlgorithm() {
     const navigate = useNavigate();
@@ -23,6 +25,7 @@ function MainComponentGeneticAlgorithm() {
     const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [randomValues, setRandomValues] = useState([]);
     const [children, setChildren] = useState([]);
+    const [mutatedChildren, setMutatedChildren] = useState([]);
     const [step, setStep] = useState(0);
 
     function handleStep() {
@@ -54,7 +57,12 @@ function MainComponentGeneticAlgorithm() {
             setChildren(newChildren);
         }
 
-        setStep((prevStep) => (prevStep + 1) % 3);
+        if (step === 3 && children.length > 0) {
+            const mutatedChildren = children.map(child => mutateTour(child, 0.2));
+            setMutatedChildren(mutatedChildren);
+        }
+
+        setStep((prevStep) => (prevStep + 1) % 4);
     }
 
     return (
@@ -88,6 +96,10 @@ function MainComponentGeneticAlgorithm() {
                 <CrossoverComponent
                     selectedPopulation={selectedPopulation}
                     children={children}
+                />
+                <MutatedChildrenComponent
+                    children={children}
+                    mutatedChildren={mutatedChildren}
                 />
             </div>
         </div>

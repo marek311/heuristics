@@ -106,3 +106,19 @@ export const orderCrossoverSingleChild = (parent1, parent2) => {
 
     return child;
 };
+
+export const mutateTour = (tour, mutationRate = 0.1) => {
+    if (Math.random() > mutationRate) return tour;
+
+    const mutatedTour = [...tour];
+
+    const index1 = Math.floor(Math.random() * (mutatedTour.length - 2)) + 1;
+    let index2;
+    do {
+        index2 = Math.floor(Math.random() * (mutatedTour.length - 2)) + 1;
+    } while (index1 === index2);
+
+    [mutatedTour[index1], mutatedTour[index2]] = [mutatedTour[index2], mutatedTour[index1]];
+
+    return mutatedTour;
+};
