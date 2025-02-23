@@ -96,6 +96,7 @@ function MainComponentGeneticAlgorithm() {
                     <PopulationComponent
                         population={population}
                         fitnessValues={fitnessValues}
+                        bestSolution={bestSolution}
                         step={step}
                     />
                 </div>
@@ -125,18 +126,6 @@ function MainComponentGeneticAlgorithm() {
                     />
                 </div>
             </div>
-
-            {bestSolution && (
-                <div className="bg-white p-6 mt-4 rounded-lg shadow-md">
-                    <h2 className="text-xl font-semibold text-center text-green-600">Best Found Solution</h2>
-                    <div className="flex flex-wrap justify-center items-center text-gray-800 text-lg mt-2">
-                        {bestSolution.tour.map((city, index) => (
-                            <span key={index} className="mx-1">{city} {index !== bestSolution.tour.length - 1 && '→'}</span>
-                        ))}
-                    </div>
-                    <p className="text-center text-gray-700 mt-2">Fitness: {bestSolution.fitness.toFixed(4)}</p>
-                </div>
-            )}
         </div>
     );
 }
