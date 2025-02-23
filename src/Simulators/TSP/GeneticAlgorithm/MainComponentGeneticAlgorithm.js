@@ -5,7 +5,8 @@ import {
     generateInitialPopulation,
     generateUniqueChildren,
     selection,
-    mutation
+    mutation,
+    calculateFitness
 } from './AlgorithmsGeneticAlgorithm';
 import SelectionComponent from "./SelectionComponent";
 import PopulationComponent from "./PopulationComponent";
@@ -25,6 +26,7 @@ function MainComponentGeneticAlgorithm() {
     const [selectedPopulation, setSelectedPopulation] = useState([]);
     const [children, setChildren] = useState([]);
     const [mutatedChildren, setMutatedChildren] = useState([]);
+    const [bestSolution, setBestSolution] = useState(null);
     const [step, setStep] = useState(0);
 
     useEffect(() => {
@@ -32,6 +34,15 @@ function MainComponentGeneticAlgorithm() {
             setPopulation(generateInitialPopulation(data, 4));
         }
     }, [data]);
+
+    const updateBestSolution = (currentPopulation) => {
+        const fitnessValues = currentPopulation.map(tour => calculateFitness(tour, data));
+        const maxFitnessIndex = fitnessValues.indexOf(Math.max(...fitnessValues));
+
+        if (!bestSolution || fitnessValues[maxFitnessIndex] > calculateFitness(bestSolution.tour, data)) {
+            setBestSolution({ tour: currentPopulation[maxFitnessIndex], fitness: fitnessValues[maxFitnessIndex] });
+        }
+    };
 
     function handleStep() {
         if (step === 0) {
@@ -64,6 +75,7 @@ function MainComponentGeneticAlgorithm() {
         if (step === 3 && children.length > 0) {
             setPopulation(mutatedChildren);
             setSelectedPopulation([]);
+            updateBestSolution(mutatedChildren);
         }
 
         setStep((prevStep) => (prevStep + 1) % 4);
@@ -113,6 +125,18 @@ function MainComponentGeneticAlgorithm() {
                     />
                 </div>
             </div>
+
+            {bestSolution && (
+                <div className="bg-white p-6 mt-4 rounded-lg shadow-md">
+                    <h2 className="text-xl font-semibold text-center text-green-600">Best Found Solution</h2>
+                    <div className="flex flex-wrap justify-center items-center text-gray-800 text-lg mt-2">
+                        {bestSolution.tour.map((city, index) => (
+                            <span key={index} className="mx-1">{city} {index !== bestSolution.tour.length - 1 && '→'}</span>
+                        ))}
+                    </div>
+                    <p className="text-center text-gray-700 mt-2">Fitness: {bestSolution.fitness.toFixed(4)}</p>
+                </div>
+            )}
         </div>
     );
 }
