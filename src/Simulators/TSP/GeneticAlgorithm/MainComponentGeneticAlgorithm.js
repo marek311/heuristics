@@ -82,12 +82,28 @@ function MainComponentGeneticAlgorithm() {
         setStep((prevStep) => (prevStep + 1) % 4);
     }
 
+    function handleReset() {
+        if (data) {
+            setPopulation(generateInitialPopulation(data, 4));
+        }
+        setFitnessValues([]);
+        setProbabilities([]);
+        setCumulativeProbabilities([]);
+        setRandomValues([]);
+        setSelectedPopulation([]);
+        setChildren([]);
+        setMutatedChildren([]);
+        setBestSolution(null);
+        setStep(0);
+    }
+
     return (
         <div className="text-gray-800 p-6">
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Genetic Algorithm"
                 handleStep={handleStep}
+                handleReset={handleReset}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
