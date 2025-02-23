@@ -78,7 +78,7 @@ function MainComponentGeneticAlgorithm() {
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-                    <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
+                    <h2 className={`text-xl font-semibold text-center ${step === 0 ? 'bg-green-500 text-white' : ''}`}>
                         Population
                     </h2>
                     <PopulationComponent
@@ -88,7 +88,7 @@ function MainComponentGeneticAlgorithm() {
                     />
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
-                    <h2 className={`text-xl font-semibold text-center ${step === 0 ? 'bg-green-500 text-white' : ''}`}>
+                    <h2 className={`text-xl font-semibold text-center ${step === 1 ? 'bg-green-500 text-white' : ''}`}>
                         Selection
                     </h2>
                     <RouletteWheel
