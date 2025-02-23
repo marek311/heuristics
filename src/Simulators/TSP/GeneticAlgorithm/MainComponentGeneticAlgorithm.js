@@ -6,7 +6,8 @@ import {
     generateUniqueChildren,
     selection,
     mutation,
-    calculateFitness
+    calculateFitness,
+    runAlgorithm
 } from './AlgorithmsGeneticAlgorithm';
 import SelectionComponent from "./SelectionComponent";
 import PopulationComponent from "./PopulationComponent";
@@ -82,6 +83,10 @@ function MainComponentGeneticAlgorithm() {
         setStep((prevStep) => (prevStep + 1) % 4);
     }
 
+    function handleRunAlgorithm() {
+        runAlgorithm(population, data, setPopulation, setFitnessValues, setBestSolution);
+    }
+
     function handleReset() {
         if (data) {
             setPopulation(generateInitialPopulation(data, 4));
@@ -103,6 +108,7 @@ function MainComponentGeneticAlgorithm() {
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Genetic Algorithm"
                 handleStep={handleStep}
+                handleRun={handleRunAlgorithm}
                 handleReset={handleReset}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">

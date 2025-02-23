@@ -156,3 +156,56 @@ export const mutation = (tour, mutationRate = 0.1) => {
 
     return mutatedTour;
 };
+
+export const runAlgorithm = (
+    population,
+    data,
+    setPopulation,
+    setFitnessValues,
+    setBestSolution
+) => {
+    if (!population || population.length === 0 || !data) return;
+
+    let currentPopulation = [...population];
+    let bestSolution = null;
+    let bestSolutionStagnantCount = 0;
+    const maxStagnantIterations = 15;
+    let generationCount = 0;
+
+    while (bestSolutionStagnantCount < maxStagnantIterations) {
+        generationCount++;
+
+        let fitnessValues = currentPopulation.map(tour => calculateFitness(tour, data));
+        let selectedPopulation = [];
+        selection(currentPopulation, data, 3, () => {}, () => {}, () => {}, (selected) => {
+            selectedPopulation = selected;
+        }, () => {});
+
+        let children = generateUniqueChildren(selectedPopulation);
+
+        let mutatedChildren = [...children];
+        while (mutatedChildren.length < 4) {
+            const randomIndex = Math.floor(Math.random() * mutatedChildren.length);
+            const mutatedChild = mutation(mutatedChildren[randomIndex], 1.0);
+            mutatedChildren.push(mutatedChild);
+        }
+
+        currentPopulation = mutatedChildren;
+
+        let newFitnessValues = currentPopulation.map(tour => calculateFitness(tour, data));
+        let maxFitnessIndex = newFitnessValues.indexOf(Math.max(...newFitnessValues));
+        let bestTour = currentPopulation[maxFitnessIndex];
+        let bestFitness = newFitnessValues[maxFitnessIndex];
+
+        if (!bestSolution || bestFitness > bestSolution.fitness) {
+            bestSolution = { tour: bestTour, fitness: bestFitness };
+            bestSolutionStagnantCount = 0;
+        } else {
+            bestSolutionStagnantCount++;
+        }
+    }
+
+    setPopulation(currentPopulation);
+    setFitnessValues(currentPopulation.map(tour => calculateFitness(tour, data)));
+    setBestSolution(bestSolution);
+};
