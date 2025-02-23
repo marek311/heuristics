@@ -84,7 +84,19 @@ function MainComponentGeneticAlgorithm() {
     }
 
     function handleRunAlgorithm() {
-        runAlgorithm(population, data, setPopulation, setFitnessValues, setBestSolution);
+        runAlgorithm(
+            population,
+            data,
+            setPopulation,
+            setFitnessValues,
+            setProbabilities,
+            setCumulativeProbabilities,
+            setSelectedPopulation,
+            setRandomValues,
+            setChildren,
+            setMutatedChildren,
+            setBestSolution
+        );
     }
 
     function handleReset() {
