@@ -12,6 +12,7 @@ import SelectionComponent from "./SelectionComponent";
 import PopulationComponent from "./PopulationComponent";
 import RouletteWheel from "./RouletteWheel";
 import CrossoverComponent from "./CrossoverComponent";
+import MutationComponent from "./MutationComponent";
 
 function MainComponentGeneticAlgorithm() {
     const navigate = useNavigate();
@@ -124,6 +125,14 @@ function MainComponentGeneticAlgorithm() {
                     </h2>
                     <CrossoverComponent
                         children={children}
+                    />
+                </div>
+                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                    <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
+                        Mutation
+                    </h2>
+                    <MutationComponent
+                        mutatedChildren={mutatedChildren}
                     />
                 </div>
             </div>
