@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
-import TSPDataGraph from '../../../InputDisplay/TSP/TSPDataGraph';
+import TSPDataGraph from '../../../InputHandling/InputDisplay/TSP/TSPDataGraph';
 import FlowchartTabuSearch from "./FlowchartTabuSearch";
 import TabuTable from './TabuTable';
 import SolutionTSPTabuSearch from "./SolutionTabuSearch";

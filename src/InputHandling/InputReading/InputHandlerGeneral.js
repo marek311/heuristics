@@ -1,10 +1,10 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import Colors from '../Main/Colors';
+import Colors from '../../Main/Colors';
 import InputHandlerKP from './InputHandlerKP';
 import InputHandlerTSP from './InputHandlerTSP';
-import KP_DefaultData from './DefaultData/KP_DefaultData';
-import TSP_DefaultData from './DefaultData/TSP_DefaultData';
+import KP_DefaultData from '../DefaultData/KP_DefaultData';
+import TSP_DefaultData from '../DefaultData/TSP_DefaultData';
 
 function InputHandlerGeneral() {
     const location = useLocation();

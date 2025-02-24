@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import KPDataEdit from './KPDataEdit';
-import Colors from '../../Main/Colors';
+import Colors from '../../../Main/Colors';
 
 function KPDataPage() {
     const location = useLocation();

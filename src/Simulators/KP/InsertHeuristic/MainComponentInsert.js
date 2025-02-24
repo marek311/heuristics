@@ -7,7 +7,7 @@ import {
     performRun
 } from "./AlgorithmsInsert";
 import Header from '../../Components/Header';
-import KPDataDisplay from '../../../InputDisplay/KP/KPDataDisplay';
+import KPDataDisplay from '../../../InputHandling/InputDisplay/KP/KPDataDisplay';
 
 function MainComponentInsert() {
 

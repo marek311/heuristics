@@ -1,5 +1,5 @@
-import KP_DefaultData from './DefaultData/KP_DefaultData';
-import Colors from '../Main/Colors';
+import KP_DefaultData from '../DefaultData/KP_DefaultData';
+import Colors from '../../Main/Colors';
 
 function InputHandlerKP({ data, setData }) {
     const defaultData = KP_DefaultData();
