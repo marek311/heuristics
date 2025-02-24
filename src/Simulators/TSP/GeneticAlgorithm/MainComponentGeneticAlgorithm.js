@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
+import PopulationComponent from "./PopulationComponent";
+import SelectionComponent from "./SelectionComponent";
+import RouletteWheel from "./RouletteWheel";
+import CrossoverComponent from "./CrossoverComponent";
+import MutationComponent from "./MutationComponent";
 import {
     generateInitialPopulation,
     generateUniqueChildren,
@@ -9,11 +14,6 @@ import {
     calculateFitness,
     runAlgorithm
 } from './AlgorithmsGeneticAlgorithm';
-import SelectionComponent from "./SelectionComponent";
-import PopulationComponent from "./PopulationComponent";
-import RouletteWheel from "./RouletteWheel";
-import CrossoverComponent from "./CrossoverComponent";
-import MutationComponent from "./MutationComponent";
 
 function MainComponentGeneticAlgorithm() {
     const navigate = useNavigate();
