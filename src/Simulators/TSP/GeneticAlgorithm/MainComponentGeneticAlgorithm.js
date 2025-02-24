@@ -63,7 +63,8 @@ function MainComponentGeneticAlgorithm() {
         }
 
         if (step === 2) {
-            let updatedChildren = [...children];
+            let newChildrenOnly = children.map((entry) => entry.child);
+            let updatedChildren = [...newChildrenOnly];
 
             while (updatedChildren.length < 4) {
                 const randomIndex = Math.floor(Math.random() * updatedChildren.length);
