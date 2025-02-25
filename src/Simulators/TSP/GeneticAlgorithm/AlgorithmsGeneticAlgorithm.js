@@ -222,12 +222,13 @@ export const runAlgorithm = (
         }
     }
 
+    const zeros = [0.00, 0.00, 0.00];
     setPopulation(population);
     setFitnessValues(fitnessValues);
     setProbabilities(probabilities);
     setCumulativeProbabilities(cumulativeProbabilities);
     setSelectedPopulation(selectedPopulation);
-    setRandomValues(randomValues);
+    setRandomValues(zeros);
     setChildren(children);
     setMutatedChildren(mutatedChildren);
     setBestSolution(bestSolution);
