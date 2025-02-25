@@ -200,7 +200,7 @@ export const runAlgorithm = (
 
         children = generateUniqueChildren(selectedPopulation);
 
-        mutatedChildren = [...children];
+        mutatedChildren = [...children.map((entry) => entry.child)];
         while (mutatedChildren.length < 4) {
             const randomIndex = Math.floor(Math.random() * mutatedChildren.length);
             const mutatedChild = mutation(mutatedChildren[randomIndex], 1.0);
