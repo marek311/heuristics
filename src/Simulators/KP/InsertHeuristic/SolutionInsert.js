@@ -2,12 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
 function SolutionInsert({
-                               currentWeight,
-                               currentPrice,
-                               currentIndex,
-                               items,
-                               binarySolution
-                           }) {
+                            currentWeight,
+                            currentPrice,
+                            currentIndex,
+                            items,
+                            binarySolution
+                       })
+{
     const graphRef = useRef();
 
     useEffect(() => {
@@ -56,12 +57,12 @@ function SolutionInsert({
 
     return (
         <div className="flex-1 p-6 bg-white rounded-lg shadow-lg mr-2">
-            <div>
-                <h2 className="text-xl font-semibold text-gray-800">Items Selected for the Knapsack</h2>
-                <div className="text-sm text-gray-600">
-                    <p><strong>Current Weight:</strong> {currentWeight}</p>
-                    <p><strong>Current Price:</strong> {currentPrice}</p>
-                    <p><strong>Iteration:</strong> {currentIndex}</p>
+            <div className="text-center">
+                <h2 className="text-xl font-semibold">Items Selected for the Knapsack</h2>
+                <div className="text-sm flex justify-between mt-2">
+                    <p>Current Weight: {currentWeight}</p>
+                    <p>Current Price: {currentPrice}</p>
+                    <p>Iteration: {currentIndex}</p>
                 </div>
             </div>
             <div className="flex justify-center items-center mt-6">
