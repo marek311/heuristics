@@ -63,11 +63,8 @@ function SolutionExchange({ exchangeHistory }) {
     }, [exchangeHistory]);
 
     return (
-        <div
-            className="flex-1 p-4 bg-white rounded-lg mr-2 overflow-y-auto"
-            style={{height: '100%'}}
-        >
-            <h2 className="mb-4 font-semibold">Performed Exchanges</h2>
+        <div className="flex-1 p-4 bg-white rounded-lg mr-2 overflow-y-auto" style={{height: '100%'}}>
+            <h2 className="mb-4 font-bold">Performed Exchanges</h2>
             <svg ref={graphRef} className="w-full"></svg>
         </div>
     );
