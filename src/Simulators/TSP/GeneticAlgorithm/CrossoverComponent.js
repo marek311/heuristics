@@ -52,7 +52,7 @@ const CrossoverComponent = ({ children }) => {
                     .attr("y", yPosition + boxSize / 2)
                     .attr("text-anchor", "middle")
                     .attr("dominant-baseline", "middle")
-                    .attr("fill", "black")
+                    .attr("fill", "white")
                     .attr("font-size", "12px")
                     .text(d => d);
 
