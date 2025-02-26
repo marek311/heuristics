@@ -24,13 +24,13 @@ function MainComponentInsert() {
         efficiency: parseFloat(prices[index]) / parseFloat(weight),
         originalIndex: index
     }));
-
     const [currentIndex, setCurrentIndex] = useState(0);
     const [currentWeight, setCurrentWeight] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
     const [selectedItems, setSelectedItems] = useState([]);
     const [itemStatus, setItemStatus] = useState(new Array(items.length).fill(null));
     const [binarySolution, setBinarySolution] = useState(new Array(weights.length).fill(0));
+    const [highlightLinks, setHighlightLinks] = useState([]);
 
     items.sort((a, b) => b.efficiency - a.efficiency);
 
@@ -43,9 +43,9 @@ function MainComponentInsert() {
             selectedItems,
             itemStatus,
             binarySolution,
-            capacity
+            capacity,
+            setHighlightLinks
         );
-
         setCurrentIndex(result.currentIndex);
         setCurrentWeight(result.currentWeight);
         setCurrentPrice(result.currentPrice);
@@ -63,9 +63,9 @@ function MainComponentInsert() {
             selectedItems,
             itemStatus,
             binarySolution,
-            capacity
+            capacity,
+            setHighlightLinks
         );
-
         setCurrentIndex(result.currentIndex);
         setCurrentWeight(result.currentWeight);
         setCurrentPrice(result.currentPrice);
@@ -113,6 +113,7 @@ function MainComponentInsert() {
                 <FlowchartKnapsackInsert
                     items={items}
                     currentIndex={currentIndex}
+                    highlightLinks={highlightLinks}
                 />
             </div>
         </div>
