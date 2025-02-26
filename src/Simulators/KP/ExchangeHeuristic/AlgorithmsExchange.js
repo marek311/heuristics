@@ -59,7 +59,14 @@ export const performIteration = (
         );
     }
     if (strategy === 'firstFit') {
-
+        highlightedLinks = [
+            { source: 'inBackpack', target: 'notInBackpack' },
+            { source: 'notInBackpack', target: 'admissible' },
+            { source: 'admissible', target: 'improving' },
+            { source: 'improving', target: 'exchange' },
+            { source: 'exchange', target: 'solution' },
+        ];
+        setHighlightLinks(highlightedLinks);
 
         return performIterationFirstFit(
             currentBackpack,
