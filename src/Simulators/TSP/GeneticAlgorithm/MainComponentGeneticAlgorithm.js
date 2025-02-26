@@ -167,6 +167,7 @@ function MainComponentGeneticAlgorithm() {
                         Mutation
                     </h2>
                     <MutationComponent
+                        children={children}
                         mutatedChildren={mutatedChildren}
                     />
                 </div>

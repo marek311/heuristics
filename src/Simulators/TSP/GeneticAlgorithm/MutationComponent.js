@@ -1,11 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-const MutationComponent = ({ mutatedChildren }) => {
+const MutationComponent = ({ children, mutatedChildren }) => {
     const svgRef = useRef();
+    let newChildrenOnly = children.map((entry) => entry.child);
 
     useEffect(() => {
-        if (!mutatedChildren || mutatedChildren.length === 0) return;
+        if (!mutatedChildren || mutatedChildren.length === 0 || !children || children.length === 0) return;
 
         const boxSize = 30;
         const gap = 5;
@@ -21,26 +22,27 @@ const MutationComponent = ({ mutatedChildren }) => {
 
         svg.selectAll("*").remove();
 
-        mutatedChildren.forEach((tour, rowIndex) => {
+        mutatedChildren.forEach((mutatedTour, rowIndex) => {
+            const originalTour = newChildrenOnly[rowIndex] || [];
             const yOffset = rowIndex * (boxSize + rowSpacing);
             const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
 
             const offsetX = 10;
 
             rowGroup.selectAll("rect")
-                .data(tour)
+                .data(mutatedTour)
                 .enter()
                 .append("rect")
                 .attr("x", (_, i) => offsetX + i * (boxSize + gap))
                 .attr("y", 0)
                 .attr("width", boxSize)
                 .attr("height", boxSize)
-                .attr("fill", "#f44336")
+                .attr("fill", (d, i) => (originalTour[i] !== d ? "#ffcc00" : "#1e88e5"))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1);
 
             rowGroup.selectAll("text.city")
-                .data(tour)
+                .data(mutatedTour)
                 .enter()
                 .append("text")
                 .attr("x", (_, i) => offsetX + i * (boxSize + gap) + boxSize / 2)
