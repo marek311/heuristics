@@ -84,11 +84,11 @@ function MainComponentExchange() {
             generateBinaryVector,
             strategy
         );
-
         setCurrentBackpack(result.updatedBackpack);
         setCurrentNotBackpack(result.updatedNotBackpack);
         setCurrentWeight(result.updatedWeight);
         setCurrentPrice(result.updatedPrice);
+
         if (result.exchange) {
             setExchangeHistory(prev => [...prev, result.exchange]);
         } else {
@@ -108,7 +108,6 @@ function MainComponentExchange() {
             generateBinaryVector,
             strategy
         );
-
         setCurrentBackpack(result.updatedBackpack);
         setCurrentNotBackpack(result.updatedNotBackpack);
         setCurrentWeight(result.updatedWeight);
