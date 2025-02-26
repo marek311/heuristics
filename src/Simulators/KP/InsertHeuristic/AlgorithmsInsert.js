@@ -6,7 +6,8 @@ export const performIteration = (
     selectedItems,
     itemStatus,
     binarySolution,
-    capacity
+    capacity,
+    setHighlightLinks
 ) => {
     if (currentIndex >= items.length) {
         return {
@@ -25,15 +26,30 @@ export const performIteration = (
     const newBinarySolution = [...binarySolution];
     const newSelectedItems = [...selectedItems];
 
+    setHighlightLinks([]);
+    let highlightedLinks = [];
+
     if (currentWeight + item.weight <= capacity) {
         newSelectedItems.push(item);
         currentWeight += item.weight;
         currentPrice += item.price;
         newItemStatus[currentIndex] = true;
         newBinarySolution[item.originalIndex] = 1;
+
+        highlightedLinks = [
+            { source: 'load', target: 'check' },
+            { source: 'check', target: 'add' },
+            { source: 'add', target: 'next' },
+        ];
     } else {
+        highlightedLinks = [
+            { source: 'load', target: 'check' },
+            { source: 'check', target: 'next' }
+        ];
         newItemStatus[currentIndex] = false;
     }
+
+    setHighlightLinks(highlightedLinks);
 
     return {
         currentIndex: currentIndex + 1,
@@ -54,7 +70,8 @@ export const performRun = (
     selectedItems,
     itemStatus,
     binarySolution,
-    capacity
+    capacity,
+    setHighlightLinks
 ) => {
 
     let newCurrentWeight = currentWeight;
@@ -77,6 +94,8 @@ export const performRun = (
         }
         index++;
     }
+
+    setHighlightLinks([]);
 
     return {
         currentIndex: items.length,
