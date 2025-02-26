@@ -37,7 +37,7 @@ const MutationComponent = ({ children, mutatedChildren }) => {
                 .attr("y", 0)
                 .attr("width", boxSize)
                 .attr("height", boxSize)
-                .attr("fill", (d, i) => (originalTour[i] !== d ? "#ffcc00" : "#1e88e5"))
+                .attr("fill", (d, i) => (originalTour[i] !== d ? "#ffcc00" : "#4caf50"))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1);
 
@@ -52,13 +52,6 @@ const MutationComponent = ({ children, mutatedChildren }) => {
                 .attr("fill", "white")
                 .attr("font-size", "12px")
                 .text(d => d);
-
-            rowGroup.append("text")
-                .attr("x", offsetX)
-                .attr("y", boxSize + 20)
-                .attr("fill", "black")
-                .attr("font-size", "14px")
-                .text(`Mutated Child ${rowIndex + 1}`);
         });
 
     }, [mutatedChildren]);
