@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import Header from '../../Components/Header';
+import KPDataDisplay from "../../../InputHandling/InputDisplay/KP/KPDataDisplay";
 import SolutionExchange from './SolutionExchange';
 import FlowchartKnapsackExchange from './FlowchartExchange.js';
 import {
@@ -7,8 +9,6 @@ import {
     performIteration,
     performRun
 } from "./AlgorithmsExchange";
-import Header from '../../Components/Header';
-import KPDataDisplay from "../../../InputHandling/InputDisplay/KP/KPDataDisplay";
 
 function MainComponentExchange() {
 
@@ -24,6 +24,12 @@ function MainComponentExchange() {
         price: parseFloat(prices[index]),
         originalIndex: index
     }));
+    const [currentBackpack, setCurrentBackpack] = useState([]);
+    const [currentWeight, setCurrentWeight] = useState(0);
+    const [currentPrice, setCurrentPrice] = useState(0);
+    const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
+    const [exchangeHistory, setExchangeHistory] = useState([]);
+    const [isCompleted, setIsCompleted] = useState(false);
 
     const [strategy, setStrategy] = useState('bestFit');
     useEffect(() => {
@@ -34,13 +40,6 @@ function MainComponentExchange() {
             setStrategy('firstFit');
         }
     }, [location.pathname]);
-
-    const [currentBackpack, setCurrentBackpack] = useState([]);
-    const [currentWeight, setCurrentWeight] = useState(0);
-    const [currentPrice, setCurrentPrice] = useState(0);
-    const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
-    const [exchangeHistory, setExchangeHistory] = useState([]);
-    const [isCompleted, setIsCompleted] = useState(false);
 
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
@@ -56,7 +55,6 @@ function MainComponentExchange() {
             capacity,
             generateBinaryVector
         );
-
         setCurrentBackpack(newBackpack);
         setCurrentWeight(totalWeight);
         setCurrentPrice(totalPrice);
