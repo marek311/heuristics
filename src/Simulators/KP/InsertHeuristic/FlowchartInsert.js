@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function FlowchartInsert({ items, currentIndex, highlightLinks }) {
+function FlowchartInsert({ highlightLinks }) {
     const svgRef = useRef();
 
     useEffect(() => {
