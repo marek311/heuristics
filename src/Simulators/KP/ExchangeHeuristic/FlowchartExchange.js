@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function FlowchartExchange({ strategy }) {
+function FlowchartExchange({ strategy, highlightLinks = [] }) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -62,14 +62,14 @@ function FlowchartExchange({ strategy }) {
         const nodes = [...commonNodes, ...strategyNodes];
         const links = [...commonLinks, ...strategyLinks];
 
-        const linkLines = svg.selectAll('line')
+        svg.selectAll('line')
             .data(links)
             .join('line')
             .attr('x1', d => nodes.find(n => n.id === d.source).x)
             .attr('y1', d => nodes.find(n => n.id === d.source).y)
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
-            .attr('stroke', '#333')
+            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
             .attr('stroke-width', 2);
 
         svg.selectAll('text.link-label')
@@ -135,7 +135,7 @@ function FlowchartExchange({ strategy }) {
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
-    }, [strategy]);
+    }, [strategy, highlightLinks]);
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg shadow-md">

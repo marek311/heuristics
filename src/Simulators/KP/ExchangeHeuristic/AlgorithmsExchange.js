@@ -32,8 +32,11 @@ export const performIteration = (
     currentPrice,
     capacity,
     generateBinaryVector,
-    strategy
+    strategy,
+    setHighlightLinks
 ) => {
+    setHighlightLinks([]);
+
     if (strategy === 'bestFit') {
         return performIterationBestFit(
             currentBackpack,
@@ -180,8 +183,11 @@ export const performRun = (
     currentPrice,
     capacity,
     generateBinaryVector,
-    strategy
+    strategy,
+    setHighlightLinks
 ) => {
+    setHighlightLinks([]);
+
     if (strategy === 'bestFit') {
         return performRunBestFit(
             currentBackpack,

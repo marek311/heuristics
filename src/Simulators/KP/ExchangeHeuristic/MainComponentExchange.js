@@ -30,6 +30,7 @@ function MainComponentExchange() {
     const [currentNotBackpack, setCurrentNotBackpack] = useState([...items]);
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
+    const [highlightLinks, setHighlightLinks] = useState([]);
 
     const [strategy, setStrategy] = useState('bestFit');
     useEffect(() => {
@@ -82,7 +83,8 @@ function MainComponentExchange() {
             currentPrice,
             capacity,
             generateBinaryVector,
-            strategy
+            strategy,
+            setHighlightLinks
         );
         setCurrentBackpack(result.updatedBackpack);
         setCurrentNotBackpack(result.updatedNotBackpack);
@@ -106,7 +108,8 @@ function MainComponentExchange() {
             currentPrice,
             capacity,
             generateBinaryVector,
-            strategy
+            strategy,
+            setHighlightLinks
         );
         setCurrentBackpack(result.updatedBackpack);
         setCurrentNotBackpack(result.updatedNotBackpack);
@@ -156,6 +159,7 @@ function MainComponentExchange() {
             />
             <FlowchartKnapsackExchange
                 strategy={strategy}
+                highlightLinks={highlightLinks}
             />
         </div>
     </div>
