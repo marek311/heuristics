@@ -104,23 +104,10 @@ function FlowchartInsert({ items, currentIndex }) {
     }, []);
 
     useEffect(() => {
-        const svg = d3.select(svgRef.current);
 
+        const svg = d3.select(svgRef.current);
         svg.selectAll('g.info-item').remove();
 
-        const currentItem = items[currentIndex];
-        if (currentItem) {
-            const itemInfoGroup = svg.append('g').attr('class', 'info-item');
-            itemInfoGroup.selectAll('text')
-                .data([`Price: ${currentItem.price}`, `Weight: ${currentItem.weight}`])
-                .join('text')
-                .attr('x', 320)
-                .attr('y', (_, i) => 100 + i * 20)
-                .attr('fill', '#000')
-                .attr('text-anchor', 'start')
-                .style('font-size', '14px')
-                .text(d => d);
-        }
     }, [currentIndex, items]);
 
     return (
