@@ -36,8 +36,19 @@ export const performIteration = (
     setHighlightLinks
 ) => {
     setHighlightLinks([]);
+    let highlightedLinks = [];
 
     if (strategy === 'bestFit') {
+        highlightedLinks = [
+            { source: 'inBackpack', target: 'notInBackpack' },
+            { source: 'notInBackpack', target: 'admissible' },
+            { source: 'admissible', target: 'improving' },
+            { source: 'improving', target: 'bestQuestion' },
+            { source: 'bestQuestion', target: 'next' },
+            { source: 'next', target: 'solution' },
+        ];
+        setHighlightLinks(highlightedLinks);
+
         return performIterationBestFit(
             currentBackpack,
             currentNotBackpack,
@@ -48,6 +59,8 @@ export const performIteration = (
         );
     }
     if (strategy === 'firstFit') {
+
+
         return performIterationFirstFit(
             currentBackpack,
             currentNotBackpack,
