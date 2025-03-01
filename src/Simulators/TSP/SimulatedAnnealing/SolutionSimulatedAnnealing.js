@@ -146,7 +146,7 @@ function SolutionSimulatedAnnealing({ currentCost, proposedCost, bestCost, previ
                 <div>Iteration: {iteration}</div>
                 <svg ref={svgRef}></svg>
                 <div className="p-2 bg-gray-200 rounded-lg mt-2">
-                    <div className="mb-2 p-2 bg-gray-400 rounded-lg w-[350px] h-[85px]">
+                    <div className="mb-2 p-2 bg-gray-400 rounded-lg w-[340px] h-[85px]">
                         <strong>Status: </strong>{solutionStatus}
                     </div>
                     <div className="mt-2 p-2 bg-gray-400 rounded-lg">
