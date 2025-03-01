@@ -5,7 +5,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 400;
+        const width = 350;
         const height = 600;
         const svg = d3.select(svgRef.current)
             .attr('width', width)
@@ -15,14 +15,14 @@ function FlowchartTabuSearch({ highlightLinks }) {
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'current', text: 'Current Solution', x: 150, y: 40, shape: 'rect', color: '#1e88e5' },
-            { id: 'neighbor', text: 'Find Neighbor Solutions', x: 150, y: 120, shape: 'oval', color: '#4caf50' },
-            { id: 'bestNeighbor', text: 'Find Best Neighbor', x: 150, y: 200, shape: 'oval', color: '#4caf50' },
-            { id: 'tabuCheck', text: 'Tabu Swap?', x: 150, y: 290, shape: 'diamond', color: '#ffa533' },
-            { id: 'aspirationCheck', text: 'Aspiration Criteria?', x: 300, y: 350, shape: 'diamond', color: '#ffa533' },
-            { id: 'delete', text: 'Delete Swap', x: 300, y: 180, shape: 'oval', color: '#4caf50' },
-            { id: 'newSolution', text: 'New Solution', x: 150, y: 430, shape: 'rect', color: '#1e88e5' },
-            { id: 'newIteration', text: 'New Iteration', x: 150, y: 510, shape: 'rect', color: '#1e88e5' },
+            { id: 'current', text: 'Current Solution', x: 100, y: 40, shape: 'rect', color: '#1e88e5' },
+            { id: 'neighbor', text: 'Find Neighbor Solutions', x: 100, y: 120, shape: 'oval', color: '#4caf50' },
+            { id: 'bestNeighbor', text: 'Find Best Neighbor', x: 100, y: 200, shape: 'oval', color: '#4caf50' },
+            { id: 'tabuCheck', text: 'Tabu Swap?', x: 100, y: 290, shape: 'diamond', color: '#ffa533' },
+            { id: 'aspirationCheck', text: 'Aspiration Criteria?', x: 250, y: 350, shape: 'diamond', color: '#ffa533' },
+            { id: 'delete', text: 'Delete Swap', x: 250, y: 180, shape: 'oval', color: '#4caf50' },
+            { id: 'newSolution', text: 'New Solution', x: 100, y: 430, shape: 'rect', color: '#1e88e5' },
+            { id: 'newIteration', text: 'New Iteration', x: 100, y: 510, shape: 'rect', color: '#1e88e5' },
         ];
 
         const links = [
