@@ -36,7 +36,7 @@ const PopulationComponent = ({ population, fitnessValues, bestSolution, step }) 
         const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
 
         const offsetX = 10;
-        const boxColor = isBest ? "#4caf50" : "#1e88e5";
+        const boxColor = isBest ? "#f73e3e" : "#1e88e5";
 
         rowGroup.selectAll("rect")
             .data(tour)
