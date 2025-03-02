@@ -39,7 +39,7 @@ const CrossoverComponent = ({ children }) => {
                     .attr("y", yPosition)
                     .attr("width", boxSize)
                     .attr("height", boxSize)
-                    .attr("fill", label === "child" ? "#1e88e5" : "#ffcc00")
+                    .attr("fill", label === "child" ? "#ffcc00" : "#4caf50")
                     .attr("stroke", "black")
                     .attr("stroke-width", 1);
 

@@ -37,7 +37,7 @@ const MutationComponent = ({ children, mutatedChildren }) => {
                 .attr("y", 0)
                 .attr("width", boxSize)
                 .attr("height", boxSize)
-                .attr("fill", (d, i) => (originalTour[i] !== d ? "#ffcc00" : "#4caf50"))
+                .attr("fill", (d, i) => (originalTour[i] !== d ? "#1e88e5" : "#ffcc00"))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1);
 
