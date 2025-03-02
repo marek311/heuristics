@@ -8,7 +8,6 @@ import CrossoverComponent from "./CrossoverComponent";
 import MutationComponent from "./MutationComponent";
 import {
     generateInitialPopulation,
-    calculateFitness,
     handleStep,
     runAlgorithm
 } from './AlgorithmsGeneticAlgorithm';
@@ -34,15 +33,6 @@ function MainComponentGeneticAlgorithm() {
             setPopulation(generateInitialPopulation(data, 4,setFitnessValues));
         }
     }, [data]);
-
-    const updateBestSolution = (currentPopulation) => {
-        const fitnessValues = currentPopulation.map(tour => calculateFitness(tour, data));
-        const maxFitnessIndex = fitnessValues.indexOf(Math.max(...fitnessValues));
-
-        if (!bestSolution || fitnessValues[maxFitnessIndex] > calculateFitness(bestSolution.tour, data)) {
-            setBestSolution({ tour: currentPopulation[maxFitnessIndex], fitness: fitnessValues[maxFitnessIndex] });
-        }
-    };
 
     function handleIteration() {
         handleStep(
