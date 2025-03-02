@@ -66,10 +66,15 @@ function MainComponentGeneticAlgorithm() {
             let newChildrenOnly = children.map((entry) => entry.child);
             let updatedChildren = [...newChildrenOnly];
 
-            while (updatedChildren.length < 4) {
-                const randomIndex = Math.floor(Math.random() * updatedChildren.length);
-                const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
-                updatedChildren.push(mutatedChild);
+            if(updatedChildren.length < 4) {
+                while (updatedChildren.length < 4) {
+                    const randomIndex = Math.floor(Math.random() * updatedChildren.length);
+                    const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
+                    updatedChildren.push(mutatedChild);
+                }
+            }
+            else {
+                updatedChildren = updatedChildren.map((child) => mutation(child, 0.2));
             }
 
             setMutatedChildren(updatedChildren);
