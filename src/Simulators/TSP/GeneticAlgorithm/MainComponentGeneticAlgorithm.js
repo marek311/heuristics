@@ -73,9 +73,8 @@ function MainComponentGeneticAlgorithm() {
 
     function handleReset() {
         if (data) {
-            setPopulation(generateInitialPopulation(data, 4));
+            setPopulation(generateInitialPopulation(data, 4, setFitnessValues));
         }
-        setFitnessValues([]);
         setProbabilities([]);
         setCumulativeProbabilities([]);
         setRandomValues([]);
