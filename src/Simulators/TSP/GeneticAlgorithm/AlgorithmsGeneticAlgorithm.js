@@ -160,7 +160,7 @@ export const mutation = (tour, mutationRate = 0.1) => {
     return mutatedTour;
 };
 
-export const handleStep= (
+export const handleStep = (
     step,
     setStep,
     population,
@@ -197,14 +197,13 @@ export const handleStep= (
         let newChildrenOnly = children.map((entry) => entry.child);
         let updatedChildren = [...newChildrenOnly];
 
-        if(updatedChildren.length < 4) {
+        if (updatedChildren.length < 4) {
             while (updatedChildren.length < 4) {
                 const randomIndex = Math.floor(Math.random() * updatedChildren.length);
                 const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
                 updatedChildren.push(mutatedChild);
             }
-        }
-        else {
+        } else {
             updatedChildren = updatedChildren.map((child) => mutation(child, 0.2));
         }
 
@@ -215,8 +214,23 @@ export const handleStep= (
         setPopulation(mutatedChildren);
         const fitnessValues = mutatedChildren.map(tour => calculateFitness(tour, data));
         setFitnessValues(fitnessValues);
+
+        const bestInCurrentGeneration = mutatedChildren.reduce((best, tour, index) => {
+            const fitness = fitnessValues[index];
+            if (fitness > best.fitness) {
+                return { tour, fitness };
+            }
+            return best;
+        }, { tour: null, fitness: -Infinity });
+
+        setBestSolution(prevBest => {
+            if (!prevBest || bestInCurrentGeneration.fitness > prevBest.fitness) {
+                return bestInCurrentGeneration;
+            }
+            return prevBest;
+        });
+
         setSelectedPopulation([]);
-        //updateBestSolution(mutatedChildren);
     }
 
     let index =  (step + 1) % 4;
