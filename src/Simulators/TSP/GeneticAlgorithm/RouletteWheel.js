@@ -66,7 +66,7 @@ function RouletteWheelVisualization({ fitnessValues, randomValues }) {
                 .text(randomValue.toFixed(4));
         });
 
-    }, [fitnessValues, randomValues]);
+    }, [randomValues]);
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
