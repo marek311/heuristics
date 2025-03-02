@@ -82,6 +82,8 @@ function MainComponentGeneticAlgorithm() {
 
         if (step === 3 && children.length > 0) {
             setPopulation(mutatedChildren);
+            const fitnessValues = mutatedChildren.map(tour => calculateFitness(tour, data));
+            setFitnessValues(fitnessValues);
             setSelectedPopulation([]);
             updateBestSolution(mutatedChildren);
         }
