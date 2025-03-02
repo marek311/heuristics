@@ -8,11 +8,9 @@ import CrossoverComponent from "./CrossoverComponent";
 import MutationComponent from "./MutationComponent";
 import {
     generateInitialPopulation,
-    generateUniqueChildren,
-    selection,
-    mutation,
     calculateFitness,
-    runAlgorithm
+    runAlgorithm,
+    handleStep
 } from './AlgorithmsGeneticAlgorithm';
 
 function MainComponentGeneticAlgorithm() {
@@ -46,49 +44,25 @@ function MainComponentGeneticAlgorithm() {
         }
     };
 
-    function handleStep() {
-        if (step === 0) {
-            selection(
-                population, data, 3,
-                setFitnessValues,
-                setProbabilities,
-                setCumulativeProbabilities,
-                setSelectedPopulation,
-                setRandomValues
-            );
-        }
-
-        if (step === 1) {
-            setChildren(generateUniqueChildren(selectedPopulation));
-        }
-
-        if (step === 2) {
-            let newChildrenOnly = children.map((entry) => entry.child);
-            let updatedChildren = [...newChildrenOnly];
-
-            if(updatedChildren.length < 4) {
-                while (updatedChildren.length < 4) {
-                    const randomIndex = Math.floor(Math.random() * updatedChildren.length);
-                    const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
-                    updatedChildren.push(mutatedChild);
-                }
-            }
-            else {
-                updatedChildren = updatedChildren.map((child) => mutation(child, 0.2));
-            }
-
-            setMutatedChildren(updatedChildren);
-        }
-
-        if (step === 3 && children.length > 0) {
-            setPopulation(mutatedChildren);
-            const fitnessValues = mutatedChildren.map(tour => calculateFitness(tour, data));
-            setFitnessValues(fitnessValues);
-            setSelectedPopulation([]);
-            updateBestSolution(mutatedChildren);
-        }
-
-        setStep((prevStep) => (prevStep + 1) % 4);
+    function handleIteration() {
+        handleStep(
+            step,
+            setStep,
+            population,
+            selectedPopulation,
+            children,
+            mutatedChildren,
+            data,
+            setFitnessValues,
+            setProbabilities,
+            setCumulativeProbabilities,
+            setSelectedPopulation,
+            setRandomValues,
+            setChildren,
+            setMutatedChildren,
+            setPopulation,
+            setBestSolution
+        );
     }
 
     function handleRunAlgorithm() {
@@ -127,7 +101,7 @@ function MainComponentGeneticAlgorithm() {
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="TSP Simulation Using Genetic Algorithm"
-                handleStep={handleStep}
+                handleStep={handleIteration}
                 handleRun={handleRunAlgorithm}
                 handleReset={handleReset}
             />
