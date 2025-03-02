@@ -1,12 +1,11 @@
 export const generateInitialPopulation = (data, size) => {
-    if (!data || !data.edges || !data.cityCount || !data.startingCity) return [];
+    if (!data || !data.edges || !data.cityCount) return [];
 
-    const startingCity = data.startingCity;
-    const cities = Array.from(new Set(data.edges.flatMap(edge => [edge.city1, edge.city2])))
-        .filter(city => city !== startingCity);
+    const cities = Array.from(new Set(data.edges.flatMap(edge => [edge.city1, edge.city2])));
+    const startingCity = data.startingCity || cities[0];
 
     const generateRandomTour = () => {
-        const shuffled = [...cities].sort(() => Math.random() - 0.5);
+        const shuffled = [...cities].filter(city => city !== startingCity).sort(() => Math.random() - 0.5);
         return [startingCity, ...shuffled, startingCity];
     };
 
