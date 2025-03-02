@@ -7,6 +7,7 @@ import RouletteWheel from "./RouletteWheel";
 import CrossoverComponent from "./CrossoverComponent";
 import MutationComponent from "./MutationComponent";
 import {
+    calculateFitness,
     generateInitialPopulation,
     handleStep,
     runAlgorithm
@@ -30,7 +31,12 @@ function MainComponentGeneticAlgorithm() {
 
     useEffect(() => {
         if (data) {
-            setPopulation(generateInitialPopulation(data, 4,setFitnessValues));
+            const initialPopulation = generateInitialPopulation(data, 4, setFitnessValues);
+            setPopulation(initialPopulation);
+            const fitnessValues = initialPopulation.map(tour => calculateFitness(tour, data));
+            const maxFitnessIndex = fitnessValues.indexOf(Math.max(...fitnessValues));
+            const bestInitialSolution = { tour: initialPopulation[maxFitnessIndex], fitness: fitnessValues[maxFitnessIndex] };
+            setBestSolution(bestInitialSolution);
         }
     }, [data]);
 
