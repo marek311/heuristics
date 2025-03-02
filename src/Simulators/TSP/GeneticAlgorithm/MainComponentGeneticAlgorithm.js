@@ -9,8 +9,8 @@ import MutationComponent from "./MutationComponent";
 import {
     generateInitialPopulation,
     calculateFitness,
-    runAlgorithm,
-    handleStep
+    handleStep,
+    runAlgorithm
 } from './AlgorithmsGeneticAlgorithm';
 
 function MainComponentGeneticAlgorithm() {
