@@ -33,7 +33,7 @@ function MainComponentGeneticAlgorithm() {
 
     useEffect(() => {
         if (data) {
-            setPopulation(generateInitialPopulation(data, 4));
+            setPopulation(generateInitialPopulation(data, 4,setFitnessValues));
         }
     }, [data]);
 

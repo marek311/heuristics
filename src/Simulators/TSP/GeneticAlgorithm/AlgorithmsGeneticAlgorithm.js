@@ -1,4 +1,4 @@
-export const generateInitialPopulation = (data, size) => {
+export const generateInitialPopulation = (data, size, setFitnessValues) => {
     if (!data || !data.edges || !data.cityCount) return [];
 
     const cities = Array.from(new Set(data.edges.flatMap(edge => [edge.city1, edge.city2])));
@@ -14,7 +14,11 @@ export const generateInitialPopulation = (data, size) => {
         uniqueTours.add(JSON.stringify(generateRandomTour()));
     }
 
-    return Array.from(uniqueTours).map(tour => JSON.parse(tour));
+    const population = Array.from(uniqueTours).map(tour => JSON.parse(tour));
+    const fitnessValues = population.map(tour => calculateFitness(tour, data));
+    setFitnessValues(fitnessValues);
+
+    return population;
 };
 
 export const calculateFitness = (tour, data) => {
