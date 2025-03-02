@@ -65,7 +65,7 @@ const PopulationComponent = ({ population, fitnessValues, bestSolution, step }) 
         rowGroup.append("text")
             .attr("x", offsetX)
             .attr("y", boxSize + 20)
-            .attr("fill", isBest ? "green" : "black")
+            .attr("fill", isBest ? "red" : "black")
             .attr("font-size", "14px")
             .text(isBest ? `Best Found Solution - Fitness: ${fitness.toFixed(4)}` : `Fitness: ${fitness.toFixed(4)}`);
     }
