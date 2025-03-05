@@ -22,16 +22,20 @@ const CrossoverComponent = ({ children }) => {
 
         svg.selectAll("*").remove();
 
-        children.forEach(({ parent1, parent2, child }, groupIndex) => {
+        children.forEach(({ parent1, parent2, child, fromParent1 }, groupIndex) => {
             const yOffset = groupIndex * (2 * smallRowSpacing + bigGroupSpacing);
             const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
 
             const offsetX = 10;
 
-            const parent1Color = "#1e88e5";
-            const parent2Color = "#f73e3e";
+            let parent1Color = "#1e88e5";
+            let parent2Color = "#f73e3e";
 
-            const drawTour = (tour, row, label, parent1Color, parent2Color) => {
+            if (!fromParent1) {
+                [parent1Color, parent2Color] = [parent2Color, parent1Color];
+            }
+
+            const drawTour = (tour, row, label) => {
                 const yPosition = row * smallRowSpacing;
 
                 rowGroup.selectAll(`rect.${label}-rect-${groupIndex}`)
@@ -46,7 +50,8 @@ const CrossoverComponent = ({ children }) => {
                     .attr("fill", (d, i) => {
                         if (label === "parent1") return parent1Color;
                         if (label === "parent2") return parent2Color;
-                        return i < Math.floor(tour.length / 2) ? parent1Color : parent2Color;
+                        const splitPoint = Math.floor(tour.length / 2);
+                        return i < splitPoint ? parent1Color : parent2Color;
                     })
                     .attr("stroke", "black")
                     .attr("stroke-width", 1);
@@ -73,9 +78,9 @@ const CrossoverComponent = ({ children }) => {
                     .text(label === "child" ? "Child" : `Parent ${label === "parent1" ? "1" : "2"}`);
             };
 
-            drawTour(parent1, 0, "parent1", parent1Color, parent2Color);
-            drawTour(parent2, 1, "parent2", parent1Color, parent2Color);
-            drawTour(child, 2, "child", parent1Color, parent2Color);
+            drawTour(parent1, 0, "parent1");
+            drawTour(parent2, 1, "parent2");
+            drawTour(child, 2, "child");
         });
 
     }, [children]);
