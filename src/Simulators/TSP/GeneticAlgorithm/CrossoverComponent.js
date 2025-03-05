@@ -9,11 +9,12 @@ const CrossoverComponent = ({ children }) => {
 
         const boxSize = 30;
         const gap = 5;
-        const rowSpacing = 50;
+        const smallRowSpacing = 40;
+        const bigGroupSpacing = 80;
 
         const maxTourLength = Math.max(...children.map(({ child }) => child.length));
         const width = maxTourLength * boxSize + (maxTourLength - 1) * gap + 100;
-        const height = children.length * (3 * rowSpacing) + 50;
+        const height = children.length * (2 * smallRowSpacing + bigGroupSpacing) + 50;
 
         const svg = d3.select(svgRef.current)
             .attr("width", width)
@@ -22,13 +23,16 @@ const CrossoverComponent = ({ children }) => {
         svg.selectAll("*").remove();
 
         children.forEach(({ parent1, parent2, child }, groupIndex) => {
-            const yOffset = groupIndex * (3 * rowSpacing);
+            const yOffset = groupIndex * (2 * smallRowSpacing + bigGroupSpacing);
             const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
 
             const offsetX = 10;
 
-            const drawTour = (tour, row, label) => {
-                const yPosition = row * rowSpacing;
+            const parent1Color = "#1e88e5";
+            const parent2Color = "#f73e3e";
+
+            const drawTour = (tour, row, label, parent1Color, parent2Color) => {
+                const yPosition = row * smallRowSpacing;
 
                 rowGroup.selectAll(`rect.${label}-rect-${groupIndex}`)
                     .data(tour)
@@ -39,7 +43,11 @@ const CrossoverComponent = ({ children }) => {
                     .attr("y", yPosition)
                     .attr("width", boxSize)
                     .attr("height", boxSize)
-                    .attr("fill", label === "child" ? "#ffcc00" : "#4caf50")
+                    .attr("fill", (d, i) => {
+                        if (label === "parent1") return parent1Color;
+                        if (label === "parent2") return parent2Color;
+                        return i < Math.floor(tour.length / 2) ? parent1Color : parent2Color;
+                    })
                     .attr("stroke", "black")
                     .attr("stroke-width", 1);
 
@@ -65,9 +73,9 @@ const CrossoverComponent = ({ children }) => {
                     .text(label === "child" ? "Child" : `Parent ${label === "parent1" ? "1" : "2"}`);
             };
 
-            drawTour(parent1, 0, "parent1");
-            drawTour(parent2, 1, "parent2");
-            drawTour(child, 2, "child");
+            drawTour(parent1, 0, "parent1", parent1Color, parent2Color);
+            drawTour(parent2, 1, "parent2", parent1Color, parent2Color);
+            drawTour(child, 2, "child", parent1Color, parent2Color);
         });
 
     }, [children]);
