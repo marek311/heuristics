@@ -50,7 +50,7 @@ const CrossoverComponent = ({ children }) => {
                     .attr("fill", (d, i) => {
                         if (label === "parent1") return parent1Color;
                         if (label === "parent2") return parent2Color;
-                        const splitPoint = Math.floor(tour.length / 2);
+                        const splitPoint = Math.floor((tour.length - 1) / 2) + 1;
                         return i < splitPoint ? parent1Color : parent2Color;
                     })
                     .attr("stroke", "black")
