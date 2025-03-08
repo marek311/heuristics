@@ -238,7 +238,7 @@ export const handleStep = (
 };
 
 export const runAlgorithm = (
-    initialPopulation,
+    population,
     data,
     setPopulation,
     setFitnessValues,
@@ -250,66 +250,62 @@ export const runAlgorithm = (
     setMutatedChildren,
     setBestSolution
 ) => {
-    if (!initialPopulation || initialPopulation.length === 0 || !data) return;
+    if (!population || population.length === 0 || !data) return;
 
-    let population = [...initialPopulation];
-    let bestSolution = null;
-    let bestSolutionStagnantCount = 0;
-    const maxStagnantIterations = 15;
-    let generationCount = 0;
+    let fitnessValues = population.map(tour => calculateFitness(tour, data));
+    let totalFitness = fitnessValues.reduce((sum, f) => sum + f, 0);
 
-    let fitnessValues = [];
-    let probabilities = [];
+    let probabilities = totalFitness === 0
+        ? fitnessValues.map(() => 1 / fitnessValues.length)
+        : fitnessValues.map(f => f / totalFitness);
+
     let cumulativeProbabilities = [];
+    let cumulative = 0;
+    probabilities.forEach(prob => cumulativeProbabilities.push(cumulative += prob));
+
     let selectedPopulation = [];
     let randomValues = [];
-    let children = [];
-    let mutatedChildren = [];
+    let selectedIndices = new Set();
 
-    while (bestSolutionStagnantCount < maxStagnantIterations) {
-        generationCount++;
+    while (selectedPopulation.length < 3) {
+        let randomValue, selectedIndex;
+        do {
+            randomValue = Math.random();
+            selectedIndex = cumulativeProbabilities.findIndex(prob => randomValue < prob);
+        } while (selectedIndices.has(selectedIndex));
 
-        selection(
-            population, data, 3,
-            (f) => fitnessValues = f,
-            (p) => probabilities = p,
-            (cp) => cumulativeProbabilities = cp,
-            (sp) => selectedPopulation = sp,
-            (rv) => randomValues = rv
-        );
-
-        children = generateUniqueChildren(selectedPopulation);
-
-        mutatedChildren = [...children.map((entry) => entry.child)];
-        while (mutatedChildren.length < 4) {
-            const randomIndex = Math.floor(Math.random() * mutatedChildren.length);
-            const mutatedChild = mutation(mutatedChildren[randomIndex], 1.0);
-            mutatedChildren.push(mutatedChild);
-        }
-
-        population = mutatedChildren;
-
-        let newFitnessValues = population.map(tour => calculateFitness(tour, data));
-        let maxFitnessIndex = newFitnessValues.indexOf(Math.max(...newFitnessValues));
-        let bestTour = population[maxFitnessIndex];
-        let bestFitness = newFitnessValues[maxFitnessIndex];
-
-        if (!bestSolution || bestFitness > bestSolution.fitness) {
-            bestSolution = { tour: bestTour, fitness: bestFitness };
-            bestSolutionStagnantCount = 0;
-        } else {
-            bestSolutionStagnantCount++;
-        }
+        randomValues.push(randomValue);
+        selectedPopulation.push(population[selectedIndex]);
+        selectedIndices.add(selectedIndex);
     }
 
-    const zeros = [0.00, 0.00, 0.00];
-    setPopulation(population);
-    setFitnessValues(fitnessValues);
+    let children = generateUniqueChildren(selectedPopulation);
+
+    let mutatedChildren = children.map(entry => mutation(entry.child, 0.2));
+
+    while (mutatedChildren.length < 4) {
+        const randomIndex = Math.floor(Math.random() * mutatedChildren.length);
+        const mutatedChild = mutation(mutatedChildren[randomIndex], 1.0);
+        mutatedChildren.push(mutatedChild);
+    }
+
+    let newFitnessValues = mutatedChildren.map(tour => calculateFitness(tour, data));
+    let maxFitnessIndex = newFitnessValues.indexOf(Math.max(...newFitnessValues));
+    let bestTour = mutatedChildren[maxFitnessIndex];
+    let bestFitness = newFitnessValues[maxFitnessIndex];
+
+    setFitnessValues(newFitnessValues);
     setProbabilities(probabilities);
     setCumulativeProbabilities(cumulativeProbabilities);
     setSelectedPopulation(selectedPopulation);
-    setRandomValues(zeros);
+    setRandomValues(randomValues);
     setChildren(children);
     setMutatedChildren(mutatedChildren);
-    setBestSolution(bestSolution);
+
+    setBestSolution(prevBest => {
+        if (!prevBest || bestFitness > prevBest.fitness) {
+            return { tour: bestTour, fitness: bestFitness };
+        }
+        return prevBest;
+    });
 };
