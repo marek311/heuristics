@@ -293,7 +293,7 @@ export const runAlgorithm = (
     const bestTour = mutatedChildren[maxFitnessIndex];
     const bestFitness = newFitnessValues[maxFitnessIndex];
 
-    setFitnessValues(newFitnessValues);
+    setFitnessValues(fitnessValues);
     setProbabilities(probabilities);
     setCumulativeProbabilities(cumulativeProbabilities);
     setSelectedPopulation(selectedPopulation);
