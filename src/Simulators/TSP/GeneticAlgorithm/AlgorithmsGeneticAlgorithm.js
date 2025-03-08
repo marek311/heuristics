@@ -248,9 +248,15 @@ export const runAlgorithm = (
     setRandomValues,
     setChildren,
     setMutatedChildren,
-    setBestSolution
+    setBestSolution,
+    mutatedChildren
 ) => {
     if (!population || population.length === 0 || !data) return;
+
+    if (mutatedChildren && mutatedChildren.length > 0) {
+        population = mutatedChildren;
+        setPopulation(mutatedChildren);
+    }
 
     const fitnessValues = population.map(tour => calculateFitness(tour, data));
     const totalFitness = fitnessValues.reduce((sum, f) => sum + f, 0);
@@ -280,17 +286,17 @@ export const runAlgorithm = (
 
     let children = generateUniqueChildren(selectedPopulation);
 
-    let mutatedChildren = children.map(entry => mutation(entry.child, 0.2));
+    let newMutatedChildren = children.map(entry => mutation(entry.child, 0.2));
 
-    while (mutatedChildren.length < 4) {
-        const randomIndex = Math.floor(Math.random() * mutatedChildren.length);
-        const mutatedChild = mutation(mutatedChildren[randomIndex], 1.0);
-        mutatedChildren.push(mutatedChild);
+    while (newMutatedChildren.length < 4) {
+        const randomIndex = Math.floor(Math.random() * newMutatedChildren.length);
+        const mutatedChild = mutation(newMutatedChildren[randomIndex], 1.0);
+        newMutatedChildren.push(mutatedChild);
     }
 
-    const newFitnessValues = mutatedChildren.map(tour => calculateFitness(tour, data));
+    const newFitnessValues = newMutatedChildren.map(tour => calculateFitness(tour, data));
     const maxFitnessIndex = newFitnessValues.indexOf(Math.max(...newFitnessValues));
-    const bestTour = mutatedChildren[maxFitnessIndex];
+    const bestTour = newMutatedChildren[maxFitnessIndex];
     const bestFitness = newFitnessValues[maxFitnessIndex];
 
     setFitnessValues(fitnessValues);
@@ -299,7 +305,7 @@ export const runAlgorithm = (
     setSelectedPopulation(selectedPopulation);
     setRandomValues(randomValues);
     setChildren(children);
-    setMutatedChildren(mutatedChildren);
+    setMutatedChildren(newMutatedChildren);
 
     setBestSolution(prevBest => {
         if (!prevBest || bestFitness > prevBest.fitness) {

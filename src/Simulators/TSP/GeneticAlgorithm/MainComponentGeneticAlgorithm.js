@@ -73,7 +73,8 @@ function MainComponentGeneticAlgorithm() {
             setRandomValues,
             setChildren,
             setMutatedChildren,
-            setBestSolution
+            setBestSolution,
+            mutatedChildren
         );
     }
 
