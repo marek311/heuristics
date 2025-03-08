@@ -252,16 +252,15 @@ export const runAlgorithm = (
 ) => {
     if (!population || population.length === 0 || !data) return;
 
-    let fitnessValues = population.map(tour => calculateFitness(tour, data));
-    let totalFitness = fitnessValues.reduce((sum, f) => sum + f, 0);
+    const fitnessValues = population.map(tour => calculateFitness(tour, data));
+    const totalFitness = fitnessValues.reduce((sum, f) => sum + f, 0);
 
-    let probabilities = totalFitness === 0
+    const probabilities = totalFitness === 0
         ? fitnessValues.map(() => 1 / fitnessValues.length)
         : fitnessValues.map(f => f / totalFitness);
 
-    let cumulativeProbabilities = [];
     let cumulative = 0;
-    probabilities.forEach(prob => cumulativeProbabilities.push(cumulative += prob));
+    const cumulativeProbabilities = probabilities.map(prob => cumulative += prob);
 
     let selectedPopulation = [];
     let randomValues = [];
@@ -289,10 +288,10 @@ export const runAlgorithm = (
         mutatedChildren.push(mutatedChild);
     }
 
-    let newFitnessValues = mutatedChildren.map(tour => calculateFitness(tour, data));
-    let maxFitnessIndex = newFitnessValues.indexOf(Math.max(...newFitnessValues));
-    let bestTour = mutatedChildren[maxFitnessIndex];
-    let bestFitness = newFitnessValues[maxFitnessIndex];
+    const newFitnessValues = mutatedChildren.map(tour => calculateFitness(tour, data));
+    const maxFitnessIndex = newFitnessValues.indexOf(Math.max(...newFitnessValues));
+    const bestTour = mutatedChildren[maxFitnessIndex];
+    const bestFitness = newFitnessValues[maxFitnessIndex];
 
     setFitnessValues(newFitnessValues);
     setProbabilities(probabilities);
