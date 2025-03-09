@@ -31,6 +31,7 @@ function KPDataEdit({ items, capacity, onDataChange }) {
                         <div>
                             <input
                                 type="number"
+                                min="0"
                                 value={item.weight}
                                 onChange={(e) => handleInputChange(e, index, 'weight')}
                                 className="w-16 p-1 text-center border rounded"
@@ -39,6 +40,7 @@ function KPDataEdit({ items, capacity, onDataChange }) {
                         <div>
                             <input
                                 type="number"
+                                min="0"
                                 value={item.price}
                                 onChange={(e) => handleInputChange(e, index, 'price')}
                                 className="w-16 p-1 text-center border rounded"
