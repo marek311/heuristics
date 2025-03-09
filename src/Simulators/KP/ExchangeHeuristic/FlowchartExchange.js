@@ -23,8 +23,8 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             { id: 'admissible', text: 'Admissible exchange?', x: 250, y: 190, shape: 'diamond', color: '#ffa533' },
             { id: 'improving', text: 'Improving exchange?', x: 150, y: 260, shape: 'diamond', color: '#ffa533' },
             { id: 'next', text: 'Next iteration', x: 350, y: 400, shape: 'oval', color: '#4caf50' },
-            { id: 'exchange', text: 'Perform exchange', x: 150, y: 450, shape: 'oval', color: '#4caf50' },
-            { id: 'solution', text: 'New Solution', x: 300, y: 500, shape: 'rect', color: '#1e88e5' },
+            { id: 'exchange', text: 'Perform exchange', x: 150, y: 500, shape: 'oval', color: '#4caf50' },
+            { id: 'solution', text: 'New Solution', x: 350, y: 500, shape: 'rect', color: '#1e88e5' },
         ];
 
         const commonLinks = [
@@ -33,6 +33,7 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             { source: 'admissible', target: 'improving', label: 'Yes' },
             { source: 'admissible', target: 'next', label: 'No' },
             { source: 'improving', target: 'next', label: 'No' },
+            { source: 'exchange', target: 'solution' },
         ];
 
         let strategyNodes = [];
@@ -42,7 +43,6 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             strategyNodes = [];
             strategyLinks = [
                 { source: 'improving', target: 'exchange', label: 'Yes' },
-                { source: 'exchange', target: 'solution' },
             ];
         }
 
@@ -54,7 +54,6 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
                 { source: 'improving', target: 'bestQuestion', label: 'Yes' },
                 { source: 'bestQuestion', target: 'exchange', label: 'Yes' },
                 { source: 'bestQuestion', target: 'next', label: 'No' },
-                { source: 'exchange', target: 'solution' },
             ];
         }
 
