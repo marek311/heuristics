@@ -6,8 +6,8 @@ function InputHandlerKP({ data, setData }) {
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
-
         if (!file) return;
+
         const reader = new FileReader();
         reader.onload = (e) => {
             const text = e.target.result;
@@ -15,9 +15,11 @@ function InputHandlerKP({ data, setData }) {
 
             const parsedPrices = [];
             const parsedWeights = [];
+
             lines.forEach((line) => {
                 const [price, weight] = line.split(';').map(Number);
-                if (!isNaN(price) && !isNaN(weight)) {
+
+                if (!isNaN(price) && price > 0 && !isNaN(weight) && weight > 0) {
                     parsedPrices.push(price);
                     parsedWeights.push(weight);
                 }
@@ -38,10 +40,10 @@ function InputHandlerKP({ data, setData }) {
         <div>
             <label className={`text-center block mb-2 ${Colors.textPrimary}`}>
                 Upload a CSV file (optional). If no file is provided, default data will be used.
-                <br/>
+                <br />
                 Each row should contain price and weight in the following format:
-                <br/>
-                price;weight
+                <br />
+                <strong>price;weight</strong>
             </label>
             <input
                 type="file"
@@ -54,15 +56,14 @@ function InputHandlerKP({ data, setData }) {
             </label>
             <input
                 type="number"
+                min="1"
                 className="p-2 mb-4 text-black border rounded w-full"
-                placeholder="Kapacita batohu"
+                placeholder="Enter backpack capacity"
                 value={data.capacity}
-                onChange={(e) =>
-                    setData({
-                        ...data,
-                        capacity: e.target.value || defaultData.capacity,
-                    })
-                }
+                onChange={(e) => {
+                    const value = Math.max(1, parseFloat(e.target.value) || defaultData.capacity);
+                    setData({ ...data, capacity: value });
+                }}
             />
         </div>
     );
