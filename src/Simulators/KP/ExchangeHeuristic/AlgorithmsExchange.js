@@ -54,8 +54,8 @@ export const performIteration = (
                 { source: 'notInBackpack', target: 'admissible' },
                 { source: 'admissible', target: 'improving' },
                 { source: 'improving', target: 'bestQuestion' },
-                { source: 'bestQuestion', target: 'next' },
-                { source: 'next', target: 'solution' },
+                { source: 'bestQuestion', target: 'exchange' },
+                { source: 'exchange', target: 'solution' },
             ];
         }
 
