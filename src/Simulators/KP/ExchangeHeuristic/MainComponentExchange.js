@@ -128,6 +128,7 @@ function MainComponentExchange() {
         setCurrentPrice(0);
         setExchangeHistory([]);
         setCurrentNotBackpack([...items]);
+        setHighlightLinks([]);
         handleInitializeSolution();
     };
 
