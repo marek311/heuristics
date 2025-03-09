@@ -50,12 +50,14 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
         if (strategy === 'bestFit') {
             strategyNodes = [
                 { id: 'bestQuestion', text: 'Best exchange?', x: 150, y: 375, shape: 'diamond', color: '#ffa533' },
-                { id: 'solution', text: 'New Solution', x: 250, y: 500, shape: 'rect', color: '#1e88e5' },
+                { id: 'exchange', text: 'Perform exchange', x: 150, y: 450, shape: 'oval', color: '#4caf50' },
+                { id: 'solution', text: 'New Solution', x: 300, y: 500, shape: 'rect', color: '#1e88e5' },
             ];
             strategyLinks = [
                 { source: 'improving', target: 'bestQuestion', label: 'Yes' },
-                { source: 'bestQuestion', target: 'next' },
-                { source: 'next', target: 'solution', label: 'Best exchange' },
+                { source: 'bestQuestion', target: 'exchange', label: 'Yes' },
+                { source: 'bestQuestion', target: 'next', label: 'No' },
+                { source: 'exchange', target: 'solution' },
             ];
         }
 
