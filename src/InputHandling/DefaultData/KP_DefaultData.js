@@ -1,8 +1,8 @@
 function KP_DefaultData() {
     return {
-        weights: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        prices: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        capacity: 5
+        weights: [11, 17, 2, 9, 11, 4, 10, 5, 3, 7],
+        prices: [60, 75, 9, 40, 48, 21, 47, 25, 15, 34],
+        capacity: 25
     };
 }
 
