@@ -36,8 +36,12 @@ function InputHandlerKP({ data, setData }) {
 
     return (
         <div>
-            <label className={`block mb-2 ${Colors.textPrimary}`}>
-                CSV file: row contains price and weight in format: price;weight
+            <label className={`text-center block mb-2 ${Colors.textPrimary}`}>
+                Upload a CSV file (optional). If no file is provided, default data will be used.
+                <br/>
+                Each row should contain price and weight in the following format:
+                <br/>
+                price;weight
             </label>
             <input
                 type="file"
