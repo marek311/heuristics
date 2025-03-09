@@ -140,7 +140,7 @@ function MainComponentExchange() {
     <div className="text-gray-800 p-6">
         <Header
             handleGoBack={handleGoBack}
-            title={`Knapsack Problem Simulation Using Exchange Heuristic - ${strategy === 'bestFit' ? 'BEST FIT' : 'FIRST FIT'}`}
+            title={`Knapsack Problem Simulation Using Exchange Heuristic with ${strategy === 'bestFit' ? 'Best Fit' : 'First Fit'} Strategy`}
             handleStep={handleIteration}
             handleRun={handleRun}
             handleReset={handleReset}
