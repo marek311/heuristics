@@ -35,21 +35,10 @@ export const performIteration = (
     strategy,
     setHighlightLinks
 ) => {
-    setHighlightLinks([]);
     let highlightedLinks = [];
 
     if (strategy === 'bestFit') {
-        highlightedLinks = [
-            { source: 'inBackpack', target: 'notInBackpack' },
-            { source: 'notInBackpack', target: 'admissible' },
-            { source: 'admissible', target: 'improving' },
-            { source: 'improving', target: 'bestQuestion' },
-            { source: 'bestQuestion', target: 'next' },
-            { source: 'next', target: 'solution' },
-        ];
-        setHighlightLinks(highlightedLinks);
-
-        return performIterationBestFit(
+        const result = performIterationBestFit(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
@@ -57,18 +46,25 @@ export const performIteration = (
             capacity,
             generateBinaryVector
         );
+
+        if (result.exchange) {
+
+            highlightedLinks = [
+                { source: 'inBackpack', target: 'notInBackpack' },
+                { source: 'notInBackpack', target: 'admissible' },
+                { source: 'admissible', target: 'improving' },
+                { source: 'improving', target: 'bestQuestion' },
+                { source: 'bestQuestion', target: 'next' },
+                { source: 'next', target: 'solution' },
+            ];
+        }
+
+        setHighlightLinks(highlightedLinks);
+        return result;
     }
-    if (strategy === 'firstFit') {
-        highlightedLinks = [
-            { source: 'inBackpack', target: 'notInBackpack' },
-            { source: 'notInBackpack', target: 'admissible' },
-            { source: 'admissible', target: 'improving' },
-            { source: 'improving', target: 'exchange' },
-            { source: 'exchange', target: 'solution' },
-        ];
-        setHighlightLinks(highlightedLinks);
 
-        return performIterationFirstFit(
+    if (strategy === 'firstFit') {
+        const result = performIterationFirstFit(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
@@ -76,6 +72,20 @@ export const performIteration = (
             capacity,
             generateBinaryVector
         );
+
+        if (result.exchange) {
+
+            highlightedLinks = [
+                { source: 'inBackpack', target: 'notInBackpack' },
+                { source: 'notInBackpack', target: 'admissible' },
+                { source: 'admissible', target: 'improving' },
+                { source: 'improving', target: 'exchange' },
+                { source: 'exchange', target: 'solution' },
+            ];
+        }
+
+        setHighlightLinks(highlightedLinks);
+        return result;
     }
 };
 
