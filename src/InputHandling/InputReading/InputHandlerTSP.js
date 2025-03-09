@@ -37,7 +37,7 @@ function InputHandlerTSP({ data, setData }) {
                 const [city1, city2, distance] = line.split(';').map((value) => value.trim());
                 const parsedDistance = parseFloat(distance);
 
-                if (city1 && city2 && !isNaN(parsedDistance)) {
+                if (city1 && city2 && !isNaN(parsedDistance) && parsedDistance > 0) {
                     parsedEdges.push({ city1, city2, distance: parsedDistance });
                     citiesSet.add(city1);
                     citiesSet.add(city2);
@@ -105,7 +105,7 @@ function InputHandlerTSP({ data, setData }) {
     return (
         <div>
             <label className={`block mb-2 ${Colors.textPrimary}`}>
-                CSV file: row contains edge in format: city1;city2;distance<br/>
+                CSV file: row contains edge in format: city1;city2;distance<br />
                 Note: Algorithms are designed for complete graphs only!
             </label>
             <input
