@@ -64,7 +64,7 @@ function MainComponentTabuSearch() {
         <div className="text-gray-800 p-6">
             <Header
                 handleGoBack={() => navigate(-1)}
-                title="TSP Simulation Using Tabu Search"
+                title="Travelling Salesman Problem Simulation Using Tabu Search"
                 handleStep={iterationMethod}
                 handleReset={initialize}
                 handleRun={run}
