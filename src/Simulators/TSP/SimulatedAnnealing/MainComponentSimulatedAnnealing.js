@@ -99,7 +99,10 @@ function MainComponentSimulatedAnnealing() {
     };
 
     const handleRunSimulation = () => {
-        if (!isIterationComplete) return;
+        if (!isIterationComplete) {
+            alert(`Current Iteration Is Not Complete - Run Cannot Be Performed!`);
+            return;
+        }
 
         handleRun(
             currentTour,
