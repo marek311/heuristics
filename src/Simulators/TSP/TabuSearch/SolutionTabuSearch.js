@@ -149,7 +149,7 @@ function SolutionTabuSearch({
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Tabu Search Progress</h2>
+                <h2 className="text-lg font-semibold text-gray-800">Progress</h2>
                 <div>Iteration: {iteration}</div>
                 <svg ref={svgRef}></svg>
                 <div className="mt-2 p-2 bg-gray-200 rounded-lg">

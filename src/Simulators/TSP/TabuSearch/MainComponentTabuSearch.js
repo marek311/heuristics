@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
 import TSPDataGraph from '../../../InputHandling/InputDisplay/TSP/TSPDataGraph';
 import FlowchartTabuSearch from "./FlowchartTabuSearch";
-import TabuTable from './TabuTable';
+import TabuList from './TabuList';
 import SolutionTSPTabuSearch from "./SolutionTabuSearch";
 import Neighborhood from "./Neighborhood";
 import { useTabuSearch } from './AlgorithmsTabuSearch';
@@ -89,7 +89,7 @@ function MainComponentTabuSearch() {
                     tabuList={tabuList}
                     iteration={iteration}
                 />
-                <TabuTable
+                <TabuList
                     tabuList={tabuList}
                 />
                 <FlowchartTabuSearch
