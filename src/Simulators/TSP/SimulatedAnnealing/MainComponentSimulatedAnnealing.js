@@ -153,6 +153,7 @@ function MainComponentSimulatedAnnealing() {
             setSwappedIndexes([]);
             setStepIndex(0);
             setHighlightLinks([]);
+            setIsIterationComplete(true);
         }
     };
 
