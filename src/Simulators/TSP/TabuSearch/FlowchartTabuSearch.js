@@ -20,7 +20,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
             { id: 'bestNeighbor', text: 'Find Best Neighbor', x: 100, y: 200, shape: 'oval', color: '#4caf50' },
             { id: 'tabuCheck', text: 'Tabu Swap?', x: 100, y: 290, shape: 'diamond', color: '#ffa533' },
             { id: 'aspirationCheck', text: 'Aspiration Criteria?', x: 250, y: 350, shape: 'diamond', color: '#ffa533' },
-            { id: 'delete', text: 'Delete Swap', x: 250, y: 180, shape: 'oval', color: '#4caf50' },
+            { id: 'delete', text: 'Delete Solution', x: 250, y: 180, shape: 'oval', color: '#4caf50' },
             { id: 'newSolution', text: 'New Solution', x: 100, y: 430, shape: 'rect', color: '#1e88e5' },
             { id: 'newIteration', text: 'New Iteration', x: 100, y: 510, shape: 'rect', color: '#1e88e5' },
         ];
