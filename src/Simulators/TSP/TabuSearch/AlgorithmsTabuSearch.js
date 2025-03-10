@@ -46,7 +46,9 @@ export const useTabuSearch = ({
                                   setStep,
                                   bestNeighborData,
                                   setBestNeighborData,
-                                  setHighlightLinks
+                                  setHighlightLinks,
+                                  isIterationComplete,
+                                  setIsIterationComplete
                               }) => {
 
     const initialize = () => {
@@ -64,6 +66,7 @@ export const useTabuSearch = ({
         setStatus("Initialized Random Solution.");
         setStep(0);
         setHighlightLinks([]);
+        setIsIterationComplete(true);
     };
 
     const generateNeighborhood = () => {
@@ -103,6 +106,7 @@ export const useTabuSearch = ({
 
         setNeighborhood(neighborhood);
         setStatus("Neighborhood generated.");
+        setIsIterationComplete(false);
     };
 
     const findBestNeighbor = () => {
@@ -150,6 +154,7 @@ export const useTabuSearch = ({
         setNeighborhood(updatedNeighborhood);
         setBestNeighborData({ bestNeighbor, bestNeighborCost, bestSwap });
         setStatus("Best neighbor found.");
+        setIsIterationComplete(false);
     };
 
     const updateSolutionStep = () => {
@@ -180,6 +185,7 @@ export const useTabuSearch = ({
 
         setIteration(prev => prev + 1);
         setStatus("Best neighbor accepted as current.");
+        setIsIterationComplete(true);
     };
 
     const iterationMethod = () => {
@@ -198,6 +204,12 @@ export const useTabuSearch = ({
     };
 
     const run = () => {
+
+        if (!isIterationComplete) {
+            alert(`Current Iteration Is Not Complete - Run Cannot Be Performed!`);
+            return;
+        }
+
         if (currentTour.length < 4) return;
 
         let noImprovementCounter = 0;
