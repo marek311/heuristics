@@ -45,7 +45,7 @@ const Neighborhood = ({ neighborhood, tabuList, iteration }) => {
                 .attr("height", boxSize)
                 .attr("fill", (d, i) => (i === indexI || i === indexJ ? "#4caf50" : "#1e88e5"))
                 .attr("stroke", isTabuNow ? "red" : "black")
-                .attr("stroke-width", isChosen ? 3 : 1);
+                .attr("stroke-width", (isTabuNow || isChosen) ? 3 : 1);
 
             rowGroup.selectAll("text.city")
                 .data(tour)
