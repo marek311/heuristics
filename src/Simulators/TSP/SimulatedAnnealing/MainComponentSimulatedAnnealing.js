@@ -37,6 +37,7 @@ function MainComponentSimulatedAnnealing() {
     const [swappedIndexes, setSwappedIndexes] = useState([]);
     const [stepIndex, setStepIndex] = useState(0);
     const [highlightLinks, setHighlightLinks] = useState([]);
+    const [isIterationComplete, setIsIterationComplete] = useState(true);
 
     useEffect(() => {
         if (data && data.edges) {
@@ -60,6 +61,7 @@ function MainComponentSimulatedAnnealing() {
                 setSolutionStatus,
                 setHighlightLinks
             );
+            setIsIterationComplete(false);
         } else if (stepIndex === 1) {
             calculateAcceptanceAndDecide(
                 currentTour,
@@ -81,6 +83,7 @@ function MainComponentSimulatedAnnealing() {
                 setSolutionStatus,
                 setHighlightLinks
             );
+            setIsIterationComplete(false);
         } else if (stepIndex === 2) {
             updateStateAndCoolDown(
                 setTemperature,
@@ -90,12 +93,14 @@ function MainComponentSimulatedAnnealing() {
                 setSolutionStatus,
                 setHighlightLinks
             );
+            setIsIterationComplete(true);
         }
-
         setStepIndex((prevStepIndex) => (prevStepIndex + 1) % 3);
     };
 
     const handleRunSimulation = () => {
+        if (!isIterationComplete) return;
+
         handleRun(
             currentTour,
             setCurrentTour,
