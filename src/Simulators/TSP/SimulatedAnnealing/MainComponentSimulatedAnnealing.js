@@ -160,7 +160,7 @@ function MainComponentSimulatedAnnealing() {
         <div className="text-gray-800 p-6">
             <Header
                 handleGoBack={() => navigate(-1)}
-                title="TSP Simulation Using Simulated Annealing"
+                title="Travelling Salesman Problem Simulation Using Simulated Annealing"
                 handleStep={handleStep}
                 handleRun={handleRunSimulation}
                 handleReset={handleResetUI}
