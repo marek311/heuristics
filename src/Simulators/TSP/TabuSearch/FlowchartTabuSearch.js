@@ -45,7 +45,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
             .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
-            .attr('stroke-width', 2);
+            .attr('stroke-width', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 3 : 2);
 
         svg.selectAll('text.link-label')
             .data(links)
