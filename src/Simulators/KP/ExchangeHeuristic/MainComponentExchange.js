@@ -144,7 +144,7 @@ function MainComponentExchange() {
             handleReset={handleReset}
             isDisabled={isCompleted}
         />
-        <div className="flex flex-col lg:flex-row w-full" style={{height: '95vh'}}>
+        <div className="flex flex-col lg:flex-row w-full" style={{height: '75vh'}}>
             <KPDataDisplay
                 items={items}
                 capacity={capacity}
