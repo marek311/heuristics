@@ -11,6 +11,8 @@ const Colors = {
     buttonPrimaryHover: 'hover:bg-teal-400',
     buttonSecondary: 'bg-red-500',
     buttonSecondaryHover: 'hover:bg-red-600',
+    buttonThird: 'bg-blue-500',
+    buttonThirdHover: 'hover:bg-blue-600',
 
     buttonDisabled: 'bg-gray-500',
     cursorDisabled: 'cursor-not-allowed',
