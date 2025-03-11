@@ -59,6 +59,7 @@ function MainComponentTabuSearch() {
 
     useEffect(() => {
         initialize();
+        // eslint-disable-next-line
     }, [data]);
 
     return (

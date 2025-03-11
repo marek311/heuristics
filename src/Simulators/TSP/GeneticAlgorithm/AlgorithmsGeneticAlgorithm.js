@@ -73,6 +73,7 @@ export const selection = (
 
         do {
             randomValue = Math.random();
+            // eslint-disable-next-line
             selectedIndex = cumulativeProbabilities.findIndex(prob => randomValue < prob);
         } while (selectedIndices.has(selectedIndex));
 
@@ -287,6 +288,7 @@ export const runAlgorithm = (
         let randomValue, selectedIndex;
         do {
             randomValue = Math.random();
+            // eslint-disable-next-line
             selectedIndex = cumulativeProbabilities.findIndex(prob => randomValue < prob);
         } while (selectedIndices.has(selectedIndex));
 
