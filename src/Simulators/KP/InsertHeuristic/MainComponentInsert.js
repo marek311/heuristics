@@ -78,6 +78,7 @@ function MainComponentInsert() {
         setSelectedItems([]);
         setItemStatus(new Array(items.length).fill(null));
         setBinarySolution(new Array(weights.length).fill(0));
+        setHighlightLinks([]);
     };
 
     return (
