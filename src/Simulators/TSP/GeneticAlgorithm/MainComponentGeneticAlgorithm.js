@@ -96,7 +96,7 @@ function MainComponentGeneticAlgorithm() {
         <div className="text-gray-800 p-6">
             <Header
                 handleGoBack={() => navigate(-1)}
-                title="TSP Simulation Using Genetic Algorithm"
+                title="Travelling Salesman Problem Simulation Using Genetic Algorithm"
                 handleStep={handleIteration}
                 handleRun={handleRunAlgorithm}
                 handleReset={handleReset}
