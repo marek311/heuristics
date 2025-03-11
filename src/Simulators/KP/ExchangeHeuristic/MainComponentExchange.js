@@ -13,9 +13,6 @@ import {
 function MainComponentExchange() {
 
     const navigate = useNavigate();
-    const handleGoBack = () => {
-        navigate(-1);
-    };
     const location = useLocation();
 
     const {weights, prices, capacity} = location.state || {};
@@ -31,8 +28,8 @@ function MainComponentExchange() {
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
     const [highlightLinks, setHighlightLinks] = useState([]);
-
     const [strategy, setStrategy] = useState('bestFit');
+
     useEffect(() => {
         const path = location.pathname;
         if (path.includes('knapsack-exchange-best-simulation')) {
@@ -140,7 +137,7 @@ function MainComponentExchange() {
     return (
     <div className="text-gray-800 p-6">
         <Header
-            handleGoBack={handleGoBack}
+            handleGoBack={() => navigate(-1)}
             title={`Knapsack Problem Simulation Using Exchange Heuristic with ${strategy === 'bestFit' ? 'Best Fit' : 'First Fit'} Strategy`}
             handleStep={handleIteration}
             handleRun={handleRun}

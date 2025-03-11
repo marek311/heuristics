@@ -12,9 +12,6 @@ import {
 function MainComponentInsert() {
 
     const navigate = useNavigate();
-    const handleGoBack = () => {
-        navigate(-1);
-    };
     const location = useLocation();
 
     const { weights, prices, capacity } = location.state || {};
@@ -86,7 +83,7 @@ function MainComponentInsert() {
     return (
         <div className=" text-gray-800 p-6">
             <Header
-                handleGoBack={handleGoBack}
+                handleGoBack={() => navigate(-1)}
                 title="Knapsack Problem Simulation Using Insertion Heuristic with Profitability Coefficients"
                 handleStep={handleIteration}
                 handleRun={handleRun}
