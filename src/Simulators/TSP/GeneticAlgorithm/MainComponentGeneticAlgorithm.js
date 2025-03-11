@@ -28,6 +28,7 @@ function MainComponentGeneticAlgorithm() {
     const [mutatedChildren, setMutatedChildren] = useState([]);
     const [bestSolution, setBestSolution] = useState(null);
     const [step, setStep] = useState(0);
+    const [isIterationComplete, setIsIterationComplete] = useState(true);
 
     useEffect(() => {
         if (data) {
@@ -57,7 +58,8 @@ function MainComponentGeneticAlgorithm() {
             setChildren,
             setMutatedChildren,
             setPopulation,
-            setBestSolution
+            setBestSolution,
+            setIsIterationComplete
         );
     }
 
@@ -74,7 +76,8 @@ function MainComponentGeneticAlgorithm() {
             setChildren,
             setMutatedChildren,
             setBestSolution,
-            mutatedChildren
+            mutatedChildren,
+            isIterationComplete
         );
     }
 
@@ -90,6 +93,7 @@ function MainComponentGeneticAlgorithm() {
         setMutatedChildren([]);
         setBestSolution(null);
         setStep(0);
+        setIsIterationComplete(true);
     }
 
     return (

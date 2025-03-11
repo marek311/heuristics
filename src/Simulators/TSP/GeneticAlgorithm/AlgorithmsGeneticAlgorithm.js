@@ -176,7 +176,8 @@ export const handleStep = (
     setChildren,
     setMutatedChildren,
     setPopulation,
-    setBestSolution
+    setBestSolution,
+    setIsIterationComplete
 ) => {
     if (step === 0) {
         selection(
@@ -187,10 +188,12 @@ export const handleStep = (
             setSelectedPopulation,
             setRandomValues
         );
+        setIsIterationComplete(false);
     }
 
     if (step === 1) {
         setChildren(generateUniqueChildren(selectedPopulation));
+        setIsIterationComplete(false);
     }
 
     if (step === 2) {
@@ -208,6 +211,7 @@ export const handleStep = (
         }
 
         setMutatedChildren(updatedChildren);
+        setIsIterationComplete(false);
     }
 
     if (step === 3 && children.length > 0) {
@@ -231,6 +235,7 @@ export const handleStep = (
         });
 
         setSelectedPopulation([]);
+        setIsIterationComplete(true);
     }
 
     let index =  (step + 1) % 4;
@@ -249,9 +254,15 @@ export const runAlgorithm = (
     setChildren,
     setMutatedChildren,
     setBestSolution,
-    mutatedChildren
+    mutatedChildren,
+    isIterationComplete
 ) => {
     if (!population || population.length === 0 || !data) return;
+
+    if (!isIterationComplete) {
+        alert(`Current Iteration Is Not Complete - Run Cannot Be Performed!`);
+        return;
+    }
 
     if (mutatedChildren && mutatedChildren.length > 0) {
         population = mutatedChildren;
