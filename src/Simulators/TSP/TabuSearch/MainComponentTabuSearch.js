@@ -9,6 +9,7 @@ import Neighborhood from "./Neighborhood";
 import { useTabuSearch } from './AlgorithmsTabuSearch';
 
 function MainComponentTabuSearch() {
+
     const navigate = useNavigate();
     const location = useLocation();
     const { data } = location.state || {};
@@ -21,10 +22,10 @@ function MainComponentTabuSearch() {
     const [previousCost, setPreviousCost] = useState(null);
     const [neighborhood, setNeighborhood] = useState([]);
     const [tabuList, setTabuList] = useState([]);
+    const [bestNeighborData, setBestNeighborData] = useState(null);
     const [iteration, setIteration] = useState(0);
     const [status, setStatus] = useState("");
     const [step, setStep] = useState(0);
-    const [bestNeighborData, setBestNeighborData] = useState(null);
     const [highlightLinks, setHighlightLinks] = useState([]);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
 

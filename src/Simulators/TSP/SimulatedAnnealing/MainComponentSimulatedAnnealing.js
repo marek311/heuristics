@@ -15,9 +15,9 @@ import {
 } from './AlgorithmsSimulatedAnnealing';
 
 function MainComponentSimulatedAnnealing() {
+
     const navigate = useNavigate();
     const location = useLocation();
-
     const { data } = location.state || {};
 
     const [currentTour, setCurrentTour] = useState([]);
@@ -29,12 +29,11 @@ function MainComponentSimulatedAnnealing() {
     const [proposedTour, setProposedTour] = useState([]);
     const [proposedCost, setProposedCost] = useState(0);
     const [temperature, setTemperature] = useState(100);
-    const [iteration, setIteration] = useState(0);
     const [costDifference, setCostDifference] = useState(0);
     const [acceptanceProbability, setAcceptanceProbability] = useState(0);
     const [randomValue, setRandomValue] = useState(0);
-    const [solutionStatus, setSolutionStatus] = useState("");
-    const [swappedIndexes, setSwappedIndexes] = useState([]);
+    const [iteration, setIteration] = useState(0);
+    const [status, setStatus] = useState("");
     const [stepIndex, setStepIndex] = useState(0);
     const [highlightLinks, setHighlightLinks] = useState([]);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
@@ -56,9 +55,8 @@ function MainComponentSimulatedAnnealing() {
                 setProposedTour,
                 setProposedCost,
                 setCostDifference,
-                setSwappedIndexes,
                 data,
-                setSolutionStatus,
+                setStatus,
                 setHighlightLinks
             );
             setIsIterationComplete(false);
@@ -80,7 +78,7 @@ function MainComponentSimulatedAnnealing() {
                 setBestCost,
                 setAcceptanceProbability,
                 setRandomValue,
-                setSolutionStatus,
+                setStatus,
                 setHighlightLinks
             );
             setIsIterationComplete(false);
@@ -90,7 +88,7 @@ function MainComponentSimulatedAnnealing() {
                 setIteration,
                 temperature,
                 iteration,
-                setSolutionStatus,
+                setStatus,
                 setHighlightLinks
             );
             setIsIterationComplete(true);
@@ -127,8 +125,7 @@ function MainComponentSimulatedAnnealing() {
             setBestCost,
             setProposedTour,
             setProposedCost,
-            setSolutionStatus,
-            setSwappedIndexes,
+            setStatus,
             setHighlightLinks
         );
     };
@@ -149,8 +146,7 @@ function MainComponentSimulatedAnnealing() {
             setCostDifference(0);
             setAcceptanceProbability(0);
             setRandomValue(0);
-            setSolutionStatus("");
-            setSwappedIndexes([]);
+            setStatus("");
             setStepIndex(0);
             setHighlightLinks([]);
             setIsIterationComplete(true);
@@ -181,7 +177,7 @@ function MainComponentSimulatedAnnealing() {
                     bestTour={bestTour}
                     previousTour={previousTour}
                     costDifference={costDifference}
-                    solutionStatus={solutionStatus}
+                    solutionStatus={status}
                     iteration={iteration}
                 />
                 <FlowchartTSPSimulatedAnnealing

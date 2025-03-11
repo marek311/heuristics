@@ -14,18 +14,19 @@ import {
 } from './AlgorithmsGeneticAlgorithm';
 
 function MainComponentGeneticAlgorithm() {
+
     const navigate = useNavigate();
     const location = useLocation();
     const { data } = location.state || {};
 
     const [population, setPopulation] = useState([]);
+    const [selectedPopulation, setSelectedPopulation] = useState([]);
+    const [children, setChildren] = useState([]);
+    const [mutatedChildren, setMutatedChildren] = useState([]);
     const [fitnessValues, setFitnessValues] = useState([]);
     const [probabilities, setProbabilities] = useState([]);
     const [cumulativeProbabilities, setCumulativeProbabilities] = useState([]);
     const [randomValues, setRandomValues] = useState([]);
-    const [selectedPopulation, setSelectedPopulation] = useState([]);
-    const [children, setChildren] = useState([]);
-    const [mutatedChildren, setMutatedChildren] = useState([]);
     const [bestSolution, setBestSolution] = useState(null);
     const [step, setStep] = useState(0);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
