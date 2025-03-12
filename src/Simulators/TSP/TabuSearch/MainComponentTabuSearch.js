@@ -87,6 +87,7 @@ function MainComponentTabuSearch() {
                     previousCost={previousCost}
                     iteration={iteration}
                     status={status}
+                    tabuTenure={tabuTenure}
                 />
                 <Neighborhood
                     neighborhood={neighborhood}

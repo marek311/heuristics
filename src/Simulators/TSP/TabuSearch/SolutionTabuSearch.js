@@ -9,7 +9,8 @@ function SolutionTabuSearch({
                                 previousTour,
                                 previousCost,
                                 iteration,
-                                status
+                                status,
+                                tabuTenure
                             }) {
     const svgRef = useRef();
 
@@ -151,6 +152,7 @@ function SolutionTabuSearch({
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-lg font-semibold text-gray-800">Progress</h2>
                 <div>Iteration: {iteration}</div>
+                <div>Tabu Tenure: {tabuTenure}</div>
                 <svg ref={svgRef}></svg>
                 <div className="mt-2 p-2 bg-gray-200 rounded-lg">
                     <div className="p-2 bg-gray-400 rounded-lg w-[340px] h-[85px]">
