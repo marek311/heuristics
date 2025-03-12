@@ -63,7 +63,8 @@ function MainComponentGeneticAlgorithm() {
             setPopulation,
             setBestSolution,
             setIsIterationComplete,
-            generationSize
+            generationSize,
+            mutationProbability
         );
     }
 
@@ -82,7 +83,8 @@ function MainComponentGeneticAlgorithm() {
             setBestSolution,
             mutatedChildren,
             isIterationComplete,
-            generationSize
+            generationSize,
+            mutationProbability
         );
     }
 

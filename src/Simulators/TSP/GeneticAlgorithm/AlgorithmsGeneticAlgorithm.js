@@ -179,7 +179,8 @@ export const handleStep = (
     setPopulation,
     setBestSolution,
     setIsIterationComplete,
-    generationSize
+    generationSize,
+    mutationProbability
 ) => {
     if (step === 0) {
         selection(
@@ -209,7 +210,7 @@ export const handleStep = (
                 updatedChildren.push(mutatedChild);
             }
         } else {
-            updatedChildren = updatedChildren.map((child) => mutation(child, 0.2));
+            updatedChildren = updatedChildren.map((child) => mutation(child, mutationProbability));
         }
 
         setMutatedChildren(updatedChildren);
@@ -258,7 +259,8 @@ export const runAlgorithm = (
     setBestSolution,
     mutatedChildren,
     isIterationComplete,
-    generationSize
+    generationSize,
+    mutationProbability
 ) => {
     if (!population || population.length === 0 || !data) return;
 
@@ -305,7 +307,7 @@ export const runAlgorithm = (
     let updatedChildren = [...newChildrenOnly];
 
     if (updatedChildren.length >= generationSize) {
-        updatedChildren = updatedChildren.map((child) => mutation(child, 0.2));
+        updatedChildren = updatedChildren.map((child) => mutation(child, mutationProbability));
     } else {
         while (updatedChildren.length < generationSize) {
             const randomIndex = Math.floor(Math.random() * updatedChildren.length);
