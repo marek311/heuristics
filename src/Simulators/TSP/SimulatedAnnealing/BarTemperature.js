@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function BarTemperature({ temperature }) {
+function BarTemperature({ temperature, coolingSchedule }) {
     const svgRef = useRef();
 
     useEffect(() => {
         const width = 50;
-        const height = 450;
+        const height = 500;
         const margin = 10;
 
         const svg = d3.select(svgRef.current)
@@ -73,7 +73,7 @@ function BarTemperature({ temperature }) {
                 <svg ref={svgRef}></svg>
                 <div className="mt-2 text-center">
                     <p><strong>Cooling Schedule:</strong></p>
-                    <p>Each iteration reduces the temperature by 5%.</p>
+                    <p>{coolingSchedule}</p>
                 </div>
             </div>
         </div>

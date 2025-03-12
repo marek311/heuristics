@@ -6,7 +6,7 @@ function BarExperiment({ acceptanceProbability, randomValue }) {
 
     useEffect(() => {
         const width = 50;
-        const height = 450;
+        const height = 500;
         const margin = 10;
 
         const svg = d3.select(svgRef.current)
@@ -46,11 +46,6 @@ function BarExperiment({ acceptanceProbability, randomValue }) {
 
     }, [acceptanceProbability, randomValue]);
 
-    const experimentPassed =
-        acceptanceProbability === 1 && randomValue === 0
-            ? false
-            : randomValue < acceptanceProbability;
-
     return (
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
             <h2 className="text-lg font-semibold text-gray-800">Experiment</h2>
@@ -58,9 +53,6 @@ function BarExperiment({ acceptanceProbability, randomValue }) {
             <div className="mt-2 text-center">
                 <p><strong>Acceptance Probability:</strong> {acceptanceProbability.toFixed(4)}</p>
                 <p><strong>Random Value:</strong> {randomValue.toFixed(4)}</p>
-                <p>
-                    <strong>Experiment Outcome:</strong> {experimentPassed ? "✓" : "✗"}
-                </p>
             </div>
         </div>
     );

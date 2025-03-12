@@ -182,7 +182,6 @@ function MainComponentSimulatedAnnealing() {
                     costDifference={costDifference}
                     solutionStatus={status}
                     iteration={iteration}
-                    coolingSchedule={coolingSchedule}
                 />
                 <FlowchartTSPSimulatedAnnealing
                     highlightLinks={highlightLinks}
@@ -193,6 +192,7 @@ function MainComponentSimulatedAnnealing() {
                 />
                 <BarTemperature
                     temperature={temperature}
+                    coolingSchedule={coolingSchedule}
                 />
             </div>
         </div>

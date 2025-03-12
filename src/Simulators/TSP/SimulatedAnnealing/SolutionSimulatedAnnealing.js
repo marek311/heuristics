@@ -12,8 +12,7 @@ function SolutionSimulatedAnnealing({
                                         previousTour,
                                         costDifference,
                                         solutionStatus,
-                                        iteration,
-                                        coolingSchedule
+                                        iteration
 }) {
     const svgRef = useRef();
 
@@ -156,7 +155,6 @@ function SolutionSimulatedAnnealing({
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-lg font-semibold text-gray-800">Tours</h2>
                 <div>Iteration: {iteration}</div>
-                <div>Cooling Rate: {coolingSchedule}</div>
                 <svg ref={svgRef}></svg>
                 <div className="p-2 bg-gray-200 rounded-lg mt-2">
                     <div className="mb-2 p-2 bg-gray-400 rounded-lg w-[340px] h-[85px]">
