@@ -152,7 +152,7 @@ function MainComponentGeneticAlgorithm() {
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
                     <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
-                        Mutation ({mutationProbability})
+                        Mutation ({mutationProbability.toFixed(1)})
                     </h2>
                     <MutationComponent
                         children={children}
