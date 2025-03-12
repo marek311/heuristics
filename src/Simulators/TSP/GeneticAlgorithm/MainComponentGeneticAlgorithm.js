@@ -30,6 +30,7 @@ function MainComponentGeneticAlgorithm() {
     const [bestSolution, setBestSolution] = useState(null);
     const [step, setStep] = useState(0);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
+    const generationSize = data?.generationSize || 4;
 
     useEffect(() => {
         if (data) {
@@ -108,6 +109,7 @@ function MainComponentGeneticAlgorithm() {
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                    <div>Generation Size: {generationSize}</div>
                     <h2 className={`text-xl font-semibold text-center ${step === 0 ? 'bg-green-500 text-white' : ''}`}>
                         Population
                     </h2>
