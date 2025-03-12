@@ -31,6 +31,7 @@ function MainComponentGeneticAlgorithm() {
     const [step, setStep] = useState(0);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
     const generationSize = data?.generationSize || 4;
+    const mutationProbability = data?.mutationProbability || 0.2;
 
     useEffect(() => {
         if (data) {
@@ -149,7 +150,7 @@ function MainComponentGeneticAlgorithm() {
                 </div>
                 <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
                     <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
-                        Mutation
+                        Mutation ({mutationProbability})
                     </h2>
                     <MutationComponent
                         children={children}

@@ -10,6 +10,7 @@ function InputHandlerTSP({ data, setData, mode }) {
     const [tabuTenure, setTabuTenure] = useState(4);
     const [coolingRate, setCoolingRate] = useState(0.95);
     const [generationSize, setGenerationSize] = useState(4);
+    const [mutationProbability, setMutationProbability] = useState(0.2);
 
     useEffect(() => {
         if (!data.edges.length) {
@@ -130,6 +131,14 @@ function InputHandlerTSP({ data, setData, mode }) {
         }
     };
 
+    const handleMutationProbabilityChange = (e) => {
+        const value = parseFloat(e.target.value);
+        if (value >= 0.1 && value <= 1.0) {
+            setMutationProbability(value);
+            setData({ ...data, mutationProbability: value });
+        }
+    };
+
     return (
         <div>
             <label className={`block mb-2 ${Colors.textPrimary}`}>
@@ -190,17 +199,33 @@ function InputHandlerTSP({ data, setData, mode }) {
             )}
             {mode === 'TSPGenetic' && (
                 <div>
-                    <label className={`block mb-2 ${Colors.textPrimary}`}>
-                        Generation Size (4 - 6):
-                    </label>
-                    <input
-                        type="number"
-                        min="4"
-                        max="6"
-                        value={generationSize}
-                        onChange={handleGenerationSizeChange}
-                        className="p-2 mb-4 text-black border rounded w-full"
-                    />
+                    <div>
+                        <label className={`block mb-2 ${Colors.textPrimary}`}>
+                            Generation Size (4 - 6):
+                        </label>
+                        <input
+                            type="number"
+                            min="4"
+                            max="6"
+                            value={generationSize}
+                            onChange={handleGenerationSizeChange}
+                            className="p-2 mb-4 text-black border rounded w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className={`block mb-2 ${Colors.textPrimary}`}>
+                            Mutation Probability (0.1 - 1.0):
+                        </label>
+                        <input
+                            type="number"
+                            min="0.1"
+                            max="1.0"
+                            step="0.1"
+                            value={mutationProbability}
+                            onChange={handleMutationProbabilityChange}
+                            className="p-2 mb-4 text-black border rounded w-full"
+                        />
+                    </div>
                 </div>
             )}
         </div>
