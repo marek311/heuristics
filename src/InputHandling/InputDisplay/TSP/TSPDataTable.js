@@ -50,12 +50,12 @@ function TSPDataTable() {
             </div>
             <div className="flex justify-between w-full mt-4">
                 <button
-                    className={`px-2 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}
+                    className={`px-4 py-4 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}
                     onClick={handleBackClick}>
                     Back
                 </button>
                 <button
-                    className={`px-2 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}
+                    className={`px-4 py-4 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}
                     onClick={handleRunClick}>
                     Start
                 </button>

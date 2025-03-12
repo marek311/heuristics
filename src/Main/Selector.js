@@ -48,7 +48,7 @@ function Selector() {
             </label>
             <button
                 onClick={handleSubmit}
-                className={`px-4 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
+                className={`px-4 py-4 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
                 Next
             </button>
         </div>

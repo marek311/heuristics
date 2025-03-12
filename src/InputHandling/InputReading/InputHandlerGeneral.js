@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Colors from '../../Main/Colors';
 import InputHandlerKP from './InputHandlerKP';
 import InputHandlerTSP from './InputHandlerTSP';
@@ -63,20 +63,21 @@ function InputHandlerGeneral() {
     return (
         <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit p-6 bg-white rounded-lg shadow-lg mx-auto my-10`}>
             {['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest'].includes(mode) && (
-                <InputHandlerKP data={knapsackData} setData={setKnapsackData} />
+                <InputHandlerKP data={knapsackData} setData={setKnapsackData}/>
             )}
-            {['TSPSimulatedAnnealing','TSPGenetic', 'TSPTabuSearch'].includes(mode) && (
+            {['TSPSimulatedAnnealing', 'TSPGenetic', 'TSPTabuSearch'].includes(mode) && (
                 <InputHandlerTSP data={tspData} setData={setTspData} mode={mode}/>
             )}
-            <div className="items-center justify-center flex space-x-4 mt-4">
+            <div className="flex w-full">
                 <button
                     onClick={handleGoBack}
-                    className={`px-4 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}>
+                    className={`px-4 py-4 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover} ml-5`}>
                     Back
                 </button>
+                <div className="flex-grow"></div>
                 <button
                     onClick={handleRunClick}
-                    className={`px-4 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}>
+                    className={`px-4 py-4 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover} mr-6`}>
                     Next
                 </button>
             </div>

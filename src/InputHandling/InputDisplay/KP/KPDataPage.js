@@ -52,14 +52,15 @@ function KPDataPage() {
                 capacity={currentCapacity}
                 onDataChange={handleDataChange}
             />
-            <div className="flex justify-between w-full px-12">
+            <div className="flex w-full">
                 <button
-                    className={`px-2 py-2 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover}`}
+                    className={`px-4 py-4 rounded ${Colors.buttonSecondary} ${Colors.buttonSecondaryHover} ml-5`}
                     onClick={handleBackClick}>
                     Back
                 </button>
+                <div className="flex-grow"></div>
                 <button
-                    className={`px-2 py-2 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover}`}
+                    className={`px-4 py-4 rounded ${Colors.buttonPrimary} ${Colors.buttonPrimaryHover} mr-6`}
                     onClick={handleRunClick}>
                     Start
                 </button>
