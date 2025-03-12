@@ -153,11 +153,12 @@ export const updateStateAndCoolDown = (
     temperature,
     iteration,
     setStatus,
-    setHighlightLinks
+    setHighlightLinks,
+    coolingSchedule
 ) => {
-    setTemperature((prevTemperature) => prevTemperature * 0.95);
+    setTemperature((prevTemperature) => prevTemperature * coolingSchedule);
     setIteration((prevIteration) => prevIteration + 1);
-    setStatus("Iteration++, Temperature =* 0.95;");
+    setStatus("Iteration++, Temperature =*" + coolingSchedule);
     setHighlightLinks(prevLinks => [
         ...prevLinks,
         { source: 'cooldown', target: 'newIteration' }
@@ -188,7 +189,8 @@ export const handleRun = (
     setProposedTour,
     setProposedCost,
     setStatus,
-    setHighlightLinks
+    setHighlightLinks,
+    coolingSchedule
 ) => {
     if (currentTour.length < 2 || temperature <= 1e-5) return;
 
@@ -230,7 +232,7 @@ export const handleRun = (
             noChangeCounter++;
         }
         iter++;
-        temp *= 0.95;
+        temp *= coolingSchedule;
     }
 
     if (temp <= 1e-5) {

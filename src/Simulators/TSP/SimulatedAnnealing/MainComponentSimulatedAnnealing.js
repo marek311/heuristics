@@ -90,7 +90,8 @@ function MainComponentSimulatedAnnealing() {
                 temperature,
                 iteration,
                 setStatus,
-                setHighlightLinks
+                setHighlightLinks,
+                coolingSchedule
             );
             setIsIterationComplete(true);
         }
@@ -127,7 +128,8 @@ function MainComponentSimulatedAnnealing() {
             setProposedTour,
             setProposedCost,
             setStatus,
-            setHighlightLinks
+            setHighlightLinks,
+            coolingSchedule
         );
     };
 
