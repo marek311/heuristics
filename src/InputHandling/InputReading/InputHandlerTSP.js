@@ -9,6 +9,7 @@ function InputHandlerTSP({ data, setData, mode }) {
 
     const [tabuTenure, setTabuTenure] = useState(4);
     const [coolingRate, setCoolingRate] = useState(0.95);
+    const [generationSize, setGenerationSize] = useState(4);
 
     useEffect(() => {
         if (!data.edges.length) {
@@ -107,7 +108,7 @@ function InputHandlerTSP({ data, setData, mode }) {
 
     const handleTabuTenureChange = (e) => {
         const value = parseInt(e.target.value, 10);
-        if (value >= 2 && value <= 10) {
+        if (value >= 2 && value <= 7) {
             setTabuTenure(value);
             setData({ ...data, tabuTenure: value });
         }
@@ -118,6 +119,14 @@ function InputHandlerTSP({ data, setData, mode }) {
         if (value >= 0.8 && value <= 0.99) {
             setCoolingRate(value);
             setData({ ...data, coolingRate: value });
+        }
+    };
+
+    const handleGenerationSizeChange = (e) => {
+        const value = parseFloat(e.target.value);
+        if (value >= 4 && value <= 6) {
+            setGenerationSize(value);
+            setData({ ...data, generationSize: value });
         }
     };
 
@@ -151,7 +160,7 @@ function InputHandlerTSP({ data, setData, mode }) {
             {mode === 'TSPTabuSearch' && (
                 <div>
                     <label className={`block mb-2 ${Colors.textPrimary}`}>
-                        Tabu Tenure (2-7):
+                        Tabu Tenure (2 - 7):
                     </label>
                     <input
                         type="number"
@@ -175,6 +184,21 @@ function InputHandlerTSP({ data, setData, mode }) {
                         max="0.99"
                         value={coolingRate}
                         onChange={handleCoolingRateChange}
+                        className="p-2 mb-4 text-black border rounded w-full"
+                    />
+                </div>
+            )}
+            {mode === 'TSPGenetic' && (
+                <div>
+                    <label className={`block mb-2 ${Colors.textPrimary}`}>
+                        Generation Size (4 - 6):
+                    </label>
+                    <input
+                        type="number"
+                        min="4"
+                        max="6"
+                        value={generationSize}
+                        onChange={handleGenerationSizeChange}
                         className="p-2 mb-4 text-black border rounded w-full"
                     />
                 </div>
