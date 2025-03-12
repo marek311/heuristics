@@ -28,7 +28,7 @@ function MainComponentTabuSearch() {
     const [step, setStep] = useState(0);
     const [highlightLinks, setHighlightLinks] = useState([]);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
-    const tabuTenure = data?.tabuTenure || 5;
+    const tabuTenure = data?.tabuTenure || 4;
 
     const { initialize, iterationMethod, run } = useTabuSearch({
         data,

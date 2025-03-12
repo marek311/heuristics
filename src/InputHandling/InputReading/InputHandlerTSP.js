@@ -6,7 +6,7 @@ function InputHandlerTSP({ data, setData, mode }) {
     const defaultData = TSP_DefaultData();
     const [cities, setCities] = useState([]);
     const [startEndCity, setStartEndCity] = useState('');
-    const [tabuTenure, setTabuTenure] = useState(5);
+    const [tabuTenure, setTabuTenure] = useState(4);
 
     useEffect(() => {
         if (!data.edges.length) {
@@ -141,12 +141,12 @@ function InputHandlerTSP({ data, setData, mode }) {
             {mode === 'TSPTabuSearch' && (
                 <div>
                     <label className={`block mb-2 ${Colors.textPrimary}`}>
-                        Tabu Tenure (2-10):
+                        Tabu Tenure (2-7):
                     </label>
                     <input
                         type="number"
                         min="2"
-                        max="10"
+                        max="7"
                         value={tabuTenure}
                         onChange={handleTabuTenureChange}
                         className="p-2 mb-4 text-black border rounded w-full"
