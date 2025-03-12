@@ -34,7 +34,7 @@ function MainComponentGeneticAlgorithm() {
 
     useEffect(() => {
         if (data) {
-            const initialPopulation = generateInitialPopulation(data, 4, setFitnessValues);
+            const initialPopulation = generateInitialPopulation(data, generationSize, setFitnessValues);
             setPopulation(initialPopulation);
             const fitnessValues = initialPopulation.map(tour => calculateFitness(tour, data));
             const maxFitnessIndex = fitnessValues.indexOf(Math.max(...fitnessValues));
@@ -61,7 +61,8 @@ function MainComponentGeneticAlgorithm() {
             setMutatedChildren,
             setPopulation,
             setBestSolution,
-            setIsIterationComplete
+            setIsIterationComplete,
+            generationSize
         );
     }
 
@@ -79,13 +80,14 @@ function MainComponentGeneticAlgorithm() {
             setMutatedChildren,
             setBestSolution,
             mutatedChildren,
-            isIterationComplete
+            isIterationComplete,
+            generationSize
         );
     }
 
     function handleReset() {
         if (data) {
-            setPopulation(generateInitialPopulation(data, 4, setFitnessValues));
+            setPopulation(generateInitialPopulation(data, generationSize, setFitnessValues));
         }
         setProbabilities([]);
         setCumulativeProbabilities([]);

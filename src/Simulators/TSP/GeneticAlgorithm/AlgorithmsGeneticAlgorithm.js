@@ -111,7 +111,7 @@ export const crossover = (parent1, parent2) => {
     return child;
 };
 
-export const generateUniqueChildren = (selectedPopulation) => {
+export const generateUniqueChildren = (selectedPopulation, generationSize) => {
     let newChildren = [];
     const generatedChildrenSet = new Set();
 
@@ -138,8 +138,8 @@ export const generateUniqueChildren = (selectedPopulation) => {
         }
     }
 
-    if (newChildren.length > 4) {
-        newChildren = newChildren.slice(0, 4);
+    if (newChildren.length > generationSize) {
+        newChildren = newChildren.slice(0, generationSize);
     }
 
     return newChildren;
@@ -178,7 +178,8 @@ export const handleStep = (
     setMutatedChildren,
     setPopulation,
     setBestSolution,
-    setIsIterationComplete
+    setIsIterationComplete,
+    generationSize
 ) => {
     if (step === 0) {
         selection(
@@ -193,7 +194,7 @@ export const handleStep = (
     }
 
     if (step === 1) {
-        setChildren(generateUniqueChildren(selectedPopulation));
+        setChildren(generateUniqueChildren(selectedPopulation, generationSize));
         setIsIterationComplete(false);
     }
 
@@ -201,8 +202,8 @@ export const handleStep = (
         let newChildrenOnly = children.map((entry) => entry.child);
         let updatedChildren = [...newChildrenOnly];
 
-        if (updatedChildren.length < 4) {
-            while (updatedChildren.length < 4) {
+        if (updatedChildren.length < generationSize) {
+            while (updatedChildren.length < generationSize) {
                 const randomIndex = Math.floor(Math.random() * updatedChildren.length);
                 const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
                 updatedChildren.push(mutatedChild);
@@ -256,7 +257,8 @@ export const runAlgorithm = (
     setMutatedChildren,
     setBestSolution,
     mutatedChildren,
-    isIterationComplete
+    isIterationComplete,
+    generationSize
 ) => {
     if (!population || population.length === 0 || !data) return;
 
@@ -301,7 +303,7 @@ export const runAlgorithm = (
 
     let newMutatedChildren = children.map(entry => mutation(entry.child, 0.2));
 
-    while (newMutatedChildren.length < 4) {
+    while (newMutatedChildren.length < generationSize) {
         const randomIndex = Math.floor(Math.random() * newMutatedChildren.length);
         const mutatedChild = mutation(newMutatedChildren[randomIndex], 1.0);
         newMutatedChildren.push(mutatedChild);
