@@ -25,6 +25,11 @@ function InputHandlerKP({ data, setData }) {
                 }
             });
 
+            if (parsedPrices.length > 12) {
+                alert('Error: The number of items exceeds the limit of 12.');
+                return;
+            }
+
             if (parsedPrices.length && parsedWeights.length) {
                 setData({
                     ...data,
