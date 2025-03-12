@@ -299,19 +299,24 @@ export const runAlgorithm = (
         selectedIndices.add(selectedIndex);
     }
 
-    let children = generateUniqueChildren(selectedPopulation);
+    let children = generateUniqueChildren(selectedPopulation, generationSize);
 
-    let newMutatedChildren = children.map(entry => mutation(entry.child, 0.2));
+    let newChildrenOnly = children.map((entry) => entry.child);
+    let updatedChildren = [...newChildrenOnly];
 
-    while (newMutatedChildren.length < generationSize) {
-        const randomIndex = Math.floor(Math.random() * newMutatedChildren.length);
-        const mutatedChild = mutation(newMutatedChildren[randomIndex], 1.0);
-        newMutatedChildren.push(mutatedChild);
+    if (updatedChildren.length >= generationSize) {
+        updatedChildren = updatedChildren.map((child) => mutation(child, 0.2));
+    } else {
+        while (updatedChildren.length < generationSize) {
+            const randomIndex = Math.floor(Math.random() * updatedChildren.length);
+            const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
+            updatedChildren.push(mutatedChild);
+        }
     }
 
-    const newFitnessValues = newMutatedChildren.map(tour => calculateFitness(tour, data));
+    const newFitnessValues = updatedChildren.map(tour => calculateFitness(tour, data));
     const maxFitnessIndex = newFitnessValues.indexOf(Math.max(...newFitnessValues));
-    const bestTour = newMutatedChildren[maxFitnessIndex];
+    const bestTour = updatedChildren[maxFitnessIndex];
     const bestFitness = newFitnessValues[maxFitnessIndex];
 
     setFitnessValues(fitnessValues);
@@ -320,7 +325,7 @@ export const runAlgorithm = (
     setSelectedPopulation(selectedPopulation);
     setRandomValues(randomValues);
     setChildren(children);
-    setMutatedChildren(newMutatedChildren);
+    setMutatedChildren(updatedChildren);
 
     setBestSolution(prevBest => {
         if (!prevBest || bestFitness > prevBest.fitness) {
