@@ -6,7 +6,9 @@ function InputHandlerTSP({ data, setData, mode }) {
     const defaultData = TSP_DefaultData();
     const [cities, setCities] = useState([]);
     const [startEndCity, setStartEndCity] = useState('');
+
     const [tabuTenure, setTabuTenure] = useState(4);
+    const [coolingRate, setCoolingRate] = useState(0.95);
 
     useEffect(() => {
         if (!data.edges.length) {
@@ -111,6 +113,14 @@ function InputHandlerTSP({ data, setData, mode }) {
         }
     };
 
+    const handleCoolingRateChange = (e) => {
+        const value = parseFloat(e.target.value);
+        if (value >= 0.8 && value <= 0.99) {
+            setCoolingRate(value);
+            setData({ ...data, coolingRate: value });
+        }
+    };
+
     return (
         <div>
             <label className={`block mb-2 ${Colors.textPrimary}`}>
@@ -149,6 +159,22 @@ function InputHandlerTSP({ data, setData, mode }) {
                         max="7"
                         value={tabuTenure}
                         onChange={handleTabuTenureChange}
+                        className="p-2 mb-4 text-black border rounded w-full"
+                    />
+                </div>
+            )}
+            {mode === 'TSPSimulatedAnnealing' && (
+                <div>
+                    <label className={`block mb-2 ${Colors.textPrimary}`}>
+                        Cooling Rate (0.8 - 0.99):
+                    </label>
+                    <input
+                        type="number"
+                        step="0.01"
+                        min="0.8"
+                        max="0.99"
+                        value={coolingRate}
+                        onChange={handleCoolingRateChange}
                         className="p-2 mb-4 text-black border rounded w-full"
                     />
                 </div>
