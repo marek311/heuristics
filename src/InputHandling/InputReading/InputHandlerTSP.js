@@ -2,10 +2,11 @@ import React, { useEffect, useState } from 'react';
 import Colors from '../../Main/Colors';
 import TSP_DefaultData from '../DefaultData/TSP_DefaultData';
 
-function InputHandlerTSP({ data, setData }) {
+function InputHandlerTSP({ data, setData, mode }) {
     const defaultData = TSP_DefaultData();
     const [cities, setCities] = useState([]);
     const [startEndCity, setStartEndCity] = useState('');
+    const [tabuTenure, setTabuTenure] = useState(5);
 
     useEffect(() => {
         if (!data.edges.length) {
@@ -102,6 +103,14 @@ function InputHandlerTSP({ data, setData }) {
         }
     };
 
+    const handleTabuTenureChange = (e) => {
+        const value = parseInt(e.target.value, 10);
+        if (value >= 2 && value <= 10) {
+            setTabuTenure(value);
+            setData({ ...data, tabuTenure: value });
+        }
+    };
+
     return (
         <div>
             <label className={`block mb-2 ${Colors.textPrimary}`}>
@@ -129,6 +138,21 @@ function InputHandlerTSP({ data, setData }) {
                     </option>
                 ))}
             </select>
+            {mode === 'TSPTabuSearch' && (
+                <div>
+                    <label className={`block mb-2 ${Colors.textPrimary}`}>
+                        Tabu Tenure (2-10):
+                    </label>
+                    <input
+                        type="number"
+                        min="2"
+                        max="10"
+                        value={tabuTenure}
+                        onChange={handleTabuTenureChange}
+                        className="p-2 mb-4 text-black border rounded w-full"
+                    />
+                </div>
+            )}
         </div>
     );
 }

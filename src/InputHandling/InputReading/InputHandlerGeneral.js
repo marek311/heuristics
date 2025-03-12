@@ -66,7 +66,7 @@ function InputHandlerGeneral() {
                 <InputHandlerKP data={knapsackData} setData={setKnapsackData} />
             )}
             {['TSPSimulatedAnnealing','TSPGenetic', 'TSPTabuSearch'].includes(mode) && (
-                <InputHandlerTSP data={tspData} setData={setTspData} />
+                <InputHandlerTSP data={tspData} setData={setTspData} mode={mode}/>
             )}
             <div className="items-center justify-center flex space-x-4 mt-4">
                 <button
