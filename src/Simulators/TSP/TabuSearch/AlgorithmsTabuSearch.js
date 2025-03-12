@@ -1,5 +1,3 @@
-const TABU_TENURE = 5;
-
 const initializeTour = (data) => {
     const cities = Array.from(new Set(data.edges.flatMap(edge => [edge.city1, edge.city2])));
     const startingCity = data.startingCity || cities[0];
@@ -48,7 +46,8 @@ export const useTabuSearch = ({
                                   setBestNeighborData,
                                   setHighlightLinks,
                                   isIterationComplete,
-                                  setIsIterationComplete
+                                  setIsIterationComplete,
+                                  tabuTenure
                               }) => {
 
     const initialize = () => {
@@ -169,7 +168,7 @@ export const useTabuSearch = ({
 
         setTabuList(prevTabuList => {
             const updatedTabuList = prevTabuList.filter(entry => entry.expiryIteration >= iteration + 1);
-            return [...updatedTabuList, { iteration: iteration + 1, swap: bestSwap, expiryIteration: iteration + 1 + TABU_TENURE }];
+            return [...updatedTabuList, { iteration: iteration + 1, swap: bestSwap, expiryIteration: iteration + 1 + tabuTenure }];
         });
 
         if (bestNeighborCost < bestCost) {
@@ -275,7 +274,7 @@ export const useTabuSearch = ({
             finalIteration += 1;
 
             finalTabuList = finalTabuList.filter(entry => entry.expiryIteration >= finalIteration);
-            finalTabuList.push({ iteration: finalIteration, swap: bestSwap, expiryIteration: finalIteration + TABU_TENURE });
+            finalTabuList.push({ iteration: finalIteration, swap: bestSwap, expiryIteration: finalIteration + tabuTenure });
 
             if (bestNeighborCost < finalBestCost) {
                 finalBestTour = bestNeighbor;

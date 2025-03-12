@@ -28,6 +28,7 @@ function MainComponentTabuSearch() {
     const [step, setStep] = useState(0);
     const [highlightLinks, setHighlightLinks] = useState([]);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
+    const tabuTenure = data?.tabuTenure || 5;
 
     const { initialize, iterationMethod, run } = useTabuSearch({
         data,
@@ -54,7 +55,8 @@ function MainComponentTabuSearch() {
         setBestNeighborData,
         setHighlightLinks,
         isIterationComplete,
-        setIsIterationComplete
+        setIsIterationComplete,
+        tabuTenure
     });
 
     useEffect(() => {
