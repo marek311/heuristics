@@ -1,7 +1,20 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function SolutionSimulatedAnnealing({ currentCost, proposedCost, bestCost, previousCost, currentTour, proposedTour, bestTour, previousTour, costDifference, solutionStatus, iteration }) {
+function SolutionSimulatedAnnealing({
+                                        currentCost,
+                                        proposedCost,
+                                        bestCost,
+                                        previousCost,
+                                        currentTour,
+                                        proposedTour,
+                                        bestTour,
+                                        previousTour,
+                                        costDifference,
+                                        solutionStatus,
+                                        iteration,
+                                        coolingSchedule
+}) {
     const svgRef = useRef();
 
     useEffect(() => {
@@ -10,7 +23,6 @@ function SolutionSimulatedAnnealing({ currentCost, proposedCost, bestCost, previ
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
         const barChartHeight = height / 4;
-        const tourChartHeight = (3 * height) / 4;
         const barWidth = 30;
 
         const svg = d3.select(svgRef.current)
@@ -144,6 +156,7 @@ function SolutionSimulatedAnnealing({ currentCost, proposedCost, bestCost, previ
             <div className="flex flex-col items-center justify-center">
                 <h2 className="text-lg font-semibold text-gray-800">Tours</h2>
                 <div>Iteration: {iteration}</div>
+                <div>Cooling Rate: {coolingSchedule}</div>
                 <svg ref={svgRef}></svg>
                 <div className="p-2 bg-gray-200 rounded-lg mt-2">
                     <div className="mb-2 p-2 bg-gray-400 rounded-lg w-[340px] h-[85px]">

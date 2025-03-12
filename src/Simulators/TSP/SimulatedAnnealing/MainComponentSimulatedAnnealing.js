@@ -37,6 +37,7 @@ function MainComponentSimulatedAnnealing() {
     const [stepIndex, setStepIndex] = useState(0);
     const [highlightLinks, setHighlightLinks] = useState([]);
     const [isIterationComplete, setIsIterationComplete] = useState(true);
+    const coolingSchedule = data?.coolingRate || 0.95;
 
     useEffect(() => {
         if (data && data.edges) {
@@ -179,6 +180,7 @@ function MainComponentSimulatedAnnealing() {
                     costDifference={costDifference}
                     solutionStatus={status}
                     iteration={iteration}
+                    coolingSchedule={coolingSchedule}
                 />
                 <FlowchartTSPSimulatedAnnealing
                     highlightLinks={highlightLinks}
