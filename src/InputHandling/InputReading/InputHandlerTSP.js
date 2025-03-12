@@ -57,8 +57,8 @@ function InputHandlerTSP({ data, setData, mode }) {
                 }
             });
 
-            if (citiesSet.size > 20) {
-                alert('Error: The number of cities exceeds the limit of 20. Please provide a valid file.');
+            if (citiesSet.size > 12) {
+                alert('Error: The number of cities exceeds the limit of 12.');
                 return;
             }
 
