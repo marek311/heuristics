@@ -9,8 +9,8 @@ const CrossoverComponent = ({ children }) => {
 
         const boxSize = 30;
         const gap = 5;
-        const smallRowSpacing = 40;
-        const bigGroupSpacing = 80;
+        const smallRowSpacing = 60;
+        const bigGroupSpacing = 90;
 
         const maxTourLength = Math.max(...children.map(({ child }) => child.length));
         const width = maxTourLength * boxSize + (maxTourLength - 1) * gap + 100;
@@ -76,6 +76,17 @@ const CrossoverComponent = ({ children }) => {
                     .attr("font-size", "14px")
                     .attr("text-anchor", "end")
                     .text(label === "child" ? "Child" : `Parent ${label === "parent1" ? "1" : "2"}`);
+
+                rowGroup.append("text")
+                    .attr("x", offsetX)
+                    .attr("y", yPosition + boxSize + 15)
+                    .attr("fill", "black")
+                    .attr("font-size", "14px")
+                    .text(() => {
+                        if (label === "parent1") return "Parent 1";
+                        if (label === "parent2") return "Parent 2";
+                        else return "Child";
+                    });
             };
 
             drawTour(parent1, 0, "parent1");
