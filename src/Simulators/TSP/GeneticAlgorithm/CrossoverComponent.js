@@ -77,6 +77,19 @@ const CrossoverComponent = ({ children }) => {
                     .attr("text-anchor", "end")
                     .text(label === "child" ? "Child" : `Parent ${label === "parent1" ? "1" : "2"}`);
 
+                if (label === "child") {
+                    rowGroup.selectAll(`text.${label}-index-${groupIndex}`)
+                        .data(tour)
+                        .enter()
+                        .append("text")
+                        .attr("class", `${label}-index-${groupIndex}`)
+                        .attr("x", offsetX)
+                        .attr("y", yPosition + boxSize + 15)
+                        .attr("fill", "black")
+                        .attr("font-size", "14px")
+                        .text(() => `Child ${groupIndex + 1}`);
+                }
+
                 rowGroup.append("text")
                     .attr("x", offsetX)
                     .attr("y", yPosition + boxSize + 15)
@@ -85,7 +98,6 @@ const CrossoverComponent = ({ children }) => {
                     .text(() => {
                         if (label === "parent1") return "Parent 1";
                         if (label === "parent2") return "Parent 2";
-                        else return "Child";
                     });
             };
 
