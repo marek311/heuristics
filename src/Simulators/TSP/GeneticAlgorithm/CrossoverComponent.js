@@ -22,84 +22,66 @@ const CrossoverComponent = ({ children }) => {
 
         svg.selectAll("*").remove();
 
-        children.forEach(({ parent1, parent2, child, fromParent1 }, groupIndex) => {
-            const yOffset = groupIndex * (2 * smallRowSpacing + bigGroupSpacing);
-            const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
+        const drawTour = (tour, row, label, groupIndex, rowGroup, parent1Color, parent2Color) => {
 
-            const offsetX = 10;
+            const yPosition = row * smallRowSpacing;
 
-            let parent1Color = "#1e88e5";
-            let parent2Color = "#f73e3e";
+            rowGroup.selectAll(`rect.${label}-rect-${groupIndex}`)
+                .data(tour)
+                .enter()
+                .append("rect")
+                .attr("class", `${label}-rect-${groupIndex}`)
+                .attr("x", (_, i) => 10 + i * (boxSize + gap))
+                .attr("y", yPosition)
+                .attr("width", boxSize)
+                .attr("height", boxSize)
+                .attr("fill", (d, i) => label === "child" ?
+                    (i < Math.floor((tour.length - 1) / 2) + 1)
+                        ? parent1Color : parent2Color : (label === "parent1"
+                            ? parent1Color : parent2Color))
+                .attr("stroke", "black")
+                .attr("stroke-width", 1);
 
-            const drawTour = (tour, row, label) => {
-                const yPosition = row * smallRowSpacing;
+            rowGroup.selectAll(`text.${label}-text-${groupIndex}`)
+                .data(tour)
+                .enter()
+                .append("text")
+                .attr("class", `${label}-text-${groupIndex}`)
+                .attr("x", (_, i) => 10 + i * (boxSize + gap) + boxSize / 2)
+                .attr("y", yPosition + boxSize / 2)
+                .attr("text-anchor", "middle")
+                .attr("dominant-baseline", "middle")
+                .attr("fill", "white")
+                .attr("font-size", "12px")
+                .text(d => d);
 
-                rowGroup.selectAll(`rect.${label}-rect-${groupIndex}`)
-                    .data(tour)
-                    .enter()
-                    .append("rect")
-                    .attr("class", `${label}-rect-${groupIndex}`)
-                    .attr("x", (_, i) => offsetX + i * (boxSize + gap))
-                    .attr("y", yPosition)
-                    .attr("width", boxSize)
-                    .attr("height", boxSize)
-                    .attr("fill", (d, i) => {
-                        if (label === "parent1") return parent1Color;
-                        if (label === "parent2") return parent2Color;
-                        const splitPoint = Math.floor((tour.length - 1) / 2) + 1;
-                        return i < splitPoint ? parent1Color : parent2Color;
-                    })
-                    .attr("stroke", "black")
-                    .attr("stroke-width", 1);
-
-                rowGroup.selectAll(`text.${label}-text-${groupIndex}`)
-                    .data(tour)
-                    .enter()
-                    .append("text")
-                    .attr("class", `${label}-text-${groupIndex}`)
-                    .attr("x", (_, i) => offsetX + i * (boxSize + gap) + boxSize / 2)
-                    .attr("y", yPosition + boxSize / 2)
-                    .attr("text-anchor", "middle")
-                    .attr("dominant-baseline", "middle")
-                    .attr("fill", "white")
-                    .attr("font-size", "12px")
-                    .text(d => d);
-
+            if (label !== "child") {
                 rowGroup.append("text")
-                    .attr("x", offsetX - 80)
-                    .attr("y", yPosition + boxSize / 2)
-                    .attr("fill", "black")
-                    .attr("font-size", "14px")
-                    .attr("text-anchor", "end")
-                    .text(label === "child" ? "Child" : `Parent ${label === "parent1" ? "1" : "2"}`);
-
-                if (label === "child") {
-                    rowGroup.selectAll(`text.${label}-index-${groupIndex}`)
-                        .data(tour)
-                        .enter()
-                        .append("text")
-                        .attr("class", `${label}-index-${groupIndex}`)
-                        .attr("x", offsetX)
-                        .attr("y", yPosition + boxSize + 15)
-                        .attr("fill", "black")
-                        .attr("font-size", "14px")
-                        .text(() => `Child ${groupIndex + 1}`);
-                }
-
-                rowGroup.append("text")
-                    .attr("x", offsetX)
+                    .attr("x", 10)
                     .attr("y", yPosition + boxSize + 15)
                     .attr("fill", "black")
                     .attr("font-size", "14px")
-                    .text(() => {
-                        if (label === "parent1") return "Parent 1";
-                        if (label === "parent2") return "Parent 2";
-                    });
-            };
+                    .text(label === "parent1" ? "Parent 1" : "Parent 2");
+            }
 
-            drawTour(parent1, 0, "parent1");
-            drawTour(parent2, 1, "parent2");
-            drawTour(child, 2, "child");
+            if (label === "child") {
+                rowGroup.append("text")
+                    .attr("x", 10)
+                    .attr("y", yPosition + boxSize + 15)
+                    .attr("fill", "black")
+                    .attr("font-size", "14px")
+                    .text(() => `Child ${groupIndex + 1}`);
+            }
+        };
+
+        children.forEach(({ parent1, parent2, child }, groupIndex) => {
+            const rowGroup = svg.append("g").attr("transform", `translate(50, ${groupIndex * (2 * smallRowSpacing + bigGroupSpacing)})`);
+            const parent1Color = "#1e88e5";
+            const parent2Color = "#f73e3e";
+
+            drawTour(parent1, 0, "parent1", groupIndex, rowGroup, parent1Color, parent2Color);
+            drawTour(parent2, 1, "parent2", groupIndex, rowGroup, parent1Color, parent2Color);
+            drawTour(child, 2, "child", groupIndex, rowGroup, parent1Color, parent2Color);
         });
 
     }, [children]);
