@@ -125,14 +125,14 @@ export const generateUniqueChildren = (selectedPopulation, generationSize) => {
             const child1 = crossover(parent1, parent2);
             const serializedChild1 = serializeChild(child1);
             if (!generatedChildrenSet.has(serializedChild1)) {
-                newChildren.push({ child: child1, parent1: parent1, parent2: parent2, fromParent1: true });
+                newChildren.push({ child: child1, parent1: parent1, parent2: parent2 });
                 generatedChildrenSet.add(serializedChild1);
             }
 
             const child2 = crossover(parent2, parent1);
             const serializedChild2 = serializeChild(child2);
             if (!generatedChildrenSet.has(serializedChild2)) {
-                newChildren.push({ child: child2, parent1: parent2, parent2: parent1, fromParent1: false });
+                newChildren.push({ child: child2, parent1: parent2, parent2: parent1 });
                 generatedChildrenSet.add(serializedChild2);
             }
         }

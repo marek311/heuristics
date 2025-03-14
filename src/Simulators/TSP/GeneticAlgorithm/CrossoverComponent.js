@@ -31,10 +31,6 @@ const CrossoverComponent = ({ children }) => {
             let parent1Color = "#1e88e5";
             let parent2Color = "#f73e3e";
 
-            if (!fromParent1) {
-                [parent1Color, parent2Color] = [parent2Color, parent1Color];
-            }
-
             const drawTour = (tour, row, label) => {
                 const yPosition = row * smallRowSpacing;
 
