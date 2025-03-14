@@ -64,10 +64,9 @@ export const selection = (
     setCumulativeProbabilities(cumulativeProbabilities);
 
     const randomValues = [];
-    const selected = [];
     const selectedIndices = new Set();
 
-    while (selected.length < selectionSize) {
+    while (selectedIndices.size < selectionSize) {
         let randomValue;
         let selectedIndex;
 
@@ -78,12 +77,13 @@ export const selection = (
         } while (selectedIndices.has(selectedIndex));
 
         randomValues.push(randomValue);
-        selected.push(population[selectedIndex]);
         selectedIndices.add(selectedIndex);
     }
 
+    const selectedPopulation = population.filter((_, index) => selectedIndices.has(index));
+
     setRandomValues(randomValues);
-    setSelectedPopulation(selected);
+    setSelectedPopulation(selectedPopulation);
 };
 
 export const crossover = (parent1, parent2) => {
@@ -284,12 +284,13 @@ export const runAlgorithm = (
     let cumulative = 0;
     const cumulativeProbabilities = probabilities.map(prob => cumulative += prob);
 
-    let selectedPopulation = [];
-    let randomValues = [];
-    let selectedIndices = new Set();
+    const selectedIndices = new Set();
+    const randomValues = [];
 
-    while (selectedPopulation.length < 3) {
-        let randomValue, selectedIndex;
+    while (selectedIndices.size < 3) {
+        let randomValue;
+        let selectedIndex;
+
         do {
             randomValue = Math.random();
             // eslint-disable-next-line
@@ -297,11 +298,12 @@ export const runAlgorithm = (
         } while (selectedIndices.has(selectedIndex));
 
         randomValues.push(randomValue);
-        selectedPopulation.push(population[selectedIndex]);
         selectedIndices.add(selectedIndex);
     }
 
-    let children = generateUniqueChildren(selectedPopulation, generationSize);
+    const selectedPopulation = population.filter((_, index) => selectedIndices.has(index));
+
+    const children = generateUniqueChildren(selectedPopulation, generationSize);
 
     let newChildrenOnly = children.map((entry) => entry.child);
     let updatedChildren = [...newChildrenOnly];
