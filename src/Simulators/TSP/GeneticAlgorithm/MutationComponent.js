@@ -52,6 +52,13 @@ const MutationComponent = ({ children, mutatedChildren }) => {
                 .attr("fill", "white")
                 .attr("font-size", "12px")
                 .text(d => d);
+
+            rowGroup.append("text")
+                .attr("x", 10)
+                .attr("y", boxSize + 15)
+                .attr("fill", "black")
+                .attr("font-size", "14px")
+                .text(() => `Child ${rowIndex + 1}`);
         });
 
     }, [mutatedChildren]);
