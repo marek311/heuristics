@@ -63,11 +63,19 @@ const PopulationComponent = ({ population, fitnessValues, bestSolution, step }) 
             .text(d => d);
 
         rowGroup.append("text")
-            .attr("x", offsetX)
+            .attr("x", 60)
+            .attr("y", boxSize + 20)
+            .attr("fill", "black")
+            .attr("font-size", "14px")
+            .attr("text-anchor", "end")
+            .text(isBest ? "   Best  " : `Tour #${rowIndex + 1}`);
+
+        rowGroup.append("text")
+            .attr("x", 100)
             .attr("y", boxSize + 20)
             .attr("fill", isBest ? "red" : "black")
             .attr("font-size", "14px")
-            .text(isBest ? `Best Found Solution - Fitness: ${fitness.toFixed(4)}` : `Fitness: ${fitness.toFixed(4)}`);
+            .text(`Fitness: ${fitness.toFixed(4)}`);
     }
 
     return (
