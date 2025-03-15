@@ -174,9 +174,7 @@ export const handleRun = (
     setCurrentCost,
     previousCost,
     setPreviousCost,
-    temperature,
     setTemperature,
-    iteration,
     setIteration,
     data,
     setCostDifference,
@@ -192,14 +190,16 @@ export const handleRun = (
     setHighlightLinks,
     coolingSchedule
 ) => {
-    if (currentTour.length < 2 || temperature <= 1e-5) return;
+    const { randomTour, totalCost } = initializeTour(data);
 
-    let temp = temperature;
-    let iter = iteration;
-    let current = [...currentTour];
-    let best = [...bestTour];
-    let cost = currentCost;
-    let bestCostSoFar = bestCost;
+    if (randomTour.length < 2) return;
+
+    let temp = 100;
+    let iter = 0;
+    let current = [...randomTour];
+    let cost = totalCost;
+    let best = [...randomTour];
+    let bestCostSoFar = totalCost;
 
     let noChangeCounter = 0;
     let terminationReason = "";
