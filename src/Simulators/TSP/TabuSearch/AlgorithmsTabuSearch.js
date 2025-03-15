@@ -27,7 +27,6 @@ export const useTabuSearch = ({
                                   setCurrentTour,
                                   currentCost,
                                   setCurrentCost,
-                                  bestTour,
                                   setBestTour,
                                   bestCost,
                                   setBestCost,
@@ -209,15 +208,17 @@ export const useTabuSearch = ({
             return;
         }
 
+        const { tour, cost } = initializeTour(data);
+
         if (currentTour.length < 4) return;
 
         let noImprovementCounter = 0;
-        let finalTour = [...currentTour];
-        let finalCost = currentCost;
-        let finalBestTour = [...bestTour];
-        let finalBestCost = bestCost;
-        let finalTabuList = [...tabuList];
-        let finalIteration = iteration;
+        let finalTour = [...tour];
+        let finalCost = cost;
+        let finalBestTour = [...tour];
+        let finalBestCost = cost;
+        let finalTabuList = [];
+        let finalIteration = 0;
         let lastPreviousTour = [...currentTour];
         let lastPreviousCost = currentCost;
 
@@ -293,6 +294,7 @@ export const useTabuSearch = ({
         setBestCost(finalBestCost);
         setTabuList(finalTabuList);
         setIteration(finalIteration);
+        setHighlightLinks([]);
         setStatus("Run Complete.");
     };
 

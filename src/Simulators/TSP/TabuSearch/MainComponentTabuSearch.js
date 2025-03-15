@@ -36,7 +36,6 @@ function MainComponentTabuSearch() {
         setCurrentTour,
         currentCost,
         setCurrentCost,
-        bestTour,
         setBestTour,
         bestCost,
         setBestCost,
