@@ -22,8 +22,7 @@ const CrossoverComponent = ({ children }) => {
 
         svg.selectAll("*").remove();
 
-        const drawTour = (tour, row, label, groupIndex, rowGroup, parent1Color, parent2Color) => {
-
+        const drawTour = (tour, row, label, groupIndex, rowGroup, parent1Color, parent2Color, index) => {
             const yPosition = row * smallRowSpacing;
 
             rowGroup.selectAll(`rect.${label}-rect-${groupIndex}`)
@@ -38,7 +37,7 @@ const CrossoverComponent = ({ children }) => {
                 .attr("fill", (d, i) => label === "child" ?
                     (i < Math.floor((tour.length - 1) / 2) + 1)
                         ? parent1Color : parent2Color : (label === "parent1"
-                            ? parent1Color : parent2Color))
+                        ? parent1Color : parent2Color))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1);
 
@@ -61,7 +60,9 @@ const CrossoverComponent = ({ children }) => {
                     .attr("y", yPosition + boxSize + 15)
                     .attr("fill", "black")
                     .attr("font-size", "14px")
-                    .text(label === "parent1" ? "Parent 1" : "Parent 2");
+                    .text(() => label === "parent1"
+                        ? `Parent 1 - Tour #${index + 1}`
+                        : `Parent 2 - Tour #${index + 1}`);
             }
 
             if (label === "child") {
@@ -79,8 +80,8 @@ const CrossoverComponent = ({ children }) => {
             const parent1Color = "#1e88e5";
             const parent2Color = "#f73e3e";
 
-            drawTour(parent1, 0, "parent1", groupIndex, rowGroup, parent1Color, parent2Color);
-            drawTour(parent2, 1, "parent2", groupIndex, rowGroup, parent1Color, parent2Color);
+            drawTour(parent1.tour, 0, "parent1", groupIndex, rowGroup, parent1Color, parent2Color, parent1.index);
+            drawTour(parent2.tour, 1, "parent2", groupIndex, rowGroup, parent1Color, parent2Color, parent2.index);
             drawTour(child, 2, "child", groupIndex, rowGroup, parent1Color, parent2Color);
         });
 

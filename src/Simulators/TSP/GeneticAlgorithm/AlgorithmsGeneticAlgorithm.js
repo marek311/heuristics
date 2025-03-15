@@ -80,7 +80,9 @@ export const selection = (
         selectedIndices.add(selectedIndex);
     }
 
-    const selectedPopulation = population.filter((_, index) => selectedIndices.has(index));
+    const sortedIndices = Array.from(selectedIndices).sort((a, b) => a - b);
+
+    const selectedPopulation = sortedIndices.map(index => ({ index: index, tour: population[index] }));
 
     setRandomValues(randomValues);
     setSelectedPopulation(selectedPopulation);
@@ -122,14 +124,14 @@ export const generateUniqueChildren = (selectedPopulation, generationSize) => {
             const parent1 = selectedPopulation[i];
             const parent2 = selectedPopulation[j];
 
-            const child1 = crossover(parent1, parent2);
+            const child1 = crossover(parent1.tour, parent2.tour);
             const serializedChild1 = serializeChild(child1);
             if (!generatedChildrenSet.has(serializedChild1)) {
                 newChildren.push({ child: child1, parent1: parent1, parent2: parent2 });
                 generatedChildrenSet.add(serializedChild1);
             }
 
-            const child2 = crossover(parent2, parent1);
+            const child2 = crossover(parent2.tour, parent1.tour);
             const serializedChild2 = serializeChild(child2);
             if (!generatedChildrenSet.has(serializedChild2)) {
                 newChildren.push({ child: child2, parent1: parent2, parent2: parent1 });
@@ -301,7 +303,9 @@ export const runAlgorithm = (
         selectedIndices.add(selectedIndex);
     }
 
-    const selectedPopulation = population.filter((_, index) => selectedIndices.has(index));
+    const sortedIndices = Array.from(selectedIndices).sort((a, b) => a - b);
+
+    const selectedPopulation = sortedIndices.map(index => ({ index: index, tour: population[index] }));
 
     const children = generateUniqueChildren(selectedPopulation, generationSize);
 

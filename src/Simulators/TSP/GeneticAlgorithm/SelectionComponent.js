@@ -15,7 +15,7 @@ function RouletteSelectionTable({ population, fitnessValues, probabilities, cumu
             {probabilities.map((prob, index) => {
                 const isSelected = selectedPopulation.some(
                     (selectedTour) =>
-                        JSON.stringify(selectedTour) === JSON.stringify(population[index])
+                        JSON.stringify(selectedTour.tour) === JSON.stringify(population[index])
                 );
                 return (
                     <tr
