@@ -142,7 +142,7 @@ function InputHandlerTSP({ data, setData, mode }) {
     return (
         <div>
             <label className={`block mb-2 ${Colors.textPrimary}`}>
-                CSV file: row contains edge in format: city1;city2;distance<br />
+                CSV file: row contains edge in format: <strong>city1;city2;distance</strong><br/>
                 Note: Algorithms are designed for complete graphs only!
             </label>
             <input
