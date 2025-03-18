@@ -8,6 +8,7 @@ function InputHandlerTSP({ data, setData, mode }) {
     const [startEndCity, setStartEndCity] = useState('');
 
     const [tabuTenure, setTabuTenure] = useState(4);
+    const [temperature, setTemperature] = useState(100);
     const [coolingRate, setCoolingRate] = useState(0.95);
     const [generationSize, setGenerationSize] = useState(4);
     const [mutationProbability, setMutationProbability] = useState(0.2);
@@ -115,6 +116,14 @@ function InputHandlerTSP({ data, setData, mode }) {
         }
     };
 
+    const handleTemperatureChange = (e) => {
+        const value = parseFloat(e.target.value);
+        if (value >= 1 && value <= 100000) {
+            setTemperature(value);
+            setData({ ...data, temperature: value });
+        }
+    };
+
     const handleCoolingRateChange = (e) => {
         const value = parseFloat(e.target.value);
         if (value >= 0.8 && value <= 0.99) {
@@ -183,18 +192,34 @@ function InputHandlerTSP({ data, setData, mode }) {
             )}
             {mode === 'TSPSimulatedAnnealing' && (
                 <div>
-                    <label className={`block mb-2 ${Colors.textPrimary}`}>
-                        Cooling Rate (0.8 - 0.99):
-                    </label>
-                    <input
-                        type="number"
-                        step="0.01"
-                        min="0.8"
-                        max="0.99"
-                        value={coolingRate}
-                        onChange={handleCoolingRateChange}
-                        className="p-2 mb-4 text-black border rounded w-full"
-                    />
+                    <div>
+                        <label className={`block mb-2 ${Colors.textPrimary}`}>
+                            Temperature (1 - 100 000):
+                        </label>
+                        <input
+                            type="number"
+                            min="1"
+                            max="100000"
+                            step="1"
+                            value={temperature}
+                            onChange={handleTemperatureChange}
+                            className="p-2 mb-4 text-black border rounded w-full"
+                        />
+                    </div>
+                    <div>
+                        <label className={`block mb-2 ${Colors.textPrimary}`}>
+                            Cooling Rate (0.8 - 0.99):
+                        </label>
+                        <input
+                            type="number"
+                            step="0.01"
+                            min="0.8"
+                            max="0.99"
+                            value={coolingRate}
+                            onChange={handleCoolingRateChange}
+                            className="p-2 mb-4 text-black border rounded w-full"
+                        />
+                    </div>
                 </div>
             )}
             {mode === 'TSPGenetic' && (
