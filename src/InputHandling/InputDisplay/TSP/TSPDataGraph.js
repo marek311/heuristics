@@ -54,7 +54,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('x2', (d) => d.target.x)
                 .attr('y2', (d) => d.target.y)
                 .attr('stroke', (d) =>
-                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#f73e3e' : '#888'
+                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#4caf50' : '#888'
                 )
                 .attr('stroke-width', (d) =>
                     tourEdges.has(`${d.source.id}-${d.target.id}`) ? 4 : 2
@@ -78,7 +78,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('cx', (d) => d.x)
                 .attr('cy', (d) => d.y)
                 .attr('r', 10)
-                .attr('fill', (d) => (tour.includes(d.id) ? '#f73e3e' : '#1e88e5'));
+                .attr('fill', '#4caf50');
 
             svg.selectAll('text.city-label')
                 .data(cities)
@@ -100,7 +100,7 @@ function TSPDataGraph({ data, tour }) {
     return (
         <div className="p-4 bg-white rounded-lg shadow-md">
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Graphical Representation</h2>
+                <h2 className="text-lg font-semibold text-gray-800">Best Tour Graphical Representation</h2>
                 <div className="flex items-center space-x-2 mt-2">
                     <input
                         type="checkbox"

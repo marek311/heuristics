@@ -166,7 +166,7 @@ function MainComponentSimulatedAnnealing() {
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
                 <TSPDataGraph
                     data={data}
-                    tour={currentTour}
+                    tour={bestTour}
                 />
                 <Solution
                     currentCost={currentCost}
