@@ -194,7 +194,7 @@ export const handleRun = (
 
     if (randomTour.length < 2) return;
 
-    let temp = 100;
+    let temp = data.temperature;
     let iter = 0;
     let current = [...randomTour];
     let cost = totalCost;

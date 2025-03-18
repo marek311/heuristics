@@ -28,7 +28,7 @@ function MainComponentSimulatedAnnealing() {
     const [previousCost, setPreviousCost] = useState(0);
     const [proposedTour, setProposedTour] = useState([]);
     const [proposedCost, setProposedCost] = useState(0);
-    const [temperature, setTemperature] = useState(100);
+    const [temperature, setTemperature] = useState(data?.temperature || 100);
     const [costDifference, setCostDifference] = useState(0);
     const [acceptanceProbability, setAcceptanceProbability] = useState(0);
     const [randomValue, setRandomValue] = useState(0);
@@ -142,7 +142,7 @@ function MainComponentSimulatedAnnealing() {
             setPreviousCost(0);
             setProposedTour([]);
             setProposedCost(0);
-            setTemperature(100);
+            setTemperature(data?.temperature);
             setIteration(0);
             setCostDifference(0);
             setAcceptanceProbability(0);
@@ -190,6 +190,7 @@ function MainComponentSimulatedAnnealing() {
                 />
                 <BarTemperature
                     temperature={temperature}
+                    maxTemperature={data.temperature}
                     coolingSchedule={coolingSchedule}
                 />
             </div>

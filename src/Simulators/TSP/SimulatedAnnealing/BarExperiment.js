@@ -5,7 +5,7 @@ function BarExperiment({ acceptanceProbability, randomValue }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 50;
+        const width = 70;
         const height = 500;
         const margin = 10;
 

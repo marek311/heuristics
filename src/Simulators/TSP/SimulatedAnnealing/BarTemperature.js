@@ -1,11 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
 
-function BarTemperature({ temperature, coolingSchedule }) {
+function BarTemperature({ temperature, maxTemperature, coolingSchedule }) {
     const svgRef = useRef();
 
     useEffect(() => {
-        const width = 50;
+        const width = 70;
         const height = 500;
         const margin = 10;
 
@@ -26,15 +26,9 @@ function BarTemperature({ temperature, coolingSchedule }) {
             .attr("x2", "0%")
             .attr("y2", "100%");
 
-        gradient.append("stop")
-            .attr("offset", "0%")
-            .attr("stop-color", "red");
-        gradient.append("stop")
-            .attr("offset", "50%")
-            .attr("stop-color", "yellow");
-        gradient.append("stop")
-            .attr("offset", "100%")
-            .attr("stop-color", "blue");
+        gradient.append("stop").attr("offset", "0%").attr("stop-color", "red");
+        gradient.append("stop").attr("offset", "50%").attr("stop-color", "yellow");
+        gradient.append("stop").attr("offset", "100%").attr("stop-color", "blue");
 
         svg.append("rect")
             .attr("x", margin)
@@ -43,8 +37,10 @@ function BarTemperature({ temperature, coolingSchedule }) {
             .attr("height", height - margin * 2)
             .attr("fill", `url(#${gradientId})`);
 
-        const normalizedTemp = Math.max(0, Math.min(temperature, 100));
-        const tempY = margin + ((100 - normalizedTemp) / 100) * (height - margin * 2);
+        const effectiveMaxTemp = Math.max(temperature, maxTemperature || 100);
+        const normalizedTemp = Math.max(0, Math.min(temperature, effectiveMaxTemp));
+
+        const tempY = margin + ((effectiveMaxTemp - normalizedTemp) / effectiveMaxTemp) * (height - margin * 2);
 
         svg.append("line")
             .attr("x1", margin)
@@ -54,7 +50,7 @@ function BarTemperature({ temperature, coolingSchedule }) {
             .attr("stroke", "black")
             .attr("stroke-width", 2);
 
-        const textOffset = temperature > 50 ? 15 : -5;
+        const textOffset = temperature > (effectiveMaxTemp / 2) ? 15 : -5;
 
         svg.append("text")
             .attr("x", width / 2)
@@ -64,7 +60,7 @@ function BarTemperature({ temperature, coolingSchedule }) {
             .attr("font-size", "12px")
             .attr("font-weight", "bold")
             .text(`${temperature.toFixed(2)}°C`);
-    }, [temperature]);
+    }, [temperature, maxTemperature]);
 
     return (
         <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
