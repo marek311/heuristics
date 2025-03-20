@@ -1,9 +1,10 @@
 import React from 'react';
 
-function TabuList({ tabuList }) {
+function TabuList({ tabuList, tabuTenure }) {
     return (
         <div className="bg-white shadow-md rounded-lg p-4 w-full lg:w-1/3">
             <h2 className="text-lg text-center font-semibold mb-3">Tabu List</h2>
+            <div className="text-center">Tabu Tenure: {tabuTenure}</div>
             <table className="w-full border-collapse border border-gray-300">
                 <thead>
                 <tr className="bg-gray-200">

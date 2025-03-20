@@ -86,7 +86,6 @@ function MainComponentTabuSearch() {
                     previousCost={previousCost}
                     iteration={iteration}
                     status={status}
-                    tabuTenure={tabuTenure}
                 />
                 <Neighborhood
                     neighborhood={neighborhood}
@@ -95,6 +94,7 @@ function MainComponentTabuSearch() {
                 />
                 <TabuList
                     tabuList={tabuList}
+                    tabuTenure={tabuTenure}
                 />
                 <FlowchartTabuSearch
                     highlightLinks={highlightLinks}
