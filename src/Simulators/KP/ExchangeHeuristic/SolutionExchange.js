@@ -6,7 +6,7 @@ function SolutionExchange({ exchangeHistory }) {
 
     useEffect(() => {
         const width = 800;
-        const paddingLeft = 10;
+        const paddingLeft = 40;
         const rectSize = 18;
         const rectGap = 2;
         const rowHeight = 60;
@@ -21,6 +21,14 @@ function SolutionExchange({ exchangeHistory }) {
 
         const renderExchange = (exchange, index) => {
             const yOffset = index * rowHeight + 20;
+
+            svg.append("text")
+                .attr("x", paddingLeft - 15)
+                .attr("y", yOffset + rectSize / 2)
+                .attr("text-anchor", "end")
+                .attr("alignment-baseline", "middle")
+                .attr("font-size", 14)
+                .text(`#${exchangeHistory.length - index}`);
 
             const vectorGroup = svg.append("g")
                 .attr("transform", `translate(${paddingLeft}, ${yOffset})`);
