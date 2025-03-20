@@ -117,6 +117,12 @@ function MainComponentGeneticAlgorithm() {
                     <h2 className={`text-xl font-semibold text-center ${step === 0 ? 'bg-green-500 text-white' : ''}`}>
                         Population ({generationSize})
                     </h2>
+                    <div className="mt-4 p-4 border-2 border-yellow-500 bg-yellow-100 rounded-lg shadow-md">
+                        <h3 className="text-lg font-bold text-center">Fitness Calculation</h3>
+                        <p className="text-center font-medium mt-2">
+                            <strong>Fitness Value</strong> = 1000 / Total Tour Distance
+                        </p>
+                    </div>
                     <PopulationComponent
                         population={population}
                         fitnessValues={fitnessValues}
