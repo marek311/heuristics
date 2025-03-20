@@ -24,6 +24,8 @@ function InputHandlerTSP({ data, setData, mode }) {
             citiesSet.add(edge.city2);
         });
         setCities(Array.from(citiesSet));
+
+        setData({ ...data, temperature: temperature })
     }, [data, setData]);
 
     const handleFileUpload = (event) => {
