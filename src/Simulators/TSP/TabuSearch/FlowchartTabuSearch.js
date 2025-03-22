@@ -7,6 +7,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
     useEffect(() => {
         const width = 350;
         const height = 600;
+
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
@@ -37,7 +38,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
             { source: 'newSolution', target: 'newIteration'},
         ];
 
-        const linkLines = svg.selectAll('line')
+        svg.selectAll('line')
             .data(links)
             .join('line')
             .attr('x1', d => nodes.find(n => n.id === d.source).x)
@@ -47,26 +48,20 @@ function FlowchartTabuSearch({ highlightLinks }) {
             .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
             .attr('stroke-width', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 3 : 2);
 
-        svg.selectAll('text.link-label')
+        svg.selectAll('polygon.arrow')
             .data(links)
-            .join('text')
-            .attr('class', 'link-label')
-            .attr('x', d => {
+            .join('polygon')
+            .attr('class', 'arrow')
+            .attr('points', '0,-5 10,0 0,5')
+            .attr('fill', '#333')
+            .attr('transform', d => {
                 const sourceNode = nodes.find(n => n.id === d.source);
                 const targetNode = nodes.find(n => n.id === d.target);
-                return (sourceNode.x + targetNode.x) / 2;
-            })
-            .attr('y', d => {
-                const sourceNode = nodes.find(n => n.id === d.source);
-                const targetNode = nodes.find(n => n.id === d.target);
-                return (sourceNode.y + targetNode.y) / 2;
-            })
-            .attr('dy', -10)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
-            .style('font-size', '12px')
-            .style('font-weight', 'bold')
-            .text(d => d.label || '');
+                const midX = (sourceNode.x + targetNode.x) / 2;
+                const midY = (sourceNode.y + targetNode.y) / 2;
+                const angle = Math.atan2(targetNode.y - sourceNode.y, targetNode.x - sourceNode.x) * 180 / Math.PI;
+                return `translate(${midX},${midY}) rotate(${angle})`;
+            });
 
         const nodeGroups = svg.selectAll('g.node')
             .data(nodes)
@@ -110,6 +105,28 @@ function FlowchartTabuSearch({ highlightLinks }) {
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
+
+        svg.selectAll('text.link-label')
+            .data(links)
+            .join('text')
+            .attr('class', 'link-label')
+            .attr('x', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.x + targetNode.x) / 2;
+            })
+            .attr('y', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.y + targetNode.y) / 2;
+            })
+            .attr('dy', -10)
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#000')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold')
+            .text(d => d.label || '');
+
     }, [highlightLinks]);
 
     return (

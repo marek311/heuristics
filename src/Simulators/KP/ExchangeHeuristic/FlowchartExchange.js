@@ -15,12 +15,10 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             .style('border', '1px solid #ccc')
             .style('overflow', 'visible');
 
-        svg.selectAll('*').remove();
-
         const commonNodes = [
             { id: 'inBackpack', text: 'Item in backpack', x: 250, y: 40, shape: 'rect', color: '#1e88e5' },
             { id: 'notInBackpack', text: 'Item Not in backpack', x: 250, y: 115, shape: 'rect', color: '#1e88e5' },
-            { id: 'admissible', text: 'Admissible exchange?', x: 250, y: 190, shape: 'diamond', color: '#ffa533' },
+            { id: 'admissible', text: 'Admissible exchange?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
             { id: 'improving', text: 'Improving exchange?', x: 150, y: 260, shape: 'diamond', color: '#ffa533' },
             { id: 'next', text: 'Next iteration', x: 350, y: 400, shape: 'oval', color: '#4caf50' },
             { id: 'exchange', text: 'Perform exchange', x: 150, y: 500, shape: 'oval', color: '#4caf50' },
@@ -70,26 +68,20 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
             .attr('stroke-width', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 3 : 2);
 
-        svg.selectAll('text.link-label')
+        svg.selectAll('polygon.arrow')
             .data(links)
-            .join('text')
-            .attr('class', 'link-label')
-            .attr('x', d => {
+            .join('polygon')
+            .attr('class', 'arrow')
+            .attr('points', '0,-5 10,0 0,5')
+            .attr('fill', '#333')
+            .attr('transform', d => {
                 const sourceNode = nodes.find(n => n.id === d.source);
                 const targetNode = nodes.find(n => n.id === d.target);
-                return (sourceNode.x + targetNode.x) / 2;
-            })
-            .attr('y', d => {
-                const sourceNode = nodes.find(n => n.id === d.source);
-                const targetNode = nodes.find(n => n.id === d.target);
-                return (sourceNode.y + targetNode.y) / 2;
-            })
-            .attr('dy', -10)
-            .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
-            .style('font-size', '12px')
-            .style('font-weight', 'bold')
-            .text(d => d.label || '');
+                const midX = (sourceNode.x + targetNode.x) / 2;
+                const midY = (sourceNode.y + targetNode.y) / 2;
+                const angle = Math.atan2(targetNode.y - sourceNode.y, targetNode.x - sourceNode.x) * 180 / Math.PI;
+                return `translate(${midX},${midY}) rotate(${angle})`;
+            });
 
         const nodeGroups = svg.selectAll('g.node')
             .data(nodes)
@@ -133,6 +125,27 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
+
+        svg.selectAll('text.link-label')
+            .data(links)
+            .join('text')
+            .attr('class', 'link-label')
+            .attr('x', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.x + targetNode.x) / 2;
+            })
+            .attr('y', d => {
+                const sourceNode = nodes.find(n => n.id === d.source);
+                const targetNode = nodes.find(n => n.id === d.target);
+                return (sourceNode.y + targetNode.y) / 2 - 10;
+            })
+            .attr('text-anchor', 'middle')
+            .attr('fill', '#000')
+            .style('font-size', '12px')
+            .style('font-weight', 'bold')
+            .text(d => d.label || '');
+
     }, [strategy, highlightLinks]);
 
     return (
