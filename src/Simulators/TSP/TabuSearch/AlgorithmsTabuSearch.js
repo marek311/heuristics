@@ -58,7 +58,10 @@ export const useTabuSearch = ({
         setBestCost(cost);
         setPreviousTour([]);
         setPreviousCost(null);
-        setNeighborhood([]);
+        const defaultNeighbor = {
+            tour: new Array(tour.length).fill("x")
+        };
+        setNeighborhood([defaultNeighbor]);
         setTabuList([]);
         setIteration(0);
         setStatus("Initialized Random Solution.");
