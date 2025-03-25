@@ -271,7 +271,7 @@ export const runAlgorithm = (
         return;
     }
 
-    if (mutatedChildren && mutatedChildren.length > 0) {
+    if (mutatedChildren && mutatedChildren.length > 0 && !mutatedChildren.some(tour => tour.every(city => city === "x"))) {
         population = mutatedChildren;
         setPopulation(mutatedChildren);
     }

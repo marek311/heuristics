@@ -41,8 +41,21 @@ function MainComponentGeneticAlgorithm() {
             const maxFitnessIndex = fitnessValues.indexOf(Math.max(...fitnessValues));
             const bestInitialSolution = { tour: initialPopulation[maxFitnessIndex], fitness: fitnessValues[maxFitnessIndex] };
             setBestSolution(bestInitialSolution);
+            initializeChildren();
         }
     }, [data]);
+
+    function initializeChildren() {
+        const parent1 = { tour: new Array(data.cityCount + 1).fill("x") };
+        const parent2 = { tour: new Array(data.cityCount + 1).fill("x") };
+        const defaultChild = {
+            child: new Array(data.cityCount + 1).fill("x"),
+            parent1: parent1,
+            parent2: parent2,
+        };
+        setChildren([defaultChild]);
+        setMutatedChildren([new Array(data.cityCount + 1).fill("x")]);
+    }
 
     function handleIteration() {
         handleStep(
@@ -96,8 +109,7 @@ function MainComponentGeneticAlgorithm() {
         setCumulativeProbabilities([]);
         setRandomValues([]);
         setSelectedPopulation([]);
-        setChildren([]);
-        setMutatedChildren([]);
+        initializeChildren();
         setBestSolution(null);
         setStep(0);
         setIsIterationComplete(true);
