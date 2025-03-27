@@ -8,7 +8,7 @@ import {
     initialize,
     iteration,
     updateIndexes,
-    runExchangeAlgorithm
+    run,
 } from "./AlgorithmsExchange";
 
 function MainComponentExchange() {
@@ -102,8 +102,7 @@ function MainComponentExchange() {
     };
 
     const handleRun = () => {
-        runExchangeAlgorithm({
-            items,
+        run({
             capacity,
             currentBackpack,
             currentNotBackpack,
@@ -115,8 +114,8 @@ function MainComponentExchange() {
             setCurrentPrice,
             setExchangeHistory,
             setIsCompleted,
-            setHighlightLinks,
-            generateBinaryVector
+            generateBinaryVector,
+            strategy,
         });
     };
 

@@ -229,8 +229,44 @@ const performIterationFirstFit = (
     };
 };
 
-export const runExchangeAlgorithm = ({
-                                         items,
+export const run = ({
+                        capacity,
+                        currentBackpack,
+                        currentNotBackpack,
+                        currentWeight,
+                        currentPrice,
+                        setCurrentBackpack,
+                        setCurrentNotBackpack,
+                        setCurrentWeight,
+                        setCurrentPrice,
+                        setExchangeHistory,
+                        setIsCompleted,
+                        generateBinaryVector,
+                        strategy
+                    }) => {
+    if (strategy === 'firstFit') {
+        runFirstFit({
+            capacity,
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            setCurrentBackpack,
+            setCurrentNotBackpack,
+            setCurrentWeight,
+            setCurrentPrice,
+            setExchangeHistory,
+            setIsCompleted,
+            generateBinaryVector
+        });
+    }
+    if (strategy === 'bestFit') {
+
+    }
+};
+
+
+export const runFirstFit = ({
                                          capacity,
                                          currentBackpack,
                                          currentNotBackpack,
@@ -242,7 +278,6 @@ export const runExchangeAlgorithm = ({
                                          setCurrentPrice,
                                          setExchangeHistory,
                                          setIsCompleted,
-                                         setHighlightLinks,
                                          generateBinaryVector
                                      }) => {
     let backpackCurrent = [...currentBackpack];
@@ -278,7 +313,6 @@ export const runExchangeAlgorithm = ({
             if (potentialPrice > totalPrice) {
                 improving = true;
 
-                // Perform the exchange
                 backpackCurrent[indexI] = inItem;
                 notBackpackCurrent = notBackpackCurrent.filter(item => item !== inItem);
                 notBackpackCurrent.push(outItem);
@@ -288,7 +322,6 @@ export const runExchangeAlgorithm = ({
 
                 const binaryVector = generateBinaryVector(backpackCurrent);
 
-                // Log the exchange
                 exchangeHistoryTemp.push({
                     removed: outItem,
                     added: inItem,
@@ -299,19 +332,17 @@ export const runExchangeAlgorithm = ({
                     indexJ: notBackpackCurrent[indexJ].originalIndex,
                 });
 
-                // Reset indices for the next iteration but continue with the loop
                 indexI = 0;
                 indexJ = 0;
-                continue; // Skip the rest of the current iteration and restart the loop
+                continue;
             }
         }
 
-        // Move to the next combination of `indexI` and `indexJ`
         if (indexJ + 1 < notBackpackCurrent.length) {
             indexJ++;
         } else if (indexI + 1 < backpackCurrent.length) {
             indexI++;
-            indexJ = 0;  // Reset indexJ when we increment indexI
+            indexJ = 0;
         } else {
             isCompleted = true;
         }
@@ -319,11 +350,10 @@ export const runExchangeAlgorithm = ({
 
     const binaryVector = generateBinaryVector(backpackCurrent);
 
-    // Final update after loop completes
     setCurrentBackpack(backpackCurrent);
     setCurrentNotBackpack(notBackpackCurrent);
     setCurrentWeight(totalWeight);
     setCurrentPrice(totalPrice);
     setIsCompleted(isCompleted);
-    setExchangeHistory(prevHistory => [...prevHistory, ...exchangeHistoryTemp]);  // Accumulate history properly
+    setExchangeHistory(prevHistory => [...prevHistory, ...exchangeHistoryTemp]);
 };
