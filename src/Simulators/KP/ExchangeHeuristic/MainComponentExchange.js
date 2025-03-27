@@ -103,11 +103,18 @@ function MainComponentExchange() {
 
     const handleRun = () => {
         run({
-            capacity,
             currentBackpack,
             currentNotBackpack,
             currentWeight,
             currentPrice,
+            capacity,
+            setHighlightLinks,
+            indexI,
+            setOriginalIndexI,
+            indexJ,
+            setOriginalIndexJ,
+            setAdmissible,
+            setImproving,
             setCurrentBackpack,
             setCurrentNotBackpack,
             setCurrentWeight,

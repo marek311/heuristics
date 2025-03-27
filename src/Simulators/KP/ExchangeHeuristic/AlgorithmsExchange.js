@@ -230,11 +230,18 @@ const performIterationFirstFit = (
 };
 
 export const run = ({
-                        capacity,
                         currentBackpack,
                         currentNotBackpack,
                         currentWeight,
                         currentPrice,
+                        capacity,
+                        setHighlightLinks,
+                        indexI,
+                        setOriginalIndexI,
+                        indexJ,
+                        setOriginalIndexJ,
+                        setAdmissible,
+                        setImproving,
                         setCurrentBackpack,
                         setCurrentNotBackpack,
                         setCurrentWeight,
@@ -251,6 +258,13 @@ export const run = ({
             currentNotBackpack,
             currentWeight,
             currentPrice,
+            setHighlightLinks,
+
+            setOriginalIndexI,
+
+            setOriginalIndexJ,
+            setAdmissible,
+            setImproving,
             setCurrentBackpack,
             setCurrentNotBackpack,
             setCurrentWeight,
@@ -267,19 +281,23 @@ export const run = ({
 
 
 export const runFirstFit = ({
-                                         capacity,
-                                         currentBackpack,
-                                         currentNotBackpack,
-                                         currentWeight,
-                                         currentPrice,
-                                         setCurrentBackpack,
-                                         setCurrentNotBackpack,
-                                         setCurrentWeight,
-                                         setCurrentPrice,
-                                         setExchangeHistory,
-                                         setIsCompleted,
-                                         generateBinaryVector
-                                     }) => {
+                                capacity,
+                                currentBackpack,
+                                currentNotBackpack,
+                                currentWeight,
+                                currentPrice,
+                                setOriginalIndexI,
+                                setOriginalIndexJ,
+                                setAdmissible,
+                                setImproving,
+                                setCurrentBackpack,
+                                setCurrentNotBackpack,
+                                setCurrentWeight,
+                                setCurrentPrice,
+                                setExchangeHistory,
+                                setIsCompleted,
+                                generateBinaryVector
+                            }) => {
     let backpackCurrent = [...currentBackpack];
     let notBackpackCurrent = [...currentNotBackpack];
     let totalWeight = currentWeight;
@@ -289,6 +307,12 @@ export const runFirstFit = ({
     let isCompleted = false;
 
     let exchangeHistoryTemp = [];
+    let lastCheckedIndexI = null;
+    let lastCheckedIndexJ = null;
+    let lastCheckedAdmissible = false;
+    let lastCheckedImproving = false;
+    let lastOriginalCheckedIndexI = null;
+    let lastOriginalCheckedIndexJ = null;
 
     while (!isCompleted) {
         backpackCurrent.sort((a, b) => a.originalIndex - b.originalIndex);
@@ -303,6 +327,11 @@ export const runFirstFit = ({
 
         const potentialWeight = totalWeight - outItem.weight + inItem.weight;
         const potentialPrice = totalPrice - outItem.price + inItem.price;
+
+        lastCheckedIndexI = indexI;
+        lastCheckedIndexJ = indexJ;
+        lastOriginalCheckedIndexI = backpackCurrent[indexI].originalIndex;
+        lastOriginalCheckedIndexJ = notBackpackCurrent[indexJ].originalIndex;
 
         let admissible = false;
         let improving = false;
@@ -349,11 +378,15 @@ export const runFirstFit = ({
     }
 
     const binaryVector = generateBinaryVector(backpackCurrent);
-
     setCurrentBackpack(backpackCurrent);
     setCurrentNotBackpack(notBackpackCurrent);
     setCurrentWeight(totalWeight);
     setCurrentPrice(totalPrice);
     setIsCompleted(isCompleted);
     setExchangeHistory(prevHistory => [...prevHistory, ...exchangeHistoryTemp]);
+
+    setOriginalIndexI(lastOriginalCheckedIndexI);
+    setOriginalIndexJ(lastOriginalCheckedIndexJ);
+    setAdmissible(lastCheckedAdmissible);
+    setImproving(lastCheckedImproving);
 };
