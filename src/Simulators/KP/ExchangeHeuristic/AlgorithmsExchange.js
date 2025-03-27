@@ -262,20 +262,17 @@ export const run = (
     currentPrice,
     capacity,
     generateBinaryVector,
+    setHighlightLinks,
+    setAdmissible,
+    setImproving,
+    setOriginalIndexI,
+    setOriginalIndexJ,
     strategy,
-    setHighlightLinks
 ) => {
     setHighlightLinks([]);
 
     if (strategy === 'bestFit') {
-        return performRunBestFit(
-            currentBackpack,
-            currentNotBackpack,
-            currentWeight,
-            currentPrice,
-            capacity,
-            generateBinaryVector
-        );
+
     }
     if (strategy === 'firstFit') {
         return performRunFirstFit(
@@ -284,53 +281,28 @@ export const run = (
             currentWeight,
             currentPrice,
             capacity,
-            generateBinaryVector
+            generateBinaryVector,
+            setHighlightLinks,
+            setAdmissible,
+            setImproving,
+            setOriginalIndexI,
+            setOriginalIndexJ,
         );
     }
 };
 
-const performRunBestFit = (
+export const performRunFirstFit = (
     currentBackpack,
     currentNotBackpack,
     currentWeight,
     currentPrice,
     capacity,
-    generateBinaryVector
-) => performRunGeneric(
-    performIterationBestFit,
-    currentBackpack,
-    currentNotBackpack,
-    currentWeight,
-    currentPrice,
-    capacity,
-    generateBinaryVector
-);
-
-const performRunFirstFit = (
-    currentBackpack,
-    currentNotBackpack,
-    currentWeight,
-    currentPrice,
-    capacity,
-    generateBinaryVector
-) => performRunGeneric(
-    performIterationFirstFit,
-    currentBackpack,
-    currentNotBackpack,
-    currentWeight,
-    currentPrice,
-    capacity,
-    generateBinaryVector
-);
-
-const performRunGeneric = (
-    iterationFunction,
-    currentBackpack,
-    currentNotBackpack,
-    currentWeight,
-    currentPrice,
-    capacity,
-    generateBinaryVector
+    generateBinaryVector,
+    setHighlightLinks,
+    setAdmissible,
+    setImproving,
+    setOriginalIndexI,
+    setOriginalIndexJ,
 ) => {
     const exchangeHistory = [];
     let updatedBackpack = [...currentBackpack];
@@ -338,14 +310,28 @@ const performRunGeneric = (
     let updatedWeight = currentWeight;
     let updatedPrice = currentPrice;
 
+    let indexI = 0;
+    let indexJ = 0;
+
     while (true) {
-        const result = iterationFunction(
+
+        updatedBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+        updatedNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+
+        const result = performIterationFirstFit(
             updatedBackpack,
             updatedNotBackpack,
             updatedWeight,
             updatedPrice,
             capacity,
-            generateBinaryVector
+            generateBinaryVector,
+            indexI,
+            setOriginalIndexI,
+            indexJ,
+            setOriginalIndexJ,
+            setAdmissible,
+            setImproving,
+            setHighlightLinks
         );
 
         if (result.exchange) {
@@ -354,8 +340,17 @@ const performRunGeneric = (
             updatedNotBackpack = result.updatedNotBackpack;
             updatedWeight = result.updatedWeight;
             updatedPrice = result.updatedPrice;
+            indexI = 0;
+            indexJ = 0;
         } else {
-            break;
+            if (indexJ + 1 < updatedNotBackpack.length) {
+                indexJ++;
+            } else if (indexI + 1 < updatedBackpack.length) {
+                indexI++;
+                indexJ = 0;
+            } else {
+                break;
+            }
         }
     }
 
@@ -364,6 +359,6 @@ const performRunGeneric = (
         updatedNotBackpack,
         updatedWeight,
         updatedPrice,
-        exchangeHistory,
+        exchangeHistory
     };
 };

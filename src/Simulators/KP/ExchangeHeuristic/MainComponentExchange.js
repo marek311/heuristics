@@ -129,8 +129,12 @@ function MainComponentExchange() {
             currentPrice,
             capacity,
             generateBinaryVector,
-            strategy,
-            setHighlightLinks
+            setHighlightLinks,
+            setAdmissible,
+            setImproving,
+            setOriginalIndexI,
+            setOriginalIndexJ,
+            strategy
         );
         setCurrentBackpack(result.updatedBackpack);
         setCurrentNotBackpack(result.updatedNotBackpack);
