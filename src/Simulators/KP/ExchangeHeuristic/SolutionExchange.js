@@ -68,7 +68,7 @@ function SolutionExchange({ exchangeHistory, originalIndexI, originalIndexJ, adm
                 .text(`Price: ${exchange.newPrice}`);
         };
         reversedHistory.forEach(renderExchange);
-    }, [exchangeHistory]);
+    }, [exchangeHistory, admissible, improving]);
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg mr-2 overflow-y-auto" style={{height: '100%'}}>

@@ -39,6 +39,18 @@ export const initialize = (
     setIsCompleted(false);
 };
 
+export const updateIndexes = (indexI, indexJ, currentBackpack, currentNotBackpack, setIndexI, setIndexJ, setIsCompleted) => {
+    if (indexJ + 1 < currentNotBackpack.length) {
+        setIndexJ(prevJ => prevJ + 1);
+    } else if (indexI + 1 < currentBackpack.length) {
+        setIndexI(prevI => prevI + 1);
+        setIndexJ(0);
+    } else {
+        setIsCompleted(true);
+    }
+};
+
+
 export const iteration = (
     currentBackpack,
     currentNotBackpack,
@@ -60,18 +72,6 @@ export const iteration = (
     setCurrentPrice,
     isCompleted,
 ) => {
-
-    if (strategy === 'bestFit') {
-        return performIterationBestFit(
-            currentBackpack,
-            currentNotBackpack,
-            currentWeight,
-            currentPrice,
-            capacity,
-            generateBinaryVector,
-            setHighlightLinks,
-        );
-    }
 
     if (strategy === 'firstFit') {
         return performIterationFirstFit(
