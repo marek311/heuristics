@@ -7,7 +7,6 @@ import FlowchartKnapsackExchange from './FlowchartExchange.js';
 import {
     initialize,
     iteration,
-    run,
 } from "./AlgorithmsExchange";
 
 function MainComponentExchange() {
@@ -107,30 +106,7 @@ function MainComponentExchange() {
     };
 
     const handleRun = () => {
-        if (isCompleted) return;
 
-        const result = run(
-            currentBackpack,
-            currentNotBackpack,
-            currentWeight,
-            currentPrice,
-            capacity,
-            generateBinaryVector,
-            setHighlightLinks,
-            setAdmissible,
-            setImproving,
-            setOriginalIndexI,
-            setOriginalIndexJ,
-            strategy
-        );
-        setCurrentBackpack(result.updatedBackpack);
-        setCurrentNotBackpack(result.updatedNotBackpack);
-        setCurrentWeight(result.updatedWeight);
-        setCurrentPrice(result.updatedPrice);
-        setExchangeHistory(prev => [...prev, ...result.exchangeHistory]);
-        if (result.exchangeHistory.length === 0) {
-            setIsCompleted(true);
-        }
     };
 
     const handleReset = () => {

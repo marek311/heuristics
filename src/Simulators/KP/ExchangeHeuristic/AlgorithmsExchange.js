@@ -61,9 +61,6 @@ export const iteration = (
     isCompleted,
 ) => {
 
-    currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
-    currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
-
     if (strategy === 'bestFit') {
         return performIterationBestFit(
             currentBackpack,
@@ -208,6 +205,9 @@ const performIterationFirstFit = (
 
     if (isCompleted) return;
 
+    currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+    currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+
     let highlightLinks = [
         { source: 'inBackpack', target: 'notInBackpack' },
         { source: 'notInBackpack', target: 'admissible' },
@@ -292,113 +292,5 @@ const performIterationFirstFit = (
 
     return {
         exchange: null,
-    };
-};
-
-export const run = (
-    currentBackpack,
-    currentNotBackpack,
-    currentWeight,
-    currentPrice,
-    capacity,
-    generateBinaryVector,
-    setHighlightLinks,
-    setAdmissible,
-    setImproving,
-    setOriginalIndexI,
-    setOriginalIndexJ,
-    strategy,
-) => {
-    setHighlightLinks([]);
-
-    if (strategy === 'bestFit') {
-
-    }
-    if (strategy === 'firstFit') {
-        return performRunFirstFit(
-            currentBackpack,
-            currentNotBackpack,
-            currentWeight,
-            currentPrice,
-            capacity,
-            generateBinaryVector,
-            setHighlightLinks,
-            setAdmissible,
-            setImproving,
-            setOriginalIndexI,
-            setOriginalIndexJ,
-        );
-    }
-};
-
-export const performRunFirstFit = (
-    currentBackpack,
-    currentNotBackpack,
-    currentWeight,
-    currentPrice,
-    capacity,
-    generateBinaryVector,
-    setHighlightLinks,
-    setAdmissible,
-    setImproving,
-    setOriginalIndexI,
-    setOriginalIndexJ,
-) => {
-    const exchangeHistory = [];
-    let updatedBackpack = [...currentBackpack];
-    let updatedNotBackpack = [...currentNotBackpack];
-    let updatedWeight = currentWeight;
-    let updatedPrice = currentPrice;
-
-    let indexI = 0;
-    let indexJ = 0;
-
-    while (true) {
-
-        updatedBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
-        updatedNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
-
-        const result = performIterationFirstFit(
-            updatedBackpack,
-            updatedNotBackpack,
-            updatedWeight,
-            updatedPrice,
-            capacity,
-            generateBinaryVector,
-            indexI,
-            setOriginalIndexI,
-            indexJ,
-            setOriginalIndexJ,
-            setAdmissible,
-            setImproving,
-            setHighlightLinks
-        );
-
-        if (result.exchange) {
-            exchangeHistory.push(result.exchange);
-            updatedBackpack = result.updatedBackpack;
-            updatedNotBackpack = result.updatedNotBackpack;
-            updatedWeight = result.updatedWeight;
-            updatedPrice = result.updatedPrice;
-            indexI = 0;
-            indexJ = 0;
-        } else {
-            if (indexJ + 1 < updatedNotBackpack.length) {
-                indexJ++;
-            } else if (indexI + 1 < updatedBackpack.length) {
-                indexI++;
-                indexJ = 0;
-            } else {
-                break;
-            }
-        }
-    }
-
-    return {
-        updatedBackpack,
-        updatedNotBackpack,
-        updatedWeight,
-        updatedPrice,
-        exchangeHistory
     };
 };
