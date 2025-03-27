@@ -21,6 +21,15 @@ function MainComponentExchange() {
         price: parseFloat(prices[index]),
         originalIndex: index
     }));
+    const [strategy, setStrategy] = useState(() => {
+        const path = location.pathname;
+        if (path.includes('knapsack-exchange-best-simulation')) {
+            return 'bestFit';
+        }
+        if (path.includes('knapsack-exchange-first-simulation')) {
+            return 'firstFit';
+        }
+    });
     const [currentBackpack, setCurrentBackpack] = useState([]);
     const [currentWeight, setCurrentWeight] = useState(0);
     const [currentPrice, setCurrentPrice] = useState(0);
@@ -28,22 +37,12 @@ function MainComponentExchange() {
     const [exchangeHistory, setExchangeHistory] = useState([]);
     const [isCompleted, setIsCompleted] = useState(false);
     const [highlightLinks, setHighlightLinks] = useState([]);
-    const [strategy, setStrategy] = useState('bestFit');
     const [indexI, setIndexI] = useState(0);
     const [originalIndexI, setOriginalIndexI] = useState(0);
     const [indexJ, setIndexJ] = useState(0);
     const [originalIndexJ, setOriginalIndexJ] = useState(0);
     const [admissible, setAdmissible] = useState(false);
     const [improving, setImproving] = useState(false);
-
-    useEffect(() => {
-        const path = location.pathname;
-        if (path.includes('knapsack-exchange-best-simulation')) {
-            setStrategy('bestFit');
-        } else if (path.includes('knapsack-exchange-first-simulation')) {
-            setStrategy('firstFit');
-        }
-    }, [location.pathname]);
 
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
