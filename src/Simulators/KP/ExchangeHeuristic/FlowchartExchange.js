@@ -19,9 +19,8 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             { id: 'inBackpack', text: 'Item in backpack', x: 250, y: 40, shape: 'rect', color: '#1e88e5' },
             { id: 'notInBackpack', text: 'Item Not in backpack', x: 250, y: 115, shape: 'rect', color: '#1e88e5' },
             { id: 'admissible', text: 'Admissible exchange?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'improving', text: 'Improving exchange?', x: 150, y: 260, shape: 'diamond', color: '#ffa533' },
-            { id: 'next', text: 'Next iteration', x: 350, y: 400, shape: 'oval', color: '#4caf50' },
-            { id: 'exchange', text: 'Perform exchange', x: 150, y: 500, shape: 'oval', color: '#4caf50' },
+            { id: 'improving', text: 'Improving exchange?', x: 125, y: 260, shape: 'diamond', color: '#ffa533' },
+            { id: 'next', text: 'Next iteration', x: 350, y: 350, shape: 'oval', color: '#4caf50' },
             { id: 'solution', text: 'New Solution', x: 350, y: 500, shape: 'rect', color: '#1e88e5' },
         ];
 
@@ -31,27 +30,32 @@ function FlowchartExchange({ strategy, highlightLinks = [] }) {
             { source: 'admissible', target: 'improving', label: 'Yes' },
             { source: 'admissible', target: 'next', label: 'No' },
             { source: 'improving', target: 'next', label: 'No' },
-            { source: 'exchange', target: 'solution' },
         ];
 
         let strategyNodes = [];
         let strategyLinks = [];
 
         if (strategy === 'firstFit') {
-            strategyNodes = [];
+            strategyNodes = [
+                { id: 'exchange', text: 'Perform exchange', x: 125, y: 400, shape: 'oval', color: '#4caf50' },
+            ];
             strategyLinks = [
                 { source: 'improving', target: 'exchange', label: 'Yes' },
+                { source: 'exchange', target: 'solution' },
             ];
         }
 
         if (strategy === 'bestFit') {
             strategyNodes = [
-                { id: 'bestQuestion', text: 'Best exchange?', x: 150, y: 375, shape: 'diamond', color: '#ffa533' },
+                { id: 'bestQuestion', text: 'Best exchange?', x: 100, y: 375, shape: 'diamond', color: '#ffa533' },
+                { id: 'exchange', text: 'Save Best exchange', x: 100, y: 475, shape: 'oval', color: '#4caf50' },
             ];
             strategyLinks = [
                 { source: 'improving', target: 'bestQuestion', label: 'Yes' },
                 { source: 'bestQuestion', target: 'exchange', label: 'Yes' },
                 { source: 'bestQuestion', target: 'next', label: 'No' },
+                { source: 'exchange', target: 'next'},
+                { source: 'next', target: 'solution',label: 'IF(All iterations) Perform Best Exchange'},
             ];
         }
 
