@@ -159,25 +159,37 @@ const performIterationBestFit = (
     const potentialWeight = currentWeight - outItem.weight + inItem.weight;
     const potentialPrice = currentPrice - outItem.price + inItem.price;
 
-    setOriginalIndexI(outItem.originalIndex);
-    setOriginalIndexJ(inItem.originalIndex);
-    setAdmissible(false);
-    setImproving(false);
+    const originalIndexI = outItem.originalIndex;
+    const originalIndexJ = inItem.originalIndex;
+    let isAdmissible = false;
+    let isImproving = false;
+    let newBestSolution = bestFoundSolution;
+    let newBestPrice = bestFoundPrice;
+    let newBestWeight = bestFoundWeight;
 
     if (potentialWeight <= capacity) {
-        setAdmissible(true);
+        isAdmissible = true;
 
-        if (potentialPrice > bestFoundPrice && potentialPrice > currentPrice) {
-            setImproving(true);
+        if (potentialPrice > currentPrice) {
+            isImproving = true;
 
-            setBestFoundSolution(prev => ({
-                removed: outItem.originalIndex,
-                added: inItem.originalIndex,
-            }));
-            setBestFoundPrice(prev => potentialPrice);
-            setBestFoundWeight(prev => potentialWeight);
+            if(potentialPrice > bestFoundPrice) {
+
+                newBestSolution = { removed: originalIndexI, added: originalIndexJ };
+                newBestPrice = potentialPrice;
+                newBestWeight = potentialWeight;
+            }
         }
     }
+
+    setOriginalIndexI(originalIndexI);
+    setOriginalIndexJ(originalIndexJ);
+    setAdmissible(isAdmissible);
+    setImproving(isImproving);
+    setBestFoundSolution(newBestSolution);
+    setBestFoundPrice(newBestPrice);
+    setBestFoundWeight(newBestWeight);
+
     return { exchange: null };
 };
 

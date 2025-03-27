@@ -114,47 +114,56 @@ function MainComponentExchange() {
             } else {
                 setIsCompleted(true);
                 setPerformBestExchange(true);
-
-
-                const removedItem = currentBackpack.find(item => item.originalIndex === bestFoundSolution.removed);
-                const addedItem = currentNotBackpack.find(item => item.originalIndex === bestFoundSolution.added);
-
-                if (!removedItem || !addedItem) return;
-
-                const updatedBackpack = currentBackpack
-                    .filter(item => item.originalIndex !== removedItem.originalIndex)
-                    .concat(addedItem);
-
-                const updatedNotBackpack = currentNotBackpack
-                    .filter(item => item.originalIndex !== addedItem.originalIndex)
-                    .concat(removedItem);
-
-                const binaryVector = generateBinaryVector(updatedBackpack);
-
-                setCurrentBackpack(updatedBackpack);
-                setCurrentNotBackpack(updatedNotBackpack);
-                setCurrentWeight(bestFoundWeight);
-                setCurrentPrice(bestFoundPrice);
-
-                setIsCompleted(false);
-                setBestFoundSolution(null);
-                setBestFoundPrice(0);
-                setBestFoundWeight(0);
-                setPerformBestExchange(false);
-
-                setExchangeHistory(prev => [
-                    ...prev,
-                    {
-                        removed: removedItem,
-                        added: addedItem,
-                        binaryVector,
-                        newWeight: bestFoundWeight,
-                        newPrice: bestFoundPrice,
-                    },
-                ]);
             }
         }
-    }
+    };
+
+    useEffect(() => {
+
+
+        if (!bestFoundSolution) return;
+
+        const removedItem = currentBackpack.find(item => item.originalIndex === bestFoundSolution.removed);
+        const addedItem = currentNotBackpack.find(item => item.originalIndex === bestFoundSolution.added);
+
+        if (!removedItem || !addedItem) return;
+
+        const updatedBackpack = currentBackpack
+            .filter(item => item.originalIndex !== removedItem.originalIndex)
+            .concat(addedItem);
+
+        const updatedNotBackpack = currentNotBackpack
+            .filter(item => item.originalIndex !== addedItem.originalIndex)
+            .concat(removedItem);
+
+        const binaryVector = generateBinaryVector(updatedBackpack);
+
+        setCurrentBackpack(updatedBackpack);
+        setCurrentNotBackpack(updatedNotBackpack);
+        setCurrentWeight(bestFoundWeight);
+        setCurrentPrice(bestFoundPrice);
+
+        setIsCompleted(false);
+        setPerformBestExchange(false);
+        setBestFoundSolution(null);
+        setBestFoundPrice(0);
+        setBestFoundWeight(0);
+
+        setExchangeHistory(prev => [
+            ...prev,
+            {
+                removed: removedItem,
+                added: addedItem,
+                binaryVector,
+                newWeight: bestFoundWeight,
+                newPrice: bestFoundPrice,
+            },
+        ]);
+
+        setIndexI(0);
+        setIndexJ(0);
+
+    }, [performBestExchange]);
 
     const handleRun = () => {
         run({
