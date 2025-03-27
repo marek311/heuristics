@@ -155,7 +155,7 @@ function MainComponentExchange() {
 
                     indexI = 0;
                     indexJ = 0;
-                    break;
+                    continue;
                 }
             }
 
