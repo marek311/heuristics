@@ -88,9 +88,9 @@ function MainComponentExchange() {
             setOriginalIndexJ,
             setAdmissible,
             setImproving,
+            setCurrentBackpack,
+            setCurrentNotBackpack
         );
-        setCurrentBackpack(result.updatedBackpack);
-        setCurrentNotBackpack(result.updatedNotBackpack);
         setCurrentWeight(result.updatedWeight);
         setCurrentPrice(result.updatedPrice);
 

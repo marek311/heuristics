@@ -54,6 +54,8 @@ export const iteration = (
     setOriginalIndexJ,
     setAdmissible,
     setImproving,
+    setCurrentBackpack,
+    setCurrentNotBackpack,
 ) => {
 
     if (strategy === 'bestFit') {
@@ -83,6 +85,8 @@ export const iteration = (
             setAdmissible,
             setImproving,
             setHighlightLinks,
+            setCurrentBackpack,
+            setCurrentNotBackpack,
         );
     }
 };
@@ -185,7 +189,9 @@ const performIterationFirstFit = (
     setOriginalIndexJ,
     setAdmissible,
     setImproving,
-    setHighlightLinks
+    setHighlightLinks,
+    setCurrentBackpack,
+    setCurrentNotBackpack,
 ) => {
 
     let highlightLinks = [
@@ -201,9 +207,10 @@ const performIterationFirstFit = (
 
     if (!outItem || !inItem) {
         setHighlightLinks(highlightLinks);
+        setCurrentBackpack(backpackCurrent);
+        setCurrentNotBackpack(notBackpackCurrent);
+
         return {
-            updatedBackpack: backpackCurrent,
-            updatedNotBackpack: notBackpackCurrent,
             updatedWeight: currentWeight,
             updatedPrice: currentPrice,
             exchange: null,
@@ -238,10 +245,10 @@ const performIterationFirstFit = (
             const binaryVector = generateBinaryVector(backpackCurrent);
 
             setHighlightLinks(highlightLinks);
+            setCurrentBackpack(backpackCurrent);
+            setCurrentNotBackpack(notBackpackCurrent);
 
             return {
-                updatedBackpack: backpackCurrent,
-                updatedNotBackpack: notBackpackCurrent,
                 updatedWeight: potentialWeight,
                 updatedPrice: potentialPrice,
                 exchange: {
@@ -264,10 +271,10 @@ const performIterationFirstFit = (
     }
 
     setHighlightLinks(highlightLinks);
+    setCurrentBackpack(backpackCurrent);
+    setCurrentNotBackpack(notBackpackCurrent);
 
     return {
-        updatedBackpack: backpackCurrent,
-        updatedNotBackpack: notBackpackCurrent,
         updatedWeight: currentWeight,
         updatedPrice: currentPrice,
         exchange: null,
