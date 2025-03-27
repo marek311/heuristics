@@ -75,9 +75,9 @@ function SolutionExchange({ exchangeHistory, originalIndexI, originalIndexJ, adm
             <div className="bg-white text-center p-4 border-2 border-gray-300 rounded-md mb-2 shadow-md">
                 <div className="flex justify-between mb-4">
                     <div>
-                        <p className="text-gray-800 mb-2">IN: <span
-                            className="font-semibold">{originalIndexI}</span></p>
                         <p className="text-gray-800 mb-2">OUT: <span
+                            className="font-semibold">{originalIndexI}</span></p>
+                        <p className="text-gray-800 mb-2">IN: <span
                             className="font-semibold">{originalIndexJ}</span></p>
                     </div>
                     <div>
