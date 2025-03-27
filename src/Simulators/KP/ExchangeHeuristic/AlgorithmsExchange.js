@@ -41,32 +41,17 @@ export const performIteration = (
     setAdmissible,
     setImproving,
 ) => {
-    let highlightedLinks = [];
 
     if (strategy === 'bestFit') {
-        const result = performIterationBestFit(
+        return performIterationBestFit(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
             currentPrice,
             capacity,
-            generateBinaryVector
+            generateBinaryVector,
+            setHighlightLinks,
         );
-
-        if (result.exchange) {
-
-            highlightedLinks = [
-                { source: 'inBackpack', target: 'notInBackpack' },
-                { source: 'notInBackpack', target: 'admissible' },
-                { source: 'admissible', target: 'improving' },
-                { source: 'improving', target: 'bestQuestion' },
-                { source: 'bestQuestion', target: 'exchange' },
-                { source: 'exchange', target: 'solution' },
-            ];
-        }
-
-        setHighlightLinks(highlightedLinks);
-        return result;
     }
 
     if (strategy === 'firstFit') {
@@ -94,8 +79,19 @@ const performIterationBestFit = (
     currentWeight,
     currentPrice,
     capacity,
-    generateBinaryVector
+    generateBinaryVector,
+    setHighlightLinks,
 ) => {
+
+    setHighlightLinks([
+        { source: 'inBackpack', target: 'notInBackpack' },
+        { source: 'notInBackpack', target: 'admissible' },
+        { source: 'admissible', target: 'improving' },
+        { source: 'improving', target: 'bestQuestion' },
+        { source: 'bestQuestion', target: 'exchange' },
+        { source: 'exchange', target: 'solution' },
+    ]);
+
     let updatedBackpack = [...currentBackpack];
     let updatedNotBackpack = [...currentNotBackpack];
     let bestFitCandidate = null;
