@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function SolutionExchange({ exchangeHistory }) {
+function SolutionExchange({ exchangeHistory, originalIndexI, originalIndexJ, admissible, improving }) {
     const graphRef = useRef();
 
     useEffect(() => {
@@ -72,6 +72,32 @@ function SolutionExchange({ exchangeHistory }) {
 
     return (
         <div className="flex-1 p-4 bg-white rounded-lg mr-2 overflow-y-auto" style={{height: '100%'}}>
+            <div className="bg-white text-center p-4 border-2 border-gray-300 rounded-md mb-2 shadow-md">
+                <div className="flex justify-between mb-4">
+                    <div>
+                        <p className="text-gray-800 mb-2">Index I: <span
+                            className="font-semibold">{originalIndexI}</span></p>
+                        <p className="text-gray-800 mb-2">Index J: <span
+                            className="font-semibold">{originalIndexJ}</span></p>
+                    </div>
+                    <div>
+                        <div className="flex items-center justify-center mb-2">
+                            <span className="mr-2 font-semibold">Admissible:</span>
+                            <span
+                                className={`inline-block p-2 rounded-full ${admissible ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
+                                {admissible ? '✓' : 'x'}
+                            </span>
+                        </div>
+                        <div className="flex items-center justify-center">
+                            <span className="mr-2 font-semibold">Improving:</span>
+                            <span
+                                className={`inline-block p-2 rounded-full ${improving ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
+                                {improving ? '✓' : 'x'}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <h2 className="mb-4 font-bold">Performed Exchanges</h2>
             <svg ref={graphRef} className="w-full"></svg>
         </div>
