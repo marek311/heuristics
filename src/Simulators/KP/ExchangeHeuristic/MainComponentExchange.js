@@ -220,12 +220,6 @@ function MainComponentExchange() {
                 showStatus={false}
                 highlightCurrent={false}
             />
-
-            <div className="bg-white">
-                best weight - {bestFoundWeight} <br/>
-                best price - {bestFoundPrice} <br/>
-            </div>
-
             <SolutionExchange
                 exchangeHistory={exchangeHistory}
                 originalIndexI={originalIndexI}
