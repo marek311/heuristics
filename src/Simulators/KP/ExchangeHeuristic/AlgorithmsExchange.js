@@ -57,8 +57,12 @@ export const iteration = (
     setCurrentBackpack,
     setCurrentNotBackpack,
     setCurrentWeight,
-    setCurrentPrice
+    setCurrentPrice,
+    isCompleted,
 ) => {
+
+    currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+    currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
 
     if (strategy === 'bestFit') {
         return performIterationBestFit(
@@ -90,7 +94,8 @@ export const iteration = (
             setCurrentBackpack,
             setCurrentNotBackpack,
             setCurrentWeight,
-            setCurrentPrice
+            setCurrentPrice,
+            isCompleted,
         );
     }
 };
@@ -197,8 +202,11 @@ const performIterationFirstFit = (
     setCurrentBackpack,
     setCurrentNotBackpack,
     setCurrentWeight,
-    setCurrentPrice
+    setCurrentPrice,
+    isCompleted,
 ) => {
+
+    if (isCompleted) return;
 
     let highlightLinks = [
         { source: 'inBackpack', target: 'notInBackpack' },

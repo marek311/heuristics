@@ -68,11 +68,6 @@ function MainComponentExchange() {
     };
 
     const handleIteration = () => {
-        if (isCompleted) return;
-
-        currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
-        currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
-
         const result = iteration(
             currentBackpack,
             currentNotBackpack,
@@ -91,7 +86,8 @@ function MainComponentExchange() {
             setCurrentBackpack,
             setCurrentNotBackpack,
             setCurrentWeight,
-            setCurrentPrice
+            setCurrentPrice,
+            isCompleted,
         );
 
         if (result.exchange) {
