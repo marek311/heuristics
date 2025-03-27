@@ -309,8 +309,8 @@ export const runFirstFit = ({
     let exchangeHistoryTemp = [];
     let lastCheckedIndexI = null;
     let lastCheckedIndexJ = null;
-    let lastCheckedAdmissible = false;
-    let lastCheckedImproving = false;
+    let admissible = false;
+    let improving = false;
     let lastOriginalCheckedIndexI = null;
     let lastOriginalCheckedIndexJ = null;
 
@@ -333,8 +333,8 @@ export const runFirstFit = ({
         lastOriginalCheckedIndexI = backpackCurrent[indexI].originalIndex;
         lastOriginalCheckedIndexJ = notBackpackCurrent[indexJ].originalIndex;
 
-        let admissible = false;
-        let improving = false;
+        admissible = false;
+        improving = false;
 
         if (potentialWeight <= capacity) {
             admissible = true;
@@ -387,6 +387,6 @@ export const runFirstFit = ({
 
     setOriginalIndexI(lastOriginalCheckedIndexI);
     setOriginalIndexJ(lastOriginalCheckedIndexJ);
-    setAdmissible(lastCheckedAdmissible);
-    setImproving(lastCheckedImproving);
+    setAdmissible(admissible);
+    setImproving(improving);
 };
