@@ -1,4 +1,14 @@
-export const initialize = (items, capacity, generateBinaryVector) => {
+export const initialize = (
+    items,
+    capacity,
+    generateBinaryVector,
+    setCurrentBackpack,
+    setCurrentWeight,
+    setCurrentPrice,
+    setCurrentNotBackpack,
+    setExchangeHistory,
+    setIsCompleted
+) => {
     const newBackpack = [];
     let totalWeight = 0;
     let totalPrice = 0;
@@ -12,12 +22,21 @@ export const initialize = (items, capacity, generateBinaryVector) => {
     }
 
     const binaryVector = generateBinaryVector(newBackpack);
-    return {
-        newBackpack,
-        totalWeight,
-        totalPrice,
-        binaryVector
-    };
+
+    setCurrentBackpack(newBackpack);
+    setCurrentWeight(totalWeight);
+    setCurrentPrice(totalPrice);
+    setCurrentNotBackpack(items.filter(item => !newBackpack.includes(item)));
+
+    setExchangeHistory([{
+        binaryVector,
+        newWeight: totalWeight,
+        newPrice: totalPrice,
+        removed: null,
+        added: null,
+    }]);
+
+    setIsCompleted(false);
 };
 
 export const iteration = (

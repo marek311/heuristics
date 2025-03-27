@@ -54,26 +54,17 @@ function MainComponentExchange() {
     };
 
     const handleInitialization = () => {
-        const { newBackpack, totalWeight, totalPrice, binaryVector } = initialize(
+        initialize(
             items,
             capacity,
-            generateBinaryVector
+            generateBinaryVector,
+            setCurrentBackpack,
+            setCurrentWeight,
+            setCurrentPrice,
+            setCurrentNotBackpack,
+            setExchangeHistory,
+            setIsCompleted
         );
-        setCurrentBackpack(newBackpack);
-        setCurrentWeight(totalWeight);
-        setCurrentPrice(totalPrice);
-        setCurrentNotBackpack(items.filter(item => !newBackpack.includes(item)));
-
-        setExchangeHistory([
-            {
-                binaryVector,
-                newWeight: totalWeight,
-                newPrice: totalPrice,
-                removed: null,
-                added: null,
-            }
-        ]);
-        setIsCompleted(false);
     };
 
     const handleIteration = () => {
