@@ -89,10 +89,10 @@ function MainComponentExchange() {
             setAdmissible,
             setImproving,
             setCurrentBackpack,
-            setCurrentNotBackpack
+            setCurrentNotBackpack,
+            setCurrentWeight,
+            setCurrentPrice
         );
-        setCurrentWeight(result.updatedWeight);
-        setCurrentPrice(result.updatedPrice);
 
         if (result.exchange) {
             setExchangeHistory(prev => [...prev, result.exchange]);

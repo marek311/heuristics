@@ -56,6 +56,8 @@ export const iteration = (
     setImproving,
     setCurrentBackpack,
     setCurrentNotBackpack,
+    setCurrentWeight,
+    setCurrentPrice
 ) => {
 
     if (strategy === 'bestFit') {
@@ -87,6 +89,8 @@ export const iteration = (
             setHighlightLinks,
             setCurrentBackpack,
             setCurrentNotBackpack,
+            setCurrentWeight,
+            setCurrentPrice
         );
     }
 };
@@ -192,6 +196,8 @@ const performIterationFirstFit = (
     setHighlightLinks,
     setCurrentBackpack,
     setCurrentNotBackpack,
+    setCurrentWeight,
+    setCurrentPrice
 ) => {
 
     let highlightLinks = [
@@ -209,10 +215,10 @@ const performIterationFirstFit = (
         setHighlightLinks(highlightLinks);
         setCurrentBackpack(backpackCurrent);
         setCurrentNotBackpack(notBackpackCurrent);
+        setCurrentWeight(currentWeight);
+        setCurrentPrice(currentPrice);
 
         return {
-            updatedWeight: currentWeight,
-            updatedPrice: currentPrice,
             exchange: null,
         };
     }
@@ -247,10 +253,10 @@ const performIterationFirstFit = (
             setHighlightLinks(highlightLinks);
             setCurrentBackpack(backpackCurrent);
             setCurrentNotBackpack(notBackpackCurrent);
+            setCurrentWeight(potentialWeight);
+            setCurrentPrice(potentialPrice);
 
             return {
-                updatedWeight: potentialWeight,
-                updatedPrice: potentialPrice,
                 exchange: {
                     removed: outItem,
                     added: inItem,
@@ -273,10 +279,10 @@ const performIterationFirstFit = (
     setHighlightLinks(highlightLinks);
     setCurrentBackpack(backpackCurrent);
     setCurrentNotBackpack(notBackpackCurrent);
+    setCurrentWeight(currentWeight);
+    setCurrentPrice(currentPrice);
 
     return {
-        updatedWeight: currentWeight,
-        updatedPrice: currentPrice,
         exchange: null,
     };
 };
