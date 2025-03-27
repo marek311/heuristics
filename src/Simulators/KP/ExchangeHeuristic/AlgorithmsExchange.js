@@ -1,9 +1,4 @@
-export const performInitializeSolution = (
-    items,
-    capacity,
-    generateBinaryVector
-) => {
-
+export const performInitializeSolution = (items, capacity, generateBinaryVector) => {
     const newBackpack = [];
     let totalWeight = 0;
     let totalPrice = 0;
