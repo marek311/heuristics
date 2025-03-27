@@ -7,7 +7,6 @@ import FlowchartKnapsackExchange from './FlowchartExchange.js';
 import {
     initialize,
     iteration,
-    updateIndexes,
     run,
 } from "./AlgorithmsExchange";
 
@@ -97,7 +96,14 @@ function MainComponentExchange() {
             setIndexJ(0);
         }
         else {
-            updateIndexes(indexI, indexJ, currentBackpack, currentNotBackpack, setIndexI, setIndexJ, setIsCompleted);
+            if (indexJ + 1 < currentNotBackpack.length) {
+                setIndexJ(prevJ => prevJ + 1);
+            } else if (indexI + 1 < currentBackpack.length) {
+                setIndexI(prevI => prevI + 1);
+                setIndexJ(0);
+            } else {
+                setIsCompleted(true);
+            }
         }
     };
 
