@@ -70,7 +70,7 @@ export const performIteration = (
     }
 
     if (strategy === 'firstFit') {
-        const result = performIterationFirstFit(
+        return performIterationFirstFit(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
@@ -83,21 +83,8 @@ export const performIteration = (
             setOriginalIndexJ,
             setAdmissible,
             setImproving,
+            setHighlightLinks,
         );
-
-        if (result.exchange) {
-
-            highlightedLinks = [
-                { source: 'inBackpack', target: 'notInBackpack' },
-                { source: 'notInBackpack', target: 'admissible' },
-                { source: 'admissible', target: 'improving' },
-                { source: 'improving', target: 'exchange' },
-                { source: 'exchange', target: 'solution' },
-            ];
-        }
-
-        setHighlightLinks(highlightedLinks);
-        return result;
     }
 };
 
@@ -188,7 +175,13 @@ const performIterationFirstFit = (
     setOriginalIndexJ,
     setAdmissible,
     setImproving,
+    setHighlightLinks
 ) => {
+
+    let highlightLinks = [
+        { source: 'inBackpack', target: 'notInBackpack' },
+        { source: 'notInBackpack', target: 'admissible' },
+    ];
 
     let backpackCurrent = [...currentBackpack];
     let notBackpackCurrent = [...currentNotBackpack];
@@ -197,6 +190,7 @@ const performIterationFirstFit = (
     const inItem = notBackpackCurrent[indexJ];
 
     if (!outItem || !inItem) {
+        setHighlightLinks(highlightLinks);
         return {
             updatedBackpack: backpackCurrent,
             updatedNotBackpack: notBackpackCurrent,
@@ -215,18 +209,25 @@ const performIterationFirstFit = (
     setOriginalIndexJ(notBackpackCurrent[indexJ].originalIndex);
 
     if (potentialWeight <= capacity) {
-
         setAdmissible(true);
+        highlightLinks.push(
+            { source: 'admissible', target: 'improving' },
+        );
 
-        if( potentialPrice > currentPrice) {
-
+        if (potentialPrice > currentPrice) {
             setImproving(true);
+            highlightLinks.push(
+                { source: 'improving', target: 'exchange' },
+                { source: 'exchange', target: 'solution' },
+            );
 
             backpackCurrent[indexI] = inItem;
             notBackpackCurrent = notBackpackCurrent.filter(item => item !== inItem);
             notBackpackCurrent.push(outItem);
 
             const binaryVector = generateBinaryVector(backpackCurrent);
+
+            setHighlightLinks(highlightLinks);
 
             return {
                 updatedBackpack: backpackCurrent,
@@ -241,8 +242,18 @@ const performIterationFirstFit = (
                     newPrice: potentialPrice,
                 },
             };
+        } else {
+            highlightLinks.push(
+                { source: 'improving', target: 'next' },
+            );
         }
+    } else {
+        highlightLinks.push(
+            { source: 'admissible', target: 'next' },
+        );
     }
+
+    setHighlightLinks(highlightLinks);
 
     return {
         updatedBackpack: backpackCurrent,
