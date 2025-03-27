@@ -44,6 +44,11 @@ function MainComponentExchange() {
     const [admissible, setAdmissible] = useState(false);
     const [improving, setImproving] = useState(false);
 
+    const [bestFoundSolution, setBestFoundSolution] = useState();
+    const [bestFoundPrice, setBestFoundPrice] = useState(0);
+    const [bestFoundWeight, setBestFoundWeight] = useState(0);
+    const [performBestExchange, setPerformBestExchange] = useState(false);
+
     const generateBinaryVector = (backpack) => {
         const binaryVector = new Array(items.length).fill(0);
         for (const item of backpack) {
@@ -87,14 +92,20 @@ function MainComponentExchange() {
             setCurrentWeight,
             setCurrentPrice,
             isCompleted,
+            setIsCompleted,
+            bestFoundSolution,
+            setBestFoundSolution,
+            bestFoundPrice,
+            setBestFoundPrice,
+            bestFoundWeight,
+            setBestFoundWeight,
         );
 
         if (result.exchange) {
             setExchangeHistory(prev => [...prev, result.exchange]);
             setIndexI(0);
             setIndexJ(0);
-        }
-        else {
+        } else {
             if (indexJ + 1 < currentNotBackpack.length) {
                 setIndexJ(prevJ => prevJ + 1);
             } else if (indexI + 1 < currentBackpack.length) {
@@ -102,9 +113,48 @@ function MainComponentExchange() {
                 setIndexJ(0);
             } else {
                 setIsCompleted(true);
+                setPerformBestExchange(true);
+
+
+                const removedItem = currentBackpack.find(item => item.originalIndex === bestFoundSolution.removed);
+                const addedItem = currentNotBackpack.find(item => item.originalIndex === bestFoundSolution.added);
+
+                if (!removedItem || !addedItem) return;
+
+                const updatedBackpack = currentBackpack
+                    .filter(item => item.originalIndex !== removedItem.originalIndex)
+                    .concat(addedItem);
+
+                const updatedNotBackpack = currentNotBackpack
+                    .filter(item => item.originalIndex !== addedItem.originalIndex)
+                    .concat(removedItem);
+
+                const binaryVector = generateBinaryVector(updatedBackpack);
+
+                setCurrentBackpack(updatedBackpack);
+                setCurrentNotBackpack(updatedNotBackpack);
+                setCurrentWeight(bestFoundWeight);
+                setCurrentPrice(bestFoundPrice);
+
+                setIsCompleted(false);
+                setBestFoundSolution(null);
+                setBestFoundPrice(0);
+                setBestFoundWeight(0);
+                setPerformBestExchange(false);
+
+                setExchangeHistory(prev => [
+                    ...prev,
+                    {
+                        removed: removedItem,
+                        added: addedItem,
+                        binaryVector,
+                        newWeight: bestFoundWeight,
+                        newPrice: bestFoundPrice,
+                    },
+                ]);
             }
         }
-    };
+    }
 
     const handleRun = () => {
         run({
@@ -170,6 +220,12 @@ function MainComponentExchange() {
                 showStatus={false}
                 highlightCurrent={false}
             />
+
+            <div className="bg-white">
+                best weight - {bestFoundWeight} <br/>
+                best price - {bestFoundPrice} <br/>
+            </div>
+
             <SolutionExchange
                 exchangeHistory={exchangeHistory}
                 originalIndexI={originalIndexI}

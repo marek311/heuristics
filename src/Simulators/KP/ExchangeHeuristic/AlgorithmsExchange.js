@@ -59,6 +59,13 @@ export const iteration = (
     setCurrentWeight,
     setCurrentPrice,
     isCompleted,
+    setIsCompleted,
+    bestFoundSolution,
+    setBestFoundSolution,
+    bestFoundPrice,
+    setBestFoundPrice,
+    bestFoundWeight,
+    setBestFoundWeight,
 ) => {
 
     if (strategy === 'firstFit') {
@@ -83,6 +90,36 @@ export const iteration = (
             isCompleted,
         );
     }
+
+    if (strategy === 'bestFit') {
+        return performIterationBestFit(
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            capacity,
+            generateBinaryVector,
+            indexI,
+            setOriginalIndexI,
+            indexJ,
+            setOriginalIndexJ,
+            setAdmissible,
+            setImproving,
+            setHighlightLinks,
+            setCurrentBackpack,
+            setCurrentNotBackpack,
+            setCurrentWeight,
+            setCurrentPrice,
+            isCompleted,
+            setIsCompleted,
+            bestFoundSolution,
+            setBestFoundSolution,
+            bestFoundPrice,
+            setBestFoundPrice,
+            bestFoundWeight,
+            setBestFoundWeight,
+        );
+    }
 };
 
 const performIterationBestFit = (
@@ -92,17 +129,56 @@ const performIterationBestFit = (
     currentPrice,
     capacity,
     generateBinaryVector,
+    indexI,
+    setOriginalIndexI,
+    indexJ,
+    setOriginalIndexJ,
+    setAdmissible,
+    setImproving,
     setHighlightLinks,
+    setCurrentBackpack,
+    setCurrentNotBackpack,
+    setCurrentWeight,
+    setCurrentPrice,
+    isCompleted,
+    setIsCompleted,
+    bestFoundSolution,
+    setBestFoundSolution,
+    bestFoundPrice,
+    setBestFoundPrice,
+    bestFoundWeight,
+    setBestFoundWeight
 ) => {
+    if (isCompleted) return { exchange: null };
 
-    setHighlightLinks([
-        { source: 'inBackpack', target: 'notInBackpack' },
-        { source: 'notInBackpack', target: 'admissible' },
-        { source: 'admissible', target: 'improving' },
-        { source: 'improving', target: 'bestQuestion' },
-        { source: 'bestQuestion', target: 'exchange' },
-        { source: 'exchange', target: 'solution' },
-    ]);
+    const outItem = currentBackpack[indexI];
+    const inItem = currentNotBackpack[indexJ];
+
+    if (!outItem || !inItem) return { exchange: null };
+
+    const potentialWeight = currentWeight - outItem.weight + inItem.weight;
+    const potentialPrice = currentPrice - outItem.price + inItem.price;
+
+    setOriginalIndexI(outItem.originalIndex);
+    setOriginalIndexJ(inItem.originalIndex);
+    setAdmissible(false);
+    setImproving(false);
+
+    if (potentialWeight <= capacity) {
+        setAdmissible(true);
+
+        if (potentialPrice > bestFoundPrice && potentialPrice > currentPrice) {
+            setImproving(true);
+
+            setBestFoundSolution(prev => ({
+                removed: outItem.originalIndex,
+                added: inItem.originalIndex,
+            }));
+            setBestFoundPrice(prev => potentialPrice);
+            setBestFoundWeight(prev => potentialWeight);
+        }
+    }
+    return { exchange: null };
 };
 
 const performIterationFirstFit = (
@@ -248,9 +324,7 @@ export const run = ({
             currentWeight,
             currentPrice,
             setHighlightLinks,
-
             setOriginalIndexI,
-
             setOriginalIndexJ,
             setAdmissible,
             setImproving,
