@@ -29,8 +29,12 @@ function MainComponentExchange() {
     const [isCompleted, setIsCompleted] = useState(false);
     const [highlightLinks, setHighlightLinks] = useState([]);
     const [strategy, setStrategy] = useState('bestFit');
-    const [indexI, setIndexI] = useState(null);
-    const [indexJ, setIndexJ] = useState(null);
+    const [indexI, setIndexI] = useState(0);
+    const [originalIndexI, setOriginalIndexI] = useState(0);
+    const [indexJ, setIndexJ] = useState(0);
+    const [originalIndexJ, setOriginalIndexJ] = useState(0);
+    const [admissible, setAdmissible] = useState(false);
+    const [improving, setImproving] = useState(false);
 
     useEffect(() => {
         const path = location.pathname;
@@ -75,6 +79,9 @@ function MainComponentExchange() {
     const handleIteration = () => {
         if (isCompleted) return;
 
+        currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+        currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+
         const result = performIteration(
             currentBackpack,
             currentNotBackpack,
@@ -83,7 +90,13 @@ function MainComponentExchange() {
             capacity,
             generateBinaryVector,
             strategy,
-            setHighlightLinks
+            setHighlightLinks,
+            indexI,
+            setOriginalIndexI,
+            indexJ,
+            setOriginalIndexJ,
+            setAdmissible,
+            setImproving,
         );
         setCurrentBackpack(result.updatedBackpack);
         setCurrentNotBackpack(result.updatedNotBackpack);
@@ -92,12 +105,17 @@ function MainComponentExchange() {
 
         if (result.exchange) {
             setExchangeHistory(prev => [...prev, result.exchange]);
-            setIndexI(result.exchange.indexI);
-            setIndexJ(result.exchange.indexJ);
+            setIndexI(0);
+            setIndexJ(0);
         } else {
-            setIsCompleted(true);
-            setIndexI(null);
-            setIndexJ(null);
+            if (indexJ + 1 < currentNotBackpack.length) {
+                setIndexJ(prevJ => prevJ + 1);
+            } else if (indexI + 1 < currentBackpack.length) {
+                setIndexI(prevI => prevI + 1);
+                setIndexJ(0);
+            } else {
+                setIsCompleted(true);
+            }
         }
     };
 
@@ -119,8 +137,6 @@ function MainComponentExchange() {
         setCurrentWeight(result.updatedWeight);
         setCurrentPrice(result.updatedPrice);
         setExchangeHistory(prev => [...prev, ...result.exchangeHistory]);
-        setIndexI(null);
-        setIndexJ(null);
         if (result.exchangeHistory.length === 0) {
             setIsCompleted(true);
         }
@@ -161,6 +177,10 @@ function MainComponentExchange() {
             />
             <SolutionExchange
                 exchangeHistory={exchangeHistory}
+                originalIndexI={originalIndexI}
+                originalIndexJ={originalIndexJ}
+                admissible={admissible}
+                improving={improving}
             />
             <FlowchartKnapsackExchange
                 strategy={strategy}

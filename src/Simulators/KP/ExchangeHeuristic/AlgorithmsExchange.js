@@ -33,7 +33,13 @@ export const performIteration = (
     capacity,
     generateBinaryVector,
     strategy,
-    setHighlightLinks
+    setHighlightLinks,
+    indexI,
+    setOriginalIndexI,
+    indexJ,
+    setOriginalIndexJ,
+    setAdmissible,
+    setImproving,
 ) => {
     let highlightedLinks = [];
 
@@ -70,7 +76,13 @@ export const performIteration = (
             currentWeight,
             currentPrice,
             capacity,
-            generateBinaryVector
+            generateBinaryVector,
+            indexI,
+            setOriginalIndexI,
+            indexJ,
+            setOriginalIndexJ,
+            setAdmissible,
+            setImproving,
         );
 
         if (result.exchange) {
@@ -169,54 +181,72 @@ const performIterationFirstFit = (
     currentWeight,
     currentPrice,
     capacity,
-    generateBinaryVector
+    generateBinaryVector,
+    indexI,
+    setOriginalIndexI,
+    indexJ,
+    setOriginalIndexJ,
+    setAdmissible,
+    setImproving,
 ) => {
-    let updatedBackpack = [...currentBackpack];
-    let updatedNotBackpack = [...currentNotBackpack];
-    let indexI;
-    let indexJ;
 
-    for (let i = 0; i < updatedBackpack.length; i++) {
-        const backpackItem = updatedBackpack[i];
+    let backpackCurrent = [...currentBackpack];
+    let notBackpackCurrent = [...currentNotBackpack];
 
-        for (let j = 0; j < updatedNotBackpack.length; j++) {
-            const candidate = updatedNotBackpack[j];
-            const potentialWeight = currentWeight - backpackItem.weight + candidate.weight;
-            const potentialPrice = currentPrice - backpackItem.price + candidate.price;
+    const outItem = backpackCurrent[indexI];
+    const inItem = notBackpackCurrent[indexJ];
 
-            if (potentialWeight <= capacity && potentialPrice > currentPrice) {
-                indexI = updatedBackpack[i].originalIndex;
-                indexJ = updatedNotBackpack[j].originalIndex;
+    if (!outItem || !inItem) {
+        return {
+            updatedBackpack: backpackCurrent,
+            updatedNotBackpack: notBackpackCurrent,
+            updatedWeight: currentWeight,
+            updatedPrice: currentPrice,
+            exchange: null,
+        };
+    }
 
-                updatedBackpack[i] = candidate;
+    const potentialWeight = currentWeight - outItem.weight + inItem.weight;
+    const potentialPrice = currentPrice - outItem.price + inItem.price;
 
-                updatedNotBackpack = updatedNotBackpack.filter(item => item !== candidate);
-                updatedNotBackpack.push(backpackItem);
+    setAdmissible(false);
+    setImproving(false);
+    setOriginalIndexI(backpackCurrent[indexI].originalIndex);
+    setOriginalIndexJ(notBackpackCurrent[indexJ].originalIndex);
 
-                const binaryVector = generateBinaryVector(updatedBackpack);
+    if (potentialWeight <= capacity) {
 
-                return {
-                    updatedBackpack,
-                    updatedNotBackpack,
-                    updatedWeight: potentialWeight,
-                    updatedPrice: potentialPrice,
-                    exchange: {
-                        removed: backpackItem,
-                        added: candidate,
-                        binaryVector,
-                        newWeight: potentialWeight,
-                        newPrice: potentialPrice,
-                        indexI: indexI,
-                        indexJ: indexJ,
-                    },
-                };
-            }
+        setAdmissible(true);
+
+        if( potentialPrice > currentPrice) {
+
+            setImproving(true);
+
+            backpackCurrent[indexI] = inItem;
+            notBackpackCurrent = notBackpackCurrent.filter(item => item !== inItem);
+            notBackpackCurrent.push(outItem);
+
+            const binaryVector = generateBinaryVector(backpackCurrent);
+
+            return {
+                updatedBackpack: backpackCurrent,
+                updatedNotBackpack: notBackpackCurrent,
+                updatedWeight: potentialWeight,
+                updatedPrice: potentialPrice,
+                exchange: {
+                    removed: outItem,
+                    added: inItem,
+                    binaryVector,
+                    newWeight: potentialWeight,
+                    newPrice: potentialPrice,
+                },
+            };
         }
     }
 
     return {
-        updatedBackpack,
-        updatedNotBackpack,
+        updatedBackpack: backpackCurrent,
+        updatedNotBackpack: notBackpackCurrent,
         updatedWeight: currentWeight,
         updatedPrice: currentPrice,
         exchange: null,
