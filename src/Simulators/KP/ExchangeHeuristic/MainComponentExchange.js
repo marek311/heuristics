@@ -101,7 +101,82 @@ function MainComponentExchange() {
     };
 
     const handleRun = () => {
+        let backpackCurrent = [...currentBackpack];
+        let notBackpackCurrent = [...currentNotBackpack];
+        let totalWeight = currentWeight;
+        let totalPrice = currentPrice;
+        let indexI = 0;
+        let indexJ = 0;
+        let isCompleted = false;
 
+        let exchangeHistoryTemp = [];
+
+        while (!isCompleted) {
+            backpackCurrent.sort((a, b) => a.originalIndex - b.originalIndex);
+            notBackpackCurrent.sort((a, b) => a.originalIndex - b.originalIndex);
+
+            const outItem = backpackCurrent[indexI];
+            const inItem = notBackpackCurrent[indexJ];
+
+            if (!outItem || !inItem) {
+                break;
+            }
+
+            const potentialWeight = totalWeight - outItem.weight + inItem.weight;
+            const potentialPrice = totalPrice - outItem.price + inItem.price;
+
+            let admissible = false;
+            let improving = false;
+
+            if (potentialWeight <= capacity) {
+                admissible = true;
+
+                if (potentialPrice > totalPrice) {
+                    improving = true;
+
+                    backpackCurrent[indexI] = inItem;
+                    notBackpackCurrent = notBackpackCurrent.filter(item => item !== inItem);
+                    notBackpackCurrent.push(outItem);
+
+                    totalWeight = potentialWeight;
+                    totalPrice = potentialPrice;
+
+                    const binaryVector = generateBinaryVector(backpackCurrent);
+
+                    exchangeHistoryTemp.push({
+                        removed: outItem,
+                        added: inItem,
+                        binaryVector,
+                        newWeight: totalWeight,
+                        newPrice: totalPrice,
+                        indexI: backpackCurrent[indexI].originalIndex,
+                        indexJ: notBackpackCurrent[indexJ].originalIndex,
+                    });
+
+                    indexI = 0;
+                    indexJ = 0;
+                    break;
+                }
+            }
+
+            if (indexJ + 1 < notBackpackCurrent.length) {
+                indexJ++;
+            } else if (indexI + 1 < backpackCurrent.length) {
+                indexI++;
+                indexJ = 0;
+            } else {
+                isCompleted = true;
+            }
+        }
+
+        const binaryVector = generateBinaryVector(backpackCurrent);
+
+        setCurrentBackpack(backpackCurrent);
+        setCurrentNotBackpack(notBackpackCurrent);
+        setCurrentWeight(totalWeight);
+        setCurrentPrice(totalPrice);
+        setIsCompleted(isCompleted);
+        setExchangeHistory(prevHistory => [...prevHistory, ...exchangeHistoryTemp]);  // Accumulate history properly
     };
 
     const handleReset = () => {
