@@ -151,6 +151,9 @@ const performIterationBestFit = (
 ) => {
     if (isCompleted) return { exchange: null };
 
+    currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+    currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
+
     const outItem = currentBackpack[indexI];
     const inItem = currentNotBackpack[indexJ];
 

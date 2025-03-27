@@ -120,7 +120,6 @@ function MainComponentExchange() {
 
     useEffect(() => {
 
-
         if (!bestFoundSolution) return;
 
         const removedItem = currentBackpack.find(item => item.originalIndex === bestFoundSolution.removed);
