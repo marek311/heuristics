@@ -101,11 +101,14 @@ const performIterationBestFit = (
     let updatedNotBackpack = [...currentNotBackpack];
     let bestFitCandidate = null;
     let bestFitImprovement = -Infinity;
+    let indexI;
+    let indexJ;
 
     for (let i = 0; i < updatedBackpack.length; i++) {
         const backpackItem = updatedBackpack[i];
 
-        for (const candidate of updatedNotBackpack) {
+        for (let j = 0; j < updatedNotBackpack.length; j++) {
+            const candidate = updatedNotBackpack[j];
             const potentialWeight = currentWeight - backpackItem.weight + candidate.weight;
             const potentialPrice = currentPrice - backpackItem.price + candidate.price;
 
@@ -113,6 +116,10 @@ const performIterationBestFit = (
                 const priceImprovement = potentialPrice - currentPrice;
 
                 if (priceImprovement > bestFitImprovement) {
+
+                    indexI = updatedBackpack[i].originalIndex;
+                    indexJ = updatedNotBackpack[j].originalIndex;
+
                     bestFitImprovement = priceImprovement;
                     bestFitCandidate = {
                         removed: backpackItem,
@@ -141,6 +148,8 @@ const performIterationBestFit = (
             exchange: {
                 ...bestFitCandidate,
                 binaryVector,
+                indexI: indexI,
+                indexJ: indexJ,
             },
         };
     }
@@ -164,15 +173,21 @@ const performIterationFirstFit = (
 ) => {
     let updatedBackpack = [...currentBackpack];
     let updatedNotBackpack = [...currentNotBackpack];
+    let indexI;
+    let indexJ;
 
     for (let i = 0; i < updatedBackpack.length; i++) {
         const backpackItem = updatedBackpack[i];
 
-        for (const candidate of updatedNotBackpack) {
+        for (let j = 0; j < updatedNotBackpack.length; j++) {
+            const candidate = updatedNotBackpack[j];
             const potentialWeight = currentWeight - backpackItem.weight + candidate.weight;
             const potentialPrice = currentPrice - backpackItem.price + candidate.price;
 
             if (potentialWeight <= capacity && potentialPrice > currentPrice) {
+                indexI = updatedBackpack[i].originalIndex;
+                indexJ = updatedNotBackpack[j].originalIndex;
+
                 updatedBackpack[i] = candidate;
 
                 updatedNotBackpack = updatedNotBackpack.filter(item => item !== candidate);
@@ -191,6 +206,8 @@ const performIterationFirstFit = (
                         binaryVector,
                         newWeight: potentialWeight,
                         newPrice: potentialPrice,
+                        indexI: indexI,
+                        indexJ: indexJ,
                     },
                 };
             }

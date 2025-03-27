@@ -29,6 +29,8 @@ function MainComponentExchange() {
     const [isCompleted, setIsCompleted] = useState(false);
     const [highlightLinks, setHighlightLinks] = useState([]);
     const [strategy, setStrategy] = useState('bestFit');
+    const [indexI, setIndexI] = useState(null);
+    const [indexJ, setIndexJ] = useState(null);
 
     useEffect(() => {
         const path = location.pathname;
@@ -90,8 +92,12 @@ function MainComponentExchange() {
 
         if (result.exchange) {
             setExchangeHistory(prev => [...prev, result.exchange]);
+            setIndexI(result.exchange.indexI);
+            setIndexJ(result.exchange.indexJ);
         } else {
             setIsCompleted(true);
+            setIndexI(null);
+            setIndexJ(null);
         }
     };
 
@@ -113,7 +119,8 @@ function MainComponentExchange() {
         setCurrentWeight(result.updatedWeight);
         setCurrentPrice(result.updatedPrice);
         setExchangeHistory(prev => [...prev, ...result.exchangeHistory]);
-
+        setIndexI(null);
+        setIndexJ(null);
         if (result.exchangeHistory.length === 0) {
             setIsCompleted(true);
         }
