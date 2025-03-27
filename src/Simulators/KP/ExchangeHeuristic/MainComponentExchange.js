@@ -5,9 +5,9 @@ import KPDataDisplay from "../../../InputHandling/InputDisplay/KP/KPDataDisplay"
 import SolutionExchange from './SolutionExchange';
 import FlowchartKnapsackExchange from './FlowchartExchange.js';
 import {
-    performInitializeSolution,
-    performIteration,
-    performRun
+    initialize,
+    iteration,
+    run,
 } from "./AlgorithmsExchange";
 
 function MainComponentExchange() {
@@ -53,8 +53,8 @@ function MainComponentExchange() {
         return binaryVector;
     };
 
-    const handleInitializeSolution = () => {
-        const { newBackpack, totalWeight, totalPrice, binaryVector } = performInitializeSolution(
+    const handleInitialization = () => {
+        const { newBackpack, totalWeight, totalPrice, binaryVector } = initialize(
             items,
             capacity,
             generateBinaryVector
@@ -82,7 +82,7 @@ function MainComponentExchange() {
         currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
         currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
 
-        const result = performIteration(
+        const result = iteration(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
@@ -122,7 +122,7 @@ function MainComponentExchange() {
     const handleRun = () => {
         if (isCompleted) return;
 
-        const result = performRun(
+        const result = run(
             currentBackpack,
             currentNotBackpack,
             currentWeight,
@@ -149,11 +149,11 @@ function MainComponentExchange() {
         setExchangeHistory([]);
         setCurrentNotBackpack([...items]);
         setHighlightLinks([]);
-        handleInitializeSolution();
+        handleInitialization();
     };
 
     useEffect(() => {
-        handleInitializeSolution();
+        handleInitialization();
         // eslint-disable-next-line
     }, []);
 

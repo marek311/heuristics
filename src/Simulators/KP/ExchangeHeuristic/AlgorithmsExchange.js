@@ -1,4 +1,4 @@
-export const performInitializeSolution = (items, capacity, generateBinaryVector) => {
+export const initialize = (items, capacity, generateBinaryVector) => {
     const newBackpack = [];
     let totalWeight = 0;
     let totalPrice = 0;
@@ -20,7 +20,7 @@ export const performInitializeSolution = (items, capacity, generateBinaryVector)
     };
 };
 
-export const performIteration = (
+export const iteration = (
     currentBackpack,
     currentNotBackpack,
     currentWeight,
@@ -255,7 +255,7 @@ const performIterationFirstFit = (
     };
 };
 
-export const performRun = (
+export const run = (
     currentBackpack,
     currentNotBackpack,
     currentWeight,
