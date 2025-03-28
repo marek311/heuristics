@@ -7,10 +7,11 @@ function SolutionExchange({
                               originalIndexJ,
                               admissible,
                               improving,
+                              betterBest,
                               bestFoundSolution,
                               bestFoundPrice,
                               bestFoundWeight,
-                              strategy
+                              strategy,
                           }) {
     const graphRef = useRef();
 
@@ -114,13 +115,23 @@ function SolutionExchange({
                                      {admissible ? '✓' : '✗'}
                                 </span>
                             </div>
-                            <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md 
+                            <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md mb-2
                                     ${improving ? 'bg-green-100 border border-green-500 text-green-700' : 'bg-red-100 border border-red-500 text-red-700'}`}>
                                 <span className="mr-2 font-semibold">Improving:</span>
                                 <span className={`text-lg font-bold ${improving ? 'text-green-700' : 'text-red-700'}`}>
                                     {improving ? '✓' : '✗'}
                                 </span>
                             </div>
+                            {strategy === "bestFit" && (
+                                <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md mb-2 
+                                    ${betterBest ? 'bg-green-100 border border-green-500 text-green-700' : 'bg-red-100 border border-red-500 text-red-700'}`}>
+                                    <span className="mr-2 font-semibold">Best So Far:</span>
+                                    <span
+                                        className={`text-lg font-bold ${betterBest ? 'text-green-700' : 'text-red-700'}`}>
+                                     {betterBest ? '✓' : '✗'}
+                                </span>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

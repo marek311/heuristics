@@ -66,6 +66,8 @@ export const iteration = (
     setBestFoundPrice,
     bestFoundWeight,
     setBestFoundWeight,
+    betterBest,
+    setBetterBest,
 ) => {
 
     if (strategy === 'firstFit') {
@@ -118,6 +120,8 @@ export const iteration = (
             setBestFoundPrice,
             bestFoundWeight,
             setBestFoundWeight,
+            betterBest,
+            setBetterBest,
         );
     }
 };
@@ -147,7 +151,9 @@ const performIterationBestFit = (
     bestFoundPrice,
     setBestFoundPrice,
     bestFoundWeight,
-    setBestFoundWeight
+    setBestFoundWeight,
+    betterBest,
+    setBetterBest,
 ) => {
     if (isCompleted) return { exchange: null };
 
@@ -171,6 +177,7 @@ const performIterationBestFit = (
     const originalIndexJ = inItem.originalIndex;
     let isAdmissible = false;
     let isImproving = false;
+    let isBetterBest = false;
     let newBestSolution = bestFoundSolution;
     let newBestPrice = bestFoundPrice;
     let newBestWeight = bestFoundWeight;
@@ -188,6 +195,7 @@ const performIterationBestFit = (
             );
 
             if(potentialPrice > bestFoundPrice) {
+                isBetterBest = true;
                 highlightLinks.push(
                     { source: 'bestQuestion', target: 'exchange' },
                     { source: 'exchange', target: 'next' },
@@ -217,6 +225,7 @@ const performIterationBestFit = (
     setOriginalIndexJ(originalIndexJ);
     setAdmissible(isAdmissible);
     setImproving(isImproving);
+    setBetterBest(isBetterBest);
     setBestFoundSolution(newBestSolution);
     setBestFoundPrice(newBestPrice);
     setBestFoundWeight(newBestWeight);

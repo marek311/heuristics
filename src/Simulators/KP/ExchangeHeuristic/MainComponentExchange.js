@@ -43,6 +43,7 @@ function MainComponentExchange() {
     const [originalIndexJ, setOriginalIndexJ] = useState(0);
     const [admissible, setAdmissible] = useState(false);
     const [improving, setImproving] = useState(false);
+    const [betterBest, setBetterBest] = useState(false);
 
     const [bestFoundSolution, setBestFoundSolution] = useState();
     const [bestFoundPrice, setBestFoundPrice] = useState(0);
@@ -99,6 +100,8 @@ function MainComponentExchange() {
             setBestFoundPrice,
             bestFoundWeight,
             setBestFoundWeight,
+            betterBest,
+            setBetterBest,
         );
 
         if (result.exchange) {
@@ -234,6 +237,7 @@ function MainComponentExchange() {
                 originalIndexJ={originalIndexJ}
                 admissible={admissible}
                 improving={improving}
+                betterBest={betterBest}
                 bestFoundSolution={bestFoundSolution}
                 bestFoundPrice={bestFoundPrice}
                 bestFoundWeight={bestFoundWeight}
