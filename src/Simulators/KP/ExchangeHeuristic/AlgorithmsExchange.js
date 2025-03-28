@@ -468,6 +468,11 @@ export let runBestFit = ({
 
                 if (!outItem || !inItem) continue;
 
+                lastOriginalCheckedIndexI = outItem.originalIndex;
+                lastOriginalCheckedIndexJ = inItem.originalIndex;
+                admissible = totalWeight - outItem.weight + inItem.weight <= capacity;
+                improving = totalPrice - outItem.price + inItem.price > totalPrice;
+
                 const potentialWeight = totalWeight - outItem.weight + inItem.weight;
                 const potentialPrice = totalPrice - outItem.price + inItem.price;
 
@@ -485,11 +490,6 @@ export let runBestFit = ({
         }
 
         const { outItem, inItem, indexI, indexJ } = bestSwap;
-        lastOriginalCheckedIndexI = outItem.originalIndex;
-        lastOriginalCheckedIndexJ = inItem.originalIndex;
-
-        admissible = true;
-        improving = true;
 
         backpackCurrent[indexI] = inItem;
         notBackpackCurrent = notBackpackCurrent.filter(item => item !== inItem);
@@ -521,9 +521,9 @@ export let runBestFit = ({
     setOriginalIndexJ(lastOriginalCheckedIndexJ);
     setAdmissible(admissible);
     setImproving(improving);
-    setBestFoundSolution({ removed: lastOriginalCheckedIndexI, added: lastOriginalCheckedIndexJ });
-    setBestFoundPrice(bestPrice);
-    setBestFoundWeight(bestWeight);
+    setBestFoundSolution(null);
+    setBestFoundPrice(0);
+    setBestFoundWeight(0);
 };
 
 export const runFirstFit = ({
