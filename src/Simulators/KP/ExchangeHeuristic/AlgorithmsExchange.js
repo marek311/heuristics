@@ -366,7 +366,10 @@ export const run = ({
                         setExchangeHistory,
                         setIsCompleted,
                         generateBinaryVector,
-                        strategy
+                        strategy,
+                        setBestFoundSolution,
+                        setBestFoundPrice,
+                        setBestFoundWeight
                     }) => {
     if (strategy === 'firstFit') {
         runFirstFit({
@@ -390,10 +393,138 @@ export const run = ({
         });
     }
     if (strategy === 'bestFit') {
-
+        runBestFit({
+            capacity,
+            currentBackpack,
+            currentNotBackpack,
+            currentWeight,
+            currentPrice,
+            setOriginalIndexI,
+            setOriginalIndexJ,
+            setAdmissible,
+            setImproving,
+            setCurrentBackpack,
+            setCurrentNotBackpack,
+            setCurrentWeight,
+            setCurrentPrice,
+            setExchangeHistory,
+            setIsCompleted,
+            generateBinaryVector,
+            setBestFoundSolution,
+            setBestFoundPrice,
+            setBestFoundWeight
+        });
     }
 };
 
+export let runBestFit = ({
+                               capacity,
+                               currentBackpack,
+                               currentNotBackpack,
+                               currentWeight,
+                               currentPrice,
+                               setOriginalIndexI,
+                               setOriginalIndexJ,
+                               setAdmissible,
+                               setImproving,
+                               setCurrentBackpack,
+                               setCurrentNotBackpack,
+                               setCurrentWeight,
+                               setCurrentPrice,
+                               setExchangeHistory,
+                               setIsCompleted,
+                               generateBinaryVector,
+                               setBestFoundSolution,
+                               setBestFoundPrice,
+                               setBestFoundWeight
+                           }) => {
+    let backpackCurrent = [...currentBackpack];
+    let notBackpackCurrent = [...currentNotBackpack];
+    let totalWeight = currentWeight;
+    let totalPrice = currentPrice;
+    let isCompleted = false;
+    let bestSwap = null;
+    let bestPrice = totalPrice;
+    let bestWeight = totalWeight;
+
+    let exchangeHistoryTemp = [];
+    let lastOriginalCheckedIndexI = null;
+    let lastOriginalCheckedIndexJ = null;
+    let admissible = false;
+    let improving = false;
+
+    while (!isCompleted) {
+        backpackCurrent.sort((a, b) => a.originalIndex - b.originalIndex);
+        notBackpackCurrent.sort((a, b) => a.originalIndex - b.originalIndex);
+
+        bestSwap = null;
+        bestPrice = totalPrice;
+        bestWeight = totalWeight;
+
+        for (let i = 0; i < backpackCurrent.length; i++) {
+            for (let j = 0; j < notBackpackCurrent.length; j++) {
+                const outItem = backpackCurrent[i];
+                const inItem = notBackpackCurrent[j];
+
+                if (!outItem || !inItem) continue;
+
+                const potentialWeight = totalWeight - outItem.weight + inItem.weight;
+                const potentialPrice = totalPrice - outItem.price + inItem.price;
+
+                if (potentialWeight <= capacity && potentialPrice > bestPrice) {
+                    bestSwap = { outItem, inItem, indexI: i, indexJ: j };
+                    bestPrice = potentialPrice;
+                    bestWeight = potentialWeight;
+                }
+            }
+        }
+
+        if (!bestSwap) {
+            isCompleted = true;
+            break;
+        }
+
+        const { outItem, inItem, indexI, indexJ } = bestSwap;
+        lastOriginalCheckedIndexI = outItem.originalIndex;
+        lastOriginalCheckedIndexJ = inItem.originalIndex;
+
+        admissible = true;
+        improving = true;
+
+        backpackCurrent[indexI] = inItem;
+        notBackpackCurrent = notBackpackCurrent.filter(item => item !== inItem);
+        notBackpackCurrent.push(outItem);
+
+        totalWeight = bestWeight;
+        totalPrice = bestPrice;
+
+        const binaryVector = generateBinaryVector(backpackCurrent);
+
+        exchangeHistoryTemp.push({
+            removed: outItem,
+            added: inItem,
+            binaryVector,
+            newWeight: totalWeight,
+            newPrice: totalPrice,
+            indexI: outItem.originalIndex,
+            indexJ: inItem.originalIndex,
+        });
+    }
+
+    setCurrentBackpack(backpackCurrent);
+    setCurrentNotBackpack(notBackpackCurrent);
+    setCurrentWeight(totalWeight);
+    setCurrentPrice(totalPrice);
+    setIsCompleted(isCompleted);
+    setExchangeHistory(prevHistory => [...prevHistory, ...exchangeHistoryTemp]);
+    setOriginalIndexI(lastOriginalCheckedIndexI);
+    setOriginalIndexJ(lastOriginalCheckedIndexJ);
+    setAdmissible(admissible);
+    setImproving(improving);
+    setBestFoundSolution({ removed: lastOriginalCheckedIndexI, added: lastOriginalCheckedIndexJ });
+    setBestFoundPrice(bestPrice);
+    setBestFoundWeight(bestWeight);
+};
 
 export const runFirstFit = ({
                                 capacity,

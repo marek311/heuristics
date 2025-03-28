@@ -189,6 +189,9 @@ function MainComponentExchange() {
             setIsCompleted,
             generateBinaryVector,
             strategy,
+            setBestFoundSolution,
+            setBestFoundPrice,
+            setBestFoundWeight,
         });
     };
 
