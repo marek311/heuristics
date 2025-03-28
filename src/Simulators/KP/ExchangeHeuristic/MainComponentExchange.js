@@ -234,6 +234,10 @@ function MainComponentExchange() {
                 originalIndexJ={originalIndexJ}
                 admissible={admissible}
                 improving={improving}
+                bestFoundSolution={bestFoundSolution}
+                bestFoundPrice={bestFoundPrice}
+                bestFoundWeight={bestFoundWeight}
+                strategy={strategy}
             />
             <FlowchartKnapsackExchange
                 strategy={strategy}

@@ -1,7 +1,17 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
 
-function SolutionExchange({ exchangeHistory, originalIndexI, originalIndexJ, admissible, improving }) {
+function SolutionExchange({
+                              exchangeHistory,
+                              originalIndexI,
+                              originalIndexJ,
+                              admissible,
+                              improving,
+                              bestFoundSolution,
+                              bestFoundPrice,
+                              bestFoundWeight,
+                              strategy
+                          }) {
     const graphRef = useRef();
 
     useEffect(() => {
@@ -74,26 +84,43 @@ function SolutionExchange({ exchangeHistory, originalIndexI, originalIndexJ, adm
         <div className="flex-1 p-4 bg-white rounded-lg mr-2 overflow-y-auto" style={{height: '100%'}}>
             <div className="bg-white text-center p-4 border-2 border-gray-300 rounded-md mb-2 shadow-md">
                 <div className="flex justify-between mb-4">
-                    <div>
-                        <p className="text-gray-800 mb-2">OUT: <span
-                            className="font-semibold">{originalIndexI}</span></p>
-                        <p className="text-gray-800 mb-2">IN: <span
-                            className="font-semibold">{originalIndexJ}</span></p>
-                    </div>
-                    <div>
-                        <div className="flex items-center justify-center mb-2">
-                            <span className="mr-2 font-semibold">Admissible:</span>
-                            <span
-                                className={`inline-block p-2 rounded-full ${admissible ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
-                                {admissible ? '✓' : 'x'}
-                            </span>
+                    {strategy === "bestFit" && (
+                        <div className="bg-gray-100 text-center p-4 border border-gray-300 rounded-md mb-4 shadow-md">
+                            <h2 className="font-bold mb-2">Best Exchnage Found So Far</h2>
+                            <p className="text-gray-800">Removed: <span className="font-semibold">{bestFoundSolution?.removed ?? 'N/A'}</span></p>
+                            <p className="text-gray-800">Added: <span className="font-semibold">{bestFoundSolution?.added ?? 'N/A'}</span></p>
+                            <p className="text-gray-800">Best Price: <span className="font-semibold">{bestFoundPrice}</span></p>
+                            <p className="text-gray-800">Best Weight: <span className="font-semibold">{bestFoundWeight}</span></p>
                         </div>
-                        <div className="flex items-center justify-center">
-                            <span className="mr-2 font-semibold">Improving:</span>
-                            <span
-                                className={`inline-block p-2 rounded-full ${improving ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
-                                {improving ? '✓' : 'x'}
-                            </span>
+                    )}
+                    <div className="flex flex-col items-center">
+                        <div
+                            className="bg-red-100 border border-red-500 text-red-700 px-4 py-2 rounded-lg shadow-md mb-2">
+                            <p className="text-sm font-semibold">OUT</p>
+                            <p className="text-lg font-bold">{originalIndexI}</p>
+                        </div>
+                        <div
+                            className="bg-green-100 border border-green-500 text-green-700 px-4 py-2 rounded-lg shadow-md">
+                            <p className="text-sm font-semibold">IN</p>
+                            <p className="text-lg font-bold">{originalIndexJ}</p>
+                        </div>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <div className="flex flex-col items-center">
+                            <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md mb-2 
+                                    ${admissible ? 'bg-green-100 border border-green-500 text-green-700' : 'bg-red-100 border border-red-500 text-red-700'}`}>
+                                <span className="mr-2 font-semibold">Admissible:</span>
+                                <span className={`text-lg font-bold ${admissible ? 'text-green-700' : 'text-red-700'}`}>
+                                     {admissible ? '✓' : '✗'}
+                                </span>
+                            </div>
+                            <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md 
+                                    ${improving ? 'bg-green-100 border border-green-500 text-green-700' : 'bg-red-100 border border-red-500 text-red-700'}`}>
+                                <span className="mr-2 font-semibold">Improving:</span>
+                                <span className={`text-lg font-bold ${improving ? 'text-green-700' : 'text-red-700'}`}>
+                                    {improving ? '✓' : '✗'}
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </div>
