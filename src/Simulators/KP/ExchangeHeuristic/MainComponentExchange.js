@@ -168,6 +168,7 @@ function MainComponentExchange() {
     }, [performBestExchange]);
 
     const handleRun = () => {
+        setHighlightLinks([]);
         run({
             currentBackpack,
             currentNotBackpack,
