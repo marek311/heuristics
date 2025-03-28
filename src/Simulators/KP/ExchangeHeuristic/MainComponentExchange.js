@@ -209,7 +209,13 @@ function MainComponentExchange() {
         setOriginalIndexJ(0);
         setAdmissible(false);
         setImproving(false);
+        setBetterBest(false);
+        setPerformBestExchange(false);
+        setHighlightLinks([]);
         handleInitialization();
+        setBestFoundSolution(null);
+        setBestFoundPrice(0);
+        setBestFoundWeight(0);
     };
 
     useEffect(() => {
