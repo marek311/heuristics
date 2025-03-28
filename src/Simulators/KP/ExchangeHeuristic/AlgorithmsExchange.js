@@ -151,6 +151,11 @@ const performIterationBestFit = (
 ) => {
     if (isCompleted) return { exchange: null };
 
+    let highlightLinks = [
+        { source: 'inBackpack', target: 'notInBackpack' },
+        { source: 'notInBackpack', target: 'admissible' },
+    ];
+
     currentBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
     currentNotBackpack.sort((a, b) => a.originalIndex - b.originalIndex);
 
@@ -172,19 +177,42 @@ const performIterationBestFit = (
 
     if (potentialWeight <= capacity) {
         isAdmissible = true;
+        highlightLinks.push(
+            { source: 'admissible', target: 'improving' },
+        );
 
         if (potentialPrice > currentPrice) {
             isImproving = true;
+            highlightLinks.push(
+                { source: 'improving', target: 'bestQuestion' },
+            );
 
             if(potentialPrice > bestFoundPrice) {
-
+                highlightLinks.push(
+                    { source: 'bestQuestion', target: 'exchange' },
+                    { source: 'exchange', target: 'next' },
+                );
                 newBestSolution = { removed: originalIndexI, added: originalIndexJ };
                 newBestPrice = potentialPrice;
                 newBestWeight = potentialWeight;
+
+            } else {
+                highlightLinks.push(
+                    {source: 'bestQuestion', target: 'next'},
+                );
             }
+        } else {
+            highlightLinks.push(
+                {source: 'improving', target: 'next'},
+            );
         }
+    } else {
+        highlightLinks.push(
+            { source: 'admissible', target: 'next' },
+        );
     }
 
+    setHighlightLinks(highlightLinks);
     setOriginalIndexI(originalIndexI);
     setOriginalIndexJ(originalIndexJ);
     setAdmissible(isAdmissible);
