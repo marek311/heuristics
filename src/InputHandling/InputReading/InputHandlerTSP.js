@@ -161,14 +161,14 @@ function InputHandlerTSP({ data, setData, mode }) {
             <input
                 type="file"
                 accept=".csv"
-                className="p-2 mb-4 text-black border rounded w-full"
+                className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                 onChange={handleFileUpload}
             />
             <label className={`block mb-2 ${Colors.textPrimary}`}>
                 Select Starting/Ending City:
             </label>
             <select
-                className="p-2 mb-4 text-black border rounded w-full"
+                className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                 value={startEndCity}
                 onChange={handleStartEndCityChange}
             >
@@ -190,7 +190,7 @@ function InputHandlerTSP({ data, setData, mode }) {
                         max="7"
                         value={tabuTenure}
                         onChange={handleTabuTenureChange}
-                        className="p-2 mb-4 text-black border rounded w-full"
+                        className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                     />
                 </div>
             )}
@@ -207,7 +207,7 @@ function InputHandlerTSP({ data, setData, mode }) {
                             step="1"
                             value={temperature}
                             onChange={handleTemperatureChange}
-                            className="p-2 mb-4 text-black border rounded w-full"
+                            className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                         />
                     </div>
                     <div>
@@ -221,7 +221,7 @@ function InputHandlerTSP({ data, setData, mode }) {
                             max="0.99"
                             value={coolingRate}
                             onChange={handleCoolingRateChange}
-                            className="p-2 mb-4 text-black border rounded w-full"
+                            className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                         />
                     </div>
                 </div>
@@ -238,7 +238,7 @@ function InputHandlerTSP({ data, setData, mode }) {
                             max="6"
                             value={generationSize}
                             onChange={handleGenerationSizeChange}
-                            className="p-2 mb-4 text-black border rounded w-full"
+                            className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                         />
                     </div>
                     <div>
@@ -252,7 +252,7 @@ function InputHandlerTSP({ data, setData, mode }) {
                             step="0.1"
                             value={mutationProbability}
                             onChange={handleMutationProbabilityChange}
-                            className="p-2 mb-4 text-black border rounded w-full"
+                            className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                         />
                     </div>
                 </div>
