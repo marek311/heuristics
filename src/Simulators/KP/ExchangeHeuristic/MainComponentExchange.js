@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '../../Components/Header';
-import KPDataDisplay from "../../../InputHandling/InputDisplay/KP/KPDataDisplay";
+import KPDataDisplay from "../../../InputHandling/InputDisplay/KPDataDisplay";
 import SolutionExchange from './SolutionExchange';
 import FlowchartKnapsackExchange from './FlowchartExchange.js';
 import {

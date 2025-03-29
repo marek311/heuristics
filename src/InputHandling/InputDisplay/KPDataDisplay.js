@@ -1,5 +1,5 @@
 import React from 'react';
-import Colors from '../../../Main/Colors';
+import Colors from '../../Main/Colors';
 
 function KPDataDisplay({ items, currentIndex, itemStatus, capacity, showStatus = true, highlightCurrent = true, simpleMode = false }) {
     return (

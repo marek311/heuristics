@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
-import Colors from '../../../Main/Colors';
+import Colors from '../../Main/Colors';
 
 function TSPDataGraph({ data, tour }) {
     const svgRef = useRef();
