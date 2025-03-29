@@ -89,13 +89,14 @@ describe('Algorithms - Exchange Heuristic - First Fit', () => {
             { weight: 5, price: 10, originalIndex: 2 },
             { weight: 5, price: 30, originalIndex: 3 },
             { weight: 5, price: 50, originalIndex: 4 },
+            { weight: 5, price: 70, originalIndex: 5 },
         ];
 
         const capacity = 10;
 
         const state = {
             currentBackpack: [items[0], items[1]],
-            currentNotBackpack: [items[2], items[3], items[4]],
+            currentNotBackpack: [items[2], items[3], items[4], items[5]],
             currentWeight: 10,
             currentPrice: 30,
             setHighlightLinks: jest.fn(),
@@ -140,8 +141,8 @@ describe('Algorithms - Exchange Heuristic - First Fit', () => {
 
         expect(state.setCurrentBackpack).toHaveBeenCalledWith(
             expect.arrayContaining([
-                { weight: 5, price: 30, originalIndex: 3 },
                 { weight: 5, price: 50, originalIndex: 4 },
+                { weight: 5, price: 70, originalIndex: 5 },
             ])
         );
 
@@ -150,10 +151,12 @@ describe('Algorithms - Exchange Heuristic - First Fit', () => {
                 { weight: 5, price: 10, originalIndex: 0 },
                 { weight: 5, price: 20, originalIndex: 1 },
                 { weight: 5, price: 10, originalIndex: 2 },
+                { weight: 5, price: 30, originalIndex: 3 },
             ])
         );
 
         expect(state.setCurrentWeight).toHaveBeenCalledWith(10);
-        expect(state.setCurrentPrice).toHaveBeenCalledWith(80);
+        expect(state.setCurrentPrice).toHaveBeenCalledWith(120);
+        expect(state.setIsCompleted).toHaveBeenCalledWith(true);
     });
 });
