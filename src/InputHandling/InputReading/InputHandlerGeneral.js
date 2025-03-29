@@ -61,7 +61,7 @@ function InputHandlerGeneral() {
     };
 
     return (
-        <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit p-6 bg-white rounded-lg shadow-lg mx-auto my-10`}>
+        <div className={`mb-4 flex flex-col items-center justify-center w-fit h-fit p-6 ${Colors.cardBackground} rounded-lg shadow-lg mx-auto my-10`}>
             {['KnapsackInsert', 'KnapsackExchangeFirst', 'KnapsackExchangeBest'].includes(mode) && (
                 <InputHandlerKP data={knapsackData} setData={setKnapsackData}/>
             )}
