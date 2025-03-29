@@ -87,7 +87,7 @@ function SolutionExchange({
                 <div className="flex justify-between mb-4">
                     {strategy === "bestFit" && (
                         <div className="bg-gray-100 text-center p-4 border border-gray-300 rounded-md mb-4 shadow-md">
-                            <h2 className="font-bold mb-2">Best Exchnage Found So Far</h2>
+                            <h2 className="font-bold mb-2">Best Exchange Found So Far</h2>
                             <p className="text-gray-800">Removed: <span className="font-semibold">{bestFoundSolution?.removed ?? 'N/A'}</span></p>
                             <p className="text-gray-800">Added: <span className="font-semibold">{bestFoundSolution?.added ?? 'N/A'}</span></p>
                             <p className="text-gray-800">Best Price: <span className="font-semibold">{bestFoundPrice}</span></p>
