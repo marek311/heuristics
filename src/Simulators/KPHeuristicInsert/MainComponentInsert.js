@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Header from '../../Components/Header';
-import KPDataDisplay from '../../../InputHandling/InputDisplay/KPDataDisplay';
+import Header from '../Components/Header';
+import KPDataDisplay from '../../InputHandling/InputDisplay/KPDataDisplay';
 import SolutionInsert from './SolutionInsert';
 import FlowchartKnapsackInsert from './FlowchartInsert.js';
 import {

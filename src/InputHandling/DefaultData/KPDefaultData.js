@@ -1,4 +1,4 @@
-function KP_DefaultData() {
+function KPDefaultData() {
     return {
         weights: [10, 5, 10, 5, 5, 10, 10, 5, 5, 5],
         prices: [45, 25, 10, 40, 45, 20, 30, 15, 35, 50],
@@ -6,4 +6,4 @@ function KP_DefaultData() {
     };
 }
 
-export default KP_DefaultData;
+export default KPDefaultData;

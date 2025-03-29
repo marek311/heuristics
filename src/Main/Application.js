@@ -1,13 +1,13 @@
 import { Routes, Route } from 'react-router-dom';
 import Selector from './Selector';
-import InputHandlerGeneral from '../InputHandling/InputReading/InputHandlerGeneral';
+import GeneralInputHandler from '../InputHandling/InputReading/GeneralInputHandler';
 import KPDataPage from "../InputHandling/InputDisplay/KPDataPage";
 import TSPDataTable from '../InputHandling/InputDisplay/TSPDataTable';
-import SimKnapsackInsert from '../Simulators/KP/InsertHeuristic/MainComponentInsert'
-import SimKnapsackExchange from '../Simulators/KP/ExchangeHeuristic/MainComponentExchange'
-import SimTSPSimulatedAnnealing from "../Simulators/TSP/SimulatedAnnealing/MainComponentSimulatedAnnealing";
-import SimTSPTabuSearch from "../Simulators/TSP/TabuSearch/MainComponentTabuSearch";
-import SimTSPGeneticAlgorithm from "../Simulators/TSP/GeneticAlgorithm/MainComponentGeneticAlgorithm"
+import SimKnapsackInsert from '../Simulators/KPHeuristicInsert/MainComponentInsert'
+import SimKnapsackExchange from '../Simulators/KPHeuristicExchange/MainComponentExchange'
+import SimTSPSimulatedAnnealing from "../Simulators/TSPSimulatedAnnealing/MainComponentSimulatedAnnealing";
+import SimTSPTabuSearch from "../Simulators/TSPTabuSearch/MainComponentTabuSearch";
+import SimTSPGeneticAlgorithm from "../Simulators/TSPGeneticAlgorithm/MainComponentGeneticAlgorithm"
 import Colors from "./Colors";
 
 function Application() {
@@ -15,7 +15,7 @@ function Application() {
         <div className={`flex items-center justify-center min-h-screen ${Colors.background}`}>
             <Routes>
                 <Route path="/" element={<Selector />} />
-                <Route path="/handleInputs" element={<InputHandlerGeneral />} />
+                <Route path="/handleInputs" element={<GeneralInputHandler />} />
 
                 <Route path="/knapsack-insert-simulation" element={<KPDataPage />} />
                 <Route path="knapsack-insert-simulation/simulate" element={<SimKnapsackInsert />} />

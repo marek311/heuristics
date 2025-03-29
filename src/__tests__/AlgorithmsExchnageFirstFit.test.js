@@ -1,4 +1,4 @@
-import { iteration, run} from '../Simulators/KP/ExchangeHeuristic/AlgorithmsExchange';
+import { iteration, run} from '../Simulators/KPHeuristicExchange/AlgorithmsExchange';
 
 describe('Algorithms - Exchange Heuristic - First Fit', () => {
 

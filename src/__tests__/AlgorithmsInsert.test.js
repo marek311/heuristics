@@ -1,4 +1,4 @@
-import { performIteration, performRun } from '../Simulators/KP/InsertHeuristic/AlgorithmsInsert';
+import { performIteration, performRun } from '../Simulators/KPHeuristicInsert/AlgorithmsInsert';
 
 describe('Algorithms - Insert Heuristic', () => {
 

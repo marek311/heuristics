@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Header from '../../Components/Header';
-import TSPDataGraph from '../../../InputHandling/InputDisplay/TSPDataGraph';
+import Header from '../Components/Header';
+import TSPDataGraph from '../../InputHandling/InputDisplay/TSPDataGraph';
 import FlowchartTSPSimulatedAnnealing from "./FlowchartSimulatedAnnealing";
 import BarTemperature from "./BarTemperature";
 import BarExperiment from "./BarExperiment";

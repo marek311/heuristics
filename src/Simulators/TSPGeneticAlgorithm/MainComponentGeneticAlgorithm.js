@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import Header from '../../Components/Header';
+import Header from '../Components/Header';
 import PopulationComponent from "./PopulationComponent";
 import SelectionComponent from "./SelectionComponent";
 import RouletteWheel from "./RouletteWheel";

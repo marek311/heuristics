@@ -1,8 +1,8 @@
-import KP_DefaultData from '../DefaultData/KP_DefaultData';
+import KPDefaultData from '../DefaultData/KPDefaultData';
 import Colors from '../../Main/Colors';
 
-function InputHandlerKP({ data, setData }) {
-    const defaultData = KP_DefaultData();
+function KPInputHandler({ data, setData }) {
+    const defaultData = KPDefaultData();
 
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
@@ -74,4 +74,4 @@ function InputHandlerKP({ data, setData }) {
     );
 }
 
-export default InputHandlerKP;
+export default KPInputHandler;
