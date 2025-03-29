@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import * as d3 from 'd3';
+import Colors from '../../../Main/Colors';
 
 function TSPDataGraph({ data, tour }) {
     const svgRef = useRef();
@@ -15,7 +16,7 @@ function TSPDataGraph({ data, tour }) {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#f0f0f0')
+            .style('background', Colors.graphBackground)
             .style('border', '1px solid #ccc');
 
         svg.selectAll('*').remove();
@@ -54,7 +55,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('x2', (d) => d.target.x)
                 .attr('y2', (d) => d.target.y)
                 .attr('stroke', (d) =>
-                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? '#4caf50' : '#888'
+                    tourEdges.has(`${d.source.id}-${d.target.id}`) ? Colors.graphGreen : Colors.graphMainColor
                 )
                 .attr('stroke-width', (d) =>
                     tourEdges.has(`${d.source.id}-${d.target.id}`) ? 4 : 2
@@ -66,7 +67,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('class', 'edge-label')
                 .attr('x', (d) => (d.source.x + d.target.x) / 2)
                 .attr('y', (d) => (d.source.y + d.target.y) / 2)
-                .attr('fill', '#444')
+                .attr('fill', Colors.graphMainColor)
                 .attr('text-anchor', 'middle')
                 .attr('dy', -5)
                 .style('font-size', '12px')
@@ -78,7 +79,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('cx', (d) => d.x)
                 .attr('cy', (d) => d.y)
                 .attr('r', 10)
-                .attr('fill', '#4caf50');
+                .attr('fill', Colors.graphGreen);
 
             svg.selectAll('text.city-label')
                 .data(cities)
@@ -87,7 +88,7 @@ function TSPDataGraph({ data, tour }) {
                 .attr('x', (d) => d.x)
                 .attr('y', (d) => d.y - 15)
                 .attr('text-anchor', 'middle')
-                .attr('fill', '#000')
+                .attr('fill', Colors.graphMainColor)
                 .style('font-size', '12px')
                 .text((d) => d.id);
         });
@@ -98,9 +99,9 @@ function TSPDataGraph({ data, tour }) {
     }
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow-md">
+        <div className={`p-4 rounded-lg shadow-md ${Colors.cardBackground}`}>
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Best Tour Graphical Representation</h2>
+                <h2 className={`text-lg font-semibold ${Colors.textPrimary}`}>Best Tour Graphical Representation</h2>
                 <div className="flex items-center space-x-2 mt-2">
                     <input
                         type="checkbox"
@@ -109,7 +110,7 @@ function TSPDataGraph({ data, tour }) {
                         onChange={() => setShowAllRoutes((prev) => !prev)}
                         className="cursor-pointer"
                     />
-                    <label htmlFor="showAllRoutes" className="text-gray-700 cursor-pointer">
+                    <label htmlFor="showAllRoutes" className={`${Colors.textPrimary} cursor-pointer`}>
                         Show all routes
                     </label>
                 </div>

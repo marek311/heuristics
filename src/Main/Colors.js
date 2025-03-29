@@ -19,6 +19,10 @@ const Colors = {
 
     background: 'bg-gray-900',
     lightBackground: 'bg-gray-200',
+
+    graphBackground: '#f0f0f0',
+    graphMainColor: '#444',
+    graphGreen: '#4caf50',
 };
 
 export default Colors;
