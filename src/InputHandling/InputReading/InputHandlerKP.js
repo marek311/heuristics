@@ -53,7 +53,7 @@ function InputHandlerKP({ data, setData }) {
             <input
                 type="file"
                 accept=".csv"
-                className="p-2 mb-4 text-black border rounded w-full"
+                className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                 onChange={handleFileUpload}
             />
             <label className={`block mb-2 ${Colors.textPrimary}`}>
@@ -62,7 +62,7 @@ function InputHandlerKP({ data, setData }) {
             <input
                 type="number"
                 min="1"
-                className="p-2 mb-4 text-black border rounded w-full"
+                className={`p-2 mb-4 ${Colors.textPrimary} border rounded w-full`}
                 placeholder="Enter backpack capacity"
                 value={data.capacity}
                 onChange={(e) => {
