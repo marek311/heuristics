@@ -5,7 +5,7 @@ const Colors = {
     statusItemNotAdded: 'text-red-500',
     cardBackground: 'bg-white',
 
-    textPrimary: 'text-grey-800',
+    textPrimary: 'text-gray-800',
 
     buttonPrimary: 'bg-teal-500',
     buttonPrimaryHover: 'hover:bg-teal-400',
