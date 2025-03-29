@@ -16,6 +16,8 @@ const Colors = {
 
     buttonDisabled: 'bg-gray-500',
     cursorDisabled: 'cursor-not-allowed',
+
+    background: 'bg-gray-900',
 };
 
 export default Colors;

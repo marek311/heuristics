@@ -8,10 +8,11 @@ import SimKnapsackExchange from '../Simulators/KP/ExchangeHeuristic/MainComponen
 import SimTSPSimulatedAnnealing from "../Simulators/TSP/SimulatedAnnealing/MainComponentSimulatedAnnealing";
 import SimTSPTabuSearch from "../Simulators/TSP/TabuSearch/MainComponentTabuSearch";
 import SimTSPGeneticAlgorithm from "../Simulators/TSP/GeneticAlgorithm/MainComponentGeneticAlgorithm"
+import Colors from "./Colors";
 
 function Application() {
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className={`flex items-center justify-center min-h-screen ${Colors.background}`}>
             <Routes>
                 <Route path="/" element={<Selector />} />
                 <Route path="/handleInputs" element={<InputHandlerGeneral />} />
@@ -33,7 +34,6 @@ function Application() {
 
                 <Route path="/tsp-genetic-simulation" element={<TSPDataTable />}/>
                 <Route path="/tsp-genetic-simulation/simulate" element={<SimTSPGeneticAlgorithm />} />
-
             </Routes>
         </div>
     );
