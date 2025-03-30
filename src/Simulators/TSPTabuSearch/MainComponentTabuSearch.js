@@ -7,6 +7,7 @@ import TabuList from './TabuList';
 import SolutionTSPTabuSearch from "./SolutionTabuSearch";
 import Neighborhood from "./Neighborhood";
 import { useTabuSearch } from './AlgorithmsTabuSearch';
+import Colors from "../../Main/Colors";
 
 function MainComponentTabuSearch() {
 
@@ -64,7 +65,7 @@ function MainComponentTabuSearch() {
     }, [data]);
 
     return (
-        <div className="text-gray-800 p-6">
+        <div className={`${Colors.textPrimary} p-6`}>
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="Travelling Salesman Problem Simulation Using Tabu Search"

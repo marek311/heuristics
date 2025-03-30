@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 const Neighborhood = ({ neighborhood, tabuList, iteration }) => {
     const svgRef = useRef();
@@ -43,8 +44,8 @@ const Neighborhood = ({ neighborhood, tabuList, iteration }) => {
                 .attr("y", 0)
                 .attr("width", boxSize)
                 .attr("height", boxSize)
-                .attr("fill", (d, i) => (i === indexI || i === indexJ ? "#4caf50" : "#1e88e5"))
-                .attr("stroke", isTabuNow ? "red" : "black")
+                .attr("fill", (d, i) => (i === indexI || i === indexJ ? Colors.graphGreen : Colors.graphBlue))
+                .attr("stroke", isTabuNow ? Colors.graphRed : Colors.graphMainColor)
                 .attr("stroke-width", (isTabuNow || isChosen) ? 3 : 1);
 
             rowGroup.selectAll("text.city")
@@ -62,7 +63,7 @@ const Neighborhood = ({ neighborhood, tabuList, iteration }) => {
             rowGroup.append("text")
                 .attr("x", offsetX)
                 .attr("y", boxSize + 20)
-                .attr("fill", "black")
+                .attr("fill", Colors.graphMainColor)
                 .attr("font-size", "14px")
                 .text(`Cost: ${cost}, Swap: ${indexI} ↔ ${indexJ}`);
         });
@@ -70,9 +71,9 @@ const Neighborhood = ({ neighborhood, tabuList, iteration }) => {
     }, [neighborhood, tabuList, iteration]);
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-4 w-full">
+        <div className={`${Colors.cardBackground} shadow-md rounded-lg p-4 w-full`}>
             <div className="flex flex-col items-center justify-center">
-                <h2 className="mb-2 text-lg font-semibold text-gray-800">Neighborhood</h2>
+                <h2 className={`mb-2 text-lg font-semibold ${Colors.textPrimary}`}>Neighborhood</h2>
                 <div style={{ width: '100%', height: '500px', overflowY: 'scroll' }}>
                     <svg ref={svgRef}></svg>
                 </div>

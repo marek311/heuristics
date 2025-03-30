@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 function FlowchartTabuSearch({ highlightLinks }) {
     const svgRef = useRef();
@@ -11,19 +12,19 @@ function FlowchartTabuSearch({ highlightLinks }) {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#f0f0f0')
+            .style('background', Colors.graphBackground)
             .style('border', '1px solid #ccc')
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'current', text: 'Current Solution', x: 100, y: 40, shape: 'rect', color: '#1e88e5' },
-            { id: 'neighbor', text: 'Find Neighbor Solutions', x: 100, y: 120, shape: 'oval', color: '#4caf50' },
-            { id: 'bestNeighbor', text: 'Find Best Neighbor', x: 100, y: 200, shape: 'oval', color: '#4caf50' },
-            { id: 'tabuCheck', text: 'Tabu Swap?', x: 100, y: 290, shape: 'diamond', color: '#ffa533' },
-            { id: 'aspirationCheck', text: 'Aspiration Criteria?', x: 250, y: 350, shape: 'diamond', color: '#ffa533' },
-            { id: 'delete', text: 'Delete Solution', x: 250, y: 180, shape: 'oval', color: '#4caf50' },
-            { id: 'newSolution', text: 'New Solution', x: 100, y: 430, shape: 'rect', color: '#1e88e5' },
-            { id: 'newIteration', text: 'New Iteration', x: 100, y: 510, shape: 'rect', color: '#1e88e5' },
+            { id: 'current', text: 'Current Solution', x: 100, y: 40, shape: 'rect', color: Colors.graphBlue},
+            { id: 'neighbor', text: 'Find Neighbor Solutions', x: 100, y: 120, shape: 'oval', color: Colors.graphGreen },
+            { id: 'bestNeighbor', text: 'Find Best Neighbor', x: 100, y: 200, shape: 'oval', color: Colors.graphGreen },
+            { id: 'tabuCheck', text: 'Tabu Swap?', x: 100, y: 290, shape: 'diamond', color: Colors.graphOrange },
+            { id: 'aspirationCheck', text: 'Aspiration Criteria?', x: 250, y: 350, shape: 'diamond', color: Colors.graphOrange },
+            { id: 'delete', text: 'Delete Solution', x: 250, y: 180, shape: 'oval', color: Colors.graphGreen },
+            { id: 'newSolution', text: 'New Solution', x: 100, y: 430, shape: 'rect', color: Colors.graphBlue },
+            { id: 'newIteration', text: 'New Iteration', x: 100, y: 510, shape: 'rect', color: Colors.graphBlue },
         ];
 
         const links = [
@@ -45,7 +46,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
             .attr('y1', d => nodes.find(n => n.id === d.source).y)
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
-            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
+            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? Colors.graphRed : Colors.graphMainColor)
             .attr('stroke-width', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 3 : 2);
 
         svg.selectAll('polygon.arrow')
@@ -53,7 +54,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
             .join('polygon')
             .attr('class', 'arrow')
             .attr('points', '0,-5 10,0 0,5')
-            .attr('fill', '#333')
+            .attr('fill', Colors.graphMainColor)
             .attr('transform', d => {
                 const sourceNode = nodes.find(n => n.id === d.source);
                 const targetNode = nodes.find(n => n.id === d.target);
@@ -101,7 +102,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
             .attr('y', d => d.y)
             .attr('dy', 5)
             .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
+            .attr('fill', Colors.graphMainColor)
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
@@ -122,7 +123,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
             })
             .attr('dy', -10)
             .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
+            .attr('fill', Colors.graphMainColor)
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.label || '');
@@ -130,7 +131,7 @@ function FlowchartTabuSearch({ highlightLinks }) {
     }, [highlightLinks]);
 
     return (
-        <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
+        <div className={`flex-1 p-4 ${Colors.cardBackground} rounded-lg shadow-md`}>
             <div className="flex flex-col items-center justify-center">
                 <svg ref={svgRef}></svg>
             </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 function SolutionTabuSearch({
                                 currentTour,
@@ -18,14 +19,13 @@ function SolutionTabuSearch({
         const height = 425;
         const margin = { top: 20, right: 20, bottom: 20, left: 20 };
 
-        const barChartHeight = 2*height / 5;
-        const tourChartHeight = 2*height / 5;
+        const barChartHeight = 2 * height / 5;
         const barWidth = 30;
 
         const svg = d3.select(svgRef.current)
             .attr("width", width)
             .attr("height", height)
-            .style("background", "#f9f9f9")
+            .style("background", Colors.graphBackground)
             .style("border", "1px solid #e0e0e0");
 
         svg.selectAll("*").remove();
@@ -42,9 +42,9 @@ function SolutionTabuSearch({
             .padding(0.5);
 
         const costs = [
-            { label: "Current", value: currentCost ?? 0, color: "#f73e3e" },
-            { label: "Previous", value: previousCost ?? 0, color: "#ffa533" },
-            { label: "Best", value: bestCost ?? 0, color: "#4caf50" }
+            { label: "Current", value: currentCost ?? 0, color: Colors.graphRed },
+            { label: "Previous", value: previousCost ?? 0, color: Colors.graphOrange },
+            { label: "Best", value: bestCost ?? 0, color: Colors.graphGreen }
         ];
 
         svg.selectAll(".bar")
@@ -64,7 +64,7 @@ function SolutionTabuSearch({
             .attr("x", d => xScale(d.label) + xScale.bandwidth() / 2)
             .attr("y", d => yScale(d.value) - 5)
             .attr("text-anchor", "middle")
-            .attr("fill", "black")
+            .attr("fill", Colors.graphMainColor)
             .attr("font-size", "10px")
             .text(d => (d.value ? d.value.toFixed(2) : "N/A"))
 
@@ -75,14 +75,14 @@ function SolutionTabuSearch({
             .attr("x", d => xScale(d.label) + xScale.bandwidth() / 2)
             .attr("y", barChartHeight - 10)
             .attr("text-anchor", "middle")
-            .attr("fill", "black")
+            .attr("fill", Colors.graphMainColor)
             .attr("font-size", "10px")
             .text(d => d.label);
 
         const tourData = [
-            { label: "Current", tour: currentTour, color: "#f73e3e", y: barChartHeight + 10 },
-            { label: "Previous", tour: previousTour, color: "#ffa533", y: barChartHeight + 85 },
-            { label: "Best", tour: bestTour, color: "#4caf50", y: barChartHeight + 160 }
+            { label: "Current", tour: currentTour, color: Colors.graphRed, y: barChartHeight + 10 },
+            { label: "Previous", tour: previousTour, color: Colors.graphOrange, y: barChartHeight + 85 },
+            { label: "Best", tour: bestTour, color: Colors.graphGreen, y: barChartHeight + 160 }
         ];
 
         const rectWidth = width - 40;
@@ -117,7 +117,7 @@ function SolutionTabuSearch({
                     .attr("x", margin.left + 10)
                     .attr("y", d.y + 20)
                     .attr("alignment-baseline", "middle")
-                    .attr("fill", "black")
+                    .attr("fill", Colors.graphMainColor)
                     .attr("font-size", "10px")
                     .text(`${d.label}: ${lines[0]}`);
 
@@ -127,7 +127,7 @@ function SolutionTabuSearch({
                         .attr("x", margin.left + 10)
                         .attr("y", d.y + 40)
                         .attr("alignment-baseline", "middle")
-                        .attr("fill", "black")
+                        .attr("fill", Colors.graphMainColor)
                         .attr("font-size", "10px")
                         .text(lines[1]);
                 }
@@ -138,7 +138,7 @@ function SolutionTabuSearch({
                         .attr("x", margin.left + 10)
                         .attr("y", d.y + 60)
                         .attr("alignment-baseline", "middle")
-                        .attr("fill", "black")
+                        .attr("fill", Colors.graphMainColor)
                         .attr("font-size", "10px")
                         .text(lines[2]);
                 }
@@ -147,9 +147,9 @@ function SolutionTabuSearch({
     }, [currentCost, bestCost, previousCost, currentTour, bestTour, previousTour]);
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow-md">
+        <div className={`p-4 ${Colors.cardBackground} rounded-lg shadow-md`}>
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Progress</h2>
+                <h2 className={`text-lg font-semibold ${Colors.textPrimary}`}>Progress</h2>
                 <div>Iteration: {iteration}</div>
                 <svg ref={svgRef}></svg>
                 <div className="mt-2 p-2 bg-gray-200 rounded-lg">
