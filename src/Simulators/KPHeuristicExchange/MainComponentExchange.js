@@ -9,6 +9,7 @@ import {
     iteration,
     run,
 } from "./AlgorithmsExchange";
+import Colors from "../../Main/Colors";
 
 function MainComponentExchange() {
 
@@ -224,7 +225,7 @@ function MainComponentExchange() {
     }, []);
 
     return (
-    <div className="text-gray-800 p-6">
+    <div className={`${Colors.textPrimary} p-6`}>
         <Header
             handleGoBack={() => navigate(-1)}
             title={`Knapsack Problem Simulation Using Exchange Heuristic with ${strategy === 'bestFit' ? 'Best Fit' : 'First Fit'} Strategy`}

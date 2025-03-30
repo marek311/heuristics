@@ -20,6 +20,11 @@ const Colors = {
     background: 'bg-gray-900',
     lightBackground: 'bg-gray-200',
 
+    redFade: 'bg-red-100 border-red-500 text-red-700',
+    redText: 'text-red-700',
+    greenFade: 'bg-green-100 border-green-500 text-green-700',
+    greenText: 'text-green-700',
+
     graphBackground: '#f0f0f0',
     graphMainColor: '#444',
     graphGreen: '#4caf50',

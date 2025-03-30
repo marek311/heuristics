@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import Colors from "../../Main/Colors";
 
 function SolutionExchange({
                               exchangeHistory,
@@ -52,7 +53,7 @@ function SolutionExchange({
                 .attr("y", 0)
                 .attr("width", rectSize)
                 .attr("height", rectSize)
-                .attr("fill", d => (d ? "green" : "red"))
+                .attr("fill", d => (d ? Colors.graphGreen : Colors.graphRed))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1);
 
@@ -82,26 +83,26 @@ function SolutionExchange({
     }, [exchangeHistory, admissible, improving]);
 
     return (
-        <div className="flex-1 p-4 bg-white rounded-lg mr-2 overflow-y-auto" style={{height: '100%'}}>
-            <div className="bg-white text-center p-4 border-2 border-gray-300 rounded-md mb-2 shadow-md">
+        <div className={`flex-1 p-4 ${Colors.cardBackground} rounded-lg mr-2 overflow-y-auto`} style={{height: '100%'}}>
+            <div className="text-center p-4 border-2 rounded-md mb-2 shadow-md">
                 <div className="flex justify-between mb-4">
                     {strategy === "bestFit" && (
                         <div className="bg-gray-100 text-center p-4 border border-gray-300 rounded-md mb-4 shadow-md">
                             <h2 className="font-bold mb-2">Best Exchange Found So Far</h2>
-                            <p className="text-gray-800">Removed: <span className="font-semibold">{bestFoundSolution?.removed ?? 'N/A'}</span></p>
-                            <p className="text-gray-800">Added: <span className="font-semibold">{bestFoundSolution?.added ?? 'N/A'}</span></p>
-                            <p className="text-gray-800">Best Price: <span className="font-semibold">{bestFoundPrice}</span></p>
-                            <p className="text-gray-800">Best Weight: <span className="font-semibold">{bestFoundWeight}</span></p>
+                            <p className={`${Colors.textPrimary}`}>Removed: <span className="font-semibold">{bestFoundSolution?.removed ?? 'N/A'}</span></p>
+                            <p className={`${Colors.textPrimary}`}>Added: <span className="font-semibold">{bestFoundSolution?.added ?? 'N/A'}</span></p>
+                            <p className={`${Colors.textPrimary}`}>Best Price: <span className="font-semibold">{bestFoundPrice}</span></p>
+                            <p className={`${Colors.textPrimary}`}>Best Weight: <span className="font-semibold">{bestFoundWeight}</span></p>
                         </div>
                     )}
                     <div className="flex flex-col items-center">
                         <div
-                            className="bg-red-100 border border-red-500 text-red-700 px-4 py-2 rounded-lg shadow-md mb-2">
+                            className={`${Colors.redFade} border px-4 py-2 rounded-lg shadow-md mb-2`}>
                             <p className="text-sm font-semibold">OUT</p>
                             <p className="text-lg font-bold">{originalIndexI}</p>
                         </div>
                         <div
-                            className="bg-green-100 border border-green-500 text-green-700 px-4 py-2 rounded-lg shadow-md">
+                            className={`${Colors.greenFade} border px-4 py-2 rounded-lg shadow-md mb-2`}>
                             <p className="text-sm font-semibold">IN</p>
                             <p className="text-lg font-bold">{originalIndexJ}</p>
                         </div>
@@ -109,25 +110,24 @@ function SolutionExchange({
                     <div className="flex flex-col items-center">
                         <div className="flex flex-col items-center">
                             <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md mb-2 
-                                    ${admissible ? 'bg-green-100 border border-green-500 text-green-700' : 'bg-red-100 border border-red-500 text-red-700'}`}>
+                                    ${admissible ? `${Colors.greenFade} border` : `${Colors.redFade} border`}`}>
                                 <span className="mr-2 font-semibold">Admissible:</span>
-                                <span className={`text-lg font-bold ${admissible ? 'text-green-700' : 'text-red-700'}`}>
+                                <span className={`text-lg font-bold ${admissible ? `${Colors.greenText}` : `${Colors.redText}`}`}>
                                      {admissible ? '✓' : '✗'}
                                 </span>
                             </div>
                             <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md mb-2
-                                    ${improving ? 'bg-green-100 border border-green-500 text-green-700' : 'bg-red-100 border border-red-500 text-red-700'}`}>
+                                    ${improving ? `${Colors.greenFade} border` : `${Colors.redFade} border`}`}>
                                 <span className="mr-2 font-semibold">Improving:</span>
-                                <span className={`text-lg font-bold ${improving ? 'text-green-700' : 'text-red-700'}`}>
+                                <span className={`text-lg font-bold ${improving ? `${Colors.greenText}` : `${Colors.redText}`}`}>
                                     {improving ? '✓' : '✗'}
                                 </span>
                             </div>
                             {strategy === "bestFit" && (
                                 <div className={`flex items-center justify-center px-4 py-2 rounded-lg shadow-md mb-2 
-                                    ${betterBest ? 'bg-green-100 border border-green-500 text-green-700' : 'bg-red-100 border border-red-500 text-red-700'}`}>
+                                    ${betterBest ? `${Colors.greenFade} border` : `${Colors.redFade} border`}`}>
                                     <span className="mr-2 font-semibold">Best So Far:</span>
-                                    <span
-                                        className={`text-lg font-bold ${betterBest ? 'text-green-700' : 'text-red-700'}`}>
+                                    <span className={`text-lg font-bold ${betterBest ? `${Colors.greenText}` : `${Colors.redText}`}`}>
                                      {betterBest ? '✓' : '✗'}
                                 </span>
                                 </div>
