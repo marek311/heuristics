@@ -1,4 +1,5 @@
 import React from 'react';
+import Colors from "../../Main/Colors";
 
 function RouletteSelectionTable({ population, fitnessValues, probabilities, cumulativeProbabilities, selectedPopulation }) {
     return (
@@ -20,7 +21,7 @@ function RouletteSelectionTable({ population, fitnessValues, probabilities, cumu
                 return (
                     <tr
                         key={index}
-                        className={`border border-gray-300 ${isSelected ? 'bg-green-200 text-green-800 font-bold' : ''}`}>
+                        className={`border border-gray-300 ${isSelected ? `${Colors.greenFade}` : ''}`}>
                         <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                         <td className="border border-gray-300 px-4 py-2">{fitnessValues[index]?.toFixed(4)}</td>
                         <td className="border border-gray-300 px-4 py-2">{prob.toFixed(4)}</td>

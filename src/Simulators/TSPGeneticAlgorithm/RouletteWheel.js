@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 function RouletteWheelVisualization({ fitnessValues, randomValues }) {
     const svgRef = useRef();
@@ -54,7 +55,7 @@ function RouletteWheelVisualization({ fitnessValues, randomValues }) {
                 .attr("cx", radius * Math.cos(angle - Math.PI / 2))
                 .attr("cy", radius * Math.sin(angle - Math.PI / 2))
                 .attr("r", 5)
-                .attr("fill", "red");
+                .attr("fill", Colors.graphMainColor);
 
             g.append("text")
                 .attr("x", (radius + 15) * Math.cos(angle - Math.PI / 2))
@@ -62,14 +63,14 @@ function RouletteWheelVisualization({ fitnessValues, randomValues }) {
                 .attr("text-anchor", "middle")
                 .attr("alignment-baseline", "middle")
                 .attr("font-size", "12px")
-                .attr("fill", "black")
+                .attr("fill", Colors.graphMainColor)
                 .text(randomValue.toFixed(4));
         });
 
     }, [randomValues]);
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
+        <div className={`${Colors.cardBackground} p-4 rounded-lg shadow-md flex flex-col items-center`}>
             <svg ref={svgRef}></svg>
         </div>
     );

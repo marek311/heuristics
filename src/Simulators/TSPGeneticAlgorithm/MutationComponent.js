@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 const MutationComponent = ({ children, mutatedChildren }) => {
     const svgRef = useRef();
@@ -37,8 +38,8 @@ const MutationComponent = ({ children, mutatedChildren }) => {
                 .attr("y", 0)
                 .attr("width", boxSize)
                 .attr("height", boxSize)
-                .attr("fill", (d, i) => (originalTour[i] !== d ? "#1e88e5" : "#ffcc00"))
-                .attr("stroke", "black")
+                .attr("fill", (d, i) => (originalTour[i] !== d ? Colors.graphBlue : Colors.graphOrange))
+                .attr("stroke", Colors.graphMainColor)
                 .attr("stroke-width", 1);
 
             rowGroup.selectAll("text.city")
@@ -56,7 +57,7 @@ const MutationComponent = ({ children, mutatedChildren }) => {
             rowGroup.append("text")
                 .attr("x", 10)
                 .attr("y", boxSize + 15)
-                .attr("fill", "black")
+                .attr("fill", Colors.graphMainColor)
                 .attr("font-size", "14px")
                 .text(() => `Child ${rowIndex + 1}`);
         });
@@ -64,7 +65,7 @@ const MutationComponent = ({ children, mutatedChildren }) => {
     }, [mutatedChildren]);
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-4 w-full">
+        <div className={`${Colors.cardBackground} shadow-md rounded-lg p-4 w-full`}>
             <div style={{ width: '100%', height: '500px', overflowY: 'scroll' }}>
                 <svg ref={svgRef}></svg>
             </div>

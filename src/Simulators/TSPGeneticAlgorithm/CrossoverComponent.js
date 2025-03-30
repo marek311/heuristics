@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 const CrossoverComponent = ({ children }) => {
     const svgRef = useRef();
@@ -38,7 +39,7 @@ const CrossoverComponent = ({ children }) => {
                     (i < Math.floor((tour.length - 1) / 2) + 1)
                         ? parent1Color : parent2Color : (label === "parent1"
                         ? parent1Color : parent2Color))
-                .attr("stroke", "black")
+                .attr("stroke", Colors.graphMainColor)
                 .attr("stroke-width", 1);
 
             rowGroup.selectAll(`text.${label}-text-${groupIndex}`)
@@ -58,7 +59,7 @@ const CrossoverComponent = ({ children }) => {
                 rowGroup.append("text")
                     .attr("x", 10)
                     .attr("y", yPosition + boxSize + 15)
-                    .attr("fill", "black")
+                    .attr("fill", Colors.graphMainColor)
                     .attr("font-size", "14px")
                     .text(() => label === "parent1"
                         ? `Parent 1 - Tour #${index + 1}`
@@ -69,7 +70,7 @@ const CrossoverComponent = ({ children }) => {
                 rowGroup.append("text")
                     .attr("x", 10)
                     .attr("y", yPosition + boxSize + 15)
-                    .attr("fill", "black")
+                    .attr("fill", Colors.graphMainColor)
                     .attr("font-size", "14px")
                     .text(() => `Child ${groupIndex + 1}`);
             }
@@ -77,8 +78,8 @@ const CrossoverComponent = ({ children }) => {
 
         children.forEach(({ parent1, parent2, child }, groupIndex) => {
             const rowGroup = svg.append("g").attr("transform", `translate(50, ${groupIndex * (2 * smallRowSpacing + bigGroupSpacing)})`);
-            const parent1Color = "#1e88e5";
-            const parent2Color = "#f73e3e";
+            const parent1Color = Colors.graphBlue;
+            const parent2Color = Colors.graphRed;
 
             drawTour(parent1.tour, 0, "parent1", groupIndex, rowGroup, parent1Color, parent2Color, parent1.index);
             drawTour(parent2.tour, 1, "parent2", groupIndex, rowGroup, parent1Color, parent2Color, parent2.index);
@@ -88,7 +89,7 @@ const CrossoverComponent = ({ children }) => {
     }, [children]);
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-4 w-full">
+        <div className={`${Colors.cardBackground} shadow-md rounded-lg p-4 w-full`}>
             <div style={{ width: '100%', height: '500px', overflowY: 'scroll' }}>
                 <svg ref={svgRef}></svg>
             </div>

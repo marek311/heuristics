@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 const PopulationComponent = ({ population, fitnessValues, bestSolution, step }) => {
     const svgRef = useRef();
@@ -36,7 +37,7 @@ const PopulationComponent = ({ population, fitnessValues, bestSolution, step }) 
         const rowGroup = svg.append("g").attr("transform", `translate(50, ${yOffset})`);
 
         const offsetX = 10;
-        const boxColor = isBest ? "#f73e3e" : "#1e88e5";
+        const boxColor = isBest ? Colors.graphRed : Colors.graphBlue;
 
         rowGroup.selectAll("rect")
             .data(tour)
@@ -47,7 +48,7 @@ const PopulationComponent = ({ population, fitnessValues, bestSolution, step }) 
             .attr("width", boxSize)
             .attr("height", boxSize)
             .attr("fill", boxColor)
-            .attr("stroke", "black")
+            .attr("stroke", Colors.graphMainColor)
             .attr("stroke-width", 1);
 
         rowGroup.selectAll("text.city")
@@ -65,14 +66,14 @@ const PopulationComponent = ({ population, fitnessValues, bestSolution, step }) 
         rowGroup.append("text")
             .attr("x", 60)
             .attr("y", boxSize + 20)
-            .attr("fill", isBest ? "red" : "black")
+            .attr("fill", isBest ? Colors.graphRed : Colors.graphMainColor)
             .attr("font-size", "14px")
             .attr("text-anchor", "start")
             .text(`${isBest ? "Best" : `Tour #${rowIndex + 1}`} - Fitness: ${fitness.toFixed(4)}`);
     }
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-4 w-full">
+        <div className={`${Colors.cardBackground} shadow-md rounded-lg p-4 w-full`}>
             <div className="flex flex-col items-center justify-center">
                 <div style={{width: '100%', height: '500px', overflowY: 'scroll'}}>
                     <svg ref={svgRef}></svg>

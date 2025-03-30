@@ -12,6 +12,7 @@ import {
     handleStep,
     runAlgorithm
 } from './AlgorithmsGeneticAlgorithm';
+import Colors from "../../Main/Colors";
 
 function MainComponentGeneticAlgorithm() {
 
@@ -116,7 +117,7 @@ function MainComponentGeneticAlgorithm() {
     }
 
     return (
-        <div className="text-gray-800 p-6">
+        <div className={`${Colors.textPrimary} p-6`}>
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="Travelling Salesman Problem Simulation Using Genetic Algorithm"
@@ -125,7 +126,7 @@ function MainComponentGeneticAlgorithm() {
                 handleReset={handleReset}
             />
             <div className="flex flex-col lg:flex-row w-full h-full lg:space-x-2">
-                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                <div className={`${Colors.cardBackground} p-6 rounded-lg shadow-md w-full max-w-3xl`}>
                     <h2 className={`text-xl font-semibold text-center ${step === 0 ? 'bg-green-500 text-white' : ''}`}>
                         Population ({generationSize})
                     </h2>
@@ -142,7 +143,7 @@ function MainComponentGeneticAlgorithm() {
                         step={step}
                     />
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                <div className={`${Colors.cardBackground} p-6 rounded-lg shadow-md w-full max-w-3xl`}>
                     <h2 className={`text-xl font-semibold text-center ${step === 1 ? 'bg-green-500 text-white' : ''}`}>
                         Selection
                     </h2>
@@ -160,7 +161,7 @@ function MainComponentGeneticAlgorithm() {
                         selectedPopulation={selectedPopulation}
                     />
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                <div className={`${Colors.cardBackground} p-6 rounded-lg shadow-md w-full max-w-3xl`}>
                     <h2 className={`text-xl font-semibold text-center ${step === 2 ? 'bg-green-500 text-white' : ''}`}>
                         Crossover
                     </h2>
@@ -168,7 +169,7 @@ function MainComponentGeneticAlgorithm() {
                         children={children}
                     />
                 </div>
-                <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-3xl">
+                <div className={`${Colors.cardBackground} p-6 rounded-lg shadow-md w-full max-w-3xl`}>
                     <h2 className={`text-xl font-semibold text-center ${step === 3 ? 'bg-green-500 text-white' : ''}`}>
                         Mutation ({mutationProbability.toFixed(1)})
                     </h2>
