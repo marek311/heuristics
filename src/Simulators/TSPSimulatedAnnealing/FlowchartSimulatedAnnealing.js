@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 function FlowchartSimulatedAnnealing({ highlightLinks }) {
     const svgRef = useRef();
@@ -11,20 +12,20 @@ function FlowchartSimulatedAnnealing({ highlightLinks }) {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#f0f0f0')
+            .style('background', Colors.graphBackground)
             .style('border', '1px solid #ccc')
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'current', text: 'Current Solution', x: 250, y: 40, shape: 'rect', color: '#1e88e5'},
-            { id: 'neighbor', text: 'Find Proposed Solution', x: 250, y: 120, shape: 'oval', color: '#4caf50'},
-            { id: 'better', text: 'Better than Current?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'new', text: 'New Current Solution', x: 100, y: 290, shape: 'rect', color: '#1e88e5' },
-            { id: 'betterBest', text: 'Better than Best?', x: 100, y: 370, shape: 'diamond', color: '#ffa533' },
-            { id: 'newBest', text: 'New Best Solution', x: 100, y: 480, shape: 'rect', color: '#1e88e5' },
-            { id: 'experiment', text: 'Perform Experiment', x: 400, y: 250, shape: 'oval', color: '#4caf50' },
-            { id: 'cooldown', text: 'Cool Down Temperature', x: 400, y: 490, shape: 'oval', color: '#4caf50' },
-            { id: 'newIteration', text: 'New Iteration', x: 250, y: 550, shape: 'rect', color: '#1e88e5' },
+            { id: 'current', text: 'Current Solution', x: 250, y: 40, shape: 'rect', color: Colors.graphBlue},
+            { id: 'neighbor', text: 'Find Proposed Solution', x: 250, y: 120, shape: 'oval', color: Colors.graphGreen},
+            { id: 'better', text: 'Better than Current?', x: 250, y: 200, shape: 'diamond', color: Colors.graphOrange },
+            { id: 'new', text: 'New Current Solution', x: 100, y: 290, shape: 'rect', color: Colors.graphBlue},
+            { id: 'betterBest', text: 'Better than Best?', x: 100, y: 370, shape: 'diamond', color: Colors.graphOrange },
+            { id: 'newBest', text: 'New Best Solution', x: 100, y: 480, shape: 'rect', color: Colors.graphBlue },
+            { id: 'experiment', text: 'Perform Experiment', x: 400, y: 250, shape: 'oval', color: Colors.graphGreen },
+            { id: 'cooldown', text: 'Cool Down Temperature', x: 400, y: 490, shape: 'oval', color: Colors.graphGreen },
+            { id: 'newIteration', text: 'New Iteration', x: 250, y: 550, shape: 'rect', color: Colors.graphBlue },
         ];
 
         const links = [
@@ -48,7 +49,7 @@ function FlowchartSimulatedAnnealing({ highlightLinks }) {
             .attr('y1', d => nodes.find(n => n.id === d.source).y)
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
-            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
+            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? Colors.graphRed : Colors.graphMainColor)
             .attr('stroke-width', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 3 : 2);
 
         svg.selectAll('polygon.arrow')
@@ -56,7 +57,7 @@ function FlowchartSimulatedAnnealing({ highlightLinks }) {
             .join('polygon')
             .attr('class', 'arrow')
             .attr('points', '0,-5 10,0 0,5')
-            .attr('fill', '#333')
+            .attr('fill', Colors.graphMainColor)
             .attr('transform', d => {
                 const sourceNode = nodes.find(n => n.id === d.source);
                 const targetNode = nodes.find(n => n.id === d.target);
@@ -104,7 +105,7 @@ function FlowchartSimulatedAnnealing({ highlightLinks }) {
             .attr('y', d => d.y)
             .attr('dy', 5)
             .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
+            .attr('fill', Colors.graphMainColor)
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
@@ -125,7 +126,7 @@ function FlowchartSimulatedAnnealing({ highlightLinks }) {
             })
             .attr('dy', -10)
             .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
+            .attr('fill', Colors.graphMainColor)
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.label || '');
@@ -133,7 +134,7 @@ function FlowchartSimulatedAnnealing({ highlightLinks }) {
     }, [highlightLinks]);
 
     return (
-        <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
+        <div className={`flex-1 p-4 ${Colors.cardBackground} rounded-lg shadow-md`}>
             <div className="flex flex-col items-center justify-center">
                 <svg ref={svgRef}></svg>
             </div>

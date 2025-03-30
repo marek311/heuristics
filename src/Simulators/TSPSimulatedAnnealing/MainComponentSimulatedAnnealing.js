@@ -13,6 +13,7 @@ import {
     updateStateAndCoolDown,
     handleRun,
 } from './AlgorithmsSimulatedAnnealing';
+import Colors from "../../Main/Colors";
 
 function MainComponentSimulatedAnnealing() {
 
@@ -155,7 +156,7 @@ function MainComponentSimulatedAnnealing() {
     };
 
     return (
-        <div className="text-gray-800 p-6">
+        <div className={`${Colors.textPrimary} p-6`}>
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="Travelling Salesman Problem Simulation Using Simulated Annealing"

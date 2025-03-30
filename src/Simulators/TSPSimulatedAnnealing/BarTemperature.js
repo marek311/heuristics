@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 function BarTemperature({ temperature, maxTemperature, coolingSchedule }) {
     const svgRef = useRef();
@@ -12,7 +13,7 @@ function BarTemperature({ temperature, maxTemperature, coolingSchedule }) {
         const svg = d3.select(svgRef.current)
             .attr("width", width)
             .attr("height", height)
-            .style("background", "#f0f0f0")
+            .style("background", Colors.graphBackground)
             .style("border", "1px solid #ccc");
 
         svg.selectAll("*").remove();
@@ -47,7 +48,7 @@ function BarTemperature({ temperature, maxTemperature, coolingSchedule }) {
             .attr("x2", width - margin)
             .attr("y1", tempY)
             .attr("y2", tempY)
-            .attr("stroke", "black")
+            .attr("stroke", Colors.graphMainColor)
             .attr("stroke-width", 2);
 
         const textOffset = temperature > (effectiveMaxTemp / 2) ? 15 : -5;
@@ -63,9 +64,9 @@ function BarTemperature({ temperature, maxTemperature, coolingSchedule }) {
     }, [temperature, maxTemperature]);
 
     return (
-        <div className="p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
+        <div className={`p-4 ${Colors.cardBackground} rounded-lg shadow-md flex flex-col items-center`}>
             <div className="flex flex-col items-center justify-center">
-                <h2 className="text-lg font-semibold text-gray-800">Temperature</h2>
+                <h2 className={`text-lg font-semibold ${Colors.textPrimary}`}>Temperature</h2>
                 <svg ref={svgRef}></svg>
                 <div className="mt-2 text-center">
                     <p><strong>Cooling Schedule:</strong></p>
