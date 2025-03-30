@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import * as d3 from 'd3';
+import Colors from "../../Main/Colors";
 
 function SolutionInsert({
                             currentWeight,
@@ -37,7 +38,7 @@ function SolutionInsert({
                 .attr("y", 0)
                 .attr("width", rectSize)
                 .attr("height", rectSize)
-                .attr("fill", d => (d ? "green" : "red"))
+                .attr("fill", d => (d ? Colors.graphGreen : Colors.graphRed))
                 .attr("stroke", "black")
                 .attr("stroke-width", 1);
 
@@ -56,7 +57,7 @@ function SolutionInsert({
     }, [binarySolution, currentIndex, currentWeight, currentPrice, items.length]);
 
     return (
-        <div className="flex-1 p-6 bg-white rounded-lg shadow-lg mr-2">
+        <div className={`"flex-1 p-6 ${Colors.cardBackground} rounded-lg shadow-lg mr-2`}>
             <div className="text-center">
                 <h2 className="text-xl font-semibold">Items Selected for the Knapsack</h2>
                 <div className="text-sm flex justify-between mt-2">

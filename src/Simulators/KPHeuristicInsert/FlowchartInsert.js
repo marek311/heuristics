@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import * as d3 from "d3";
+import Colors from "../../Main/Colors";
 
 function FlowchartInsert({ highlightLinks }) {
     const svgRef = useRef();
@@ -11,15 +12,15 @@ function FlowchartInsert({ highlightLinks }) {
         const svg = d3.select(svgRef.current)
             .attr('width', width)
             .attr('height', height)
-            .style('background', '#f0f0f0')
+            .style('background', Colors.graphBackground)
             .style('border', '1px solid #ccc')
             .style('overflow', 'visible');
 
         const nodes = [
-            { id: 'load', text: 'Current Item', x: 250, y: 100, shape: 'rect', color: '#1e88e5' },
-            { id: 'check', text: 'Does it fit?', x: 250, y: 200, shape: 'diamond', color: '#ffa533' },
-            { id: 'add', text: 'Add to Backpack', x: 100, y: 300, shape: 'oval', color: '#4caf50' },
-            { id: 'next', text: 'Next Iteration', x: 250, y: 400, shape: 'rect', color: '#1e88e5' },
+            { id: 'load', text: 'Current Item', x: 250, y: 100, shape: 'rect', color: Colors.graphBlue },
+            { id: 'check', text: 'Does it fit?', x: 250, y: 200, shape: 'diamond', color: Colors.graphOrange },
+            { id: 'add', text: 'Add to Backpack', x: 100, y: 300, shape: 'oval', color: Colors.graphGreen },
+            { id: 'next', text: 'Next Iteration', x: 250, y: 400, shape: 'rect', color: Colors.graphBlue },
         ];
 
         const links = [
@@ -36,7 +37,7 @@ function FlowchartInsert({ highlightLinks }) {
             .attr('y1', d => nodes.find(n => n.id === d.source).y)
             .attr('x2', d => nodes.find(n => n.id === d.target).x)
             .attr('y2', d => nodes.find(n => n.id === d.target).y)
-            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 'red' : '#333')
+            .attr('stroke', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? Colors.graphRed : Colors.graphMainColor)
             .attr('stroke-width', d => highlightLinks.some(link => link.source === d.source && link.target === d.target) ? 3 : 2);
 
         svg.selectAll('polygon.arrow')
@@ -44,7 +45,7 @@ function FlowchartInsert({ highlightLinks }) {
             .join('polygon')
             .attr('class', 'arrow')
             .attr('points', '0,-5 10,0 0,5')
-            .attr('fill', '#333')
+            .attr('fill', Colors.graphMainColor)
             .attr('transform', d => {
                 const sourceNode = nodes.find(n => n.id === d.source);
                 const targetNode = nodes.find(n => n.id === d.target);
@@ -92,7 +93,7 @@ function FlowchartInsert({ highlightLinks }) {
             .attr('y', d => d.y)
             .attr('dy', 5)
             .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
+            .attr('fill', Colors.graphMainColor)
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.text);
@@ -112,7 +113,7 @@ function FlowchartInsert({ highlightLinks }) {
                 return (sourceNode.y + targetNode.y) / 2 - 15;
             })
             .attr('text-anchor', 'middle')
-            .attr('fill', '#000')
+            .attr('fill', Colors.graphMainColor)
             .style('font-size', '12px')
             .style('font-weight', 'bold')
             .text(d => d.label || '');
@@ -120,7 +121,7 @@ function FlowchartInsert({ highlightLinks }) {
     }, [highlightLinks]);
 
     return (
-        <div className="flex-1 p-4 bg-white rounded-lg shadow-md">
+        <div className={`flex-1 p-4  ${Colors.cardBackground} rounded-lg shadow-md`}>
             <div className="flex flex-col items-center justify-center">
                 <svg ref={svgRef}></svg>
             </div>

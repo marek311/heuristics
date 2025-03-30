@@ -23,6 +23,9 @@ const Colors = {
     graphBackground: '#f0f0f0',
     graphMainColor: '#444',
     graphGreen: '#4caf50',
+    graphBlue: '#1e88e5',
+    graphOrange: '#ffa533',
+    graphRed: '#f73e3e',
 };
 
 export default Colors;

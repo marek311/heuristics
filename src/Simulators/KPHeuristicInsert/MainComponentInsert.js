@@ -8,6 +8,7 @@ import {
     performIteration,
     performRun
 } from "./AlgorithmsInsert";
+import Colors from "../../Main/Colors";
 
 function MainComponentInsert() {
 
@@ -82,7 +83,7 @@ function MainComponentInsert() {
     };
 
     return (
-        <div className=" text-gray-800 p-6">
+        <div className={`${Colors.textPrimary} p-6`}>
             <Header
                 handleGoBack={() => navigate(-1)}
                 title="Knapsack Problem Simulation Using Insertion Heuristic with Profitability Coefficients"
