@@ -125,9 +125,22 @@ describe('Algorithms - Tabu Search', () => {
         state.currentCost = 46;
         state.bestCost = 46;
         state.step = 1;
+        state.neighborhood = [
+            { tour: ['A', 'C', 'B', 'D', 'A'], cost: 56, isTabu: false, isChosen: false, indexI: 1, indexJ: 2 },
+            { tour: ['A', 'D', 'C', 'B', 'A'], cost: 46, isTabu: false, isChosen: false, indexI: 1, indexJ: 3 },
+            { tour: ['A', 'B', 'D', 'C', 'A'], cost: 50, isTabu: false, isChosen: true, indexI: 2, indexJ: 3 }
+        ];
+
         const tabuSearch = useTabuSearch(state);
         tabuSearch.iterationMethod();
         expect(state.setStep).toHaveBeenCalledWith(2);
+
+        const [[generatedNeighborhood]] = state.setNeighborhood.mock.calls;
+        const chosenTour = generatedNeighborhood.find(neighbor => neighbor.isChosen === true);
+        const hasChosenElementWithLowestCost = chosenTour &&
+            chosenTour.cost === Math.min(...generatedNeighborhood.map(neighbor => neighbor.cost));
+
+        expect(hasChosenElementWithLowestCost).toBe(true);
     });
 
     test('Perform Iteration - Part 3', () => {
