@@ -91,9 +91,33 @@ describe('Algorithms - Tabu Search', () => {
         state.currentCost = 46;
         state.bestCost = 46;
         state.step = 0;
+        state.tabuList = [];
+        state.iteration = 0;
+
         const tabuSearch = useTabuSearch(state);
         tabuSearch.iterationMethod();
         expect(state.setStep).toHaveBeenCalledWith(1);
+        expect(state.setNeighborhood).toHaveBeenCalled();
+
+        const [[generatedNeighborhood]] = state.setNeighborhood.mock.calls;
+        const expectedNeighborhood = [
+            { tour: ['A', 'C', 'B', 'D', 'A'], cost: 56, isTabu: false, isChosen: false, indexI: 1, indexJ: 2 },
+            { tour: ['A', 'C', 'B', 'D', 'A'], cost: 56, isTabu: false, isChosen: false, indexI: 2, indexJ: 1 },
+            { tour: ['A', 'D', 'C', 'B', 'A'], cost: 46, isTabu: false, isChosen: false, indexI: 1, indexJ: 3 },
+            { tour: ['A', 'D', 'C', 'B', 'A'], cost: 46, isTabu: false, isChosen: false, indexI: 3, indexJ: 1 },
+            { tour: ['A', 'B', 'D', 'C', 'A'], cost: 50, isTabu: false, isChosen: false, indexI: 2, indexJ: 3 },
+            { tour: ['A', 'B', 'D', 'C', 'A'], cost: 50, isTabu: false, isChosen: false, indexI: 3, indexJ: 2 }
+        ];
+
+        const onlyExpectedTours = generatedNeighborhood.every(gn =>
+            expectedNeighborhood.some(en =>
+                en.tour.every((city, index) => city === gn.tour[index]) &&
+                en.cost === gn.cost &&
+                en.indexI === gn.indexI &&
+                en.indexJ === gn.indexJ
+            )
+        );
+        expect(onlyExpectedTours).toBe(true);
     });
 
     test('Perform Iteration - Part 2', () => {
