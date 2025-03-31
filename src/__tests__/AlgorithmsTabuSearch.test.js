@@ -148,8 +148,15 @@ describe('Algorithms - Tabu Search', () => {
         state.currentCost = 46;
         state.bestCost = 46;
         state.step = 2;
+        state.bestNeighborData = {
+            bestNeighbor: ['A', 'C', 'B', 'D', 'A'],
+            bestNeighborCost: 40,
+            bestSwap: [1, 2]
+        };
         const tabuSearch = useTabuSearch(state);
         tabuSearch.iterationMethod();
         expect(state.setStep).toHaveBeenCalledWith(0);
+        expect(state.setPreviousTour).toHaveBeenCalledWith(state.currentTour);
+        expect(state.setPreviousCost).toHaveBeenCalledWith(state.currentCost);
     });
 });
