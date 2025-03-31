@@ -41,7 +41,7 @@ describe('Algorithms - Tabu Search', () => {
             bestNeighborData: null,
             setBestNeighborData: jest.fn(),
             setHighlightLinks: jest.fn(),
-            isIterationComplete: true,
+            isIterationComplete: jest.fn(),
             setIsIterationComplete: jest.fn(),
             tabuTenure: 5,
         };
@@ -55,7 +55,7 @@ describe('Algorithms - Tabu Search', () => {
         const validTourPricePairs = [
             { tour: ['A', 'B', 'C', 'D', 'A'], cost: 46 },
             { tour: ['A', 'B', 'D', 'C', 'A'], cost: 50 },
-            { tour: ['A', 'C', 'B', 'D', 'A'], cost: 57 },
+            { tour: ['A', 'C', 'B', 'D', 'A'], cost: 56 },
             { tour: ['A', 'C', 'D', 'B', 'A'], cost: 50 },
             { tour: ['A', 'D', 'B', 'C', 'A'], cost: 56 },
             { tour: ['A', 'D', 'C', 'B', 'A'], cost: 46 },
@@ -84,5 +84,35 @@ describe('Algorithms - Tabu Search', () => {
 
         expect(state.setIteration).toHaveBeenCalledWith(0);
         expect(state.setStatus).toHaveBeenCalledWith('Initialized Random Solution.');
+    });
+
+    test('Perform Iteration - Part 1', () => {
+        state.currentTour = ['A', 'B', 'C', 'D', 'A'];
+        state.currentCost = 46;
+        state.bestCost = 46;
+        state.step = 0;
+        const tabuSearch = useTabuSearch(state);
+        tabuSearch.iterationMethod();
+        expect(state.setStep).toHaveBeenCalledWith(1);
+    });
+
+    test('Perform Iteration - Part 2', () => {
+        state.currentTour = ['A', 'B', 'C', 'D', 'A'];
+        state.currentCost = 46;
+        state.bestCost = 46;
+        state.step = 1;
+        const tabuSearch = useTabuSearch(state);
+        tabuSearch.iterationMethod();
+        expect(state.setStep).toHaveBeenCalledWith(2);
+    });
+
+    test('Perform Iteration - Part 3', () => {
+        state.currentTour = ['A', 'B', 'C', 'D', 'A'];
+        state.currentCost = 46;
+        state.bestCost = 46;
+        state.step = 2;
+        const tabuSearch = useTabuSearch(state);
+        tabuSearch.iterationMethod();
+        expect(state.setStep).toHaveBeenCalledWith(0);
     });
 });
