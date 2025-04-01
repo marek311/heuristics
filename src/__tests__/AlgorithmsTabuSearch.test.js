@@ -159,4 +159,38 @@ describe('Algorithms - Tabu Search', () => {
         expect(state.setPreviousTour).toHaveBeenCalledWith(state.currentTour);
         expect(state.setPreviousCost).toHaveBeenCalledWith(state.currentCost);
     });
+
+    test('Perform Run', () => {
+        state.currentTour = ['A', 'C', 'B', 'D', 'A'];
+        state.currentCost = 56;
+        state.bestCost = 56;
+        state.tabuList = [];
+        state.iteration = 0;
+        state.isIterationComplete = true;
+
+        const tabuSearch = useTabuSearch(state);
+        tabuSearch.run();
+
+        expect(state.setPreviousTour).toHaveBeenCalled();
+        expect(state.setPreviousCost).toHaveBeenCalled();
+        expect(state.setCurrentTour).toHaveBeenCalled();
+        expect(state.setCurrentCost).toHaveBeenCalled();
+        expect(state.setBestTour).toHaveBeenCalled();
+        expect(state.setBestCost).toHaveBeenCalled();
+        expect(state.setTabuList).toHaveBeenCalled();
+        expect(state.setIteration).toHaveBeenCalled();
+
+        const validBestTours = [
+            ['A', 'B', 'C', 'D', 'A'],
+            ['A', 'D', 'C', 'B', 'A']
+        ];
+        const [[actualBestTour]] = state.setBestTour.mock.calls;
+        const isValidTour = validBestTours.some(
+            expectedTour => JSON.stringify(expectedTour) === JSON.stringify(actualBestTour)
+        );
+
+        expect(isValidTour).toBe(true);
+        expect(state.setBestCost.mock.calls).toEqual([[46]]);
+        expect(state.setStatus).toHaveBeenCalledWith('Run Complete.');
+    });
 });
