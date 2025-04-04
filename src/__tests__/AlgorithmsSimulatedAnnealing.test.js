@@ -1,4 +1,4 @@
-import { initializeTour, proposeNewSolution, calculateAcceptanceAndDecide } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
+import { initializeTour, proposeNewSolution, calculateAcceptanceAndDecide, updateStateAndCoolDown } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
 
 describe('Algorithms - Simulated Annealing', () => {
 
@@ -26,7 +26,7 @@ describe('Algorithms - Simulated Annealing', () => {
             setCostDifference: jest.fn(),
             setStatus: jest.fn(),
             setHighlightLinks: jest.fn(),
-            temperature: 100,
+            temperature: 93.75,
             setPreviousTour: jest.fn(),
             setPreviousCost: jest.fn(),
             setCurrentTour: jest.fn(),
@@ -37,6 +37,9 @@ describe('Algorithms - Simulated Annealing', () => {
             setRandomValue: jest.fn(),
             setHighLightLinks: jest.fn(),
             costDifference: 0,
+            setTemperature: jest.fn(),
+            setIteration: jest.fn(),
+            coolingSchedule: 0.975,
         };
     });
 
@@ -188,5 +191,28 @@ describe('Algorithms - Simulated Annealing', () => {
             state.setHighLightLinks
         );
         expect(state.setCurrentTour).not.toHaveBeenCalled();
+    });
+
+    test('Perform Iteration - Part 3', () => {
+
+        state.setTemperature.mockImplementation((fn) => {
+            fn(state.temperature);
+        });
+
+        updateStateAndCoolDown(
+            state.setTemperature,
+            state.setIteration,
+            state.temperature,
+            state.iteration,
+            state.setStatus,
+            state.setHighlightLinks,
+            state.coolingSchedule
+        );
+
+        const updatedTemperature = state.temperature * state.coolingSchedule;
+        expect(updatedTemperature).toBe(91.40625);
+        expect(state.setTemperature).toHaveBeenCalledTimes(1);
+        expect(state.setIteration).toHaveBeenCalledTimes(1);
+        expect(state.setStatus).toHaveBeenCalledTimes(1);
     });
 });
