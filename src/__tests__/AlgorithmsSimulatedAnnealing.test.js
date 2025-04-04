@@ -1,4 +1,4 @@
-import { initializeTour, proposeNewSolution } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
+import { initializeTour, proposeNewSolution, calculateAcceptanceAndDecide } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
 
 describe('Algorithms - Simulated Annealing', () => {
 
@@ -26,6 +26,17 @@ describe('Algorithms - Simulated Annealing', () => {
             setCostDifference: jest.fn(),
             setStatus: jest.fn(),
             setHighlightLinks: jest.fn(),
+            temperature: 100,
+            setPreviousTour: jest.fn(),
+            setPreviousCost: jest.fn(),
+            setCurrentTour: jest.fn(),
+            setCurrentCost: jest.fn(),
+            setBestTour: jest.fn(),
+            setBestCost: jest.fn(),
+            setAcceptanceProbability: jest.fn(),
+            setRandomValue: jest.fn(),
+            setHighLightLinks: jest.fn(),
+            costDifference: 0,
         };
     });
 
@@ -94,5 +105,88 @@ describe('Algorithms - Simulated Annealing', () => {
 
         expect(state.setCostDifference).toHaveBeenCalledTimes(1);
         expect(typeof state.setCostDifference.mock.calls[0][0]).toBe('number');
+    });
+
+    test('Perform Iteration - Part 2', () => {
+
+        //ACCEPT BETTER SOLUTION
+        state.costDifference = -10;
+        calculateAcceptanceAndDecide(
+            state.currentTour,
+            state.proposedTour,
+            state.currentCost,
+            state.proposedCost,
+            state.costDifference,
+            state.temperature,
+            state.setPreviousTour,
+            state.setPreviousCost,
+            state.setCurrentTour,
+            state.setCurrentCost,
+            state.bestTour,
+            state.bestCost,
+            state.setBestTour,
+            state.setBestCost,
+            state.setAcceptanceProbability,
+            state.setRandomValue,
+            state.setStatus,
+            state.setHighLightLinks
+        );
+        expect(state.setPreviousTour).toHaveBeenCalledWith(state.currentTour);
+        expect(state.setCurrentTour).toHaveBeenCalledWith(state.proposedTour);
+
+        //ACCEPT WORSE SOLUTION
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.01);
+        state.costDifference = 10;
+        const expectedProb = Math.exp(-state.costDifference / state.temperature);
+        calculateAcceptanceAndDecide(
+            state.currentTour,
+            state.proposedTour,
+            state.currentCost,
+            state.proposedCost,
+            state.costDifference,
+            state.temperature,
+            state.setPreviousTour,
+            state.setPreviousCost,
+            state.setCurrentTour,
+            state.setCurrentCost,
+            state.bestTour,
+            state.bestCost,
+            state.setBestTour,
+            state.setBestCost,
+            state.setAcceptanceProbability,
+            state.setRandomValue,
+            state.setStatus,
+            state.setHighLightLinks
+        );
+        expect(state.setAcceptanceProbability).toHaveBeenCalledWith(expectedProb);
+        expect(state.setRandomValue).toHaveBeenCalledWith(0.01);
+        expect(state.setPreviousTour).toHaveBeenCalledWith(state.currentTour);
+        expect(state.setCurrentTour).toHaveBeenCalledWith(state.proposedTour);
+
+        state.setCurrentTour.mockClear();
+        //DECLINE WORSE SOLUTION
+        jest.spyOn(global.Math, 'random').mockReturnValue(0.99);
+        state.costDifference = 10;
+        calculateAcceptanceAndDecide(
+            state.currentTour,
+            state.proposedTour,
+            state.currentCost,
+            state.proposedCost,
+            state.costDifference,
+            state.temperature,
+            state.setPreviousTour,
+            state.setPreviousCost,
+            state.setCurrentTour,
+            state.setCurrentCost,
+            state.bestTour,
+            state.bestCost,
+            state.setBestTour,
+            state.setBestCost,
+            state.setAcceptanceProbability,
+            state.setRandomValue,
+            state.setStatus,
+            state.setHighLightLinks
+        );
+        expect(state.setCurrentTour).not.toHaveBeenCalled();
     });
 });
