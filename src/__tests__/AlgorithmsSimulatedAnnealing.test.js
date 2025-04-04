@@ -1,9 +1,9 @@
-import { initializeTour } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
+import { initializeTour, proposeNewSolution } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
 
 describe('Algorithms - Simulated Annealing', () => {
 
     let data;
-    //let state;
+    let state;
 
     beforeEach(() => {
         data = {
@@ -18,7 +18,15 @@ describe('Algorithms - Simulated Annealing', () => {
             startingCity: 'A',
         };
 
-        //state = {};
+        state = {
+            currentTour: [],
+            data: data,
+            setProposedTour: jest.fn(),
+            setProposedCost: jest.fn(),
+            setCostDifference: jest.fn(),
+            setStatus: jest.fn(),
+            setHighlightLinks: jest.fn(),
+        };
     });
 
     test('Perform Initialize', () => {
@@ -58,5 +66,33 @@ describe('Algorithms - Simulated Annealing', () => {
 
         const expectedCost = 123 + 231 + 312;
         expect(testCost).toBe(expectedCost);
+    });
+
+    test('Perform Iteration - Part 1', () => {
+
+        state.currentTour = ['A', 'B', 'C', 'D', 'A'];
+        proposeNewSolution(
+            state.currentTour,
+            state.setProposedTour,
+            state.setProposedCost,
+            state.setCostDifference,
+            state.data,
+            state.setStatus,
+            state.setHighlightLinks
+        );
+
+        expect(state.setProposedTour).toHaveBeenCalledTimes(1);
+
+        const newTour = state.setProposedTour.mock.calls[0][0];
+
+        expect(newTour[0]).toBe(state.currentTour[0]);
+        expect(newTour[newTour.length - 1]).toBe(state.currentTour[state.currentTour.length - 1]);
+        expect(newTour).not.toEqual(state.currentTour);
+
+        expect(state.setProposedCost).toHaveBeenCalledTimes(1);
+        expect(typeof state.setProposedCost.mock.calls[0][0]).toBe('number');
+
+        expect(state.setCostDifference).toHaveBeenCalledTimes(1);
+        expect(typeof state.setCostDifference.mock.calls[0][0]).toBe('number');
     });
 });
