@@ -1,4 +1,4 @@
-import { initializeTour, proposeNewSolution, calculateAcceptanceAndDecide, updateStateAndCoolDown } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
+import { initializeTour, proposeNewSolution, calculateAcceptanceAndDecide, updateStateAndCoolDown, handleRun  } from '../Simulators/TSPSimulatedAnnealing/AlgorithmsSimulatedAnnealing';
 
 describe('Algorithms - Simulated Annealing', () => {
 
@@ -214,5 +214,61 @@ describe('Algorithms - Simulated Annealing', () => {
         expect(state.setTemperature).toHaveBeenCalledTimes(1);
         expect(state.setIteration).toHaveBeenCalledTimes(1);
         expect(state.setStatus).toHaveBeenCalledTimes(1);
+    });
+
+    test('Perform Run', () => {
+
+        state.currentTour = ['A', 'C', 'B', 'D', 'A'];
+        state.currentCost = 56;
+        state.bestCost = 56;
+        state.temperature = 100;
+        state.iteration = 0;
+        state.coolingSchedule = 0.95;
+        state.setPreviousTour = jest.fn();
+        state.setPreviousCost = jest.fn();
+        state.setCurrentTour = jest.fn();
+        state.setCurrentCost = jest.fn();
+        state.setBestTour = jest.fn();
+        state.setBestCost = jest.fn();
+        state.setCostDifference = jest.fn();
+        state.setAcceptanceProbability = jest.fn();
+        state.setRandomValue = jest.fn();
+
+        handleRun(
+            state.currentTour,
+            state.setCurrentTour,
+            state.setPreviousTour,
+            state.setPreviousCost,
+            state.currentCost,
+            state.setCurrentCost,
+            state.previousCost,
+            state.setPreviousCost,
+            state.setTemperature,
+            state.setIteration,
+            state.data,
+            state.setCostDifference,
+            state.setAcceptanceProbability,
+            state.setRandomValue,
+            state.bestTour,
+            state.setBestTour,
+            state.bestCost,
+            state.setBestCost,
+            state.setProposedTour,
+            state.setProposedCost,
+            state.setStatus,
+            state.setHighlightLinks,
+            state.coolingSchedule
+        );
+
+        const [[actualBestTour]] = state.setBestTour.mock.calls;
+        const validBestTours = [
+            ['A', 'B', 'C', 'D', 'A'],
+            ['A', 'D', 'C', 'B', 'A']
+        ];
+        const isValidTour = validBestTours.some(
+            expectedTour => JSON.stringify(expectedTour) === JSON.stringify(actualBestTour)
+        );
+        expect(isValidTour).toBe(true);
+        expect(state.setBestCost.mock.calls).toEqual([[46]]);
     });
 });
