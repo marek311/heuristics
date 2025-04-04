@@ -1,4 +1,4 @@
-import { generateInitialPopulation } from '../Simulators/TSPGeneticAlgorithm/AlgorithmsGeneticAlgorithm';
+import { generateInitialPopulation, crossover } from '../Simulators/TSPGeneticAlgorithm/AlgorithmsGeneticAlgorithm';
 
 describe('Algorithms - Genetic Algorithm', () => {
 
@@ -54,5 +54,25 @@ describe('Algorithms - Genetic Algorithm', () => {
             expect(tour[0]).toBe(firstCity);
             expect(tour[tour.length - 1]).toBe(firstCity);
         });
+    });
+
+    test('Perform Crossover', () => {
+        const parent1 = ['A', 'B', 'C', 'D', 'E', 'F', 'A'];
+        const parent2 = ['A', 'F', 'E', 'D', 'C', 'B', 'A'];
+
+        const expectedChild = ['A', 'B', 'C', 'D', 'F', 'E', 'A'];
+        const child = crossover(parent1, parent2);
+
+        expect(child).toEqual(expectedChild);
+        expect(child.length).toBe(parent1.length);
+
+        expect(child[0]).toBe(parent1[0]);
+        expect(child[child.length - 1]).toBe(parent1[parent1.length - 1]);
+
+        const uniqueCities = new Set(child.slice(0, -1));
+        const expectedCities = new Set(parent1.slice(0, -1));
+
+        expect(uniqueCities.size).toBe(expectedCities.size);
+        expect([...uniqueCities].sort()).toEqual([...expectedCities].sort());
     });
 });
