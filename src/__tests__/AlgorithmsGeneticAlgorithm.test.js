@@ -1,4 +1,4 @@
-import { generateInitialPopulation, crossover } from '../Simulators/TSPGeneticAlgorithm/AlgorithmsGeneticAlgorithm';
+import { generateInitialPopulation, crossover, mutation } from '../Simulators/TSPGeneticAlgorithm/AlgorithmsGeneticAlgorithm';
 
 describe('Algorithms - Genetic Algorithm', () => {
 
@@ -79,5 +79,26 @@ describe('Algorithms - Genetic Algorithm', () => {
 
         expect(uniqueCities.size).toBe(expectedCities.size);
         expect([...uniqueCities].sort()).toEqual([...expectedCities].sort());
+    });
+
+    test('Perform Mutation', () => {
+        const tour = ['A', 'B', 'C', 'D', 'E', 'F', 'A'];
+        const result = mutation(tour, 0);
+        expect(result).toEqual(tour);
+
+        const mutatedTour = mutation(tour, 1);
+        expect(mutatedTour).not.toEqual(tour);
+        expect(mutatedTour.length).toBe(tour.length);
+        expect(mutatedTour[0]).toBe(tour[0]);
+        expect(mutatedTour[mutatedTour.length - 1]).toBe(tour[tour.length - 1]);
+
+        const originalCities = [...tour.slice(1, -1)].sort();
+        const mutatedCities = [...mutatedTour.slice(1, -1)].sort();
+        expect(mutatedCities).toEqual(originalCities);
+
+        const mutated = mutation(tour, 1);
+        const originalMiddle = tour.slice(1, -1).sort();
+        const mutatedMiddle = mutated.slice(1, -1).sort();
+        expect(originalMiddle).toEqual(mutatedMiddle);
     });
 });
