@@ -1,4 +1,10 @@
-import { generateInitialPopulation, crossover, mutation } from '../Simulators/TSPGeneticAlgorithm/AlgorithmsGeneticAlgorithm';
+import {
+    generateInitialPopulation,
+    crossover,
+    mutation,
+    selection,
+    calculateFitness
+} from '../Simulators/TSPGeneticAlgorithm/AlgorithmsGeneticAlgorithm';
 
 describe('Algorithms - Genetic Algorithm', () => {
 
@@ -100,5 +106,67 @@ describe('Algorithms - Genetic Algorithm', () => {
         const originalMiddle = tour.slice(1, -1).sort();
         const mutatedMiddle = mutated.slice(1, -1).sort();
         expect(originalMiddle).toEqual(mutatedMiddle);
+    });
+
+    test('Perform Selection', () => {
+
+        const population = [
+            ['A', 'B', 'C', 'D' , 'A'],
+            ['A', 'C', 'B', 'D' , 'A'],
+            ['A', 'B', 'D', 'C', 'A'],
+            ['A', 'C', 'D', 'B', 'A'],
+        ];
+
+        const data = {
+            edges: [
+                { city1: 'A', city2: 'B', distance: 11 },
+                { city1: 'A', city2: 'C', distance: 17 },
+                { city1: 'A', city2: 'D', distance: 12 },
+                { city1: 'B', city2: 'C', distance: 23 },
+                { city1: 'B', city2: 'D', distance: 14 },
+                { city1: 'C', city2: 'D', distance: 19 },
+            ],
+            cityCount: 4,
+        };
+
+        const selectionSize = 3;
+
+        const mockSetters = {
+            setFitnessValues: jest.fn(),
+            setProbabilities: jest.fn(),
+            setCumulativeProbabilities: jest.fn(),
+            setSelectedPopulation: jest.fn(),
+            setRandomValues: jest.fn(),
+        };
+
+        selection(
+            population,
+            data,
+            selectionSize,
+            mockSetters.setFitnessValues,
+            mockSetters.setProbabilities,
+            mockSetters.setCumulativeProbabilities,
+            mockSetters.setSelectedPopulation,
+            mockSetters.setRandomValues
+        );
+
+        const cumulative = mockSetters.setCumulativeProbabilities.mock.calls[0][0];
+        expect(cumulative[cumulative.length - 1]).toBeCloseTo(1);
+
+        const selected = mockSetters.setSelectedPopulation.mock.calls[0][0];
+        expect(selected.length).toBe(selectionSize);
+        selected.forEach(({ index, tour }) => {
+            expect(index).toBeGreaterThanOrEqual(0);
+            expect(index).toBeLessThan(population.length);
+            expect(population).toContainEqual(tour);
+        });
+
+        const randomValues = mockSetters.setRandomValues.mock.calls[0][0];
+        expect(randomValues.length).toBe(selectionSize);
+        randomValues.forEach(value => {
+            expect(typeof value).toBe('number');
+            expect(value).toBeGreaterThanOrEqual(0);
+            expect(value).toBeLessThan(1);
+        });
     });
 });
