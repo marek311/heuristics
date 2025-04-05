@@ -60,16 +60,21 @@ describe('Algorithms - Genetic Algorithm', () => {
         const parent1 = ['A', 'B', 'C', 'D', 'E', 'F', 'A'];
         const parent2 = ['A', 'F', 'E', 'D', 'C', 'B', 'A'];
 
-        const expectedChild = ['A', 'B', 'C', 'D', 'F', 'E', 'A'];
-        const child = crossover(parent1, parent2);
+        const expectedChild1 = ['A', 'B', 'C', 'D', 'F', 'E', 'A'];
+        const child1 = crossover(parent1, parent2);
 
-        expect(child).toEqual(expectedChild);
-        expect(child.length).toBe(parent1.length);
+        const expectedChild2 = ['A' , 'F' , 'E' , 'D' , 'B' , 'C' , 'A' ];
+        const child2 = crossover(parent2, parent1);
 
-        expect(child[0]).toBe(parent1[0]);
-        expect(child[child.length - 1]).toBe(parent1[parent1.length - 1]);
+        expect(child1).toEqual(expectedChild1);
+        expect(child1.length).toBe(parent1.length);
+        expect(child2).toEqual(expectedChild2);
+        expect(child2.length).toBe(parent2.length);
 
-        const uniqueCities = new Set(child.slice(0, -1));
+        expect(child1[0]).toBe(parent1[0]);
+        expect(child1[child1.length - 1]).toBe(parent1[parent1.length - 1]);
+
+        const uniqueCities = new Set(child1.slice(0, -1));
         const expectedCities = new Set(parent1.slice(0, -1));
 
         expect(uniqueCities.size).toBe(expectedCities.size);
