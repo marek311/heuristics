@@ -154,8 +154,13 @@ function TSPInputHandler({ data, setData, mode }) {
 
     return (
         <div>
-            <label className={`block mb-2 ${Colors.textPrimary}`}>
-                CSV file: row contains edge in format: <strong>city1;city2;distance</strong><br/>
+            <label className={`text-center block mb-2 ${Colors.textPrimary}`}>
+                Upload a CSV file (optional). If no file is provided, default data will be used.
+                <br />
+                Each row should contain graph edge in the following format:
+                <br />
+                <strong>city1;city2;distance</strong>
+                <br/>
                 Note: Algorithms are designed for complete graphs only!
             </label>
             <input
