@@ -65,7 +65,7 @@ const Neighborhood = ({ neighborhood, tabuList, iteration }) => {
                 .attr("y", boxSize + 20)
                 .attr("fill", Colors.graphMainColor)
                 .attr("font-size", "14px")
-                .text(`Cost: ${cost}, Swap: ${indexI} ↔ ${indexJ}`);
+                .text(`Cost: ${cost !== undefined ? cost.toFixed(2) : "N/A"}, Swap: ${indexI} ↔ ${indexJ}`);
         });
 
     }, [neighborhood, tabuList, iteration]);
