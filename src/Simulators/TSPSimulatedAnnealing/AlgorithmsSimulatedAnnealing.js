@@ -53,7 +53,7 @@ export const proposeNewSolution = (
     setProposedTour(newTour);
     setProposedCost(newCost);
     setCostDifference(costDifference);
-    setStatus("Proposed a new solution, calculated cost difference: proposed cost - current cost.");
+    setStatus("Proposed new solution, calculated cost difference: proposed cost - current cost.");
 
     const highlightedLinks = [
         { source: 'current', target: 'neighbor' },
