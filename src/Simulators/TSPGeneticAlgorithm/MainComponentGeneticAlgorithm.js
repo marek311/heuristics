@@ -104,14 +104,18 @@ function MainComponentGeneticAlgorithm() {
 
     function handleReset() {
         if (data) {
-            setPopulation(generateInitialPopulation(data, generationSize, setFitnessValues));
+            const newPopulation = generateInitialPopulation(data, generationSize, setFitnessValues);
+            setPopulation(newPopulation);
+            const fitnessVals = newPopulation.map(tour => calculateFitness(tour, data));
+            const maxFitnessIndex = fitnessVals.indexOf(Math.max(...fitnessVals));
+            const newBestSolution = { tour: newPopulation[maxFitnessIndex], fitness: fitnessVals[maxFitnessIndex] };
+            setBestSolution(newBestSolution);
         }
         setProbabilities([]);
         setCumulativeProbabilities([]);
         setRandomValues([]);
         setSelectedPopulation([]);
         initializeChildren();
-        setBestSolution(null);
         setStep(0);
         setIsIterationComplete(true);
     }
