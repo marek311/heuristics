@@ -1,7 +1,7 @@
 import React from 'react';
+import {useNavigate} from "react-router-dom";
 import ButtonsPanel from './ButtonPanel';
 import Colors from '../../Main/Colors';
-import {useNavigate} from "react-router-dom";
 
 function Header({
                               handleGoBack,

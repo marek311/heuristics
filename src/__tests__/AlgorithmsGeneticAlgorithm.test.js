@@ -2,8 +2,7 @@ import {
     generateInitialPopulation,
     crossover,
     mutation,
-    selection,
-    calculateFitness
+    selection
 } from '../Simulators/TSPGeneticAlgorithm/AlgorithmsGeneticAlgorithm';
 
 describe('Algorithms - Genetic Algorithm', () => {

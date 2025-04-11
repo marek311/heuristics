@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import Colors from '../../Main/Colors';
 import TSPDefaultData from '../DefaultData/TSPDefaultData';
+import Colors from '../../Main/Colors';
 
 function TSPInputHandler({ data, setData, mode }) {
     const defaultData = TSPDefaultData();
