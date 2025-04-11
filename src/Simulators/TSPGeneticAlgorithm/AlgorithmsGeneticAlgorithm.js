@@ -202,13 +202,14 @@ export const handleStep = (
     }
 
     if (step === 2) {
-        let newChildrenOnly = children.map((entry) => entry.child);
+        const newChildrenOnly = children.map((entry) => entry.child);
+        const originalChildren = [...newChildrenOnly];
         let updatedChildren = [...newChildrenOnly];
 
-        if (updatedChildren.length < generationSize) {
+        if (originalChildren.length < generationSize) {
             while (updatedChildren.length < generationSize) {
-                const randomIndex = Math.floor(Math.random() * updatedChildren.length);
-                const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
+                const randomIndex = Math.floor(Math.random() * originalChildren.length);
+                const mutatedChild = mutation(originalChildren[randomIndex], 1.0);
                 updatedChildren.push(mutatedChild);
             }
         } else {
@@ -310,16 +311,17 @@ export const runAlgorithm = (
     const children = generateUniqueChildren(selectedPopulation, generationSize);
 
     let newChildrenOnly = children.map((entry) => entry.child);
+    const originalChildren = [...newChildrenOnly];
     let updatedChildren = [...newChildrenOnly];
 
-    if (updatedChildren.length >= generationSize) {
-        updatedChildren = updatedChildren.map((child) => mutation(child, mutationProbability));
-    } else {
+    if (originalChildren.length < generationSize) {
         while (updatedChildren.length < generationSize) {
-            const randomIndex = Math.floor(Math.random() * updatedChildren.length);
-            const mutatedChild = mutation(updatedChildren[randomIndex], 1.0);
+            const randomIndex = Math.floor(Math.random() * originalChildren.length);
+            const mutatedChild = mutation(originalChildren[randomIndex], 1.0);
             updatedChildren.push(mutatedChild);
         }
+    } else {
+        updatedChildren = updatedChildren.map((child) => mutation(child, mutationProbability));
     }
 
     const newFitnessValues = updatedChildren.map(tour => calculateFitness(tour, data));
